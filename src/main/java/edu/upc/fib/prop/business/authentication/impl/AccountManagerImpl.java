@@ -59,7 +59,7 @@ public class AccountManagerImpl implements AccountManager {
     @Override
     public void editAccount(String newEmail, String newName, String newPassword) {
         try {
-            User updatedUser = authStorage.updateExistingUser(getCurrentUser());
+            User updatedUser = authStorage.updateUser(getCurrentUser());
             setCurrentUser(updatedUser);
         } catch (AuthStorageException ignored) {
 
@@ -68,8 +68,11 @@ public class AccountManagerImpl implements AccountManager {
 
     @Override
     public void deleteAccount() {
-        if (authStorage.deleteUser(getCurrentUser())) {
+        try {
+            authStorage.deleteUser(getCurrentUser());
             setCurrentUser(null);
+        } catch (AuthStorageException ignore) {
+
         }
     }
 

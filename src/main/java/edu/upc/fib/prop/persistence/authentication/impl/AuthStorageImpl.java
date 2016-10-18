@@ -7,7 +7,7 @@ import edu.upc.fib.prop.persistence.authentication.AuthStorage;
 public class AuthStorageImpl implements AuthStorage {
 
     @Override
-    public boolean checkDetails(String email, String hashPassword) {
+    public boolean checkDetails(String email, String hashPassword) throws AuthStorageException {
         return false;
     }
 
@@ -22,13 +22,13 @@ public class AuthStorageImpl implements AuthStorage {
     }
 
     @Override
-    public User updateExistingUser(User user) {
+    public User updateUser(User user) throws AuthStorageException {
 
         return user;
     }
 
     @Override
-    public boolean deleteUser(User user) {
-        return false;
+    public void deleteUser(User user) throws AuthStorageException {
+
     }
 }

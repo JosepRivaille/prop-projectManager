@@ -90,7 +90,7 @@ public class AccountManagerTest {
         User user = login();
         assertTrue(accountManager.getCurrentUser().equals(user));
 
-        doThrow(new AuthStorageException("Invalid new details")).when(authStorage).updateExistingUser(any());
+        doThrow(new AuthStorageException("Invalid new details")).when(authStorage).updateUser(any());
         accountManager.editAccount("fake1", "fake2", "fake3");
         assertTrue(accountManager.getCurrentUser().equals(user));
     }
@@ -100,7 +100,7 @@ public class AccountManagerTest {
         User user = login();
         assertTrue(accountManager.getCurrentUser().equals(user));
 
-        when(authStorage.updateExistingUser(user)).thenReturn(new User("fake1", "fake2", "fake3"));
+        when(authStorage.updateUser(user)).thenReturn(new User("fake1", "fake2", "fake3"));
         accountManager.editAccount("fake1", "fake2", "fake3");
         assertFalse(accountManager.getCurrentUser().equals(user));
     }
@@ -112,7 +112,6 @@ public class AccountManagerTest {
         User user = login();
         assertTrue(accountManager.getCurrentUser().equals(user));
 
-        when(authStorage.deleteUser(user)).thenReturn(true);
         accountManager.deleteAccount();
         assertNull(accountManager.getCurrentUser());
     }

@@ -6,7 +6,7 @@ import edu.upc.fib.prop.exceptions.AuthStorageException;
 public interface AuthStorage {
 
     //Auth
-    boolean checkDetails(String email, String hashPassword);
+    boolean checkDetails(String email, String hashPassword) throws AuthStorageException;
 
     //Create
     void registerNewUser(User user) throws AuthStorageException;
@@ -15,9 +15,9 @@ public interface AuthStorage {
     User getUserFromEmail(String email) throws AuthStorageException;
 
     //Update
-    User updateExistingUser(User user) throws AuthStorageException;
+    User updateUser(User user) throws AuthStorageException;
 
     //Delete
-    boolean deleteUser(User user);
+    void deleteUser(User user) throws AuthStorageException;
 
 }
