@@ -1,4 +1,4 @@
-package edu.upc.fib.prop.test.integration;
+package edu.edu.upc.fib.prop.test.integration;
 
 
 import org.junit.Test;
