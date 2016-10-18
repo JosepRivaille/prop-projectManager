@@ -84,7 +84,7 @@ public class Document {
         return 0.5f + 0.5f*(freq/maxWordFreq);
     }
     private float idf(String w) throws NullPointerException{
-        return (float)(1 + Math.log(DocumentsInfo.getTotalDocuments()/1+DocumentsInfo.getDocsWithWord(w)));
+        return (float)(1 + Math.log(DocumentsInfo.getTotalDocuments()/(1+DocumentsInfo.getDocsWithWord(w))));
     }
 
     public void printWords(){
