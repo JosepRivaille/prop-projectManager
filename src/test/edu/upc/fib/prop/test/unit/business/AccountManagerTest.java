@@ -5,7 +5,6 @@ import edu.upc.fib.prop.business.authentication.impl.AccountManagerImpl;
 import edu.upc.fib.prop.business.models.User;
 import edu.upc.fib.prop.exceptions.AuthStorageException;
 import edu.upc.fib.prop.persistence.authentication.AuthStorage;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -28,7 +27,6 @@ public class AccountManagerTest {
 
     /* REGISTER TESTS */
 
-    @Ignore("Doesn't work properly")
     @Test
     public void test_whenRegister_withAlreadyExistingEmail_thenDoNotRegister() throws AuthStorageException {
         String email = "foo@bar.com";
@@ -62,7 +60,6 @@ public class AccountManagerTest {
 
     /* LOGIN TESTS */
 
-    @Ignore("Doesn't work properly")
     @Test
     public void test_whenLogin_withNonMatchingDetails_thenDoNotLogin() throws AuthStorageException {
         String email = "foo@bar.com";
@@ -72,66 +69,76 @@ public class AccountManagerTest {
         assertFalse(accountManager.login(email, password));
     }
 
-    @Ignore("Doesn't work properly")
     @Test
-    public void test_whenLogin_withCorrectDetails_thenLogin() {
+    public void test_whenLogin_withCorrectDetails_thenLogin() throws AuthStorageException {
         String email = "foo@bar.com";
         String name = "Foo";
         String password = "123456";
 
         User user = new User(email, name, password);
 
-        when(authStorage.checkDetails(email, password)).thenReturn(true);
+        when(authStorage.checkDetails(any(), any())).thenReturn(true);
+        when(authStorage.getUserFromEmail(any())).thenReturn(user);
         assertTrue(accountManager.login(email, password));
-        assertTrue(accountManager.getUser().equals(user));
+        assertTrue(accountManager.getCurrentUser().equals(user));
     }
 
     /* EDIT TESTS */
 
     @Test
-    public void test_whenEdit_withIncorrectNewValues_thenDoNotEdit() {
+    public void test_whenEdit_withIncorrectNewValues_thenDoNotEdit() throws AuthStorageException {
+        User user = login();
+        assertTrue(accountManager.getCurrentUser().equals(user));
 
+        doThrow(new AuthStorageException("Invalid new details")).when(authStorage).updateExistingUser(any());
+        accountManager.editAccount("fake1", "fake2", "fake3");
+        assertTrue(accountManager.getCurrentUser().equals(user));
     }
 
     @Test
-    public void test_whenEdit_withCorrectNewValues_thenEdit() {
+    public void test_whenEdit_withCorrectNewValues_thenEdit() throws AuthStorageException {
+        User user = login();
+        assertTrue(accountManager.getCurrentUser().equals(user));
 
+        when(authStorage.updateExistingUser(user)).thenReturn(new User("fake1", "fake2", "fake3"));
+        accountManager.editAccount("fake1", "fake2", "fake3");
+        assertFalse(accountManager.getCurrentUser().equals(user));
     }
 
     /* DELETE TESTS */
 
-    @Ignore("Doesn't work properly")
     @Test
     public void test_whenDelete_withActiveSession_thenDelete() throws AuthStorageException {
+        User user = login();
+        assertTrue(accountManager.getCurrentUser().equals(user));
+
+        when(authStorage.deleteUser(user)).thenReturn(true);
+        accountManager.deleteAccount();
+        assertNull(accountManager.getCurrentUser());
+    }
+
+    /* LOGOUT TESTS */
+
+    @Test
+    public void test_whenLogout_withActiveOrNonActiveSession_thenThereIsNoSession() throws AuthStorageException {
+        User user = login();
+        assertTrue(accountManager.getCurrentUser().equals(user));
+
+        accountManager.logout();
+        assertNull(accountManager.getCurrentUser());
+    }
+
+    // Performs login for other tests
+    private User login() throws AuthStorageException {
         String email = "foo@bar.com";
         String name = "Foo";
         String password = "123456";
 
         User user = new User(email, name, password);
-
-        when(authStorage.checkDetails(email, password)).thenReturn(true);
-        accountManager.login(email, password);
-        assertTrue(accountManager.getUser().equals(user));
-
-        when(authStorage.deleteUser(user)).thenReturn(true);
-        assertNull(accountManager.getUser());
-        doThrow(new AuthStorageException("Invalid email or password")).when(authStorage).getUserFromEmail(email);
-    }
-
-    /* LOGOUT TESTS */
-
-    @Ignore("Doesn't work properly")
-    @Test
-    public void test_whenLogout_withActiveOrNonActiveSession_thenThereIsNoSession() {
-        String email = "foo@bar.com";
-        String password = "123456";
-
         when(authStorage.checkDetails(any(), any())).thenReturn(true);
+        when(authStorage.getUserFromEmail(any())).thenReturn(user);
         accountManager.login(email, password);
-
-        accountManager.logout();
-        assertNull(accountManager.getUser());
+        return user;
     }
-
 
 }

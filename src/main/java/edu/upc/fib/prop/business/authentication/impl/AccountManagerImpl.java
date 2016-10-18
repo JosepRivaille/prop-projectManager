@@ -11,10 +11,12 @@ import java.security.NoSuchAlgorithmException;
 
 public class AccountManagerImpl implements AccountManager {
 
-    private User user;
+    private User currentUser;
+    private AuthStorage authStorage;
 
-    public AccountManagerImpl(User user) {
-        this.user = user;
+    public AccountManagerImpl(User currentUser) {
+        this.currentUser = currentUser;
+        this.authStorage = new AuthStorageImpl();
     }
 
     @Override
@@ -23,7 +25,6 @@ public class AccountManagerImpl implements AccountManager {
             try {
                 String pwd = hashPassword(password);
                 User user = new User(email, name, pwd);
-                AuthStorage authStorage = new AuthStorageImpl();
                 authStorage.registerNewUser(user);
                 return true;
             } catch (NoSuchAlgorithmException | AuthStorageException e) {
@@ -36,44 +37,45 @@ public class AccountManagerImpl implements AccountManager {
 
     @Override
     public Boolean login(String email, String password) {
-        AuthStorage authStorage = new AuthStorageImpl();
         try {
             String pwd = hashPassword(password);
             boolean correctUser = authStorage.checkDetails(email, pwd);
             if (correctUser) {
-                setUser(authStorage.getUserFromEmail(email));
+                setCurrentUser(authStorage.getUserFromEmail(email));
             } return correctUser;
         } catch (NoSuchAlgorithmException | AuthStorageException e) {
-            e.printStackTrace();
             return false;
         }
     }
 
-    @Override
-    public User getUser() {
-        return this.user;
+    public User getCurrentUser() {
+        return this.currentUser;
+    }
+
+    public void setCurrentUser(User currentUser) {
+        this.currentUser = currentUser;
     }
 
     @Override
-    public void setUser(User user) {
-        this.user = user;
-    }
+    public void editAccount(String newEmail, String newName, String newPassword) {
+        try {
+            User updatedUser = authStorage.updateExistingUser(getCurrentUser());
+            setCurrentUser(updatedUser);
+        } catch (AuthStorageException ignored) {
 
-    @Override
-    public void editAccount() {
-        AuthStorage authStorage = new AuthStorageImpl();
-        authStorage.updateExistingUser(getUser());
+        }
     }
 
     @Override
     public void deleteAccount() {
-        AuthStorage authStorage = new AuthStorageImpl();
-        authStorage.deleteUser(getUser());
+        if (authStorage.deleteUser(getCurrentUser())) {
+            setCurrentUser(null);
+        }
     }
 
     @Override
     public void logout() {
-        setUser(null);
+        setCurrentUser(null);
     }
 
     private String hashPassword(String password) throws NoSuchAlgorithmException {

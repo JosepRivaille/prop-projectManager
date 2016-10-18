@@ -15,7 +15,7 @@ public interface AuthStorage {
     User getUserFromEmail(String email) throws AuthStorageException;
 
     //Update
-    void updateExistingUser(User user);
+    User updateExistingUser(User user) throws AuthStorageException;
 
     //Delete
     boolean deleteUser(User user);

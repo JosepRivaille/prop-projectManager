@@ -8,11 +8,11 @@ public interface AccountManager {
 
     Boolean login(String email, String password);
 
-    User getUser();
+    User getCurrentUser();
 
-    void setUser(User user);
+    void setCurrentUser(User currentUser);
 
-    void editAccount();
+    void editAccount(String newEmail, String newName, String newPassword);
 
     void deleteAccount();
 
