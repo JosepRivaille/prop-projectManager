@@ -22,12 +22,12 @@ public class AuthStorageImpl implements AuthStorage {
     }
 
     @Override
-    public void updateExistingUser() {
+    public void updateExistingUser(User user) {
 
     }
 
     @Override
-    public void deleteUser(User user) {
-
+    public boolean deleteUser(User user) {
+        return true;
     }
 }

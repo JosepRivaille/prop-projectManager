@@ -4,3 +4,4 @@
 # Compilation outputs
 output/*
 target/*
+/classes/

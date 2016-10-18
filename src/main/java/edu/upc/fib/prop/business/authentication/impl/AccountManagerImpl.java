@@ -36,22 +36,44 @@ public class AccountManagerImpl implements AccountManager {
 
     @Override
     public Boolean login(String email, String password) {
-        return null;
+        AuthStorage authStorage = new AuthStorageImpl();
+        try {
+            String pwd = hashPassword(password);
+            boolean correctUser = authStorage.checkDetails(email, pwd);
+            if (correctUser) {
+                setUser(authStorage.getUserFromEmail(email));
+            } return correctUser;
+        } catch (NoSuchAlgorithmException | AuthStorageException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public User getUser() {
+        return this.user;
+    }
+
+    @Override
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override
     public void editAccount() {
-
+        AuthStorage authStorage = new AuthStorageImpl();
+        authStorage.updateExistingUser(getUser());
     }
 
     @Override
     public void deleteAccount() {
-
+        AuthStorage authStorage = new AuthStorageImpl();
+        authStorage.deleteUser(getUser());
     }
 
     @Override
     public void logout() {
-
+        setUser(null);
     }
 
     private String hashPassword(String password) throws NoSuchAlgorithmException {
