@@ -8,6 +8,9 @@ import edu.upc.fib.prop.persistence.authentication.impl.AuthStorageImpl;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class AccountManagerImpl implements AccountManager {
 
@@ -16,7 +19,12 @@ public class AccountManagerImpl implements AccountManager {
 
     public AccountManagerImpl(User currentUser) {
         this.currentUser = currentUser;
-        this.authStorage = new AuthStorageImpl();
+        try {
+            Connection c = DriverManager.getConnection("jdbc:sqlite:development.db");
+            this.authStorage = new AuthStorageImpl(c);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
