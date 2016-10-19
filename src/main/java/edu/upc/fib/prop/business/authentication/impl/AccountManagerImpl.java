@@ -1,8 +1,9 @@
 package edu.upc.fib.prop.business.authentication.impl;
 
+import edu.upc.fib.prop.Constants;
 import edu.upc.fib.prop.business.authentication.AccountManager;
 import edu.upc.fib.prop.business.models.User;
-import edu.upc.fib.prop.exceptions.AuthStorageException;
+import edu.upc.fib.prop.exceptions.UserNotFoundException;
 import edu.upc.fib.prop.persistence.authentication.AuthStorage;
 import edu.upc.fib.prop.persistence.authentication.impl.AuthStorageImpl;
 
@@ -17,42 +18,15 @@ public class AccountManagerImpl implements AccountManager {
     private User currentUser;
     private AuthStorage authStorage;
 
-    public AccountManagerImpl(User currentUser) {
+    public AccountManagerImpl(User currentUser, String dbName) {
         this.currentUser = currentUser;
         try {
-            Connection c = DriverManager.getConnection("jdbc:sqlite:development.db");
-            this.authStorage = new AuthStorageImpl(c);
+            if (dbName != null) {
+                Connection c = DriverManager.getConnection(dbName);
+                this.authStorage = new AuthStorageImpl(c);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
-        }
-    }
-
-    @Override
-    public Boolean register(String email, String name, String password, String password2) {
-        if (password.equals(password2)) {
-            try {
-                String pwd = hashPassword(password);
-                User user = new User(email, name, pwd);
-                authStorage.registerNewUser(user);
-                return true;
-            } catch (NoSuchAlgorithmException | AuthStorageException e) {
-                return false;
-            }
-        }
-        // If passwords don't match
-        return false;
-    }
-
-    @Override
-    public Boolean login(String email, String password) {
-        try {
-            String pwd = hashPassword(password);
-            boolean correctUser = authStorage.checkDetails(email, pwd);
-            if (correctUser) {
-                setCurrentUser(authStorage.getUserFromEmail(email));
-            } return correctUser;
-        } catch (NoSuchAlgorithmException | AuthStorageException e) {
-            return false;
         }
     }
 
@@ -65,23 +39,69 @@ public class AccountManagerImpl implements AccountManager {
     }
 
     @Override
-    public void editAccount(String newEmail, String newName, String newPassword) {
+    public boolean register(String email, String name, String password, String password2) {
         try {
-            User updatedUser = authStorage.updateUser(getCurrentUser());
-            setCurrentUser(updatedUser);
-        } catch (AuthStorageException ignored) {
-
+            authStorage.getUserFromEmail(email);
+        } catch (UserNotFoundException e) {
+            if (password.equals(password2)) {
+                try {
+                    String pwd = hashPassword(password);
+                    User user = new User(email, name, pwd);
+                    authStorage.registerNewUser(user);
+                    return true;
+                } catch (SQLException | NoSuchAlgorithmException e1) {
+                    e1.printStackTrace();
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
         }
+        return false;
     }
 
     @Override
-    public void deleteAccount() {
+    public Boolean login(String email, String password) {
+        try {
+            String pwd = hashPassword(password);
+            boolean correctUser = authStorage.checkDetails(email, pwd);
+            if (correctUser) {
+                setCurrentUser(authStorage.getUserFromEmail(email));
+            } return correctUser;
+        } catch (NoSuchAlgorithmException e) {
+            return false;
+        } catch (UserNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public boolean editAccount(String newEmail, String newName, String newPassword) {
+        if (newEmail.equals("") || newName.equals("") || newPassword.equals("")) {
+            return false;
+        }
+        User updatedUser = new User(newEmail, newName, newPassword);
+        try {
+            authStorage.updateUser(getCurrentUser().getEmail(), updatedUser);
+        } catch (SQLException e) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean deleteAccount() {
         try {
             authStorage.deleteUser(getCurrentUser());
             setCurrentUser(null);
-        } catch (AuthStorageException ignore) {
-
+        } catch (SQLException e) {
+            return false;
         }
+        return true;
     }
 
     @Override
@@ -89,6 +109,7 @@ public class AccountManagerImpl implements AccountManager {
         setCurrentUser(null);
     }
 
+    //Hash password with SHA-256
     private String hashPassword(String password) throws NoSuchAlgorithmException {
         MessageDigest md = MessageDigest.getInstance("SHA-256");
         md.update(password.getBytes());

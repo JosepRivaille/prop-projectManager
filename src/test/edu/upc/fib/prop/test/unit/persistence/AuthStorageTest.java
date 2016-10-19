@@ -1,197 +1,158 @@
 package edu.upc.fib.prop.test.unit.persistence;
 
+import edu.upc.fib.prop.Constants;
 import edu.upc.fib.prop.business.models.User;
-import edu.upc.fib.prop.exceptions.AuthStorageException;
+import edu.upc.fib.prop.exceptions.UserNotFoundException;
 import edu.upc.fib.prop.persistence.authentication.AuthStorage;
 import edu.upc.fib.prop.persistence.authentication.impl.AuthStorageImpl;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import java.io.File;
 import java.sql.*;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-@Ignore("NOT WORKING YET")
 @RunWith(MockitoJUnitRunner.class)
 public class AuthStorageTest {
 
-    private Connection c;
-    private AuthStorage authStorage;
+    private static Connection c;
+    private static AuthStorage authStorage;
 
-    @Before
-    public void setup() {
+    @BeforeClass
+    public static void setUpTableAndDB() {
         try {
-            Class.forName("org.sqlite.JDBC");
-            c = DriverManager.getConnection("jdbc:sqlite:test.db");
-            c.setAutoCommit(false);
+            Class.forName(Constants.JDBC_DRIVER);
+            if (c == null) {
+                c = DriverManager.getConnection(Constants.DB_TEST);
+            }
             authStorage = new AuthStorageImpl(c);
 
             Statement statement = c.createStatement();
-            String sql = "DROP TABLE IF EXISTS users";
-            statement.execute(sql);
-            sql =
+            String sql =
                     "CREATE TABLE users(" +
                     "email      VARCHAR PRIMARY KEY," +
                     "name       VARCHAR," +
                     "password   VARCHAR);";
             statement.executeUpdate(sql);
             statement.close();
-            c.commit();
-        } catch ( Exception e ) {
+        } catch (ClassNotFoundException | SQLException e) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
             System.exit(0);
         }
+    }
 
+    @AfterClass
+    public static void dropDataBase() {
+        File f = new File("test.db");
+        boolean deleted = f.delete();
+        System.out.println("File deleted: " + deleted);
+        try {
+            c.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @After
-    public void hold() {
+    public void dropTableUsers() {
         try {
-            Class.forName("org.sqlite.JDBC");
             Statement statement = c.createStatement();
-            String sql = "DROP TABLE IF EXISTS users";
+            String sql = "DELETE FROM users";
             statement.executeUpdate(sql);
             statement.close();
-            c.commit();
-            c.close();
-        } catch ( Exception e ) {
-            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-            System.exit(0);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+    }
+
+    /* REGISTER TESTS */
+
+    @Ignore
+    @Test
+    public void test_whenRegister_withCorrectUser_thenRegisterNewUser() throws UserNotFoundException, SQLException {
+        String email = "foo@bar.com";
+        String name = "Foo";
+        String password = "123456";
+
+        User user = new User(email, name, password);
+        authStorage.registerNewUser(user);
+        assertTrue(user.equals(authStorage.getUserFromEmail(email)));
     }
 
     /* USER MATCH TESTS */
 
-    @Test(expected=AuthStorageException.class)
-    public void test_whenCheckDetails_withUnexistingUserData_thenNotFoundException() throws AuthStorageException {
+    @Test(expected=UserNotFoundException.class)
+    public void test_whenCheckDetails_withNonExistingUserData_thenNotFoundException() throws UserNotFoundException, SQLException {
         String email = "foo@bar.com";
         String password = "123456";
         authStorage.checkDetails(email, password);
     }
 
     @Test
-    public void test_whenCheckDetails_withNonMatchingDetails_thenReturnFalse() throws AuthStorageException {
-        String email = "foo@bar.com";
-        String name = "Foo";
-        String password = "123456";
+    public void test_whenCheckDetails_withNonMatchingDetails_thenReturnFalse() throws UserNotFoundException, SQLException {
+        User user = createFakeUser();
         String badPassword = "654321";
-
-        User user = new User(email, name, password);
-        authStorage.registerNewUser(user);
-
-        assertFalse(authStorage.checkDetails(email, badPassword));
+        assertFalse(authStorage.checkDetails(user.getEmail(), badPassword));
     }
 
     @Test
-    public void test_whenCheckDetails_withMatchingDetails_thenReturnTrue() throws AuthStorageException {
-        String email = "foo@bar.com";
-        String name = "Foo";
-        String password = "123456";
-        String badPassword = "654321";
-
-        User user = new User(email, name, password);
-        authStorage.registerNewUser(user);
-
-        assertTrue(authStorage.checkDetails(email, badPassword));
-    }
-
-    /* REGISTER TESTS */
-
-    @Test(expected=AuthStorageException.class)
-    public void test_whenRegister_withAlreadyExistingEmail_thenAlreadyExistingException() throws AuthStorageException {
-        String email = "foo@bar.com";
-        String name = "Foo";
-        String password = "123456";
-
-        User user = new User(email, name, password);
-        authStorage.registerNewUser(user);
-        assertTrue(authStorage.checkDetails(email, password));
-        authStorage.registerNewUser(user);
-    }
-
-    @Test
-    public void test_whenRegister_withCorrectData_thenRegisterNewUser() throws AuthStorageException {
-        String email = "foo@bar.com";
-        String name = "Foo";
-        String password = "123456";
-
-        User user = new User(email, name, password);
-        authStorage.registerNewUser(user);
-        assertTrue(authStorage.checkDetails(email, password));
+    public void test_whenCheckDetails_withMatchingDetails_thenReturnTrue() throws UserNotFoundException, SQLException {
+        User user = createFakeUser();
+        assertTrue(authStorage.checkDetails(user.getEmail(), user.getPassword()));
     }
 
     /* GET DATA TESTS */
 
-    @Test(expected=AuthStorageException.class)
-    public void test_whenGetUserFromEmail_withNonExistingEmail_thenNotFoundException() throws AuthStorageException {
+    @Test(expected=UserNotFoundException.class)
+    public void test_whenGetUserFromEmail_withNonExistingEmail_thenNotFoundException() throws UserNotFoundException, SQLException {
         String email = "foo@bar.com";
-
         authStorage.getUserFromEmail(email);
     }
 
+    @Ignore
     @Test
-    public void test_whenGetUserFromEmail_withExistingEmail_thenReturnUser() throws AuthStorageException {
-        String email = "foo@bar.com";
-        String name = "Foo";
-        String password = "123456";
-
-        User user = new User(email, name, password);
-        authStorage.registerNewUser(user);
-        assertTrue(authStorage.checkDetails(email, password));
-
-        assertTrue(authStorage.getUserFromEmail(email).equals(user));
+    public void test_whenGetUserFromEmail_withExistingEmail_thenReturnUser() throws UserNotFoundException, SQLException {
+        User user = createFakeUser();
+        assertTrue(authStorage.getUserFromEmail(user.getEmail()).equals(user));
     }
 
     /* UPDATE TESTS */
 
+    @Ignore
     @Test
-    public void test_whenUpdateUser_withInvalidDetails_thenInvalidNewDetailsException() throws AuthStorageException {
-        User user = createFakeUser();
-
-        String newEmail = "";
-        User updatedUser = new User(newEmail, user.getName(), user.getPassword());
-        authStorage.updateUser(updatedUser);
-        assertFalse(user.equals(updatedUser));
-    }
-
-    @Test
-    public void test_whenUpdateUser_withValidDetails_thenReturnUser() throws AuthStorageException {
+    public void test_whenUpdateUser_withValidDetails_thenReturnUser() throws UserNotFoundException, SQLException {
         User user = createFakeUser();
 
         String newEmail = "bar@foo.com";
-        User updatedUser = authStorage.updateUser(new User(newEmail, user.getName(), user.getPassword()));
-        assertFalse(user.equals(updatedUser));
+        String newName = "Bar";
+        String newPassword = "654321";
+        User newUser = new User(newEmail, newName, newPassword);
+
+        authStorage.updateUser(user.getEmail(), newUser);
+        assertTrue(newUser.equals(authStorage.getUserFromEmail(newEmail)));
     }
 
     /* DELETE TESTS */
 
-    @Ignore("How to implement this case")
-    @Test(expected=AuthStorageException.class)
-    public void test_whenDeleteUser_withErrorsDeleting_thenUnableToDeleteException() {
-
-    }
-
-    @Test
-    public void test_whenDeleteUser_withNoErrors_thenDeleteUserAccount() throws AuthStorageException {
+    @Test(expected = UserNotFoundException.class)
+    public void test_whenDeleteUser_withNoErrors_thenDeleteUserAccount() throws UserNotFoundException, SQLException {
         User user = createFakeUser();
 
         authStorage.deleteUser(user);
         authStorage.getUserFromEmail(user.getEmail());
     }
 
-    private User createFakeUser() throws AuthStorageException {
+    // TODO: Refactor to TestUtils
+    private User createFakeUser() throws SQLException {
         String email = "foo@bar.com";
         String name = "Foo";
         String password = "123456";
 
         User user = new User(email, name, password);
         authStorage.registerNewUser(user);
-        assertTrue(authStorage.checkDetails(email, password));
         return user;
     }
 
