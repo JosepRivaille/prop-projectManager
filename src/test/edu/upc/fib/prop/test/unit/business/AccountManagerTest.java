@@ -3,26 +3,21 @@ package edu.upc.fib.prop.test.unit.business;
 import edu.upc.fib.prop.business.authentication.AccountManager;
 import edu.upc.fib.prop.business.authentication.impl.AccountManagerImpl;
 import edu.upc.fib.prop.business.models.User;
+import edu.upc.fib.prop.exceptions.InvalidDetailsException;
 import edu.upc.fib.prop.exceptions.UserNotFoundException;
 import edu.upc.fib.prop.persistence.authentication.AuthStorage;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
-import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import java.io.File;
 import java.sql.SQLException;
 
 import static org.junit.Assert.*;
 import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class AccountManagerTest {
@@ -58,47 +53,53 @@ public class AccountManagerTest {
         assertFalse(accountManager.register(email, name, password, password2));
     }
     @Test
-    public void test_whenRegister_withCorrectDetails_thenRegister() throws UserNotFoundException, SQLException {
+    public void test_whenRegister_withCorrectDetails_thenRegister()
+            throws UserNotFoundException, SQLException, InvalidDetailsException {
         String email = "foo@bar.com";
         String name = "Foo";
         String password = "123456";
         String password2 = "123456";
 
-        doThrow(UserNotFoundException.class).when(authStorage).getUserFromEmail(email);
+        doThrow(UserNotFoundException.class).when(authStorage).checkDetails(email, password);
 
         assertTrue(accountManager.register(email, name, password, password2));
     }
 
     @Test
-    public void test_whenLogin_withNonExistingEmail_thenDoNotLogin() throws UserNotFoundException, SQLException {
+    public void test_whenLogin_withNonExistingEmail_thenDoNotLogin()
+            throws UserNotFoundException, InvalidDetailsException, SQLException {
         String email = "foo@bar.com";
         String password = "123456";
-        doThrow(UserNotFoundException.class).when(authStorage).registerNewUser(any());
+        doThrow(UserNotFoundException.class).when(authStorage).checkDetails(any(), any());
 
         assertFalse(accountManager.login(email, password));
     }
 
     @Test
-    public void test_whenLogin_withNonMatchingDetails_thenDoNotLogin() throws UserNotFoundException, SQLException {
+    public void test_whenLogin_withNonMatchingDetails_thenDoNotLogin()
+            throws UserNotFoundException, InvalidDetailsException, SQLException {
         String email = "foo@bar.com";
         String password = "123456";
 
-        when(authStorage.checkDetails(any(), any())).thenReturn(false);
+        doThrow(InvalidDetailsException.class).when(authStorage).checkDetails(any(), any());
 
         assertFalse(accountManager.login(email, password));
     }
 
     @Test
-    public void test_whenLogin_withCorrectDetails_thenLogin() throws UserNotFoundException, SQLException {
+    public void test_whenLogin_withCorrectDetails_thenLogin()
+            throws UserNotFoundException, InvalidDetailsException, SQLException {
         String email = "foo@bar.com";
         String name = "Foo";
         String password = "123456";
+        User user = new User(email, name, password);
 
-        when(authStorage.checkDetails(any(), any())).thenReturn(true);
-        when(authStorage.getUserFromEmail(email)).thenReturn(new User(email, name, "any"));
+        when(authStorage.checkDetails(any(), any())).thenReturn(user);
 
         assertTrue(accountManager.login(email, password));
-        assertTrue(accountManager.getCurrentUser().getEmail().equals(email));
+
+        User currentUser = accountManager.getCurrentUser();
+        assertTrue(currentUser.equals(user));
     }
 
     @Test
@@ -154,8 +155,6 @@ public class AccountManagerTest {
         String password = "123456";
 
         User user = new User(email, name, password);
-        when(authStorage.checkDetails(any(), any())).thenReturn(true);
-        when(authStorage.getUserFromEmail(any())).thenReturn(user);
         accountManager.login(email, password);
         return user;
     }

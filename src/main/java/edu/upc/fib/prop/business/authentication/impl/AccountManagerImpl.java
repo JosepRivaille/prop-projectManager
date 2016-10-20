@@ -1,8 +1,8 @@
 package edu.upc.fib.prop.business.authentication.impl;
 
-import edu.upc.fib.prop.Constants;
 import edu.upc.fib.prop.business.authentication.AccountManager;
 import edu.upc.fib.prop.business.models.User;
+import edu.upc.fib.prop.exceptions.InvalidDetailsException;
 import edu.upc.fib.prop.exceptions.UserNotFoundException;
 import edu.upc.fib.prop.persistence.authentication.AuthStorage;
 import edu.upc.fib.prop.persistence.authentication.impl.AuthStorageImpl;
@@ -41,7 +41,7 @@ public class AccountManagerImpl implements AccountManager {
     @Override
     public boolean register(String email, String name, String password, String password2) {
         try {
-            authStorage.getUserFromEmail(email);
+            authStorage.checkDetails(email, password);
         } catch (UserNotFoundException e) {
             if (password.equals(password2)) {
                 try {
@@ -56,9 +56,8 @@ public class AccountManagerImpl implements AccountManager {
             } else {
                 return false;
             }
-        } catch (SQLException e) {
+        } catch (SQLException | InvalidDetailsException e) {
             e.printStackTrace();
-            return false;
         }
         return false;
     }
@@ -67,16 +66,12 @@ public class AccountManagerImpl implements AccountManager {
     public Boolean login(String email, String password) {
         try {
             String pwd = hashPassword(password);
-            boolean correctUser = authStorage.checkDetails(email, pwd);
-            if (correctUser) {
-                setCurrentUser(authStorage.getUserFromEmail(email));
-            } return correctUser;
-        } catch (NoSuchAlgorithmException e) {
-            return false;
-        } catch (UserNotFoundException | SQLException e) {
+            setCurrentUser(authStorage.checkDetails(email, pwd));
+            return true;
+        } catch (UserNotFoundException | InvalidDetailsException | NoSuchAlgorithmException | SQLException e) {
             e.printStackTrace();
+            return false;
         }
-        return false;
     }
 
     @Override
