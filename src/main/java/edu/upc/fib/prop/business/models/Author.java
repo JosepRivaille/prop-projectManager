@@ -1,21 +1,13 @@
 package edu.upc.fib.prop.business.models;
 
+/**
+ * Created by Guillermo on 18/10/2016.
+ */
 public class Author {
+    String name;
 
-    private Long id;
-    private String name;
-
-    public Author(Long id, String name) {
-        this.id = id;
+    public Author(String name){
         this.name = name;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getName() {

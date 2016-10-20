@@ -1,7 +1,7 @@
 package edu.upc.fib.prop.test.unit;
 
-import edu.upc.fib.prop.domain.Author;
-import edu.upc.fib.prop.domain.Document;
+import edu.upc.fib.prop.business.models.Author;
+import edu.upc.fib.prop.business.models.Document;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
