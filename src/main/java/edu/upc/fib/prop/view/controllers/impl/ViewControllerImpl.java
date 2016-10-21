@@ -2,6 +2,7 @@ package edu.upc.fib.prop.view.controllers.impl;
 
 import edu.upc.fib.prop.business.controllers.BusinessController;
 import edu.upc.fib.prop.business.controllers.impl.BusinessControllerImpl;
+import edu.upc.fib.prop.view.menu.MainMenu;
 import edu.upc.fib.prop.view.controllers.ViewController;
 
 public class ViewControllerImpl implements ViewController {
@@ -11,6 +12,7 @@ public class ViewControllerImpl implements ViewController {
     public ViewControllerImpl() {
         System.out.println("Initializating view controller");
         businessController = new BusinessControllerImpl();
+        new MainMenu(this);
     }
 
 }

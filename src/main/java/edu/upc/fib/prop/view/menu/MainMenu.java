@@ -1,29 +1,40 @@
-package edu.upc.fib.prop.view;
+package edu.upc.fib.prop.view.menu;
 
+import edu.upc.fib.prop.view.controllers.ViewController;
+
+import java.util.Map;
 import java.util.Scanner;
+import java.util.TreeMap;
 
-public class Main {
-    public static void main( String[] args ){
+public class MainMenu {
+
+    private ViewController viewController;
+
+    public MainMenu(ViewController viewController) {
+        this.viewController = viewController;
+        displayMenuOptions();
+    }
+
+    private void displayMenuOptions() {
         Scanner scan = new Scanner(System.in);
 
-        int a = -1;
-        String s;
+        // Map<DepthLevel, SelectedValue>
+        Map<Integer, Integer> menuDepth = new TreeMap<>();
+        String data;
 
-        while(a!=0){
+        do {
             printHeader("MENU PRINCIPAL");
             System.out.println("1. Realizar búsqueda");
             System.out.println("2. Gestionar documentos");
             System.out.println("3. Ajustes");
             System.out.println("0. Salir");
 
-            System.out.print("> ");
-            a = scan.nextInt();
+            System.out.println("> ");
+            menuDepth.put(0, scan.nextInt());
 
-            switch(a){
+            switch (menuDepth.get(0)) {
                 case 1:
-                    // MENU BUSQUEDA AUTORES Y DOCUMENTOS
-                    int b = -1;
-                    while(b!=0){
+                    do {
                         printHeader("BUSQUEDA AUTORES Y DOCUMENTOS");
                         System.out.println("1. Buscar autores por prefijo");
                         System.out.println("2. Buscar documentos por autor");
@@ -31,81 +42,77 @@ public class Main {
                         System.out.println("4. Buscar documentos mediante query");
                         System.out.println("0. Volver");
 
-                        System.out.print("> ");
-                        b = scan.nextInt();
-                        switch(b) {
+                        System.out.println("> ");
+                        menuDepth.put(1, scan.nextInt());
+
+                        switch (menuDepth.get(1)) {
                             case 1:
                                 System.out.print("Introduce prefijo > ");
-                                s = scan.next();
-                                System.out.println("POR IMPLEMENTAR");
+                                data = scan.next();
+                                //TODO: Just as an example
+                                viewController.searchAuthorByPrefix(data);
                                 break;
                             case 2:
                                 System.out.print("Introduce nombre autor > ");
-                                s = scan.next();
+                                data = scan.next();
                                 System.out.println("POR IMPLEMENTAR");
                                 break;
                             case 3:
                                 System.out.print("Introduce el titulo > ");
-                                s = scan.next();
+                                data = scan.next();
                                 System.out.print("Introduce el autor > ");
-                                s = scan.next();
+                                data = scan.next();
                                 System.out.println("POR IMPLEMENTAR");
                                 break;
                             case 4:
                                 System.out.print("Introduce la query > ");
-                                s = scan.next();
+                                data = scan.next();
                                 System.out.println("POR IMPLEMENTAR");
                                 break;
                         }
-                    }
+
+                    } while (menuDepth.get(1) != 0);
                     break;
                 case 2:
-                    // MENU GESTION DOCUMENTOS
-                    int c = -1;
-                    while(c!=0){
+                    do {
                         printHeader("GESTION DOCUMENTOS");
                         System.out.println("1. Crear nuevo documento");
                         System.out.println("2. Modificar documento");
                         System.out.println("3. Eliminar documento");
                         System.out.println("0. Volver");
 
-                        System.out.print("> ");
-                        c = scan.nextInt();
-                    }
+                        System.out.println("> ");
+                        menuDepth.put(1, scan.nextInt());
+                    } while (menuDepth.get(1) != 0);
                     break;
                 case 3:
-                    // MENU AJUSTES
-                    int d = -1;
-                    while(d!=0){
+                    do {
                         printHeader("AJUSTES");
                         System.out.println("1. Aqui no se que va");
                         System.out.println("0. Volver");
 
-                        System.out.print("> ");
-                        d = scan.nextInt();
-                    }
+                        System.out.println("> ");
+                        menuDepth.put(1, scan.nextInt());
+                    } while (menuDepth.get(1) != 0);
                     break;
             }
-        }
 
-        System.out.println("\nCerrando aplicación..");
-
-
-
-
-
-
-
-
+        } while (menuDepth.get(0) != 0);
+        printHeader("CERRANDO APLICACION");
     }
 
-    public static void printHeader(String s){
-        for(int i=0;i<s.length()+10;++i) System.out.print("-");
-        System.out.print("\n");
-        for(int i=0;i<5;++i) System.out.print(" ");
-        System.out.print(s+"\n");
-        for(int i=0;i<s.length()+10;++i) System.out.print("-");
-        System.out.print("\n");
+    private static void printHeader(String s) {
+        System.out.println();
+        for (int i = 0; i < s.length() + 10; ++i)
+            System.out.print("-");
 
+        System.out.println();
+        for (int i = 0; i < 5; ++i)
+            System.out.print(" ");
+        System.out.println(s);
+
+        for (int i = 0; i < s.length() + 10; ++i)
+            System.out.print("-");
+        System.out.println();
     }
 }
