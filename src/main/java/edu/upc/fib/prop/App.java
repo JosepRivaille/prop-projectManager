@@ -1,7 +1,11 @@
 package edu.upc.fib.prop;
 
-public class App {
-    public static void main( String[] args ) {
+import edu.upc.fib.prop.view.controllers.impl.ViewControllerImpl;
 
+public class App {
+
+    public static void main( String[] args ) {
+        new ViewControllerImpl();
     }
+
 }

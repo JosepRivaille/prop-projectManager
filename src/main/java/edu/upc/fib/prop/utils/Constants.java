@@ -1,4 +1,4 @@
-package edu.upc.fib.prop;
+package edu.upc.fib.prop.utils;
 
 
 public class Constants {

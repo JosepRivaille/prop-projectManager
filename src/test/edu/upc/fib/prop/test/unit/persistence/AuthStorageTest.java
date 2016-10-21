@@ -1,6 +1,6 @@
 package edu.upc.fib.prop.test.unit.persistence;
 
-import edu.upc.fib.prop.Constants;
+import edu.upc.fib.prop.utils.Constants;
 import edu.upc.fib.prop.business.models.User;
 import edu.upc.fib.prop.exceptions.InvalidDetailsException;
 import edu.upc.fib.prop.exceptions.UserNotFoundException;

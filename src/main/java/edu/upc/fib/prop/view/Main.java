@@ -1,4 +1,4 @@
-package edu.upc.fib.prop.presentation;
+package edu.upc.fib.prop.view;
 
 import java.util.Scanner;
 
