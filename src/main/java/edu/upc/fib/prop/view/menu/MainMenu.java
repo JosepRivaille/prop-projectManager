@@ -1,5 +1,7 @@
 package edu.upc.fib.prop.view.menu;
 
+import edu.upc.fib.prop.business.models.Author;
+import edu.upc.fib.prop.business.models.AuthorsCollection;
 import edu.upc.fib.prop.view.controllers.ViewController;
 
 import java.util.Map;
@@ -20,7 +22,6 @@ public class MainMenu {
 
         // Map<DepthLevel, SelectedValue>
         Map<Integer, Integer> menuDepth = new TreeMap<>();
-        String data;
 
         do {
             printHeader("MENU PRINCIPAL");
@@ -29,44 +30,41 @@ public class MainMenu {
             System.out.println("3. Ajustes");
             System.out.println("0. Salir");
 
-            System.out.println("> ");
+            System.out.print("> ");
             menuDepth.put(0, scan.nextInt());
 
             switch (menuDepth.get(0)) {
                 case 1:
                     do {
-                        printHeader("BUSQUEDA AUTORES Y DOCUMENTOS");
-                        System.out.println("1. Buscar autores por prefijo");
-                        System.out.println("2. Buscar documentos por autor");
-                        System.out.println("3. Buscar documento por titulo y autor");
+                        printHeader("BUSQUEDA DE DOCUMENTOS");
+                        System.out.println("1. Buscar documentos por autor");
+                        System.out.println("2. Buscar documentos por titulo y relevancia");
+                        System.out.println("3. Buscar documentos mediante expresión booleana");
                         System.out.println("4. Buscar documentos mediante query");
                         System.out.println("0. Volver");
 
-                        System.out.println("> ");
+                        System.out.print("> ");
                         menuDepth.put(1, scan.nextInt());
 
                         switch (menuDepth.get(1)) {
                             case 1:
                                 System.out.print("Introduce prefijo > ");
-                                data = scan.next();
-                                //TODO: Just as an example
-                                viewController.searchAuthorByPrefix(data);
+                                String prefix = scan.next();
+                                AuthorsCollection matchingAuthors = viewController.getAuthorsWithPrefix(prefix);
+                                for (Author author : matchingAuthors.getAuthors()) {
+                                    System.out.println(author.getName());
+                                }
                                 break;
                             case 2:
                                 System.out.print("Introduce nombre autor > ");
-                                data = scan.next();
-                                System.out.println("POR IMPLEMENTAR");
                                 break;
                             case 3:
                                 System.out.print("Introduce el titulo > ");
-                                data = scan.next();
+                                String title = scan.next();
                                 System.out.print("Introduce el autor > ");
-                                data = scan.next();
-                                System.out.println("POR IMPLEMENTAR");
                                 break;
                             case 4:
                                 System.out.print("Introduce la query > ");
-                                data = scan.next();
                                 System.out.println("POR IMPLEMENTAR");
                                 break;
                         }
@@ -81,7 +79,7 @@ public class MainMenu {
                         System.out.println("3. Eliminar documento");
                         System.out.println("0. Volver");
 
-                        System.out.println("> ");
+                        System.out.print("> ");
                         menuDepth.put(1, scan.nextInt());
                     } while (menuDepth.get(1) != 0);
                     break;
@@ -91,7 +89,7 @@ public class MainMenu {
                         System.out.println("1. Aqui no se que va");
                         System.out.println("0. Volver");
 
-                        System.out.println("> ");
+                        System.out.print("> ");
                         menuDepth.put(1, scan.nextInt());
                     } while (menuDepth.get(1) != 0);
                     break;

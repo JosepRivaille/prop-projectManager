@@ -1,9 +1,9 @@
 package edu.upc.fib.prop.view.controllers;
 
-import java.util.List;
+import edu.upc.fib.prop.business.models.AuthorsCollection;
 
 public interface ViewController {
 
-    List<String> searchAuthorByPrefix(String authorPrefix);
+    AuthorsCollection getAuthorsWithPrefix(String authorPrefix);
 
 }

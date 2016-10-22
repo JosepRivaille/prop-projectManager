@@ -3,9 +3,6 @@ package edu.upc.fib.prop.business.models;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by Guillermo on 18/10/2016.
- */
 public class Document {
     private String title;
     private Author author;
