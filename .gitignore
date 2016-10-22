@@ -5,3 +5,7 @@
 output/*
 target/*
 /classes/
+
+# Databases
+test.db
+development.db

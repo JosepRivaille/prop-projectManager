@@ -10,6 +10,7 @@ import edu.upc.fib.prop.utils.Constants;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class PersistenceControllerImpl implements PersistenceController {
 
@@ -21,6 +22,7 @@ public class PersistenceControllerImpl implements PersistenceController {
 
     public PersistenceControllerImpl() {
         System.out.println("Initializing persistence controller");
+        initializeDB();
         daoUsers = new DaoUsers();
         daoAuthors = new DaoAuthors();
         daoDocuments = new DaoDocuments();
@@ -33,6 +35,8 @@ public class PersistenceControllerImpl implements PersistenceController {
         closeConnection();
         return authorsCollection;
     }
+
+    /* Private helper methods */
 
     private void openConnection() {
         try {
@@ -51,6 +55,45 @@ public class PersistenceControllerImpl implements PersistenceController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    private void initializeDB() {
+        openConnection();
+
+        Statement statement;
+        String sql;
+        try {
+            statement = c.createStatement();
+            sql =   "CREATE TABLE IF NOT EXISTS users (" +
+                    "email VARCHAR PRIMARY KEY, " +
+                    "username VARCHAR NOT NULL, " +
+                    "password VARCHAR NOT NULL, " +
+                    "admin BOOLEAN NOT NULL);";
+            statement.executeUpdate(sql);
+            statement.close();
+
+            statement = c.createStatement();
+            sql =   "CREATE TABLE IF NOT EXISTS authors (" +
+                    "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    "nom VARCHAR NOT NULL);";
+            statement.executeUpdate(sql);
+            statement.close();
+
+            statement = c.createStatement();
+            sql =   "CREATE TABLE IF NOT EXISTS documents (" +
+                    "title VARCHAR PRIMARY KEY, " +
+                    "author VARCHAR NOT NULL, " +
+                    "content VARCHAR NOT NULL);";
+            statement.executeUpdate(sql);
+            statement.close();
+
+            c.commit();
+            System.out.println("DB initialized successfully");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        closeConnection();
     }
 
 }
