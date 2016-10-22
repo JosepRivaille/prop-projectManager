@@ -17,7 +17,7 @@ public class DaoAuthors {
             String query = "SELECT * FROM authors;";
             ResultSet rs = statement.executeQuery(query);
             while (rs.next()) {
-                authorsCollection.addAuthor(new Author(rs.getString("name")));
+                authorsCollection.addAuthor(new Author(rs.getString("author_name")));
             }
         } catch (SQLException e) {
             e.printStackTrace();

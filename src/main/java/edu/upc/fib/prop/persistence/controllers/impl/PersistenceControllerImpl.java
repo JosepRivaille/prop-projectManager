@@ -6,6 +6,7 @@ import edu.upc.fib.prop.persistence.dao.authors.DaoAuthors;
 import edu.upc.fib.prop.persistence.dao.documents.DaoDocuments;
 import edu.upc.fib.prop.persistence.dao.users.DaoUsers;
 import edu.upc.fib.prop.utils.Constants;
+import edu.upc.fib.prop.utils.FileUtils;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -64,31 +65,22 @@ public class PersistenceControllerImpl implements PersistenceController {
         String sql;
         try {
             statement = c.createStatement();
-            sql =   "CREATE TABLE IF NOT EXISTS users (" +
-                    "email VARCHAR PRIMARY KEY, " +
-                    "username VARCHAR NOT NULL, " +
-                    "password VARCHAR NOT NULL, " +
-                    "admin BOOLEAN NOT NULL);";
-            statement.executeUpdate(sql);
-            statement.close();
-
-            statement = c.createStatement();
-            sql =   "CREATE TABLE IF NOT EXISTS authors (" +
-                    "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    "nom VARCHAR NOT NULL);";
-            statement.executeUpdate(sql);
-            statement.close();
-
-            statement = c.createStatement();
-            sql =   "CREATE TABLE IF NOT EXISTS documents (" +
-                    "title VARCHAR PRIMARY KEY, " +
-                    "author VARCHAR NOT NULL, " +
-                    "content VARCHAR NOT NULL);";
+            sql = FileUtils.readFile("src/main/resources/dbInitializer.sql");
             statement.executeUpdate(sql);
             statement.close();
 
             c.commit();
             System.out.println("DB initialized successfully");
+
+            /*
+            statement = c.createStatement();
+            sql = FileUtils.readFile("src/main/resources/dbFiller.sql");
+            statement.executeUpdate(sql);
+            statement.close();
+
+            c.commit();
+            System.out.println("DB filled successfully");
+            */
         } catch (SQLException e) {
             e.printStackTrace();
         }
