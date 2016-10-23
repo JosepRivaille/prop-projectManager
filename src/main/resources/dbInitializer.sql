@@ -5,11 +5,10 @@ CREATE TABLE IF NOT EXISTS users (
   admin INTEGER NOT NULL);
 
 CREATE TABLE IF NOT EXISTS authors (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  author_name VARCHAR NOT NULL);
+  author_name VARCHAR PRIMARY KEY);
 
 CREATE TABLE IF NOT EXISTS documents (
   title VARCHAR PRIMARY KEY,
-  author_id INTEGER NOT NULL,
+  author_name VARCHAR NOT NULL,
   content VARCHAR NOT NULL,
-  FOREIGN KEY(author_id) REFERENCES authors(id));
+  FOREIGN KEY(author_name) REFERENCES authors(author_name));

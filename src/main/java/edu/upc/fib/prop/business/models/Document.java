@@ -5,19 +5,19 @@ import java.util.Map;
 
 public class Document {
     private String title;
-    private Author author;
+    private String author;
     private String content;
     private Map<String, Float> words;
     private Map<String, Integer> wordsfreq;
     private Integer wordCount;
     private Integer maxWordFreq;
 
-    public Document(String title, Author author, String content) {
+    public Document(String title, String author, String content) {
         this.title = title;
         this.author = author;
         this.content = content;
-        words = new HashMap<String, Float>();
-        wordsfreq = new HashMap<String, Integer>();
+        words = new HashMap<>();
+        wordsfreq = new HashMap<>();
         wordCount = 0;
         maxWordFreq = 0;
         loadWords();
@@ -90,4 +90,11 @@ public class Document {
             System.out.println(entry.getKey() + ":" + entry.getValue());
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
 }

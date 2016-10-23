@@ -1,7 +1,5 @@
 package edu.upc.fib.prop.persistence.dao.documents;
 
-import edu.upc.fib.prop.business.models.Author;
-import edu.upc.fib.prop.business.models.AuthorsCollection;
 import edu.upc.fib.prop.business.models.Document;
 import edu.upc.fib.prop.business.models.DocumentsCollection;
 
@@ -19,7 +17,10 @@ public class DaoDocuments {
             String query = "SELECT * FROM documents;";
             ResultSet rs = statement.executeQuery(query);
             while (rs.next()) {
-                //authorsCollection.addAuthor(new Document());
+                String title = rs.getString("title");
+                String authorName = rs.getString("author_name");
+                String content = rs.getString("content");
+                documentsCollection.addDocument(new Document(title, authorName, content));
             }
         } catch (SQLException e) {
             e.printStackTrace();

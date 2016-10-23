@@ -1,6 +1,7 @@
 package edu.upc.fib.prop.persistence.controllers.impl;
 
 import edu.upc.fib.prop.business.models.AuthorsCollection;
+import edu.upc.fib.prop.business.models.DocumentsCollection;
 import edu.upc.fib.prop.persistence.controllers.PersistenceController;
 import edu.upc.fib.prop.persistence.dao.authors.DaoAuthors;
 import edu.upc.fib.prop.persistence.dao.documents.DaoDocuments;
@@ -35,6 +36,14 @@ public class PersistenceControllerImpl implements PersistenceController {
         AuthorsCollection authorsCollection = daoAuthors.getAllAuthors(this.c);
         closeConnection();
         return authorsCollection;
+    }
+
+    @Override
+    public DocumentsCollection getDocuments() {
+        openConnection();
+        DocumentsCollection documentsCollection = daoDocuments.getAllDocuments(this.c);
+        closeConnection();
+        return documentsCollection;
     }
 
     /* Private helper methods */

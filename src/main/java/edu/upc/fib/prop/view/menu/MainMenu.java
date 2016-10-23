@@ -2,6 +2,8 @@ package edu.upc.fib.prop.view.menu;
 
 import edu.upc.fib.prop.business.models.Author;
 import edu.upc.fib.prop.business.models.AuthorsCollection;
+import edu.upc.fib.prop.business.models.Document;
+import edu.upc.fib.prop.business.models.DocumentsCollection;
 import edu.upc.fib.prop.utils.MenuTree;
 import edu.upc.fib.prop.view.controllers.ViewController;
 
@@ -103,9 +105,22 @@ public class MainMenu {
                 System.out.print("Type prefix > ");
                 String prefix = scan.next();
                 AuthorsCollection matchingAuthors = viewController.getAuthorsWithPrefix(prefix);
+                int i = 0;
+                printHeader("AUTHORS FOUND WITH: " + prefix);
                 for (Author author : matchingAuthors.getAuthors()) {
-                    System.out.println("- " + author.getName());
+                    System.out.println(++i + "- " + author.getName());
                 }
+                System.out.print("> ");
+                i = scan.nextInt();
+                String authorName = matchingAuthors.getAuthors().get(i - 1).getName();
+                printHeader("DOCUMENTS OF: " + authorName);
+                DocumentsCollection documentsCollection = viewController.getDocumentsByAuthorId(authorName);
+                for (Document document : documentsCollection.getDocuments()) {
+                    System.out.println("- " + document.getTitle());
+                }
+                break;
+            case "SearchDocumentsTitle":
+
                 break;
         }
     }
