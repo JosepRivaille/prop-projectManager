@@ -1,17 +1,18 @@
 package edu.upc.fib.prop.business.models;
 
+import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 public class AuthorsCollection {
 
-    private Set<Author> authors;
+    private List<Author> authors;
 
     public AuthorsCollection() {
-        this.authors = new HashSet<>();
+        this.authors = new ArrayList<>();
     }
 
-    public Set<Author> getAuthors() {
+    public List<Author> getAuthors() {
         return authors;
     }
 

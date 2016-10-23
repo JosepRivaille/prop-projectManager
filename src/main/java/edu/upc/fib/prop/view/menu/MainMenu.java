@@ -2,104 +2,115 @@ package edu.upc.fib.prop.view.menu;
 
 import edu.upc.fib.prop.business.models.Author;
 import edu.upc.fib.prop.business.models.AuthorsCollection;
+import edu.upc.fib.prop.utils.MenuTree;
 import edu.upc.fib.prop.view.controllers.ViewController;
 
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
-import java.util.TreeMap;
 
 public class MainMenu {
 
     private ViewController viewController;
+    private Scanner scan = new Scanner(System.in);
 
     public MainMenu(ViewController viewController) {
         this.viewController = viewController;
-        displayMenuOptions();
+        MenuTree menuTree = buildMenu();
+        displayMenuOptions(menuTree);
+        printHeader("CLOSING APP");
     }
 
-    private void displayMenuOptions() {
-        Scanner scan = new Scanner(System.in);
+    private void displayMenuOptions(MenuTree menuTree) {
 
-        // Map<DepthLevel, SelectedValue>
-        Map<Integer, Integer> menuDepth = new TreeMap<>();
-
+        int optionSelected = 0;
         do {
-            printHeader("MENU PRINCIPAL");
-            System.out.println("1. Realizar búsqueda");
-            System.out.println("2. Gestionar documentos");
-            System.out.println("3. Ajustes");
-            System.out.println("0. Salir");
-
-            System.out.print("> ");
-            menuDepth.put(0, scan.nextInt());
-
-            switch (menuDepth.get(0)) {
-                case 1:
-                    do {
-                        printHeader("BUSQUEDA DE DOCUMENTOS");
-                        System.out.println("1. Buscar documentos por autor");
-                        System.out.println("2. Buscar documentos por titulo y relevancia");
-                        System.out.println("3. Buscar documentos mediante expresión booleana");
-                        System.out.println("4. Buscar documentos mediante query");
-                        System.out.println("0. Volver");
-
-                        System.out.print("> ");
-                        menuDepth.put(1, scan.nextInt());
-
-                        switch (menuDepth.get(1)) {
-                            case 1:
-                                System.out.print("Introduce prefijo > ");
-                                String prefix = scan.next();
-                                AuthorsCollection matchingAuthors = viewController.getAuthorsWithPrefix(prefix);
-                                for (Author author : matchingAuthors.getAuthors()) {
-                                    System.out.println(author.getName());
-                                }
-                                break;
-                            case 2:
-                                System.out.print("Introduce nombre autor > ");
-                                break;
-                            case 3:
-                                System.out.print("Introduce el titulo > ");
-                                String title = scan.next();
-                                System.out.print("Introduce el autor > ");
-                                break;
-                            case 4:
-                                System.out.print("Introduce la query > ");
-                                System.out.println("POR IMPLEMENTAR");
-                                break;
-                        }
-
-                    } while (menuDepth.get(1) != 0);
-                    break;
-                case 2:
-                    do {
-                        printHeader("GESTION DOCUMENTOS");
-                        System.out.println("1. Crear nuevo documento");
-                        System.out.println("2. Modificar documento");
-                        System.out.println("3. Eliminar documento");
-                        System.out.println("0. Volver");
-
-                        System.out.print("> ");
-                        menuDepth.put(1, scan.nextInt());
-                    } while (menuDepth.get(1) != 0);
-                    break;
-                case 3:
-                    do {
-                        printHeader("AJUSTES");
-                        System.out.println("1. Aqui no se que va");
-                        System.out.println("0. Volver");
-
-                        System.out.print("> ");
-                        menuDepth.put(1, scan.nextInt());
-                    } while (menuDepth.get(1) != 0);
-                    break;
+            if (menuTree.isFunctionalNode()) {
+                performAction(menuTree.getHeaderText());
+            } else {
+                printHeader(menuTree.getHeaderText());
+                menuTree.getOptions().forEach(System.out::println);
+                System.out.print("> ");
+                optionSelected = scan.nextInt();
+                if (optionSelected != 0 && optionSelected <= menuTree.getChildren().size()) {
+                    MenuTree childSelected = menuTree.getChildren().get(optionSelected - 1);
+                    displayMenuOptions(childSelected);
+                }
             }
-
-        } while (menuDepth.get(0) != 0);
-        printHeader("CERRANDO APLICACION");
+        } while (optionSelected != 0);
     }
 
-    private static void printHeader(String s) {
+    private MenuTree buildMenu() {
+        //Level 1
+        List<String> options = new ArrayList<>();
+        options.add("1. Perform search");
+        options.add("2. Manage documents");
+        options.add("3. Settings");
+        options.add("0. Exit");
+        MenuTree root = new MenuTree("MAIN MENU", options, false);
+
+        //Level 1.1
+        options = new ArrayList<>();
+        options.add("1. Search documents by author");
+        options.add("2. Search documents by title and relevance");
+        options.add("3. Search documents with boolean expression");
+        options.add("4. Search documents with query");
+        options.add("0. Back");
+        root.addChild(new MenuTree("DOCUMENTS SEARCH", options, false));
+
+        //Level 1.1.1
+        root.getChildren().get(0).addChild(new MenuTree("SearchAuthorPrefix", null, true));
+        //Level 1.1.2
+        root.getChildren().get(0).addChild(new MenuTree("SearchDocumentsTitle", null, true));
+        //Level 1.1.3
+        root.getChildren().get(0).addChild(new MenuTree("SearchDocumentsExpression", null, true));
+        //Level 1.1.4
+        root.getChildren().get(0).addChild(new MenuTree("SearchDocumentsQuery", null, true));
+
+        //Level 1.2
+        options = new ArrayList<>();
+        options.add("1. Create new document");
+        options.add("2. Read document");
+        options.add("3. Edit document");
+        options.add("4. Delete document");
+        options.add("0. Back");
+        root.addChild(new MenuTree("DOCUMENT MANAGER", options, false));
+
+        //Level 1.2.1
+        root.getChildren().get(1).addChild(new MenuTree("CreateDocument", null, true));
+        //Level 1.2.2
+        root.getChildren().get(1).addChild(new MenuTree("ReadDocument", null, true));
+        //Level 1.2.3
+        root.getChildren().get(1).addChild(new MenuTree("UpdateDocument", null, true));
+        //Level 1.2.4
+        root.getChildren().get(1).addChild(new MenuTree("DeleteDocument", null, true));
+
+        //Level 1.3
+        options = new ArrayList<>();
+        options.add("1. ¿?");
+        options.add("0. Back");
+        root.addChild(new MenuTree("SETTINGS", options, false));
+
+        //Level 1.3.1
+        root.getChildren().get(2).addChild(new MenuTree("RandomNow", null, true));
+
+        return root;
+    }
+
+    private void performAction(String action) {
+        switch (action) {
+            case "SearchAuthorPrefix":
+                System.out.print("Type prefix > ");
+                String prefix = scan.next();
+                AuthorsCollection matchingAuthors = viewController.getAuthorsWithPrefix(prefix);
+                for (Author author : matchingAuthors.getAuthors()) {
+                    System.out.println("- " + author.getName());
+                }
+                break;
+        }
+    }
+
+    private void printHeader(String s) {
         System.out.println();
         for (int i = 0; i < s.length() + 10; ++i)
             System.out.print("-");
@@ -113,4 +124,5 @@ public class MainMenu {
             System.out.print("-");
         System.out.println();
     }
+
 }
