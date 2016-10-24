@@ -25,6 +25,7 @@ public class BusinessControllerImpl implements BusinessController {
         this.searchAuthor = new SearchAuthor();
         this.searchDocument = new SearchDocument();
 
+        //TODO: Implement as lazy load
         // Load in memory all authors and documents on instantiate
         this.authorsCollection = this.persistenceController.getAuthors();
         this.documentsCollection = this.persistenceController.getDocuments();
