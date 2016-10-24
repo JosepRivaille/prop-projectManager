@@ -6,6 +6,7 @@ import edu.upc.fib.prop.exceptions.InvalidDetailsException;
 import edu.upc.fib.prop.exceptions.UserNotFoundException;
 import edu.upc.fib.prop.persistence.authentication.AuthStorage;
 import edu.upc.fib.prop.persistence.authentication.impl.AuthStorageImpl;
+import edu.upc.fib.prop.utils.FileUtils;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -37,11 +38,7 @@ public class AuthStorageTest {
             authStorage = new AuthStorageImpl(c);
 
             Statement statement = c.createStatement();
-            String sql =
-                    "CREATE TABLE users(" +
-                    "email      VARCHAR PRIMARY KEY," +
-                    "name       VARCHAR," +
-                    "password   VARCHAR);";
+            String sql = FileUtils.readFile("src/main/resources/sql/dbInitializer.sql");
             statement.executeUpdate(sql);
             statement.close();
         } catch (ClassNotFoundException | SQLException e) {

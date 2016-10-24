@@ -19,7 +19,7 @@ public class SearchTest {
     public void test_whenSearchForAuthorWithPrefix_withMatchingPrefix_thenReturnCollectionWithMatchingAuthors() {
         AuthorsCollection fakeAuthorCollection = buildAuthors();
         String fakePrefix = "xyz";
-        String fakePrefix1 = "an";
+        String fakePrefix1 = "jo";
         String fakePrefix2 = "j";
 
         assertTrue(searchAuthor.filterByPrefix(fakeAuthorCollection, fakePrefix).getAuthors().isEmpty());
