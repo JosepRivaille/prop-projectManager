@@ -119,8 +119,21 @@ public class MainMenu {
                         String authorName = authorsCollection.getAuthors().get(i - 1).getName();
                         printHeader("DOCUMENTS OF: " + authorName);
                         documentsCollection = viewController.getDocumentsByAuthorId(authorName);
+                        i = 0;
                         for (Document document : documentsCollection.getDocuments()) {
-                            System.out.println("- " + document.getTitle());
+                            System.out.println(++i + "- " + document.getTitle());
+                        }
+                        System.out.print("Type document id > ");
+                        i = scan.nextInt();
+                        //TODO: Refactor prints and data showing to view classes
+                        if (i > 0 && i <= documentsCollection.getDocuments().size()) {
+                            Document document = documentsCollection.getDocuments().get(i - 1);
+                            String documentTitle = document.getTitle();
+                            String documentContent = document.getContent();
+                            System.out.println(documentTitle);
+                            for (i = 0; i < documentTitle.length(); i++)
+                                System.out.print("-");
+                            System.out.println(documentContent);
                         }
                     }
                 }

@@ -9,7 +9,6 @@ import edu.upc.fib.prop.persistence.controllers.PersistenceController;
 import edu.upc.fib.prop.persistence.controllers.impl.PersistenceControllerImpl;
 
 import java.util.Set;
-import java.util.TreeSet;
 
 public class BusinessControllerImpl implements BusinessController {
 
@@ -50,6 +49,11 @@ public class BusinessControllerImpl implements BusinessController {
     @Override
     public DocumentsCollection searchDocumentsByAuthor(String authorName) {
         return this.searchDocument.filterByAuthor(this.documentsCollection, authorName);
+    }
+
+    @Override
+    public Integer getTotalDocuments() {
+        return documentsCollection.getDocuments().size();
     }
 
 }

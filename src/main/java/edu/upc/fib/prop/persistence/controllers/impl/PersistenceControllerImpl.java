@@ -15,7 +15,6 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Set;
-import java.util.TreeSet;
 
 public class PersistenceControllerImpl implements PersistenceController {
 
@@ -53,8 +52,7 @@ public class PersistenceControllerImpl implements PersistenceController {
 
     @Override
     public Set<String> getExcludedWords(String lang) {
-        Set<String> words = daoFiles.getExcludedWords(lang);
-        return words;
+        return daoFiles.getExcludedWords(lang);
     }
 
     /* Private helper methods */

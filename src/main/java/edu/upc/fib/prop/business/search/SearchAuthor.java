@@ -4,6 +4,12 @@ import edu.upc.fib.prop.business.models.AuthorsCollection;
 
 public class SearchAuthor {
 
+    /**
+     *
+     * @param authorsCollection
+     * @param authorPrefix
+     * @return
+     */
     public AuthorsCollection filterByPrefix(AuthorsCollection authorsCollection, String authorPrefix) {
         AuthorsCollection filteredAuthors = new AuthorsCollection();
         authorsCollection.getAuthors().stream().filter(author ->
