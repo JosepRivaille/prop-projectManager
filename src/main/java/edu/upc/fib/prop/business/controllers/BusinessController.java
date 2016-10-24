@@ -19,6 +19,21 @@ public interface BusinessController {
      */
     DocumentsCollection searchDocumentsByAuthor(String authorName);
 
-    Integer getTotalDocuments();
+    /**
+     * Check if input details match with a user.
+     * @param email Account email.
+     * @param password Account password.
+     * @return If login is successful.
+     */
+    boolean checkLoginDetails(String email, String password);
 
+    /**
+     * Check if input details can be used to create a new user.
+     * @param email New account email.
+     * @param userName New username email.
+     * @param password New password.
+     * @param password2 New password repeated.
+     * @return If register is successful.
+     */
+    boolean registerNewUser(String email, String userName, String password, String password2);
 }

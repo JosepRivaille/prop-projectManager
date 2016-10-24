@@ -6,6 +6,7 @@ import edu.upc.fib.prop.business.models.Document;
 import edu.upc.fib.prop.business.models.DocumentsCollection;
 import edu.upc.fib.prop.utils.MenuTree;
 import edu.upc.fib.prop.view.controllers.ViewController;
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,7 @@ public class MainMenu {
     public MainMenu(ViewController viewController) {
         this.viewController = viewController;
         MenuTree menuTree = buildMenu();
+        accountManagement();
         displayMenuOptions(menuTree);
         printHeader("CLOSING APP");
     }
@@ -42,9 +44,54 @@ public class MainMenu {
         } while (optionSelected != 0);
     }
 
+    private void accountManagement() {
+        int optionSelected;
+        printHeader("LOGIN OR SIGN UP");
+        do {
+            System.out.println("1. Login");
+            System.out.println("2. Register");
+            System.out.println("0. Exit");
+            System.out.print("> ");
+            optionSelected = scan.nextInt();
+            if (optionSelected == 1) {
+                System.out.print("Email > ");
+                String email = scan.next();
+                System.out.print("Password > ");
+                String password = scan.next();
+               if (viewController.userLogin(email, password)) {
+                   System.out.println("Welcome " + email + "!");
+                   optionSelected = 0;
+               } else {
+                   System.out.println("Invalid details!");
+               }
+            } else if (optionSelected == 2) {
+                System.out.print("Email > ");
+                String email = scan.next();
+                System.out.print("Name > ");
+                String userName = scan.next();
+                System.out.print("Password > ");
+                String password = scan.next();
+                System.out.print("Repeat password > ");
+                String password2 = scan.next();
+                if (viewController.userRegister(email, userName, password, password2)) {
+                    System.out.println("Welcome " + userName + ", have a great experience!");
+                    optionSelected = 0;
+                } else {
+                    System.out.println("Invalid fields!");
+                }
+            }
+        } while (optionSelected != 0);
+    }
+
     private MenuTree buildMenu() {
-        //Level 1
+        //Level 0
         List<String> options = new ArrayList<>();
+        options.add("1. Login");
+        options.add("2. Register");
+        options.add("0. Exit");
+
+        //Level 1
+        options = new ArrayList<>();
         options.add("1. Perform search");
         options.add("2. Manage documents");
         options.add("3. Settings");

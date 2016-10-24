@@ -1,5 +1,7 @@
 package edu.upc.fib.prop.business.controllers.impl;
 
+import edu.upc.fib.prop.business.authentication.AccountManager;
+import edu.upc.fib.prop.business.authentication.impl.AccountManagerImpl;
 import edu.upc.fib.prop.business.controllers.BusinessController;
 import edu.upc.fib.prop.business.models.AuthorsCollection;
 import edu.upc.fib.prop.business.models.DocumentsCollection;
@@ -7,6 +9,7 @@ import edu.upc.fib.prop.business.search.SearchAuthor;
 import edu.upc.fib.prop.business.search.SearchDocument;
 import edu.upc.fib.prop.persistence.controllers.PersistenceController;
 import edu.upc.fib.prop.persistence.controllers.impl.PersistenceControllerImpl;
+import edu.upc.fib.prop.utils.Constants;
 
 import java.util.Set;
 
@@ -20,6 +23,8 @@ public class BusinessControllerImpl implements BusinessController {
     private AuthorsCollection authorsCollection;
     private DocumentsCollection documentsCollection;
 
+    private AccountManager accountManager;
+
     private Set<String> excludedWordsCat;
     private Set<String> excludedWordsEng;
     private Set<String> excludedWordsEsp;
@@ -30,6 +35,8 @@ public class BusinessControllerImpl implements BusinessController {
         this.persistenceController = new PersistenceControllerImpl();
         this.searchAuthor = new SearchAuthor();
         this.searchDocument = new SearchDocument();
+
+        this.accountManager = new AccountManagerImpl(Constants.DB_DEVELOPMENT);
 
         //TODO: Implement as lazy load
         // Load in memory all authors and documents on instantiate
@@ -52,8 +59,13 @@ public class BusinessControllerImpl implements BusinessController {
     }
 
     @Override
-    public Integer getTotalDocuments() {
-        return documentsCollection.getDocuments().size();
+    public boolean checkLoginDetails(String email, String password) {
+        return this.accountManager.login(email, password);
+    }
+
+    @Override
+    public boolean registerNewUser(String email, String userName, String password, String password2) {
+        return this.accountManager.register(email, userName, password, password2);
     }
 
 }

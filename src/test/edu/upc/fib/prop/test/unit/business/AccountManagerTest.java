@@ -23,7 +23,7 @@ import static org.mockito.Mockito.*;
 public class AccountManagerTest {
 
     @InjectMocks
-    private AccountManager accountManager = new AccountManagerImpl(null, null);
+    private AccountManager accountManager = new AccountManagerImpl(null);
 
     @Mock
     private AuthStorage authStorage;

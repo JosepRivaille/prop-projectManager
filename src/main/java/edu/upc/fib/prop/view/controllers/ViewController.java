@@ -9,4 +9,8 @@ public interface ViewController {
 
     DocumentsCollection getDocumentsByAuthorId(String authorName);
 
+    boolean userLogin(String email, String password);
+
+    boolean userRegister(String email, String userName, String password, String password2);
 }
+

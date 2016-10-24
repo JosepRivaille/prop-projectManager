@@ -25,7 +25,7 @@ public class AuthStorageImpl implements AuthStorage {
         ResultSet rs = statement.executeQuery(sql);
         if(rs.next()) {
             String authEmail = rs.getString("email");
-            String authName = rs.getString("name");
+            String authName = rs.getString("user_name");
             String authPassword = rs.getString("password");
             if (authEmail.equals(email) && authPassword.equals(password)) {
                 return new User(authEmail, authName, authPassword);
@@ -41,7 +41,7 @@ public class AuthStorageImpl implements AuthStorage {
     public void registerNewUser(User user) throws SQLException {
         Statement statement = c.createStatement();
         String sql = "INSERT INTO users VALUES ('" +
-                user.getEmail() + "', '" + user.getName() + "', '" + user.getPassword() + "');";
+                user.getEmail() + "', '" + user.getName() + "', '" + user.getPassword() + "', 0);";
         statement.executeUpdate(sql);
         statement.close();
     }
@@ -51,7 +51,7 @@ public class AuthStorageImpl implements AuthStorage {
         Statement statement = c.createStatement();
         String sql =
                 "UPDATE users " +
-                "SET email = '" + updatedUser.getEmail() + "', name = '" + updatedUser.getName() + "', password = '" + updatedUser.getPassword() + "' " +
+                "SET email = '" + updatedUser.getEmail() + "', user_name = '" + updatedUser.getName() + "', password = '" + updatedUser.getPassword() + "' " +
                 "WHERE email = '" + oldEmail + "';";
         statement.executeUpdate(sql);
         statement.close();

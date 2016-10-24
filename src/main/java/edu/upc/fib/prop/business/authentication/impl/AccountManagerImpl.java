@@ -18,8 +18,7 @@ public class AccountManagerImpl implements AccountManager {
     private User currentUser;
     private AuthStorage authStorage;
 
-    public AccountManagerImpl(User currentUser, String dbName) {
-        this.currentUser = currentUser;
+    public AccountManagerImpl(String dbName) {
         try {
             if (dbName != null) {
                 Connection c = DriverManager.getConnection(dbName);

@@ -1,6 +1,7 @@
 INSERT INTO users(email, user_name, password, admin) VALUES
-  ('admin@fib.upc.edu', 'admin', '123456', 1),
-  ('user@fib.upc.edu', 'user', '123456', 0);
+  ('admin@fib.upc.edu', 'admin', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', 1),
+  ('user@fib.upc.edu', 'user', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', 0);
+-- Passwords are 123456 (hashed)
 
 INSERT INTO authors(author_name) VALUES
   ('Zofia Bivens'),

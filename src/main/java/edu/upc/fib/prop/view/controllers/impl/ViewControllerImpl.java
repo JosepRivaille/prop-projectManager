@@ -27,4 +27,14 @@ public class ViewControllerImpl implements ViewController {
         return this.businessController.searchDocumentsByAuthor(authorName);
     }
 
+    @Override
+    public boolean userLogin(String email, String password) {
+        return this.businessController.checkLoginDetails(email, password);
+    }
+
+    @Override
+    public boolean userRegister(String email, String userName, String password, String password2) {
+        return this.businessController.registerNewUser(email, userName, password, password2);
+    }
+
 }
