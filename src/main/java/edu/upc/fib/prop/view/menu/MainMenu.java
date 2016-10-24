@@ -100,27 +100,32 @@ public class MainMenu {
     }
 
     private void performAction(String action) {
+        AuthorsCollection authorsCollection;
+        DocumentsCollection documentsCollection;
         switch (action) {
             case "SearchAuthorPrefix":
                 System.out.print("Type prefix > ");
                 String prefix = scan.next();
-                AuthorsCollection matchingAuthors = viewController.getAuthorsWithPrefix(prefix);
+                authorsCollection = viewController.getAuthorsWithPrefix(prefix);
                 int i = 0;
-                printHeader("AUTHORS FOUND WITH: " + prefix);
-                for (Author author : matchingAuthors.getAuthors()) {
-                    System.out.println(++i + "- " + author.getName());
-                }
-                System.out.print("> ");
-                i = scan.nextInt();
-                String authorName = matchingAuthors.getAuthors().get(i - 1).getName();
-                printHeader("DOCUMENTS OF: " + authorName);
-                DocumentsCollection documentsCollection = viewController.getDocumentsByAuthorId(authorName);
-                for (Document document : documentsCollection.getDocuments()) {
-                    System.out.println("- " + document.getTitle());
+                printHeader("AUTHORS FOUND WITH PREFIX " + prefix);
+                if (!authorsCollection.getAuthors().isEmpty()) {
+                    for (Author author : authorsCollection.getAuthors()) {
+                        System.out.println(++i + "- " + author.getName());
+                    }
+                    System.out.print("Type author id > ");
+                    i = scan.nextInt();
+                    if (i > 0 && i <= authorsCollection.getAuthors().size()) {
+                        String authorName = authorsCollection.getAuthors().get(i - 1).getName();
+                        printHeader("DOCUMENTS OF: " + authorName);
+                        documentsCollection = viewController.getDocumentsByAuthorId(authorName);
+                        for (Document document : documentsCollection.getDocuments()) {
+                            System.out.println("- " + document.getTitle());
+                        }
+                    }
                 }
                 break;
             case "SearchDocumentsTitle":
-
                 break;
         }
     }

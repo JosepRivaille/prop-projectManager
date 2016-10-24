@@ -8,6 +8,9 @@ import edu.upc.fib.prop.business.search.SearchDocument;
 import edu.upc.fib.prop.persistence.controllers.PersistenceController;
 import edu.upc.fib.prop.persistence.controllers.impl.PersistenceControllerImpl;
 
+import java.util.Set;
+import java.util.TreeSet;
+
 public class BusinessControllerImpl implements BusinessController {
 
     private PersistenceController persistenceController;
@@ -17,6 +20,10 @@ public class BusinessControllerImpl implements BusinessController {
 
     private AuthorsCollection authorsCollection;
     private DocumentsCollection documentsCollection;
+
+    private Set<String> excludedWordsCat;
+    private Set<String> excludedWordsEng;
+    private Set<String> excludedWordsEsp;
 
     public BusinessControllerImpl() {
         System.out.println("Initializating business controller");
@@ -30,6 +37,9 @@ public class BusinessControllerImpl implements BusinessController {
         this.authorsCollection = this.persistenceController.getAuthors();
         this.documentsCollection = this.persistenceController.getDocuments();
 
+        excludedWordsCat = this.persistenceController.getExcludedWords("cat");
+        excludedWordsEng = this.persistenceController.getExcludedWords("eng");
+        excludedWordsEsp = this.persistenceController.getExcludedWords("esp");
     }
 
     @Override
@@ -41,6 +51,5 @@ public class BusinessControllerImpl implements BusinessController {
     public DocumentsCollection searchDocumentsByAuthor(String authorName) {
         return this.searchDocument.filterByAuthor(this.documentsCollection, authorName);
     }
-
 
 }

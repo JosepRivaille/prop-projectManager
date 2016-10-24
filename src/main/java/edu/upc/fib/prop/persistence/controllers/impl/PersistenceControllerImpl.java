@@ -5,6 +5,7 @@ import edu.upc.fib.prop.business.models.DocumentsCollection;
 import edu.upc.fib.prop.persistence.controllers.PersistenceController;
 import edu.upc.fib.prop.persistence.dao.authors.DaoAuthors;
 import edu.upc.fib.prop.persistence.dao.documents.DaoDocuments;
+import edu.upc.fib.prop.persistence.dao.files.DaoFiles;
 import edu.upc.fib.prop.persistence.dao.users.DaoUsers;
 import edu.upc.fib.prop.utils.Constants;
 import edu.upc.fib.prop.utils.FileUtils;
@@ -13,12 +14,15 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class PersistenceControllerImpl implements PersistenceController {
 
     private DaoUsers daoUsers;
     private DaoAuthors daoAuthors;
     private DaoDocuments daoDocuments;
+    private DaoFiles daoFiles;
 
     private Connection c;
 
@@ -28,6 +32,7 @@ public class PersistenceControllerImpl implements PersistenceController {
         daoUsers = new DaoUsers();
         daoAuthors = new DaoAuthors();
         daoDocuments = new DaoDocuments();
+        daoFiles = new DaoFiles();
     }
 
     @Override
@@ -44,6 +49,12 @@ public class PersistenceControllerImpl implements PersistenceController {
         DocumentsCollection documentsCollection = daoDocuments.getAllDocuments(this.c);
         closeConnection();
         return documentsCollection;
+    }
+
+    @Override
+    public Set<String> getExcludedWords(String lang) {
+        Set<String> words = daoFiles.getExcludedWords(lang);
+        return words;
     }
 
     /* Private helper methods */
@@ -74,7 +85,7 @@ public class PersistenceControllerImpl implements PersistenceController {
         String sql;
         try {
             statement = c.createStatement();
-            sql = FileUtils.readFile("src/main/resources/dbInitializer.sql");
+            sql = FileUtils.readFile("src/main/resources/sql/dbInitializer.sql");
             statement.executeUpdate(sql);
             statement.close();
 
@@ -83,7 +94,7 @@ public class PersistenceControllerImpl implements PersistenceController {
 
             /*
             statement = c.createStatement();
-            sql = FileUtils.readFile("src/main/resources/dbFiller.sql");
+            sql = FileUtils.readFile("src/main/resources/sql/dbFiller.sql");
             statement.executeUpdate(sql);
             statement.close();
 
