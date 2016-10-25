@@ -1,9 +1,14 @@
 package edu.upc.fib.prop.view.controllers;
 
+import edu.upc.fib.prop.exceptions.AlreadyExistingUserException;
+import edu.upc.fib.prop.exceptions.InvalidDetailsException;
+import edu.upc.fib.prop.exceptions.UserNotFoundException;
 import edu.upc.fib.prop.models.AuthorsCollection;
 import edu.upc.fib.prop.models.Document;
 import edu.upc.fib.prop.models.DocumentsCollection;
 import javafx.util.Pair;
+
+import java.sql.SQLException;
 
 public interface ViewController {
 
@@ -11,9 +16,9 @@ public interface ViewController {
 
     DocumentsCollection getDocumentsByAuthorId(String authorName);
 
-    boolean userLogin(String email, String password);
+    void userLogin(String email, String password) throws UserNotFoundException, InvalidDetailsException;
 
-    boolean userRegister(String email, String userName, String password, String password2);
+    void userRegister(String email, String userName, String password, String password2) throws InvalidDetailsException, AlreadyExistingUserException;
 
     DocumentsCollection getCurrentUserDocuments();
 

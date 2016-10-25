@@ -1,5 +1,8 @@
 package edu.upc.fib.prop.view.menu;
 
+import edu.upc.fib.prop.exceptions.AlreadyExistingUserException;
+import edu.upc.fib.prop.exceptions.InvalidDetailsException;
+import edu.upc.fib.prop.exceptions.UserNotFoundException;
 import edu.upc.fib.prop.models.Author;
 import edu.upc.fib.prop.models.AuthorsCollection;
 import edu.upc.fib.prop.models.Document;
@@ -9,6 +12,7 @@ import edu.upc.fib.prop.view.controllers.ViewController;
 import edu.upc.fib.prop.view.document.DocumentManager;
 import javafx.util.Pair;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -64,12 +68,13 @@ public class MainMenu {
                 String email = scan.next();
                 System.out.print("Password > ");
                 String password = scan.next();
-               if (viewController.userLogin(email, password)) {
-                   System.out.println("Welcome " + email + "!");
-                   return true;
-               } else {
-                   System.out.println("Invalid details!");
-               }
+                try {
+                    viewController.userLogin(email, password);
+                    System.out.println("Welcome " + email + "!");
+                    return true;
+                } catch (UserNotFoundException | InvalidDetailsException e) {
+                    System.out.println("Non existing user or invalid user+password combination!");
+                }
             } else if (optionSelected == 2) {
                 System.out.print("Email > ");
                 String email = scan.next();
@@ -79,11 +84,12 @@ public class MainMenu {
                 String password = scan.next();
                 System.out.print("Repeat password > ");
                 String password2 = scan.next();
-                if (viewController.userRegister(email, userName, password, password2)) {
-                    System.out.println("Welcome " + userName + ", have a great experience!");
+                try {
+                    viewController.userRegister(email, userName, password, password2);
+                    System.out.println("Welcome " + email + "!");
                     return true;
-                } else {
-                    System.out.println("Invalid fields!");
+                } catch (AlreadyExistingUserException | InvalidDetailsException e) {
+                    System.out.println("Already existing user or invalid input data!");
                 }
             }
         } while (optionSelected != 0);

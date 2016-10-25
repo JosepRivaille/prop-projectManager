@@ -1,18 +1,16 @@
 package edu.upc.fib.prop.test.unit.persistence;
 
-import edu.upc.fib.prop.utils.Constants;
-import edu.upc.fib.prop.models.User;
 import edu.upc.fib.prop.exceptions.InvalidDetailsException;
 import edu.upc.fib.prop.exceptions.UserNotFoundException;
-import edu.upc.fib.prop.persistence.authentication.AuthStorage;
-import edu.upc.fib.prop.persistence.authentication.impl.AuthStorageImpl;
+import edu.upc.fib.prop.models.User;
+import edu.upc.fib.prop.persistence.dao.users.DaoUsers;
+import edu.upc.fib.prop.persistence.dao.users.impl.DaoUsersImpl;
+import edu.upc.fib.prop.utils.Constants;
 import edu.upc.fib.prop.utils.FileUtils;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.runners.MockitoJUnitRunner;
 
 import java.io.File;
 import java.sql.Connection;
@@ -22,11 +20,10 @@ import java.sql.Statement;
 
 import static org.junit.Assert.assertTrue;
 
-@RunWith(MockitoJUnitRunner.class)
-public class AuthStorageTest {
+public class AuthenticationPersistenceTest {
 
     private static Connection c;
-    private static AuthStorage authStorage;
+    private static DaoUsers daoUsers;
 
     @BeforeClass
     public static void setUpTableAndDB() {
@@ -35,7 +32,7 @@ public class AuthStorageTest {
             if (c == null) {
                 c = DriverManager.getConnection(Constants.DB_TEST);
             }
-            authStorage = new AuthStorageImpl(c);
+            daoUsers = new DaoUsersImpl(c);
 
             Statement statement = c.createStatement();
             String sql = FileUtils.readFile("src/main/resources/sql/dbInitializer.sql");
@@ -81,8 +78,8 @@ public class AuthStorageTest {
         String password = "123456";
 
         User user = new User(email, name, password);
-        authStorage.registerNewUser(user);
-        assertTrue(user.equals(authStorage.checkDetails(email, password)));
+        daoUsers.registerNewUser(user);
+        assertTrue(user.equals(daoUsers.checkDetails(email, password)));
     }
 
     /* USER MATCH TESTS */
@@ -92,7 +89,7 @@ public class AuthStorageTest {
             throws UserNotFoundException, InvalidDetailsException, SQLException {
         String email = "foo@bar.com";
         String password = "123456";
-        authStorage.checkDetails(email, password);
+        daoUsers.checkDetails(email, password);
     }
 
     @Test(expected = InvalidDetailsException.class)
@@ -100,14 +97,14 @@ public class AuthStorageTest {
             throws UserNotFoundException, InvalidDetailsException, SQLException {
         User user = createFakeUser();
         String badPassword = "654321";
-        authStorage.checkDetails(user.getEmail(), badPassword);
+        daoUsers.checkDetails(user.getEmail(), badPassword);
     }
 
     @Test
     public void test_whenCheckDetails_withMatchingDetails_thenReturnTrue()
             throws UserNotFoundException, InvalidDetailsException, SQLException {
         User user = createFakeUser();
-        User currentUser = authStorage.checkDetails(user.getEmail(), user.getPassword());
+        User currentUser = daoUsers.checkDetails(user.getEmail(), user.getPassword());
         assertTrue(user.equals(currentUser));
     }
 
@@ -123,8 +120,8 @@ public class AuthStorageTest {
         String newPassword = "654321";
         User newUser = new User(newEmail, newName, newPassword);
 
-        authStorage.updateUser(user.getEmail(), newUser);
-        assertTrue(newUser.equals(authStorage.checkDetails(newEmail, newPassword)));
+        daoUsers.updateUser(user.getEmail(), newUser);
+        assertTrue(newUser.equals(daoUsers.checkDetails(newEmail, newPassword)));
     }
 
     /* DELETE TESTS */
@@ -134,8 +131,8 @@ public class AuthStorageTest {
             throws UserNotFoundException, InvalidDetailsException, SQLException {
         User user = createFakeUser();
 
-        authStorage.deleteUser(user);
-        authStorage.checkDetails(user.getEmail(), user.getPassword());
+        daoUsers.deleteUser(user);
+        daoUsers.checkDetails(user.getEmail(), user.getPassword());
     }
 
     // TODO: Refactor to TestUtils
@@ -145,7 +142,7 @@ public class AuthStorageTest {
         String password = "123456";
 
         User user = new User(email, name, password);
-        authStorage.registerNewUser(user);
+        daoUsers.registerNewUser(user);
         return user;
     }
 

@@ -1,21 +1,24 @@
 package edu.upc.fib.prop.business.controllers.impl;
 
-import edu.upc.fib.prop.business.authentication.AccountManager;
-import edu.upc.fib.prop.business.authentication.impl.AccountManagerImpl;
+import edu.upc.fib.prop.business.users.UsersManager;
+import edu.upc.fib.prop.business.users.impl.UsersManagerImpl;
 import edu.upc.fib.prop.business.controllers.BusinessController;
 import edu.upc.fib.prop.business.documents.impl.DocumentAnalyserImpl;
+import edu.upc.fib.prop.exceptions.AlreadyExistingUserException;
+import edu.upc.fib.prop.exceptions.InvalidDetailsException;
+import edu.upc.fib.prop.exceptions.UserNotFoundException;
 import edu.upc.fib.prop.models.AuthorsCollection;
 import edu.upc.fib.prop.models.Document;
 import edu.upc.fib.prop.models.DocumentsCollection;
-import edu.upc.fib.prop.models.User;
 import edu.upc.fib.prop.business.search.impl.SearchAuthorImpl;
 import edu.upc.fib.prop.business.search.impl.SearchDocumentImpl;
 import edu.upc.fib.prop.exceptions.AlreadyExistingDocumentException;
+import edu.upc.fib.prop.models.User;
 import edu.upc.fib.prop.persistence.controllers.PersistenceController;
 import edu.upc.fib.prop.persistence.controllers.impl.PersistenceControllerImpl;
-import edu.upc.fib.prop.utils.Constants;
 import javafx.util.Pair;
 
+import java.sql.SQLException;
 import java.util.Set;
 
 public class BusinessControllerImpl implements BusinessController {
@@ -28,7 +31,7 @@ public class BusinessControllerImpl implements BusinessController {
     private AuthorsCollection authorsCollection;
     private DocumentsCollection documentsCollection;
 
-    private AccountManager accountManager;
+    private UsersManager usersManager;
     private DocumentAnalyserImpl documentAnalyser;
 
     private Set<String> excludedWordsCat;
@@ -46,7 +49,7 @@ public class BusinessControllerImpl implements BusinessController {
         this.authorsCollection = this.persistenceController.getAuthors();
         this.documentsCollection = this.persistenceController.getDocuments();
 
-        this.accountManager = new AccountManagerImpl(Constants.DB_DEVELOPMENT);
+        this.usersManager = new UsersManagerImpl();
         this.documentAnalyser = new DocumentAnalyserImpl(this.documentsCollection);
 
         this.excludedWordsCat = this.persistenceController.getExcludedWords("cat");
@@ -65,21 +68,29 @@ public class BusinessControllerImpl implements BusinessController {
     }
 
     @Override
-    public boolean checkLoginDetails(String email, String password) {
-        return this.accountManager.login(email, password);
+    public void checkLoginDetails(String email, String password)
+            throws InvalidDetailsException, UserNotFoundException {
+        usersManager.login(email, password);
+        User user = persistenceController.loginUser(email, password);
+        usersManager.setCurrentUser(user);
     }
 
     @Override
-    public boolean registerNewUser(String email, String userName, String password, String password2) {
-        return this.accountManager.register(email, userName, password, password2);
+    public void registerNewUser(String email, String userName, String password, String password2)
+            throws InvalidDetailsException, AlreadyExistingUserException {
+        User user = usersManager.register(email, userName, password, password2);
+        persistenceController.createUser(user);
+        usersManager.setCurrentUser(user);
     }
 
     @Override
     public DocumentsCollection getCurrentUserDocuments() {
-        //User user = this.accountManager.getCurrentUser();
+        //User user = this.usersManager.getCurrentUser();
         //return this.searchDocument.filterByUser(this.documentsCollection, user);
         return new DocumentsCollection();
     }
+
+
 
     @Override
     public boolean storeNewDocument(Document document) {

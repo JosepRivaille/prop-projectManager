@@ -2,6 +2,9 @@ package edu.upc.fib.prop.view.controllers.impl;
 
 import edu.upc.fib.prop.business.controllers.BusinessController;
 import edu.upc.fib.prop.business.controllers.impl.BusinessControllerImpl;
+import edu.upc.fib.prop.exceptions.AlreadyExistingUserException;
+import edu.upc.fib.prop.exceptions.InvalidDetailsException;
+import edu.upc.fib.prop.exceptions.UserNotFoundException;
 import edu.upc.fib.prop.models.AuthorsCollection;
 import edu.upc.fib.prop.models.Document;
 import edu.upc.fib.prop.models.DocumentsCollection;
@@ -30,13 +33,14 @@ public class ViewControllerImpl implements ViewController {
     }
 
     @Override
-    public boolean userLogin(String email, String password) {
-        return this.businessController.checkLoginDetails(email, password);
+    public void userLogin(String email, String password) throws UserNotFoundException, InvalidDetailsException {
+        businessController.checkLoginDetails(email, password);
     }
 
     @Override
-    public boolean userRegister(String email, String userName, String password, String password2) {
-        return this.businessController.registerNewUser(email, userName, password, password2);
+    public void userRegister(String email, String userName, String password, String password2)
+            throws InvalidDetailsException, AlreadyExistingUserException {
+        businessController.registerNewUser(email, userName, password, password2);
     }
 
     @Override

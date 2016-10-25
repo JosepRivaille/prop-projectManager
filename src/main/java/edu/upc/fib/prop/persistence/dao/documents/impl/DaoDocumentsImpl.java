@@ -3,15 +3,22 @@ package edu.upc.fib.prop.persistence.dao.documents.impl;
 import edu.upc.fib.prop.models.Document;
 import edu.upc.fib.prop.models.DocumentsCollection;
 import edu.upc.fib.prop.exceptions.AlreadyExistingDocumentException;
+import edu.upc.fib.prop.persistence.dao.documents.DaoDocuments;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class DaoDocumentsImpl {
+public class DaoDocumentsImpl implements DaoDocuments {
 
-    public DocumentsCollection getAllDocuments(Connection c) {
+    private Connection c;
+
+    public DaoDocumentsImpl(Connection c) {
+        this.c = c;
+    }
+
+    public DocumentsCollection getAllDocuments() {
         DocumentsCollection documentsCollection = new DocumentsCollection();
         try {
             Statement statement = c.createStatement();
@@ -29,7 +36,7 @@ public class DaoDocumentsImpl {
         return documentsCollection;
     }
 
-    public void addNewDocument(Connection c, Document document) throws AlreadyExistingDocumentException {
+    public void addNewDocument(Document document) throws AlreadyExistingDocumentException {
         String email = document.getTitle();
         String author = document.getAuthor();
         String content = document.getContent();
@@ -41,4 +48,5 @@ public class DaoDocumentsImpl {
             throw new AlreadyExistingDocumentException();
         }
     }
+
 }

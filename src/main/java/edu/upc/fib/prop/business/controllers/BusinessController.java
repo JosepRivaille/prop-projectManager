@@ -1,9 +1,14 @@
 package edu.upc.fib.prop.business.controllers;
 
+import edu.upc.fib.prop.exceptions.AlreadyExistingUserException;
+import edu.upc.fib.prop.exceptions.InvalidDetailsException;
+import edu.upc.fib.prop.exceptions.UserNotFoundException;
 import edu.upc.fib.prop.models.AuthorsCollection;
 import edu.upc.fib.prop.models.Document;
 import edu.upc.fib.prop.models.DocumentsCollection;
 import javafx.util.Pair;
+
+import java.sql.SQLException;
 
 public interface BusinessController {
 
@@ -27,7 +32,7 @@ public interface BusinessController {
      * @param password Account password.
      * @return If login is successful.
      */
-    boolean checkLoginDetails(String email, String password);
+    void checkLoginDetails(String email, String password) throws InvalidDetailsException, UserNotFoundException;
 
     /**
      * Check if input details can be used to create a new user.
@@ -37,7 +42,7 @@ public interface BusinessController {
      * @param password2 New password repeated.
      * @return If register is successful.
      */
-    boolean registerNewUser(String email, String userName, String password, String password2);
+    void registerNewUser(String email, String userName, String password, String password2) throws InvalidDetailsException, AlreadyExistingUserException;
 
     /**
      * Gets current session logged user documents.
