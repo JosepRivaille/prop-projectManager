@@ -1,7 +1,7 @@
 package edu.upc.fib.prop.persistence.dao.documents;
 
-import edu.upc.fib.prop.business.models.Document;
-import edu.upc.fib.prop.business.models.DocumentsCollection;
+import edu.upc.fib.prop.models.Document;
+import edu.upc.fib.prop.models.DocumentsCollection;
 import edu.upc.fib.prop.exceptions.AlreadyExistingDocumentException;
 
 import java.sql.Connection;

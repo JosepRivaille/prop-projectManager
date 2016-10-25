@@ -1,8 +1,8 @@
 package edu.upc.fib.prop.business.controllers;
 
-import edu.upc.fib.prop.business.models.AuthorsCollection;
-import edu.upc.fib.prop.business.models.Document;
-import edu.upc.fib.prop.business.models.DocumentsCollection;
+import edu.upc.fib.prop.models.AuthorsCollection;
+import edu.upc.fib.prop.models.Document;
+import edu.upc.fib.prop.models.DocumentsCollection;
 import javafx.util.Pair;
 
 public interface BusinessController {

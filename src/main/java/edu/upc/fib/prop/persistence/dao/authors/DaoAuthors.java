@@ -1,7 +1,7 @@
 package edu.upc.fib.prop.persistence.dao.authors;
 
-import edu.upc.fib.prop.business.models.Author;
-import edu.upc.fib.prop.business.models.AuthorsCollection;
+import edu.upc.fib.prop.models.Author;
+import edu.upc.fib.prop.models.AuthorsCollection;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

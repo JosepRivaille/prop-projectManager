@@ -3,13 +3,13 @@ package edu.upc.fib.prop.business.controllers.impl;
 import edu.upc.fib.prop.business.authentication.AccountManager;
 import edu.upc.fib.prop.business.authentication.impl.AccountManagerImpl;
 import edu.upc.fib.prop.business.controllers.BusinessController;
-import edu.upc.fib.prop.business.documents.DocumentAnalyser;
-import edu.upc.fib.prop.business.models.AuthorsCollection;
-import edu.upc.fib.prop.business.models.Document;
-import edu.upc.fib.prop.business.models.DocumentsCollection;
-import edu.upc.fib.prop.business.models.User;
-import edu.upc.fib.prop.business.search.SearchAuthor;
-import edu.upc.fib.prop.business.search.SearchDocument;
+import edu.upc.fib.prop.business.documents.impl.DocumentAnalyserImpl;
+import edu.upc.fib.prop.models.AuthorsCollection;
+import edu.upc.fib.prop.models.Document;
+import edu.upc.fib.prop.models.DocumentsCollection;
+import edu.upc.fib.prop.models.User;
+import edu.upc.fib.prop.business.search.impl.SearchAuthorImpl;
+import edu.upc.fib.prop.business.search.impl.SearchDocumentImpl;
 import edu.upc.fib.prop.exceptions.AlreadyExistingDocumentException;
 import edu.upc.fib.prop.persistence.controllers.PersistenceController;
 import edu.upc.fib.prop.persistence.controllers.impl.PersistenceControllerImpl;
@@ -22,14 +22,14 @@ public class BusinessControllerImpl implements BusinessController {
 
     private PersistenceController persistenceController;
 
-    private SearchAuthor searchAuthor;
-    private SearchDocument searchDocument;
+    private SearchAuthorImpl searchAuthor;
+    private SearchDocumentImpl searchDocument;
 
     private AuthorsCollection authorsCollection;
     private DocumentsCollection documentsCollection;
 
     private AccountManager accountManager;
-    private DocumentAnalyser documentAnalyser;
+    private DocumentAnalyserImpl documentAnalyser;
 
     private Set<String> excludedWordsCat;
     private Set<String> excludedWordsEng;
@@ -39,15 +39,15 @@ public class BusinessControllerImpl implements BusinessController {
         System.out.println("Initializating business controller");
 
         this.persistenceController = new PersistenceControllerImpl();
-        this.searchAuthor = new SearchAuthor();
-        this.searchDocument = new SearchDocument();
+        this.searchAuthor = new SearchAuthorImpl();
+        this.searchDocument = new SearchDocumentImpl();
 
         // Load in memory all authors and documents on instantiate
         this.authorsCollection = this.persistenceController.getAuthors();
         this.documentsCollection = this.persistenceController.getDocuments();
 
         this.accountManager = new AccountManagerImpl(Constants.DB_DEVELOPMENT);
-        this.documentAnalyser = new DocumentAnalyser(this.documentsCollection);
+        this.documentAnalyser = new DocumentAnalyserImpl(this.documentsCollection);
 
         this.excludedWordsCat = this.persistenceController.getExcludedWords("cat");
         this.excludedWordsEng = this.persistenceController.getExcludedWords("eng");

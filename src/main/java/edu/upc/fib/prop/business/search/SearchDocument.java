@@ -1,24 +1,24 @@
 package edu.upc.fib.prop.business.search;
 
-import edu.upc.fib.prop.business.models.DocumentsCollection;
-import edu.upc.fib.prop.business.models.User;
+import edu.upc.fib.prop.models.DocumentsCollection;
+import edu.upc.fib.prop.models.User;
 
-public class SearchDocument {
+public interface SearchDocument {
 
-    public DocumentsCollection filterByAuthor(DocumentsCollection documentsCollection, String authorName) {
-        DocumentsCollection filteredDocuments = new DocumentsCollection();
-        documentsCollection.getDocuments().stream().filter(document ->
-                document.getAuthor().toLowerCase().contains(authorName.toLowerCase()))
-                .forEach(filteredDocuments::addDocument);
-        return filteredDocuments;
-    }
+    /**
+     * Filter documents by an existing author.
+     * @param documentsCollection List of all documents.
+     * @param authorName Author identifier name.
+     * @return Set of matching documents.
+     */
+    DocumentsCollection filterByAuthor(DocumentsCollection documentsCollection, String authorName);
 
-    public DocumentsCollection filterByUser(DocumentsCollection documentsCollection, User user) {
-        String email = user.getEmail();
-        DocumentsCollection filteredDocuments = new DocumentsCollection();
-        documentsCollection.getDocuments().stream().filter(document ->
-                document.getUser().equals(email))
-                .forEach(filteredDocuments::addDocument);
-        return filteredDocuments;
-    }
+    /**
+     * Filter documents by the user owner.
+     * @param documentsCollection Set of all documents.
+     * @param user User to check owned documents.
+     * @return Set of matching documents.
+     */
+    DocumentsCollection filterByUser(DocumentsCollection documentsCollection, User user);
+
 }

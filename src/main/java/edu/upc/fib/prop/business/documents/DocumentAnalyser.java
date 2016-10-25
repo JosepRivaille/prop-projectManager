@@ -1,67 +1,30 @@
 package edu.upc.fib.prop.business.documents;
 
-import edu.upc.fib.prop.business.models.Document;
-import edu.upc.fib.prop.business.models.DocumentsCollection;
+import edu.upc.fib.prop.models.Document;
 
-import java.util.Map;
-import java.util.TreeMap;
+public interface DocumentAnalyser {
 
-import static java.lang.Math.log;
+    /**
+     * Gets the document attribute of the DocumentAnalyser.
+     * @return Current document treated.
+     */
+    Document getDocument();
 
-public class DocumentAnalyser {
+    /**
+     * Sets a document to analyse.
+     * @param document Document to analyse.
+     */
+    void setDocument(Document document);
 
-    private DocumentsCollection documentsCollection;
-    private Document document;
-    private int documentsCount;
+    /**
+     * Checks if new document data is invalid in some way.
+     * @return If document data is valid.
+     */
+    boolean checkCorrectData();
 
-    public DocumentAnalyser(DocumentsCollection documentsCollection) {
-        this.documentsCollection = documentsCollection;
-    }
-
-    public Document getDocument() {
-        return this.document;
-    }
-
-    public void setDocument(Document document) {
-        this.document = document;
-    }
-
-    public boolean checkCorrectData() {
-        return !this.document.getTitle().equals("")
-                && !this.document.getAuthor().equals("")
-                && !this.document.getContent().equals("");
-    }
-
-    public void calculateDocumentParameters() {
-        this.document.setTermFrequency(calculateTermFrequency());
-        this.documentsCollection.setInverseDocumentFrequency(calculateInverseDocumentFrequency());
-    }
-
-    private Map<String, Float> calculateTermFrequency() {
-        String content = document.getContent();
-        Float max = 1f;
-        Map<String, Float> termFrequency = new TreeMap<>();
-        for (String word : content.split("\\s+")) {
-            if (!termFrequency.containsKey(word)) {
-                termFrequency.put(word, 1f);
-            } else {
-                Float aux = termFrequency.get(word) + 1;
-                termFrequency.put(word, aux);
-                if (aux > max)
-                    max = aux;
-            }
-        }
-        for (Map.Entry<String, Float> tf : termFrequency.entrySet()) {
-            Float newValue = 0.5f + (0.5f * tf.getValue() / max);
-            tf.setValue(newValue);
-        }
-        return termFrequency;
-    }
-
-    private Map<String, Float> calculateInverseDocumentFrequency() {
-        //Float documentsPerTerm = idf.get(word);
-        //Float weight = (float) log(this.documentsCount / (1 + documentsPerTerm));
-        return new TreeMap<String, Float>();
-    }
+    /**
+     * Calculates tf-idf of the document.
+     */
+    void calculateDocumentParameters();
 
 }

@@ -1,9 +1,9 @@
 package edu.upc.fib.prop.view.menu;
 
-import edu.upc.fib.prop.business.models.Author;
-import edu.upc.fib.prop.business.models.AuthorsCollection;
-import edu.upc.fib.prop.business.models.Document;
-import edu.upc.fib.prop.business.models.DocumentsCollection;
+import edu.upc.fib.prop.models.Author;
+import edu.upc.fib.prop.models.AuthorsCollection;
+import edu.upc.fib.prop.models.Document;
+import edu.upc.fib.prop.models.DocumentsCollection;
 import edu.upc.fib.prop.utils.MenuTree;
 import edu.upc.fib.prop.view.controllers.ViewController;
 import edu.upc.fib.prop.view.document.DocumentManager;

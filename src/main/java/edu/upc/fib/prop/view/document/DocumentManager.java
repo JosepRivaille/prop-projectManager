@@ -1,7 +1,7 @@
 package edu.upc.fib.prop.view.document;
 
-import edu.upc.fib.prop.business.models.Document;
-import edu.upc.fib.prop.business.models.DocumentsCollection;
+import edu.upc.fib.prop.models.Document;
+import edu.upc.fib.prop.models.DocumentsCollection;
 import javafx.util.Pair;
 
 import java.util.Scanner;

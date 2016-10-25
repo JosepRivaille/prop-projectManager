@@ -1,20 +1,15 @@
 package edu.upc.fib.prop.business.search;
 
-import edu.upc.fib.prop.business.models.AuthorsCollection;
+import edu.upc.fib.prop.models.AuthorsCollection;
 
-public class SearchAuthor {
+public interface SearchAuthor {
 
     /**
-     *
-     * @param authorsCollection
-     * @param authorPrefix
-     * @return
+     * Search for matching authors given a prefix
+     * @param authorsCollection Set of all authors.
+     * @param authorPrefix Prefix to filter to.
+     * @return Set of matching authors.
      */
-    public AuthorsCollection filterByPrefix(AuthorsCollection authorsCollection, String authorPrefix) {
-        AuthorsCollection filteredAuthors = new AuthorsCollection();
-        authorsCollection.getAuthors().stream().filter(author ->
-                author.getName().matches("(?i)" + authorPrefix + ".*")).forEach(filteredAuthors::addAuthor);
-        return filteredAuthors;
-    }
+    AuthorsCollection filterByPrefix(AuthorsCollection authorsCollection, String authorPrefix);
 
 }

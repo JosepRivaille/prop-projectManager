@@ -1,4 +1,4 @@
-package edu.upc.fib.prop.business.models;
+package edu.upc.fib.prop.models;
 
 import java.util.ArrayList;
 import java.util.List;

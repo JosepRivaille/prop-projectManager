@@ -1,7 +1,7 @@
 package edu.upc.fib.prop.business.authentication.impl;
 
 import edu.upc.fib.prop.business.authentication.AccountManager;
-import edu.upc.fib.prop.business.models.User;
+import edu.upc.fib.prop.models.User;
 import edu.upc.fib.prop.exceptions.InvalidDetailsException;
 import edu.upc.fib.prop.exceptions.UserNotFoundException;
 import edu.upc.fib.prop.persistence.authentication.AuthStorage;

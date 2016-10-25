@@ -1,19 +1,19 @@
 package edu.upc.fib.prop.test.unit.business;
 
-import edu.upc.fib.prop.business.models.Author;
-import edu.upc.fib.prop.business.models.AuthorsCollection;
-import edu.upc.fib.prop.business.models.Document;
-import edu.upc.fib.prop.business.models.DocumentsCollection;
-import edu.upc.fib.prop.business.search.SearchAuthor;
-import edu.upc.fib.prop.business.search.SearchDocument;
+import edu.upc.fib.prop.models.Author;
+import edu.upc.fib.prop.models.AuthorsCollection;
+import edu.upc.fib.prop.models.Document;
+import edu.upc.fib.prop.models.DocumentsCollection;
+import edu.upc.fib.prop.business.search.impl.SearchAuthorImpl;
+import edu.upc.fib.prop.business.search.impl.SearchDocumentImpl;
 import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
 
 public class SearchTest {
 
-    private static SearchAuthor searchAuthor = new SearchAuthor();
-    private static SearchDocument searchDocument = new SearchDocument();
+    private static SearchAuthorImpl searchAuthor = new SearchAuthorImpl();
+    private static SearchDocumentImpl searchDocument = new SearchDocumentImpl();
 
     @Test
     public void test_whenSearchForAuthorWithPrefix_withMatchingPrefix_thenReturnCollectionWithMatchingAuthors() {
