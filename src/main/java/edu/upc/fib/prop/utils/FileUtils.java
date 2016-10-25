@@ -3,6 +3,8 @@ package edu.upc.fib.prop.utils;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class FileUtils {
 
@@ -32,6 +34,12 @@ public class FileUtils {
             }
         }
         return null;
+    }
+
+    public static Set<String> getExcludedWords(String lang) {
+        Set<String> excludedWords = new TreeSet<>();
+        FileUtils.readFile("src/main/resources/words/" + lang + ".txt");
+        return excludedWords;
     }
 
 }

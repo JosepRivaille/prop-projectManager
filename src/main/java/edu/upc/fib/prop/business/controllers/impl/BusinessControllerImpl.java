@@ -76,8 +76,9 @@ public class BusinessControllerImpl implements BusinessController {
 
     @Override
     public DocumentsCollection getCurrentUserDocuments() {
-        User user = this.accountManager.getCurrentUser();
-        return this.searchDocument.filterByUser(this.documentsCollection, user);
+        //User user = this.accountManager.getCurrentUser();
+        //return this.searchDocument.filterByUser(this.documentsCollection, user);
+        return new DocumentsCollection();
     }
 
     @Override

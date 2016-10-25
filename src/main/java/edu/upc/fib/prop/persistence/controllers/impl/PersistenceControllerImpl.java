@@ -6,9 +6,10 @@ import edu.upc.fib.prop.models.DocumentsCollection;
 import edu.upc.fib.prop.exceptions.AlreadyExistingDocumentException;
 import edu.upc.fib.prop.persistence.controllers.PersistenceController;
 import edu.upc.fib.prop.persistence.dao.authors.DaoAuthors;
-import edu.upc.fib.prop.persistence.dao.documents.DaoDocuments;
-import edu.upc.fib.prop.persistence.dao.files.DaoFiles;
+import edu.upc.fib.prop.persistence.dao.authors.impl.DaoAuthorsImpl;
+import edu.upc.fib.prop.persistence.dao.documents.impl.DaoDocumentsImpl;
 import edu.upc.fib.prop.persistence.dao.users.DaoUsers;
+import edu.upc.fib.prop.persistence.dao.users.impl.DaoUsersImpl;
 import edu.upc.fib.prop.utils.Constants;
 import edu.upc.fib.prop.utils.FileUtils;
 
@@ -22,18 +23,16 @@ public class PersistenceControllerImpl implements PersistenceController {
 
     private DaoUsers daoUsers;
     private DaoAuthors daoAuthors;
-    private DaoDocuments daoDocuments;
-    private DaoFiles daoFiles;
+    private DaoDocumentsImpl daoDocuments;
 
     private Connection c;
 
     public PersistenceControllerImpl() {
         System.out.println("Initializing persistence controller");
         initializeDB();
-        daoUsers = new DaoUsers();
-        daoAuthors = new DaoAuthors();
-        daoDocuments = new DaoDocuments();
-        daoFiles = new DaoFiles();
+        daoUsers = new DaoUsersImpl();
+        daoAuthors = new DaoAuthorsImpl();
+        daoDocuments = new DaoDocumentsImpl();
     }
 
     @Override
@@ -54,7 +53,7 @@ public class PersistenceControllerImpl implements PersistenceController {
 
     @Override
     public Set<String> getExcludedWords(String lang) {
-        return daoFiles.getExcludedWords(lang);
+        return FileUtils.getExcludedWords(lang);
     }
 
     @Override
