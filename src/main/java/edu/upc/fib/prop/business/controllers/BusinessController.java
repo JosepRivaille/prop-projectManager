@@ -1,7 +1,9 @@
 package edu.upc.fib.prop.business.controllers;
 
 import edu.upc.fib.prop.business.models.AuthorsCollection;
+import edu.upc.fib.prop.business.models.Document;
 import edu.upc.fib.prop.business.models.DocumentsCollection;
+import javafx.util.Pair;
 
 public interface BusinessController {
 
@@ -36,4 +38,31 @@ public interface BusinessController {
      * @return If register is successful.
      */
     boolean registerNewUser(String email, String userName, String password, String password2);
+
+    /**
+     * Gets current session logged user documents.
+     * @return Documents owned by current user.
+     */
+    DocumentsCollection getCurrentUserDocuments();
+
+    /**
+     * Stores in persistence a new document.
+     * @param document Document to store.
+     * @return If storage is successful.
+     */
+    boolean storeNewDocument(Document document);
+
+    /**
+     * Updates a document in persistence.
+     * @param updatedDocument Old document title, and new document data.
+     * @return If update is successful.
+     */
+    boolean updateDocument(Pair<String, Document> updatedDocument);
+
+    /**
+     * Deletes a document in persistence.
+     * @param document Document to delete.
+     * @return If delete is successful.
+     */
+    boolean deleteDocument(Document document);
 }

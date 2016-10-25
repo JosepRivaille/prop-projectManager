@@ -8,7 +8,10 @@ CREATE TABLE IF NOT EXISTS authors (
   author_name VARCHAR PRIMARY KEY);
 
 CREATE TABLE IF NOT EXISTS documents (
-  title VARCHAR PRIMARY KEY,
+  title VARCHAR,
   author_name VARCHAR NOT NULL,
+  user_owner VARCHAR NOT NULL,
   content VARCHAR NOT NULL,
-  FOREIGN KEY(author_name) REFERENCES authors(author_name));
+  PRIMARY KEY(title, author_name),
+  FOREIGN KEY(author_name) REFERENCES authors(author_name),
+  FOREIGN KEY(user_owner) REFERENCES users(email));

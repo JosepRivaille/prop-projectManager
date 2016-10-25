@@ -1,7 +1,9 @@
 package edu.upc.fib.prop.persistence.controllers.impl;
 
 import edu.upc.fib.prop.business.models.AuthorsCollection;
+import edu.upc.fib.prop.business.models.Document;
 import edu.upc.fib.prop.business.models.DocumentsCollection;
+import edu.upc.fib.prop.exceptions.AlreadyExistingDocumentException;
 import edu.upc.fib.prop.persistence.controllers.PersistenceController;
 import edu.upc.fib.prop.persistence.dao.authors.DaoAuthors;
 import edu.upc.fib.prop.persistence.dao.documents.DaoDocuments;
@@ -53,6 +55,11 @@ public class PersistenceControllerImpl implements PersistenceController {
     @Override
     public Set<String> getExcludedWords(String lang) {
         return daoFiles.getExcludedWords(lang);
+    }
+
+    @Override
+    public void writeNewDocument(Document document) throws AlreadyExistingDocumentException {
+        daoDocuments.addNewDocument(this.c, document);
     }
 
     /* Private helper methods */

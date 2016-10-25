@@ -23,8 +23,11 @@ public class DocumentsCollection {
         this.documents.add(document);
     }
 
-    public Float getTermFrequencyInverseDocumentFrequency(Document document, String word) {
+    public Float getInverseDocumentFrequency(Document document, String word) {
         return document.getTermFrequency(word) * inverseDocumentFrequency.get(word);
     }
 
+    public void setInverseDocumentFrequency(Map<String,Float> inverseDocumentFrequency) {
+        this.inverseDocumentFrequency = inverseDocumentFrequency;
+    }
 }

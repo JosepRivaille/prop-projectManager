@@ -6,6 +6,8 @@ import edu.upc.fib.prop.business.models.Document;
 import edu.upc.fib.prop.business.models.DocumentsCollection;
 import edu.upc.fib.prop.utils.MenuTree;
 import edu.upc.fib.prop.view.controllers.ViewController;
+import edu.upc.fib.prop.view.document.DocumentManager;
+import javafx.util.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,10 +16,15 @@ import java.util.Scanner;
 public class MainMenu {
 
     private ViewController viewController;
+
+    private DocumentManager documentManager;
+
     private Scanner scan = new Scanner(System.in);
 
     public MainMenu(ViewController viewController) {
         this.viewController = viewController;
+        DocumentsCollection myDocuments = this.viewController.getCurrentUserDocuments();
+        documentManager = new DocumentManager(myDocuments);
         MenuTree menuTree = buildMenu();
         if (accountManagement())
             displayMenuOptions(menuTree);
@@ -93,7 +100,7 @@ public class MainMenu {
         //Level 1
         options = new ArrayList<>();
         options.add("1. Perform search");
-        options.add("2. Manage documents");
+        options.add("2. Manage my documents");
         options.add("3. Settings");
         options.add("0. Exit");
         MenuTree root = new MenuTree("MAIN MENU", options, false);
@@ -186,6 +193,21 @@ public class MainMenu {
                 }
                 break;
             case "SearchDocumentsTitle":
+                break;
+            case "CreateDocument":
+                Document document = documentManager.createDocument();
+                viewController.storeNewDocument(document);
+                break;
+            case "ReadDocument":
+                documentManager.readDocument();
+                break;
+            case "UpdateDocument":
+                Pair<String, Document> updatedDocument = documentManager.updateDocument();
+                viewController.updateDocument(updatedDocument);
+                break;
+            case "DeleteDocument":
+                document = documentManager.deleteDocument();
+                viewController.deleteDocument(document);
                 break;
         }
     }

@@ -3,13 +3,18 @@ package edu.upc.fib.prop.business.controllers.impl;
 import edu.upc.fib.prop.business.authentication.AccountManager;
 import edu.upc.fib.prop.business.authentication.impl.AccountManagerImpl;
 import edu.upc.fib.prop.business.controllers.BusinessController;
+import edu.upc.fib.prop.business.documents.DocumentAnalyser;
 import edu.upc.fib.prop.business.models.AuthorsCollection;
+import edu.upc.fib.prop.business.models.Document;
 import edu.upc.fib.prop.business.models.DocumentsCollection;
+import edu.upc.fib.prop.business.models.User;
 import edu.upc.fib.prop.business.search.SearchAuthor;
 import edu.upc.fib.prop.business.search.SearchDocument;
+import edu.upc.fib.prop.exceptions.AlreadyExistingDocumentException;
 import edu.upc.fib.prop.persistence.controllers.PersistenceController;
 import edu.upc.fib.prop.persistence.controllers.impl.PersistenceControllerImpl;
 import edu.upc.fib.prop.utils.Constants;
+import javafx.util.Pair;
 
 import java.util.Set;
 
@@ -24,6 +29,7 @@ public class BusinessControllerImpl implements BusinessController {
     private DocumentsCollection documentsCollection;
 
     private AccountManager accountManager;
+    private DocumentAnalyser documentAnalyser;
 
     private Set<String> excludedWordsCat;
     private Set<String> excludedWordsEng;
@@ -36,16 +42,16 @@ public class BusinessControllerImpl implements BusinessController {
         this.searchAuthor = new SearchAuthor();
         this.searchDocument = new SearchDocument();
 
-        this.accountManager = new AccountManagerImpl(Constants.DB_DEVELOPMENT);
-
-        //TODO: Implement as lazy load
         // Load in memory all authors and documents on instantiate
         this.authorsCollection = this.persistenceController.getAuthors();
         this.documentsCollection = this.persistenceController.getDocuments();
 
-        excludedWordsCat = this.persistenceController.getExcludedWords("cat");
-        excludedWordsEng = this.persistenceController.getExcludedWords("eng");
-        excludedWordsEsp = this.persistenceController.getExcludedWords("esp");
+        this.accountManager = new AccountManagerImpl(Constants.DB_DEVELOPMENT);
+        this.documentAnalyser = new DocumentAnalyser(this.documentsCollection);
+
+        this.excludedWordsCat = this.persistenceController.getExcludedWords("cat");
+        this.excludedWordsEng = this.persistenceController.getExcludedWords("eng");
+        this.excludedWordsEsp = this.persistenceController.getExcludedWords("esp");
     }
 
     @Override
@@ -66,6 +72,37 @@ public class BusinessControllerImpl implements BusinessController {
     @Override
     public boolean registerNewUser(String email, String userName, String password, String password2) {
         return this.accountManager.register(email, userName, password, password2);
+    }
+
+    @Override
+    public DocumentsCollection getCurrentUserDocuments() {
+        User user = this.accountManager.getCurrentUser();
+        return this.searchDocument.filterByUser(this.documentsCollection, user);
+    }
+
+    @Override
+    public boolean storeNewDocument(Document document) {
+        documentAnalyser.setDocument(document);
+        if (documentAnalyser.checkCorrectData()) {
+            documentAnalyser.calculateDocumentParameters();
+            try {
+                persistenceController.writeNewDocument(documentAnalyser.getDocument());
+                return true;
+            } catch (AlreadyExistingDocumentException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean updateDocument(Pair<String, Document> updatedDocument) {
+        return false;
+    }
+
+    @Override
+    public boolean deleteDocument(Document document) {
+        return false;
     }
 
 }

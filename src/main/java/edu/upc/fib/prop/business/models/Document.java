@@ -6,6 +6,7 @@ import java.util.TreeMap;
 public class Document {
     private String title;
     private String author;
+    private String user;
     private String content;
     private Map<String, Float> termFrequency;
 
@@ -53,4 +54,7 @@ public class Document {
         this.termFrequency = termFrequency;
     }
 
+    public String getUser() {
+        return user;
+    }
 }

@@ -2,6 +2,7 @@ package edu.upc.fib.prop.persistence.dao.documents;
 
 import edu.upc.fib.prop.business.models.Document;
 import edu.upc.fib.prop.business.models.DocumentsCollection;
+import edu.upc.fib.prop.exceptions.AlreadyExistingDocumentException;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -28,4 +29,16 @@ public class DaoDocuments {
         return documentsCollection;
     }
 
+    public void addNewDocument(Connection c, Document document) throws AlreadyExistingDocumentException {
+        String email = document.getTitle();
+        String author = document.getAuthor();
+        String content = document.getContent();
+        try {
+            Statement statement = c.createStatement();
+            String query = "INSERT INTO documents VALUES()";
+            statement.executeUpdate(query);
+        } catch (SQLException e) {
+            throw new AlreadyExistingDocumentException();
+        }
+    }
 }
