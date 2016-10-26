@@ -1,13 +1,12 @@
 package edu.upc.fib.prop.business.users.impl;
 
 import edu.upc.fib.prop.business.users.UsersManager;
-import edu.upc.fib.prop.models.User;
 import edu.upc.fib.prop.exceptions.InvalidDetailsException;
+import edu.upc.fib.prop.models.User;
 import edu.upc.fib.prop.utils.Constants;
+import edu.upc.fib.prop.utils.SecurityUtils;
 
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.sql.SQLException;
 
 public class UsersManagerImpl implements UsersManager {
 
@@ -27,7 +26,7 @@ public class UsersManagerImpl implements UsersManager {
             if (email.matches(Constants.EMAIL_REGEX)) {
                 if (password.equals(password2)) {
                     try {
-                        String pwd = hashPassword(password);
+                        String pwd = SecurityUtils.hashData(password);
                         return new User(email, name, pwd);
                     } catch (NoSuchAlgorithmException e) {
                         e.printStackTrace();
@@ -55,19 +54,6 @@ public class UsersManagerImpl implements UsersManager {
     @Override
     public void logout() {
         setCurrentUser(null);
-    }
-
-    //Hash password with SHA-256
-    private String hashPassword(String password) throws NoSuchAlgorithmException {
-        MessageDigest md = MessageDigest.getInstance("SHA-256");
-        md.update(password.getBytes());
-        byte byteData[] = md.digest();
-
-        //Convert byte to hex format
-        StringBuilder sb = new StringBuilder();
-        for (byte aByteData : byteData) {
-            sb.append(Integer.toString((aByteData & 0xff) + 0x100, 16).substring(1));
-        } return sb.toString();
     }
 
 }

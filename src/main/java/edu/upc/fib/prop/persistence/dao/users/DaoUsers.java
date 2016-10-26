@@ -10,10 +10,11 @@ public interface DaoUsers {
 
     void registerNewUser(User user) throws SQLException;
 
-    User checkDetails(String email, String password) throws UserNotFoundException, SQLException, InvalidDetailsException;
+    User checkDetails(String email, String password)
+            throws UserNotFoundException, InvalidDetailsException, SQLException;
 
-    void updateUser(String oldEmail, User updatedUser) throws SQLException;
+    void updateUser(String oldEmail, User updatedUser) throws UserNotFoundException, SQLException;
 
-    void deleteUser(User user) throws SQLException;
+    void deleteUser(User user) throws UserNotFoundException, SQLException;
 
 }
