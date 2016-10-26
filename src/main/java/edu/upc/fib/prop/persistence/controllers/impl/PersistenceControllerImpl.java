@@ -120,7 +120,6 @@ public class PersistenceControllerImpl implements PersistenceController {
             c.commit();
             System.out.println("DB initialized successfully");
 
-            /*
             statement = c.createStatement();
             sql = FileUtils.readFile("src/main/resources/sql/dbFiller.sql");
             statement.executeUpdate(sql);
@@ -128,7 +127,6 @@ public class PersistenceControllerImpl implements PersistenceController {
 
             c.commit();
             System.out.println("DB filled successfully");
-            */
         } catch (SQLException e) {
             e.printStackTrace();
         }

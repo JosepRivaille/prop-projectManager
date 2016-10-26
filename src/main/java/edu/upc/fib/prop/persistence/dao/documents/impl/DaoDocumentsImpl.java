@@ -4,11 +4,13 @@ import edu.upc.fib.prop.models.Document;
 import edu.upc.fib.prop.models.DocumentsCollection;
 import edu.upc.fib.prop.exceptions.AlreadyExistingDocumentException;
 import edu.upc.fib.prop.persistence.dao.documents.DaoDocuments;
+import edu.upc.fib.prop.utils.StringUtils;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Map;
 
 public class DaoDocumentsImpl implements DaoDocuments {
 
@@ -28,7 +30,8 @@ public class DaoDocumentsImpl implements DaoDocuments {
                 String title = rs.getString("title");
                 String authorName = rs.getString("author_name");
                 String content = rs.getString("content");
-                documentsCollection.addDocument(new Document(title, authorName, content));
+                String user = rs.getString("user_owner");
+                documentsCollection.addDocument(new Document(title, authorName, content, user));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -37,12 +40,16 @@ public class DaoDocumentsImpl implements DaoDocuments {
     }
 
     public void addNewDocument(Document document) throws AlreadyExistingDocumentException {
-        String email = document.getTitle();
+        String title = document.getTitle();
         String author = document.getAuthor();
         String content = document.getContent();
+        String user = document.getUser();
+        Map<String, Float> tf = document.getTermFrequencyList();
+        String termFrequency = StringUtils.buildJSON(tf);
         try {
             Statement statement = c.createStatement();
-            String query = "INSERT INTO documents VALUES()";
+            String query = String.format("INSERT INTO documents VALUES('%s', '%s', '%s', '%s', '%s')",
+                    title, author, user, termFrequency, content);
             statement.executeUpdate(query);
         } catch (SQLException e) {
             throw new AlreadyExistingDocumentException();

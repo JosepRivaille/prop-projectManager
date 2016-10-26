@@ -23,7 +23,7 @@ public class DocumentManager {
         String author = scan.next();
         System.out.print("Content > ");
         String content = scan.next();
-        return new Document(title, author, content);
+        return new Document(title, author, content, null);
     }
 
     public void readDocument() {
@@ -37,11 +37,12 @@ public class DocumentManager {
     public Pair<String, Document> updateDocument() {
         showList();
         int documentSelected = scan.nextInt() - 1;
+        Document oldDocument = documentsCollection.getDocuments().get(documentSelected);
         String newTitle = scan.next();
         String newAuthor = scan.next();
         String newContent = scan.next();
-        Document newDocument = new Document(newTitle, newAuthor, newContent);
-        return new Pair<>(documentsCollection.getDocuments().get(documentSelected).getTitle(), newDocument);
+        Document newDocument = new Document(newTitle, newAuthor, newContent, oldDocument.getUser());
+        return new Pair<>(oldDocument.getTitle(), newDocument);
     }
 
     public Document deleteDocument() {

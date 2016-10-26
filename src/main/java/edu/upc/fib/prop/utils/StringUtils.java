@@ -1,9 +1,12 @@
 package edu.upc.fib.prop.utils;
 
+import com.google.gson.Gson;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Map;
 
-public class SecurityUtils {
+public class StringUtils {
 
     public static String hashData(String data) throws NoSuchAlgorithmException {
         MessageDigest md = MessageDigest.getInstance("SHA-256");
@@ -17,4 +20,8 @@ public class SecurityUtils {
         } return sb.toString();
     }
 
+    public static String buildJSON(Map<String, Float> data) {
+        Gson gson = new Gson();
+        return gson.toJson(data);
+    }
 }

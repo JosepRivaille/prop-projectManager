@@ -10,9 +10,10 @@ public class Document {
     private String content;
     private Map<String, Float> termFrequency;
 
-    public Document(String title, String author, String content) {
+    public Document(String title, String author, String content, String user) {
         this.title = title;
         this.author = author;
+        this.user = user;
         this.content = content;
 
         termFrequency = new TreeMap<>();

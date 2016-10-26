@@ -7,7 +7,7 @@ import edu.upc.fib.prop.persistence.dao.users.DaoUsers;
 import edu.upc.fib.prop.persistence.dao.users.impl.DaoUsersImpl;
 import edu.upc.fib.prop.utils.Constants;
 import edu.upc.fib.prop.utils.FileUtils;
-import edu.upc.fib.prop.utils.SecurityUtils;
+import edu.upc.fib.prop.utils.StringUtils;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -104,7 +104,7 @@ public class DaoUsersTest {
             throws UserNotFoundException, InvalidDetailsException, SQLException, NoSuchAlgorithmException {
         String email = "admin@fib.upc.edu";
         String name = "Admin";
-        String password = SecurityUtils.hashData("123456");
+        String password = StringUtils.hashData("123456");
         User expectedUser = new User(email, name, password);
 
         assertEquals(daoUsers.checkDetails(email, password), expectedUser);

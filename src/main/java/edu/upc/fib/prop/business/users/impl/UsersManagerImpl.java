@@ -4,7 +4,7 @@ import edu.upc.fib.prop.business.users.UsersManager;
 import edu.upc.fib.prop.exceptions.InvalidDetailsException;
 import edu.upc.fib.prop.models.User;
 import edu.upc.fib.prop.utils.Constants;
-import edu.upc.fib.prop.utils.SecurityUtils;
+import edu.upc.fib.prop.utils.StringUtils;
 
 import java.security.NoSuchAlgorithmException;
 
@@ -26,7 +26,7 @@ public class UsersManagerImpl implements UsersManager {
             if (email.matches(Constants.EMAIL_REGEX)) {
                 if (password.equals(password2)) {
                     try {
-                        String pwd = SecurityUtils.hashData(password);
+                        String pwd = StringUtils.hashData(password);
                         return new User(email, name, pwd);
                     } catch (NoSuchAlgorithmException e) {
                         e.printStackTrace();
