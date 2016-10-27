@@ -12,7 +12,6 @@ import edu.upc.fib.prop.view.controllers.ViewController;
 import edu.upc.fib.prop.view.document.DocumentManager;
 import javafx.util.Pair;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -63,45 +62,44 @@ public class MainMenu {
             System.out.println("0. Exit");
             System.out.print("> ");
             optionSelected = scan.nextInt();
-            if (optionSelected == 1) {
-                System.out.print("Email > ");
-                String email = scan.next();
-                System.out.print("Password > ");
-                String password = scan.next();
-                try {
-                    viewController.userLogin(email, password);
-                    System.out.println("Welcome " + email + "!");
-                    return true;
-                } catch (UserNotFoundException | InvalidDetailsException e) {
-                    System.out.println("Non existing user or invalid user+password combination!");
-                }
-            } else if (optionSelected == 2) {
-                System.out.print("Email > ");
-                String email = scan.next();
-                System.out.print("Name > ");
-                String userName = scan.next();
-                System.out.print("Password > ");
-                String password = scan.next();
-                System.out.print("Repeat password > ");
-                String password2 = scan.next();
-                try {
-                    viewController.userRegister(email, userName, password, password2);
-                    System.out.println("Welcome " + email + "!");
-                    return true;
-                } catch (AlreadyExistingUserException | InvalidDetailsException e) {
-                    System.out.println("Already existing user or invalid input data!");
-                }
+            switch (optionSelected) {
+                case 1:
+                    System.out.print("Email > ");
+                    String email = scan.next();
+                    System.out.print("Password > ");
+                    String password = scan.next();
+                    try {
+                        viewController.userLogin(email, password);
+                        System.out.println("Welcome " + email + "!");
+                        return true;
+                    } catch (UserNotFoundException | InvalidDetailsException e) {
+                        System.out.println("Non existing user or invalid user+password combination!");
+                    }
+                    break;
+                case 2:
+                    System.out.print("Email > ");
+                    email = scan.next();
+                    System.out.print("Name > ");
+                    String userName = scan.next();
+                    System.out.print("Password > ");
+                    password = scan.next();
+                    System.out.print("Repeat password > ");
+                    String password2 = scan.next();
+                    try {
+                        viewController.userRegister(email, userName, password, password2);
+                        System.out.println("Welcome " + email + "!");
+                        return true;
+                    } catch (AlreadyExistingUserException | InvalidDetailsException e) {
+                        System.out.println("Already existing user or invalid input data!");
+                    }
+                    break;
             }
         } while (optionSelected != 0);
         return false;
     }
 
     private MenuTree buildMenu() {
-        //Level 0
-        List<String> options = new ArrayList<>();
-        options.add("1. Login");
-        options.add("2. Register");
-        options.add("0. Exit");
+        List<String> options;
 
         //Level 1
         options = new ArrayList<>();
@@ -111,7 +109,7 @@ public class MainMenu {
         options.add("0. Exit");
         MenuTree root = new MenuTree("MAIN MENU", options, false);
 
-        //Level 1.1
+        //Level 1.
         options = new ArrayList<>();
         options.add("1. Search documents by author");
         options.add("2. Search documents by title and relevance");
@@ -120,16 +118,16 @@ public class MainMenu {
         options.add("0. Back");
         root.addChild(new MenuTree("DOCUMENTS SEARCH", options, false));
 
-        //Level 1.1.1
+        //Level 1.1
         root.getChildren().get(0).addChild(new MenuTree("SearchAuthorPrefix", null, true));
-        //Level 1.1.2
+        //Level 1.2
         root.getChildren().get(0).addChild(new MenuTree("SearchDocumentsTitle", null, true));
-        //Level 1.1.3
+        //Level 1.3
         root.getChildren().get(0).addChild(new MenuTree("SearchDocumentsExpression", null, true));
-        //Level 1.1.4
+        //Level 1.4
         root.getChildren().get(0).addChild(new MenuTree("SearchDocumentsQuery", null, true));
 
-        //Level 1.2
+        //Level 2
         options = new ArrayList<>();
         options.add("1. Create new document");
         options.add("2. Read document");
@@ -138,23 +136,29 @@ public class MainMenu {
         options.add("0. Back");
         root.addChild(new MenuTree("DOCUMENT MANAGER", options, false));
 
-        //Level 1.2.1
+        //Level 2.1
         root.getChildren().get(1).addChild(new MenuTree("CreateDocument", null, true));
-        //Level 1.2.2
+        //Level 2.2
         root.getChildren().get(1).addChild(new MenuTree("ReadDocument", null, true));
-        //Level 1.2.3
+        //Level 2.3
         root.getChildren().get(1).addChild(new MenuTree("UpdateDocument", null, true));
-        //Level 1.2.4
+        //Level 2.4
         root.getChildren().get(1).addChild(new MenuTree("DeleteDocument", null, true));
 
-        //Level 1.3
+        //Level 3
         options = new ArrayList<>();
-        options.add("1. ¿?");
+        options.add("1. Edit account");
+        options.add("2. Delete account");
+        options.add("3. Logout");
         options.add("0. Back");
         root.addChild(new MenuTree("SETTINGS", options, false));
 
-        //Level 1.3.1
-        root.getChildren().get(2).addChild(new MenuTree("RandomNow", null, true));
+        //Level 3.1
+        root.getChildren().get(2).addChild(new MenuTree("EditAccount", null, true));
+        //Level 3.2
+        root.getChildren().get(2).addChild(new MenuTree("EditAccount", null, true));
+        //Level 3.3
+        root.getChildren().get(2).addChild(new MenuTree("EditAccount", null, true));
 
         return root;
     }

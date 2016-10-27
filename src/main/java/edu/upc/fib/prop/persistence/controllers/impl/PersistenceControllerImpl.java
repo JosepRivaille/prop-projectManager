@@ -92,13 +92,34 @@ public class PersistenceControllerImpl implements PersistenceController {
         }
     }
 
+    @Override
+    public void updateUser(User currentUser, User newUser) throws UserNotFoundException, AlreadyExistingUserException {
+        try {
+            openConnection();
+            daoUsers.updateUser(c, currentUser.getEmail(), newUser);
+            closeConnection();
+        } catch (SQLException e) {
+            throw new AlreadyExistingUserException();
+        }
+    }
+
+    @Override
+    public void deleteUser(User user) throws UserNotFoundException {
+        try {
+            openConnection();
+            daoUsers.deleteUser(c, user);
+            closeConnection();
+        } catch (UserNotFoundException | SQLException e) {
+            throw new UserNotFoundException();
+        }
+    }
+
     /* Private helper methods */
 
     private void openConnection() {
         try {
             Class.forName(Constants.JDBC_DRIVER);
             this.c = DriverManager.getConnection(Constants.DB_DEVELOPMENT);
-            this.c.setAutoCommit(false);
             System.out.println("Opened database connection...");
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
@@ -125,8 +146,7 @@ public class PersistenceControllerImpl implements PersistenceController {
             statement.executeUpdate(sql);
             statement.close();
 
-            c.commit();
-            System.out.println("DB initialized successfully");
+            System.out.println(Constants.DB_DEVELOPMENT + " initialized successfully");
             /*
             statement = c.createStatement();
             sql = FileUtils.readFile("src/main/resources/sql/dbFiller.sql");

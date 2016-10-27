@@ -32,6 +32,8 @@ public class ViewControllerImpl implements ViewController {
         return this.businessController.searchDocumentsByAuthor(authorName);
     }
 
+    /*-------------------- Users */
+
     @Override
     public void userLogin(String email, String password) throws UserNotFoundException, InvalidDetailsException {
         businessController.checkLoginDetails(email, password);
@@ -42,6 +44,19 @@ public class ViewControllerImpl implements ViewController {
             throws InvalidDetailsException, AlreadyExistingUserException {
         businessController.registerNewUser(email, userName, password, password2);
     }
+
+    @Override
+    public void userUpdate(String newEmail, String newName, String newPassword)
+            throws InvalidDetailsException, UserNotFoundException, AlreadyExistingUserException {
+        businessController.updateUser(newEmail, newName, newPassword);
+    }
+
+    @Override
+    public void userDelete() throws UserNotFoundException {
+        businessController.deleteUser();
+    }
+
+    /*-------------------- Documents */
 
     @Override
     public DocumentsCollection getCurrentUserDocuments() {

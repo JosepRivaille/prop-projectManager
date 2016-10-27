@@ -84,13 +84,25 @@ public class BusinessControllerImpl implements BusinessController {
     }
 
     @Override
+    public void updateUser(String newEmail, String newName, String newPassword)
+            throws InvalidDetailsException, UserNotFoundException, AlreadyExistingUserException {
+        User user = usersManager.register(newEmail, newName, newPassword, newPassword);
+        persistenceController.updateUser(usersManager.getCurrentUser(), user);
+        usersManager.setCurrentUser(user);
+    }
+
+    @Override
+    public void deleteUser() throws UserNotFoundException {
+        User user = usersManager.getCurrentUser();
+        persistenceController.deleteUser(user);
+    }
+
+    @Override
     public DocumentsCollection getCurrentUserDocuments() {
         //User user = this.usersManager.getCurrentUser();
         //return this.searchDocument.filterByUser(this.documentsCollection, user);
         return new DocumentsCollection();
     }
-
-
 
     @Override
     public boolean storeNewDocument(Document document) {

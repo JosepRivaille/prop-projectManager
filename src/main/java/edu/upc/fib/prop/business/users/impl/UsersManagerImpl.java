@@ -22,7 +22,7 @@ public class UsersManagerImpl implements UsersManager {
 
     @Override
     public User register(String email, String name, String password, String password2) throws InvalidDetailsException {
-        if (!email.equals("") && !email.equals("") && !password.equals("") && !password2.equals("")) {
+        if (!email.equals("") && !name.equals("") && !password.equals("") && !password2.equals("")) {
             if (email.matches(Constants.EMAIL_REGEX)) {
                 if (password.equals(password2)) {
                     try {
@@ -39,14 +39,15 @@ public class UsersManagerImpl implements UsersManager {
 
     @Override
     public void login(String email, String password) throws InvalidDetailsException {
-        if (email.equals("") || password.equals("") || email.matches(Constants.EMAIL_REGEX)) {
+        if (email.equals("") || password.equals("") || !email.matches(Constants.EMAIL_REGEX)) {
             throw new InvalidDetailsException();
         }
     }
 
     @Override
     public void editAccount(String newEmail, String newName, String newPassword) throws InvalidDetailsException {
-        if (newEmail.equals("") || newName.equals("") || newPassword.equals("")) {
+        if (newEmail.equals("") || newName.equals("") || newPassword.equals("")
+                || !newEmail.matches(Constants.EMAIL_REGEX)) {
             throw new InvalidDetailsException();
         }
     }

@@ -27,4 +27,8 @@ public interface PersistenceController {
     void createUser(User user) throws AlreadyExistingUserException;
 
     User loginUser(String email, String password) throws UserNotFoundException, InvalidDetailsException;
+
+    void updateUser(User currentUser, User newUser) throws UserNotFoundException, AlreadyExistingUserException;
+
+    void deleteUser(User user) throws UserNotFoundException;
 }
