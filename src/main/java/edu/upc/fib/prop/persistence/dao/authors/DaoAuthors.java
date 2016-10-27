@@ -10,6 +10,6 @@ public interface DaoAuthors {
      * Gets all authors stored in persistence.
      * @return Set of all authors.
      */
-    AuthorsCollection getAllAuthors();
+    AuthorsCollection getAllAuthors(Connection c);
 
 }

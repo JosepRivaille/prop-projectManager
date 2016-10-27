@@ -11,6 +11,7 @@ import edu.upc.fib.prop.models.User;
 import edu.upc.fib.prop.persistence.controllers.PersistenceController;
 import edu.upc.fib.prop.persistence.dao.authors.DaoAuthors;
 import edu.upc.fib.prop.persistence.dao.authors.impl.DaoAuthorsImpl;
+import edu.upc.fib.prop.persistence.dao.documents.DaoDocuments;
 import edu.upc.fib.prop.persistence.dao.documents.impl.DaoDocumentsImpl;
 import edu.upc.fib.prop.persistence.dao.users.DaoUsers;
 import edu.upc.fib.prop.persistence.dao.users.impl.DaoUsersImpl;
@@ -26,7 +27,7 @@ import java.util.Set;
 public class PersistenceControllerImpl implements PersistenceController {
 
     private DaoAuthors daoAuthors;
-    private DaoDocumentsImpl daoDocuments;
+    private DaoDocuments daoDocuments;
     private DaoUsers daoUsers;
 
     private Connection c;
@@ -34,15 +35,15 @@ public class PersistenceControllerImpl implements PersistenceController {
     public PersistenceControllerImpl() {
         System.out.println("Initializing persistence controller");
         initializeDB();
-        daoAuthors = new DaoAuthorsImpl(c);
-        daoDocuments = new DaoDocumentsImpl(c);
-        daoUsers = new DaoUsersImpl(c);
+        daoAuthors = new DaoAuthorsImpl();
+        daoDocuments = new DaoDocumentsImpl();
+        daoUsers = new DaoUsersImpl();
     }
 
     @Override
     public AuthorsCollection getAuthors() {
         openConnection();
-        AuthorsCollection authorsCollection = daoAuthors.getAllAuthors();
+        AuthorsCollection authorsCollection = daoAuthors.getAllAuthors(c);
         closeConnection();
         return authorsCollection;
     }
@@ -50,7 +51,7 @@ public class PersistenceControllerImpl implements PersistenceController {
     @Override
     public DocumentsCollection getDocuments() {
         openConnection();
-        DocumentsCollection documentsCollection = daoDocuments.getAllDocuments();
+        DocumentsCollection documentsCollection = daoDocuments.getAllDocuments(c);
         closeConnection();
         return documentsCollection;
     }
@@ -62,13 +63,17 @@ public class PersistenceControllerImpl implements PersistenceController {
 
     @Override
     public void writeNewDocument(Document document) throws AlreadyExistingDocumentException {
-        daoDocuments.addNewDocument(document);
+        openConnection();
+        daoDocuments.addNewDocument(c, document);
+        closeConnection();
     }
 
     @Override
     public void createUser(User user) throws AlreadyExistingUserException {
         try {
-            daoUsers.registerNewUser(user);
+            openConnection();
+            daoUsers.registerNewUser(c, user);
+            closeConnection();
         } catch (SQLException e) {
             throw new AlreadyExistingUserException();
         }
@@ -77,7 +82,10 @@ public class PersistenceControllerImpl implements PersistenceController {
     @Override
     public User loginUser(String email, String password) throws UserNotFoundException, InvalidDetailsException {
         try {
-            return daoUsers.checkDetails(email, password);
+            openConnection();
+            User user = daoUsers.checkDetails(c, email, password);
+            closeConnection();
+            return user;
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
@@ -119,14 +127,14 @@ public class PersistenceControllerImpl implements PersistenceController {
 
             c.commit();
             System.out.println("DB initialized successfully");
-
+            /*
             statement = c.createStatement();
             sql = FileUtils.readFile("src/main/resources/sql/dbFiller.sql");
             statement.executeUpdate(sql);
             statement.close();
 
             c.commit();
-            System.out.println("DB filled successfully");
+            System.out.println("DB filled successfully");*/
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -31,7 +31,7 @@ public class DaoDocumentsTest {
         try {
             Class.forName(Constants.JDBC_DRIVER);
             c = DriverManager.getConnection(Constants.DB_TEST);
-            daoDocuments = new DaoDocumentsImpl(c);
+            daoDocuments = new DaoDocumentsImpl();
 
             Statement statement = c.createStatement();
             String sql = FileUtils.readFile("src/main/resources/sql/dbInitializer.sql");
@@ -61,7 +61,7 @@ public class DaoDocumentsTest {
 
     @Test
     public void test_whenGetAllDocuments_withDefaultSQL_thenReturnExpectedCollection() {
-        DocumentsCollection documentsCollection = daoDocuments.getAllDocuments();
+        DocumentsCollection documentsCollection = daoDocuments.getAllDocuments(c);
 
         assertTrue(documentsCollection.getDocuments().size() == 10);
     }
@@ -79,7 +79,7 @@ public class DaoDocumentsTest {
         Document document = new Document(title, author, user, content);
         document.setTermFrequency(termFrequency);
 
-        daoDocuments.addNewDocument(document);
+        daoDocuments.addNewDocument(c, document);
     }
 
     @Test
@@ -93,8 +93,8 @@ public class DaoDocumentsTest {
         Document document = new Document(title, author, user, content);
         document.setTermFrequency(termFrequency);
 
-        daoDocuments.addNewDocument(document);
-        assertTrue(daoDocuments.getAllDocuments().getDocuments().size() == 11);
+        daoDocuments.addNewDocument(c, document);
+        assertTrue(daoDocuments.getAllDocuments(c).getDocuments().size() == 11);
     }
 
 }

@@ -12,14 +12,8 @@ import java.sql.Statement;
 
 public class DaoUsersImpl implements DaoUsers {
 
-    private Connection c;
-
-    public DaoUsersImpl(Connection c) {
-        this.c = c;
-    }
-
     @Override
-    public void registerNewUser(User user) throws SQLException {
+    public void registerNewUser(Connection c, User user) throws SQLException {
         Statement statement = c.createStatement();
         String sql = "INSERT INTO users VALUES ('" +
                 user.getEmail() + "', '" + user.getName() + "', '" + user.getPassword() + "', 0);";
@@ -30,7 +24,7 @@ public class DaoUsersImpl implements DaoUsers {
     }
 
     @Override
-    public User checkDetails(String email, String password) throws UserNotFoundException, InvalidDetailsException, SQLException {
+    public User checkDetails(Connection c, String email, String password) throws UserNotFoundException, InvalidDetailsException, SQLException {
         Statement statement = c.createStatement();
         String sql = "SELECT * FROM users WHERE email = '" + email + "';";
         ResultSet rs = statement.executeQuery(sql);
@@ -49,7 +43,7 @@ public class DaoUsersImpl implements DaoUsers {
     }
 
     @Override
-    public void updateUser(String oldEmail, User updatedUser) throws UserNotFoundException, SQLException {
+    public void updateUser(Connection c, String oldEmail, User updatedUser) throws UserNotFoundException, SQLException {
         Statement statement = c.createStatement();
         String sql =
                 "UPDATE users " +
@@ -62,7 +56,7 @@ public class DaoUsersImpl implements DaoUsers {
     }
 
     @Override
-    public void deleteUser(User user) throws UserNotFoundException, SQLException {
+    public void deleteUser(Connection c, User user) throws UserNotFoundException, SQLException {
         Statement statement = c.createStatement();
         String sql = "DELETE FROM users WHERE email = '" + user.getEmail() + "';";
         int deleted = statement.executeUpdate(sql);

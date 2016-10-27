@@ -27,7 +27,7 @@ public class DaoAuthorsTest {
         try {
             Class.forName(Constants.JDBC_DRIVER);
             c = DriverManager.getConnection(Constants.DB_TEST);
-            daoAuthors = new DaoAuthorsImpl(c);
+            daoAuthors = new DaoAuthorsImpl();
 
             Statement statement = c.createStatement();
             String sql = FileUtils.readFile("src/main/resources/sql/dbInitializer.sql");
@@ -55,7 +55,7 @@ public class DaoAuthorsTest {
 
     @Test
     public void test_whenGetAllAuthors_withDefaultSQL_thenReturnExpectedCollection() {
-        AuthorsCollection authorsCollection = daoAuthors.getAllAuthors();
+        AuthorsCollection authorsCollection = daoAuthors.getAllAuthors(c);
         assertTrue(authorsCollection.getAuthors().size() == 9);
     }
 

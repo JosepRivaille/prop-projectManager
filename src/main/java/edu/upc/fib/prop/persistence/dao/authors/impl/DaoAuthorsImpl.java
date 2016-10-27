@@ -11,13 +11,7 @@ import java.sql.Statement;
 
 public class DaoAuthorsImpl implements DaoAuthors {
 
-    private Connection c;
-
-    public DaoAuthorsImpl(Connection c) {
-        this.c = c;
-    }
-
-    public AuthorsCollection getAllAuthors() {
+    public AuthorsCollection getAllAuthors(Connection c) {
         AuthorsCollection authorsCollection = new AuthorsCollection();
         try {
             Statement statement = c.createStatement();

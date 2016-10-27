@@ -31,7 +31,7 @@ public class DaoUsersTest {
         try {
             Class.forName(Constants.JDBC_DRIVER);
             c = DriverManager.getConnection(Constants.DB_TEST);
-            daoUsers = new DaoUsersImpl(c);
+            daoUsers = new DaoUsersImpl();
 
             Statement statement = c.createStatement();
             String sql = FileUtils.readFile("src/main/resources/sql/dbInitializer.sql");
@@ -66,7 +66,7 @@ public class DaoUsersTest {
         String password = "123456";
         User user = new User(email, name, password);
 
-        daoUsers.registerNewUser(user);
+        daoUsers.registerNewUser(c, user);
     }
 
     @Test
@@ -76,7 +76,7 @@ public class DaoUsersTest {
         String password = "123456";
         User user = new User(email, name, password);
 
-        daoUsers.registerNewUser(user);
+        daoUsers.registerNewUser(c, user);
     }
 
     /*-------------------- Login tests */
@@ -87,7 +87,7 @@ public class DaoUsersTest {
         String email = "bar@foo.com";
         String password = "123456";
 
-        daoUsers.checkDetails(email, password);
+        daoUsers.checkDetails(c, email, password);
     }
 
     @Test(expected = InvalidDetailsException.class)
@@ -96,7 +96,7 @@ public class DaoUsersTest {
         String email = "foo@bar.com";
         String password = "654321";
 
-        daoUsers.checkDetails(email, password);
+        daoUsers.checkDetails(c, email, password);
     }
 
     @Test
@@ -107,7 +107,7 @@ public class DaoUsersTest {
         String password = StringUtils.hashData("123456");
         User expectedUser = new User(email, name, password);
 
-        assertEquals(daoUsers.checkDetails(email, password), expectedUser);
+        assertEquals(daoUsers.checkDetails(c, email, password), expectedUser);
     }
 
     /*-------------------- Edit users tests */
@@ -121,7 +121,7 @@ public class DaoUsersTest {
         String newPassword = "123456";
         User newUser = new User(newEmail, newName, newPassword);
 
-        daoUsers.updateUser(oldEmail, newUser);
+        daoUsers.updateUser(c, oldEmail, newUser);
     }
 
     @Test(expected = UserNotFoundException.class)
@@ -133,7 +133,7 @@ public class DaoUsersTest {
         String newPassword = "123456";
         User newUser = new User(newEmail, newName, newPassword);
 
-        daoUsers.updateUser(oldEmail, newUser);
+        daoUsers.updateUser(c, oldEmail, newUser);
     }
 
     @Test
@@ -144,7 +144,7 @@ public class DaoUsersTest {
         String newPassword = "123456";
         User newUser = new User(newEmail, newName, newPassword);
 
-        daoUsers.updateUser(oldEmail, newUser);
+        daoUsers.updateUser(c, oldEmail, newUser);
     }
 
     /*-------------------- Delete users tests */
@@ -153,14 +153,14 @@ public class DaoUsersTest {
     public void test_whenDeleteUser_withNonExistingUser_thenDeleteUser()throws UserNotFoundException, SQLException {
         String email = "fake@fib.upc.edu";
         User user = new User(email, "any", "any");
-        daoUsers.deleteUser(user);
+        daoUsers.deleteUser(c, user);
     }
 
     @Test
     public void test_whenDeleteUser_withExistingUser_thenDeleteUser()throws UserNotFoundException, SQLException {
         String email = "admin@fib.upc.edu";
         User user = new User(email, "any", "any");
-        daoUsers.deleteUser(user);
+        daoUsers.deleteUser(c, user);
     }
 
 }

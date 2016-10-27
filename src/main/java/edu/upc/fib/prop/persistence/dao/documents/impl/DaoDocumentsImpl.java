@@ -16,11 +16,7 @@ public class DaoDocumentsImpl implements DaoDocuments {
 
     private Connection c;
 
-    public DaoDocumentsImpl(Connection c) {
-        this.c = c;
-    }
-
-    public DocumentsCollection getAllDocuments() {
+    public DocumentsCollection getAllDocuments(Connection c) {
         DocumentsCollection documentsCollection = new DocumentsCollection();
         try {
             Statement statement = c.createStatement();
@@ -39,7 +35,7 @@ public class DaoDocumentsImpl implements DaoDocuments {
         return documentsCollection;
     }
 
-    public void addNewDocument(Document document) throws AlreadyExistingDocumentException {
+    public void addNewDocument(Connection c, Document document) throws AlreadyExistingDocumentException {
         String title = document.getTitle();
         String author = document.getAuthor();
         String content = document.getContent();
