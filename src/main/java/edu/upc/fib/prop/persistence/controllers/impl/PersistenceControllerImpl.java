@@ -94,13 +94,9 @@ public class PersistenceControllerImpl implements PersistenceController {
 
     @Override
     public void updateUser(User currentUser, User newUser) throws UserNotFoundException, AlreadyExistingUserException {
-        try {
-            openConnection();
-            daoUsers.updateUser(c, currentUser.getEmail(), newUser);
-            closeConnection();
-        } catch (SQLException e) {
-            throw new AlreadyExistingUserException();
-        }
+        openConnection();
+        daoUsers.updateUser(c, currentUser.getEmail(), newUser);
+        closeConnection();
     }
 
     @Override

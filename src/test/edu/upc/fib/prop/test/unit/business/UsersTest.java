@@ -3,15 +3,15 @@ package edu.upc.fib.prop.test.unit.business;
 import edu.upc.fib.prop.business.users.UsersManager;
 import edu.upc.fib.prop.business.users.impl.UsersManagerImpl;
 import edu.upc.fib.prop.exceptions.InvalidDetailsException;
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
 
 public class UsersTest {
 
-    private static UsersManager usersManager;
+    private UsersManager usersManager;
 
-    @BeforeClass
-    public static void setup() {
+    @Before
+    public void setup() {
         usersManager = new UsersManagerImpl();
     }
 

@@ -1,5 +1,6 @@
 package edu.upc.fib.prop.test.unit.persistence;
 
+import edu.upc.fib.prop.exceptions.AlreadyExistingUserException;
 import edu.upc.fib.prop.exceptions.InvalidDetailsException;
 import edu.upc.fib.prop.exceptions.UserNotFoundException;
 import edu.upc.fib.prop.models.User;
@@ -8,8 +9,8 @@ import edu.upc.fib.prop.persistence.dao.users.impl.DaoUsersImpl;
 import edu.upc.fib.prop.utils.Constants;
 import edu.upc.fib.prop.utils.FileUtils;
 import edu.upc.fib.prop.utils.StringUtils;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
@@ -23,11 +24,11 @@ import static org.junit.Assert.assertEquals;
 
 public class DaoUsersTest {
 
-    private static Connection c;
-    private static DaoUsers daoUsers;
+    private Connection c;
+    private DaoUsers daoUsers;
 
-    @BeforeClass
-    public static void setUpTableAndDB() {
+    @Before
+    public  void setUpTableAndDB() {
         try {
             Class.forName(Constants.JDBC_DRIVER);
             c = DriverManager.getConnection(Constants.DB_TEST);
@@ -45,8 +46,8 @@ public class DaoUsersTest {
         }
     }
 
-    @AfterClass
-    public static void dropDB() {
+    @After
+    public void dropDB() {
         File f = new File("test.db");
         boolean deleted = f.delete();
         System.out.println("File deleted: " + deleted);
@@ -82,7 +83,7 @@ public class DaoUsersTest {
     /*-------------------- Login tests */
 
     @Test(expected = UserNotFoundException.class)
-    public void test_whenCheckDetails_withUnexistingUser_thenDoNotLogin()
+    public void test_whenCheckDetails_withNonExistingUser_thenDoNotLogin()
             throws UserNotFoundException, SQLException, InvalidDetailsException {
         String email = "bar@foo.com";
         String password = "123456";
@@ -93,7 +94,7 @@ public class DaoUsersTest {
     @Test(expected = InvalidDetailsException.class)
     public void test_whenCheckDetails_withNonMatchingDetails_thenDoNotLogin()
             throws UserNotFoundException, InvalidDetailsException, SQLException {
-        String email = "foo@bar.com";
+        String email = "admin@fib.upc.edu";
         String password = "654321";
 
         daoUsers.checkDetails(c, email, password);
@@ -114,7 +115,7 @@ public class DaoUsersTest {
 
     @Test(expected = UserNotFoundException.class)
     public void test_whenUpdateUser_withNonExistingOldEmail_thenDoNotUpdateUser()
-            throws UserNotFoundException, SQLException {
+            throws UserNotFoundException, AlreadyExistingUserException {
         String oldEmail = "fake@foo.com";
         String newEmail = "foo@bar.com";
         String newName = "Foo";
@@ -124,9 +125,9 @@ public class DaoUsersTest {
         daoUsers.updateUser(c, oldEmail, newUser);
     }
 
-    @Test(expected = UserNotFoundException.class)
+    @Test(expected = AlreadyExistingUserException.class)
     public void test_whenUpdateUser_withAlreadyExistingNewEmail_thenDoNotUpdateUser()
-            throws UserNotFoundException, SQLException {
+            throws UserNotFoundException, AlreadyExistingUserException {
         String oldEmail = "user@fib.upc.edu";
         String newEmail = "admin@fib.upc.edu";
         String newName = "Foo";
@@ -137,7 +138,8 @@ public class DaoUsersTest {
     }
 
     @Test
-    public void test_whenUpdateUser_withValidDetails_thenUpdateUser() throws UserNotFoundException, SQLException {
+    public void test_whenUpdateUser_withValidDetails_thenUpdateUser()
+            throws UserNotFoundException, AlreadyExistingUserException {
         String oldEmail = "user@fib.upc.edu";
         String newEmail = "fake@fib.upc.edu";
         String newName = "Foo";
@@ -149,8 +151,8 @@ public class DaoUsersTest {
 
     /*-------------------- Delete users tests */
 
-    @Test
-    public void test_whenDeleteUser_withNonExistingUser_thenDeleteUser()throws UserNotFoundException, SQLException {
+    @Test(expected = UserNotFoundException.class)
+    public void test_whenDeleteUser_withNonExistingUser_thenDoNotDeleteUser()throws UserNotFoundException, SQLException {
         String email = "fake@fib.upc.edu";
         User user = new User(email, "any", "any");
         daoUsers.deleteUser(c, user);

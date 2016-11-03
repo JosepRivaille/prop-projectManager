@@ -1,9 +1,11 @@
 package edu.upc.fib.prop.persistence.dao.users.impl;
 
+import edu.upc.fib.prop.exceptions.AlreadyExistingUserException;
 import edu.upc.fib.prop.exceptions.InvalidDetailsException;
 import edu.upc.fib.prop.exceptions.UserNotFoundException;
 import edu.upc.fib.prop.models.User;
 import edu.upc.fib.prop.persistence.dao.users.DaoUsers;
+import edu.upc.fib.prop.utils.Constants;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -43,16 +45,29 @@ public class DaoUsersImpl implements DaoUsers {
     }
 
     @Override
-    public void updateUser(Connection c, String oldEmail, User updatedUser) throws UserNotFoundException, SQLException {
-        Statement statement = c.createStatement();
-        String sql =
-                "UPDATE users " +
-                        "SET email = '" + updatedUser.getEmail() + "', user_name = '" + updatedUser.getName() + "', password = '" + updatedUser.getPassword() + "' " +
-                        "WHERE email = '" + oldEmail + "';";
-        int updated = statement.executeUpdate(sql);
-        if (updated != 1)
-            throw new UserNotFoundException();
-        statement.close();
+    public void updateUser(Connection c, String oldEmail, User updatedUser)
+            throws UserNotFoundException, AlreadyExistingUserException {
+        Statement statement = null;
+        try {
+            statement = c.createStatement();
+            String sql =
+                    "UPDATE users SET email = '" + updatedUser.getEmail() + "', user_name = '" + updatedUser.getName() +
+                            "', password = '" + updatedUser.getPassword() + "' WHERE email = '" + oldEmail + "';";
+            int updated = statement.executeUpdate(sql);
+            if (updated != 1) {
+                throw new UserNotFoundException();
+            }
+        } catch (SQLException e) {
+            throw new AlreadyExistingUserException();
+        } finally {
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
