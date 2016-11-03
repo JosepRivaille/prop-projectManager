@@ -70,7 +70,7 @@ public class BusinessControllerImpl implements BusinessController {
     @Override
     public void checkLoginDetails(String email, String password)
             throws InvalidDetailsException, UserNotFoundException {
-        usersManager.login(email, password);
+        password = usersManager.login(email, password);
         User user = persistenceController.loginUser(email, password);
         usersManager.setCurrentUser(user);
     }
@@ -99,13 +99,13 @@ public class BusinessControllerImpl implements BusinessController {
 
     @Override
     public DocumentsCollection getCurrentUserDocuments() {
-        //User user = this.usersManager.getCurrentUser();
-        //return this.searchDocument.filterByUser(this.documentsCollection, user);
-        return new DocumentsCollection();
+        String user = this.usersManager.getCurrentUser().getEmail();
+        return this.searchDocument.filterByUser(this.documentsCollection, user);
     }
 
     @Override
     public boolean storeNewDocument(Document document) {
+        document.setUser(usersManager.getCurrentUser().getEmail());
         documentAnalyser.setDocument(document);
         if (documentAnalyser.checkCorrectData()) {
             documentAnalyser.calculateDocumentParameters();

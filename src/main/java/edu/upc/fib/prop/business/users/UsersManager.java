@@ -7,7 +7,7 @@ public interface UsersManager {
 
     User register(String email, String name, String password, String password2) throws InvalidDetailsException;
 
-    void login(String email, String password) throws InvalidDetailsException;
+    String login(String email, String password) throws InvalidDetailsException;
 
     User getCurrentUser();
 

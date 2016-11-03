@@ -38,8 +38,13 @@ public class UsersManagerImpl implements UsersManager {
     }
 
     @Override
-    public void login(String email, String password) throws InvalidDetailsException {
+    public String login(String email, String password) throws InvalidDetailsException {
         if (email.equals("") || password.equals("") || !email.matches(Constants.EMAIL_REGEX)) {
+            throw new InvalidDetailsException();
+        }
+        try {
+            return StringUtils.hashData(password);
+        } catch (NoSuchAlgorithmException e) {
             throw new InvalidDetailsException();
         }
     }

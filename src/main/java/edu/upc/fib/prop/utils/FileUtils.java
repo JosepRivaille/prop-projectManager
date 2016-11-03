@@ -1,5 +1,7 @@
 package edu.upc.fib.prop.utils;
 
+import edu.upc.fib.prop.exceptions.DocumentNotFoundException;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -42,4 +44,30 @@ public class FileUtils {
         return excludedWords;
     }
 
+    public static String readDocument(String documentTitle) throws DocumentNotFoundException {
+        BufferedReader bufferedReader = null;
+        try {
+            bufferedReader = new BufferedReader(new FileReader("/src/main/resources/documents/" + documentTitle));
+            StringBuilder sb = new StringBuilder();
+            String line = bufferedReader.readLine();
+
+            while (line != null) {
+                sb.append(line);
+                sb.append(System.lineSeparator());
+                line = bufferedReader.readLine();
+            }
+            return sb.toString();
+
+        } catch (IOException e) {
+            throw new DocumentNotFoundException();
+        } finally {
+            try {
+                if (bufferedReader != null) {
+                    bufferedReader.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }

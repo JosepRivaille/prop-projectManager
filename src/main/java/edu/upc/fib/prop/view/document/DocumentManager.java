@@ -1,7 +1,9 @@
 package edu.upc.fib.prop.view.document;
 
+import edu.upc.fib.prop.exceptions.DocumentNotFoundException;
 import edu.upc.fib.prop.models.Document;
 import edu.upc.fib.prop.models.DocumentsCollection;
+import edu.upc.fib.prop.utils.FileUtils;
 import javafx.util.Pair;
 
 import java.util.Scanner;
@@ -13,6 +15,10 @@ public class DocumentManager {
     private Scanner scan = new Scanner(System.in);
 
     public DocumentManager(DocumentsCollection documentsCollection) {
+        this.documentsCollection = documentsCollection;
+    }
+
+    public void setDocumentsCollection(DocumentsCollection documentsCollection) {
         this.documentsCollection = documentsCollection;
     }
 
@@ -31,7 +37,13 @@ public class DocumentManager {
         int documentSelected = scan.nextInt() - 1;
         Document document = documentsCollection.getDocuments().get(documentSelected);
         System.out.println(document.getTitle().toUpperCase() + " | " + document.getAuthor().toUpperCase());
-        System.out.println(document.getContent());
+        String documentFileName = document.getContent();
+        try {
+            String documentContent = FileUtils.readDocument(documentFileName);
+            System.out.println(documentContent);
+        } catch (DocumentNotFoundException e) {
+            System.out.println("Document not found in docs folder.");
+        }
     }
 
     public Pair<String, Document> updateDocument() {

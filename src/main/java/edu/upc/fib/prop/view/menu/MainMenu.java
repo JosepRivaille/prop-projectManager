@@ -26,11 +26,12 @@ public class MainMenu {
 
     public MainMenu(ViewController viewController) {
         this.viewController = viewController;
-        DocumentsCollection myDocuments = this.viewController.getCurrentUserDocuments();
-        documentManager = new DocumentManager(myDocuments);
         MenuTree menuTree = buildMenu();
-        if (accountManagement())
+        if (accountManagement()) {
+            DocumentsCollection myDocuments = this.viewController.getCurrentUserDocuments();
+            documentManager = new DocumentManager(myDocuments);
             displayMenuOptions(menuTree);
+        }
         printHeader("CLOSING APP");
     }
 
@@ -207,6 +208,8 @@ public class MainMenu {
             case "CreateDocument":
                 Document document = documentManager.createDocument();
                 viewController.storeNewDocument(document);
+                DocumentsCollection myDocuments = this.viewController.getCurrentUserDocuments();
+                documentManager.setDocumentsCollection(myDocuments);
                 break;
             case "ReadDocument":
                 documentManager.readDocument();
@@ -214,10 +217,14 @@ public class MainMenu {
             case "UpdateDocument":
                 Pair<String, Document> updatedDocument = documentManager.updateDocument();
                 viewController.updateDocument(updatedDocument);
+                myDocuments = this.viewController.getCurrentUserDocuments();
+                documentManager.setDocumentsCollection(myDocuments);
                 break;
             case "DeleteDocument":
                 document = documentManager.deleteDocument();
                 viewController.deleteDocument(document);
+                myDocuments = this.viewController.getCurrentUserDocuments();
+                documentManager.setDocumentsCollection(myDocuments);
                 break;
         }
     }

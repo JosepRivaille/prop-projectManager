@@ -16,9 +16,9 @@ public interface SearchDocument {
     /**
      * Filter documents by the user owner.
      * @param documentsCollection Set of all documents.
-     * @param user User to check owned documents.
+     * @param email User to check owned documents.
      * @return Set of matching documents.
      */
-    DocumentsCollection filterByUser(DocumentsCollection documentsCollection, User user);
+    DocumentsCollection filterByUser(DocumentsCollection documentsCollection, String email);
 
 }

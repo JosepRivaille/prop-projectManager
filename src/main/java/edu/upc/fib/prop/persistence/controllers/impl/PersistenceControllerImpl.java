@@ -116,7 +116,7 @@ public class PersistenceControllerImpl implements PersistenceController {
         try {
             Class.forName(Constants.JDBC_DRIVER);
             this.c = DriverManager.getConnection(Constants.DB_DEVELOPMENT);
-            System.out.println("Opened database connection...");
+            //System.out.println("Opened database connection...");
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
@@ -125,7 +125,7 @@ public class PersistenceControllerImpl implements PersistenceController {
     private void closeConnection() {
         try {
             this.c.close();
-            System.out.println("Closed database connection...");
+            //System.out.println("Closed database connection...");
         } catch (SQLException e) {
             e.printStackTrace();
         }
