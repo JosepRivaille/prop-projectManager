@@ -1,5 +1,7 @@
 package edu.upc.fib.prop.business.search;
 
+import edu.upc.fib.prop.exceptions.DocumentNotFoundException;
+import edu.upc.fib.prop.models.Document;
 import edu.upc.fib.prop.models.DocumentsCollection;
 import edu.upc.fib.prop.models.User;
 
@@ -21,4 +23,6 @@ public interface SearchDocument {
      */
     DocumentsCollection filterByUser(DocumentsCollection documentsCollection, String email);
 
+    Document filterByTitleAndAuthor(DocumentsCollection documentsCollection, String title, String authorName)
+            throws DocumentNotFoundException;
 }

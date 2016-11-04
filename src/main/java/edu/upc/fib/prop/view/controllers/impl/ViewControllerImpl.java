@@ -3,6 +3,7 @@ package edu.upc.fib.prop.view.controllers.impl;
 import edu.upc.fib.prop.business.controllers.BusinessController;
 import edu.upc.fib.prop.business.controllers.impl.BusinessControllerImpl;
 import edu.upc.fib.prop.exceptions.AlreadyExistingUserException;
+import edu.upc.fib.prop.exceptions.DocumentNotFoundException;
 import edu.upc.fib.prop.exceptions.InvalidDetailsException;
 import edu.upc.fib.prop.exceptions.UserNotFoundException;
 import edu.upc.fib.prop.models.AuthorsCollection;
@@ -30,6 +31,11 @@ public class ViewControllerImpl implements ViewController {
     @Override
     public DocumentsCollection getDocumentsByAuthorId(String authorName) {
         return this.businessController.searchDocumentsByAuthor(authorName);
+    }
+
+    @Override
+    public Document getDocumentByTitleAndAuthor(String title, String author) throws DocumentNotFoundException {
+        return this.businessController.searchDocumentsByTitleAndAuthor(title, author);
     }
 
     /*-------------------- Users */

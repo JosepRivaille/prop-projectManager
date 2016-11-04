@@ -1,24 +1,20 @@
 package edu.upc.fib.prop.business.controllers.impl;
 
-import edu.upc.fib.prop.business.users.UsersManager;
-import edu.upc.fib.prop.business.users.impl.UsersManagerImpl;
 import edu.upc.fib.prop.business.controllers.BusinessController;
 import edu.upc.fib.prop.business.documents.impl.DocumentAnalyserImpl;
-import edu.upc.fib.prop.exceptions.AlreadyExistingUserException;
-import edu.upc.fib.prop.exceptions.InvalidDetailsException;
-import edu.upc.fib.prop.exceptions.UserNotFoundException;
+import edu.upc.fib.prop.business.search.impl.SearchAuthorImpl;
+import edu.upc.fib.prop.business.search.impl.SearchDocumentImpl;
+import edu.upc.fib.prop.business.users.UsersManager;
+import edu.upc.fib.prop.business.users.impl.UsersManagerImpl;
+import edu.upc.fib.prop.exceptions.*;
 import edu.upc.fib.prop.models.AuthorsCollection;
 import edu.upc.fib.prop.models.Document;
 import edu.upc.fib.prop.models.DocumentsCollection;
-import edu.upc.fib.prop.business.search.impl.SearchAuthorImpl;
-import edu.upc.fib.prop.business.search.impl.SearchDocumentImpl;
-import edu.upc.fib.prop.exceptions.AlreadyExistingDocumentException;
 import edu.upc.fib.prop.models.User;
 import edu.upc.fib.prop.persistence.controllers.PersistenceController;
 import edu.upc.fib.prop.persistence.controllers.impl.PersistenceControllerImpl;
 import javafx.util.Pair;
 
-import java.sql.SQLException;
 import java.util.Set;
 
 public class BusinessControllerImpl implements BusinessController {
@@ -65,6 +61,12 @@ public class BusinessControllerImpl implements BusinessController {
     @Override
     public DocumentsCollection searchDocumentsByAuthor(String authorName) {
         return this.searchDocument.filterByAuthor(this.documentsCollection, authorName);
+    }
+
+    @Override
+    public Document searchDocumentsByTitleAndAuthor(String title, String authorName)
+            throws DocumentNotFoundException {
+        return this.searchDocument.filterByTitleAndAuthor(this.documentsCollection, title, authorName);
     }
 
     @Override

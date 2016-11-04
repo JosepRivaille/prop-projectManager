@@ -1,5 +1,7 @@
 package edu.upc.fib.prop.business.search.impl;
 
+import edu.upc.fib.prop.exceptions.DocumentNotFoundException;
+import edu.upc.fib.prop.models.Document;
 import edu.upc.fib.prop.models.DocumentsCollection;
 import edu.upc.fib.prop.business.search.SearchDocument;
 
@@ -19,5 +21,15 @@ public class SearchDocumentImpl implements SearchDocument {
                 document.getUser().equals(email))
                 .forEach(filteredDocuments::addDocument);
         return filteredDocuments;
+    }
+
+    @Override
+    public Document filterByTitleAndAuthor(DocumentsCollection documentsCollection, String title, String authorName) throws DocumentNotFoundException {
+        for (Document document : documentsCollection.getDocuments()) {
+            if (document.getTitle().equals(title) && document.getAuthor().equals(authorName)) {
+                return document;
+            }
+        }
+        throw new DocumentNotFoundException();
     }
 }

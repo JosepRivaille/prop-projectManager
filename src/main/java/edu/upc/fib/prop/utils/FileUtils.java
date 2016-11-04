@@ -47,7 +47,7 @@ public class FileUtils {
     public static String readDocument(String documentTitle) throws DocumentNotFoundException {
         BufferedReader bufferedReader = null;
         try {
-            bufferedReader = new BufferedReader(new FileReader("/src/main/resources/documents/" + documentTitle));
+            bufferedReader = new BufferedReader(new FileReader("src/main/resources/documents/" + documentTitle));
             StringBuilder sb = new StringBuilder();
             String line = bufferedReader.readLine();
 

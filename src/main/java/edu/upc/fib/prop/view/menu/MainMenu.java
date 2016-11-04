@@ -1,12 +1,14 @@
 package edu.upc.fib.prop.view.menu;
 
 import edu.upc.fib.prop.exceptions.AlreadyExistingUserException;
+import edu.upc.fib.prop.exceptions.DocumentNotFoundException;
 import edu.upc.fib.prop.exceptions.InvalidDetailsException;
 import edu.upc.fib.prop.exceptions.UserNotFoundException;
 import edu.upc.fib.prop.models.Author;
 import edu.upc.fib.prop.models.AuthorsCollection;
 import edu.upc.fib.prop.models.Document;
 import edu.upc.fib.prop.models.DocumentsCollection;
+import edu.upc.fib.prop.utils.FileUtils;
 import edu.upc.fib.prop.utils.MenuTree;
 import edu.upc.fib.prop.view.controllers.ViewController;
 import edu.upc.fib.prop.view.document.DocumentManager;
@@ -112,20 +114,23 @@ public class MainMenu {
 
         //Level 1.
         options = new ArrayList<>();
+        options.add("1. Search documents by title and author");
         options.add("1. Search documents by author");
-        options.add("2. Search documents by title and relevance");
+        options.add("2. Search documents by document and relevance");
         options.add("3. Search documents with boolean expression");
         options.add("4. Search documents with query");
         options.add("0. Back");
         root.addChild(new MenuTree("DOCUMENTS SEARCH", options, false));
 
         //Level 1.1
-        root.getChildren().get(0).addChild(new MenuTree("SearchAuthorPrefix", null, true));
+        root.getChildren().get(0).addChild(new MenuTree("SearchDocumentTitle", null, true));
         //Level 1.2
-        root.getChildren().get(0).addChild(new MenuTree("SearchDocumentsTitle", null, true));
+        root.getChildren().get(0).addChild(new MenuTree("SearchAuthorPrefix", null, true));
         //Level 1.3
-        root.getChildren().get(0).addChild(new MenuTree("SearchDocumentsExpression", null, true));
+        root.getChildren().get(0).addChild(new MenuTree("SearchDocumentsRelevance", null, true));
         //Level 1.4
+        root.getChildren().get(0).addChild(new MenuTree("SearchDocumentsExpression", null, true));
+        //Level 1.5
         root.getChildren().get(0).addChild(new MenuTree("SearchDocumentsQuery", null, true));
 
         //Level 2
@@ -168,6 +173,20 @@ public class MainMenu {
         AuthorsCollection authorsCollection;
         DocumentsCollection documentsCollection;
         switch (action) {
+            case "SearchDocumentTitle":
+                System.out.print("Type document title > ");
+                String documentTitle = scan.next();
+                System.out.print("Type author > ");
+                String authorName = scan.next();
+                try {
+                    Document matchingDocument = viewController.getDocumentByTitleAndAuthor(documentTitle, authorName);
+                    System.out.println(documentTitle.toUpperCase() + " - " + authorName);
+                    System.out.println(FileUtils.readDocument(matchingDocument.getContent()));
+                } catch (DocumentNotFoundException e) {
+                    System.out.println("No documents found!");
+                }
+
+                break;
             case "SearchAuthorPrefix":
                 System.out.print("Type prefix > ");
                 String prefix = scan.next();
@@ -181,7 +200,7 @@ public class MainMenu {
                     System.out.print("Type author id > ");
                     i = scan.nextInt();
                     if (i > 0 && i <= authorsCollection.getAuthors().size()) {
-                        String authorName = authorsCollection.getAuthors().get(i - 1).getName();
+                        authorName = authorsCollection.getAuthors().get(i - 1).getName();
                         printHeader("DOCUMENTS OF: " + authorName);
                         documentsCollection = viewController.getDocumentsByAuthorId(authorName);
                         i = 0;
@@ -193,7 +212,7 @@ public class MainMenu {
                         //TODO: Refactor prints and data showing to view classes
                         if (i > 0 && i <= documentsCollection.getDocuments().size()) {
                             Document document = documentsCollection.getDocuments().get(i - 1);
-                            String documentTitle = document.getTitle();
+                            documentTitle = document.getTitle();
                             String documentContent = document.getContent();
                             System.out.println(documentTitle);
                             for (i = 0; i < documentTitle.length(); i++)

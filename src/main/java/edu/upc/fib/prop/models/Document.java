@@ -15,9 +15,10 @@ public class Document {
         this.author = author;
         this.user = user;
         this.content = content;
-
         termFrequency = new TreeMap<>();
     }
+
+    public Document() {}
 
     public String getTitle() {
         return title;
