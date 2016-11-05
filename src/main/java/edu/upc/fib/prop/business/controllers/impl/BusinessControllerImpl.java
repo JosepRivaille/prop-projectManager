@@ -31,7 +31,7 @@ public class BusinessControllerImpl implements BusinessController {
     private DocumentAnalyserImpl documentAnalyser;
 
     public BusinessControllerImpl() {
-        System.out.println("Initializating business controller");
+        System.out.println("Initializing business controller");
 
         this.persistenceController = new PersistenceControllerImpl();
         this.searchAuthor = new SearchAuthorImpl();
@@ -98,19 +98,17 @@ public class BusinessControllerImpl implements BusinessController {
     }
 
     @Override
-    public boolean storeNewDocument(Document document) {
+    public void storeNewDocument(Document document) throws AlreadyExistingDocumentException {
         document.setUser(usersManager.getCurrentUser().getEmail());
         documentAnalyser.setDocument(document);
-        if (documentAnalyser.checkCorrectData()) {
+        if (documentAnalyser.isCorrectData()) {
             try {
                 documentAnalyser.calculateDocumentParameters();
                 persistenceController.writeNewDocument(documentAnalyser.getDocument());
-                return true;
-            } catch (AlreadyExistingDocumentException | SQLException | DocumentNotFoundException e) {
-                e.printStackTrace();
+            } catch (SQLException | DocumentNotFoundException e) {
+                throw new AlreadyExistingDocumentException();
             }
         }
-        return false;
     }
 
     @Override

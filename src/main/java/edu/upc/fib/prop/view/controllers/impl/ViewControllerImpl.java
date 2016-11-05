@@ -67,8 +67,9 @@ public class ViewControllerImpl implements ViewController {
     }
 
     @Override
-    public boolean storeNewDocument(Document document) {
-        return this.businessController.storeNewDocument(document);
+    public void storeNewDocument(Document document)
+            throws DocumentNotFoundException, AlreadyExistingDocumentException {
+        this.businessController.storeNewDocument(document);
     }
 
     @Override

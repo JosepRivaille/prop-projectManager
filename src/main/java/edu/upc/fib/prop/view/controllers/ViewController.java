@@ -6,8 +6,6 @@ import edu.upc.fib.prop.models.Document;
 import edu.upc.fib.prop.models.DocumentsCollection;
 import javafx.util.Pair;
 
-import java.sql.SQLException;
-
 public interface ViewController {
 
     AuthorsCollection getAuthorsWithPrefix(String authorPrefix) throws AuthorNotFoundException;
@@ -28,7 +26,7 @@ public interface ViewController {
 
     DocumentsCollection getCurrentUserDocuments();
 
-    boolean storeNewDocument(Document document);
+    void storeNewDocument(Document document) throws DocumentNotFoundException, AlreadyExistingDocumentException;
 
     boolean updateDocument(Pair<String, Document> updatedDocument);
 

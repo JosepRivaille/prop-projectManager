@@ -232,10 +232,11 @@ public class MainMenu {
 
             case "CreateDocument":
                 Document document = documentManager.createDocument();
-                if (viewController.storeNewDocument(document)) {
+                try {
+                    viewController.storeNewDocument(document);
                     this.documentManager.addDocumentToCollection(document);
                     System.out.println("Document created successfully.");
-                } else {
+                } catch (AlreadyExistingDocumentException | DocumentNotFoundException e) {
                     System.out.println("Document couldn't be created!");
                 }
                 DocumentsCollection myDocuments = this.viewController.getCurrentUserDocuments();

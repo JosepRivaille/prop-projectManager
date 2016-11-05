@@ -21,7 +21,7 @@ public interface DocumentAnalyser {
      * Checks if new document data is invalid in some way.
      * @return If document data is valid.
      */
-    boolean checkCorrectData();
+    boolean isCorrectData();
 
     /**
      * Calculates tf-idf of the document.
