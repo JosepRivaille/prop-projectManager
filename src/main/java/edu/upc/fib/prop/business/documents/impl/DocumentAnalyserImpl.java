@@ -1,8 +1,11 @@
 package edu.upc.fib.prop.business.documents.impl;
 
 import edu.upc.fib.prop.business.documents.DocumentAnalyser;
+import edu.upc.fib.prop.exceptions.DocumentNotFoundException;
 import edu.upc.fib.prop.models.Document;
 import edu.upc.fib.prop.models.DocumentsCollection;
+import edu.upc.fib.prop.utils.Constants;
+import edu.upc.fib.prop.utils.FileUtils;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -27,20 +30,20 @@ public class DocumentAnalyserImpl implements DocumentAnalyser {
     public boolean checkCorrectData() {
         return !this.document.getTitle().equals("")
                 && !this.document.getAuthor().equals("")
-                && !this.document.getContent().equals("")
-                && !this.document.getUser().equals("");
+                && !this.document.getContent().equals("");
     }
 
-    public void calculateDocumentParameters() {
+    public void calculateDocumentParameters() throws DocumentNotFoundException {
         this.document.setTermFrequency(calculateTermFrequency());
         this.documentsCollection.setInverseDocumentFrequency(calculateInverseDocumentFrequency());
     }
 
-    private Map<String, Float> calculateTermFrequency() {
-        String content = document.getContent();
+    private Map<String, Float> calculateTermFrequency() throws DocumentNotFoundException {
+        String contentFile = document.getContent();
+        String content = FileUtils.readDocument(contentFile);
         Float max = 1f;
         Map<String, Float> termFrequency = new TreeMap<>();
-        for (String word : content.split("\\s+")) {
+        for (String word : content.split(Constants.WORD_SEPARATION_REGEX)) {
             if (!termFrequency.containsKey(word)) {
                 termFrequency.put(word, 1f);
             } else {
@@ -60,7 +63,7 @@ public class DocumentAnalyserImpl implements DocumentAnalyser {
     private Map<String, Float> calculateInverseDocumentFrequency() {
         //Float documentsPerTerm = idf.get(word);
         //Float weight = (float) log(this.documentsCollection.getDocuments().size() / (1 + documentsPerTerm));
-        return new TreeMap<String, Float>();
+        return new TreeMap<>();
     }
 
 }

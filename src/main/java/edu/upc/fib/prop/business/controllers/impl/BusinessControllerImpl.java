@@ -16,7 +16,6 @@ import edu.upc.fib.prop.persistence.controllers.impl.PersistenceControllerImpl;
 import javafx.util.Pair;
 
 import java.sql.SQLException;
-import java.util.Set;
 
 public class BusinessControllerImpl implements BusinessController {
 
@@ -31,10 +30,6 @@ public class BusinessControllerImpl implements BusinessController {
     private UsersManager usersManager;
     private DocumentAnalyserImpl documentAnalyser;
 
-    private Set<String> excludedWordsCat;
-    private Set<String> excludedWordsEng;
-    private Set<String> excludedWordsEsp;
-
     public BusinessControllerImpl() {
         System.out.println("Initializating business controller");
 
@@ -48,10 +43,6 @@ public class BusinessControllerImpl implements BusinessController {
 
         this.usersManager = new UsersManagerImpl();
         this.documentAnalyser = new DocumentAnalyserImpl(this.documentsCollection);
-
-        this.excludedWordsCat = this.persistenceController.getExcludedWords("cat");
-        this.excludedWordsEng = this.persistenceController.getExcludedWords("eng");
-        this.excludedWordsEsp = this.persistenceController.getExcludedWords("esp");
     }
 
     @Override
@@ -111,11 +102,11 @@ public class BusinessControllerImpl implements BusinessController {
         document.setUser(usersManager.getCurrentUser().getEmail());
         documentAnalyser.setDocument(document);
         if (documentAnalyser.checkCorrectData()) {
-            documentAnalyser.calculateDocumentParameters();
             try {
+                documentAnalyser.calculateDocumentParameters();
                 persistenceController.writeNewDocument(documentAnalyser.getDocument());
                 return true;
-            } catch (AlreadyExistingDocumentException | SQLException e) {
+            } catch (AlreadyExistingDocumentException | SQLException | DocumentNotFoundException e) {
                 e.printStackTrace();
             }
         }

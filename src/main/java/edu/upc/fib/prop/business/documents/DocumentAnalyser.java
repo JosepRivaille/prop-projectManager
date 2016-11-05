@@ -1,5 +1,6 @@
 package edu.upc.fib.prop.business.documents;
 
+import edu.upc.fib.prop.exceptions.DocumentNotFoundException;
 import edu.upc.fib.prop.models.Document;
 
 public interface DocumentAnalyser {
@@ -25,6 +26,6 @@ public interface DocumentAnalyser {
     /**
      * Calculates tf-idf of the document.
      */
-    void calculateDocumentParameters();
+    void calculateDocumentParameters() throws DocumentNotFoundException;
 
 }

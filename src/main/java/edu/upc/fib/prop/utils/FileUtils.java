@@ -3,6 +3,7 @@ package edu.upc.fib.prop.utils;
 import edu.upc.fib.prop.exceptions.DocumentNotFoundException;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Set;
@@ -69,5 +70,11 @@ public class FileUtils {
                 e.printStackTrace();
             }
         }
+    }
+
+    public static void createDocument(String fileName, String content) {
+        File f = new File("test.db");
+        boolean deleted = f.delete();
+        System.out.println("File deleted: " + deleted);
     }
 }
