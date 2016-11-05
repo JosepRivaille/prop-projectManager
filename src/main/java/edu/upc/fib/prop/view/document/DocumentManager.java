@@ -4,6 +4,7 @@ import edu.upc.fib.prop.exceptions.DocumentNotFoundException;
 import edu.upc.fib.prop.models.Document;
 import edu.upc.fib.prop.models.DocumentsCollection;
 import edu.upc.fib.prop.utils.FileUtils;
+import edu.upc.fib.prop.utils.IOUtils;
 import javafx.util.Pair;
 
 import java.util.Scanner;
@@ -23,13 +24,10 @@ public class DocumentManager {
     }
 
     public Document createDocument() {
-        System.out.print("Title > ");
-        String title = scan.next();
-        System.out.print("Author > ");
-        String author = scan.next();
-        System.out.print("Content > ");
-        String content = scan.next();
-        return new Document(title, author, content, null);
+        String title = IOUtils.askForString("Title");
+        String author = IOUtils.askForString("Author");
+        String content = IOUtils.askForString("Content file");
+        return new Document(title, author, content);
     }
 
     public void readDocument() {

@@ -20,6 +20,12 @@ public class Document {
 
     public Document() {}
 
+    public Document(String title, String author, String content) {
+        this.title = title;
+        this.author = author;
+        this.content = content;
+    }
+
     public String getTitle() {
         return title;
     }

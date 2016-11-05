@@ -1,12 +1,9 @@
 package edu.upc.fib.prop.persistence.controllers.impl;
 
-import edu.upc.fib.prop.exceptions.AlreadyExistingUserException;
-import edu.upc.fib.prop.exceptions.InvalidDetailsException;
-import edu.upc.fib.prop.exceptions.UserNotFoundException;
+import edu.upc.fib.prop.exceptions.*;
 import edu.upc.fib.prop.models.AuthorsCollection;
 import edu.upc.fib.prop.models.Document;
 import edu.upc.fib.prop.models.DocumentsCollection;
-import edu.upc.fib.prop.exceptions.AlreadyExistingDocumentException;
 import edu.upc.fib.prop.models.User;
 import edu.upc.fib.prop.persistence.controllers.PersistenceController;
 import edu.upc.fib.prop.persistence.dao.authors.DaoAuthors;
@@ -62,9 +59,14 @@ public class PersistenceControllerImpl implements PersistenceController {
     }
 
     @Override
-    public void writeNewDocument(Document document) throws AlreadyExistingDocumentException {
+    public void writeNewDocument(Document document) throws AlreadyExistingDocumentException, SQLException {
         openConnection();
         daoDocuments.addNewDocument(c, document);
+        try {
+            daoAuthors.getAuthorByName(c, document.getAuthor());
+        } catch (AuthorNotFoundException e) {
+            daoAuthors.createAuthor(c, document.getAuthor());
+        }
         closeConnection();
     }
 

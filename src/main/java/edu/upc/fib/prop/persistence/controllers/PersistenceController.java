@@ -22,7 +22,7 @@ public interface PersistenceController {
 
 
 
-    void writeNewDocument(Document document) throws AlreadyExistingDocumentException;
+    void writeNewDocument(Document document) throws AlreadyExistingDocumentException, SQLException;
 
     void createUser(User user) throws AlreadyExistingUserException;
 

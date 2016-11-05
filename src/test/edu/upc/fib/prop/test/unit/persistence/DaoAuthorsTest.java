@@ -1,12 +1,14 @@
 package edu.upc.fib.prop.test.unit.persistence;
 
+import edu.upc.fib.prop.exceptions.AuthorNotFoundException;
+import edu.upc.fib.prop.models.Author;
 import edu.upc.fib.prop.models.AuthorsCollection;
 import edu.upc.fib.prop.persistence.dao.authors.DaoAuthors;
 import edu.upc.fib.prop.persistence.dao.authors.impl.DaoAuthorsImpl;
 import edu.upc.fib.prop.utils.Constants;
 import edu.upc.fib.prop.utils.FileUtils;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
@@ -19,11 +21,11 @@ import static org.junit.Assert.assertTrue;
 
 public class DaoAuthorsTest {
 
-    private static Connection c;
-    private static DaoAuthors daoAuthors;
+    private  Connection c;
+    private DaoAuthors daoAuthors;
 
-    @BeforeClass
-    public static void setUpTableAndDB() {
+    @Before
+    public void setUpTableAndDB() {
         try {
             Class.forName(Constants.JDBC_DRIVER);
             c = DriverManager.getConnection(Constants.DB_TEST);
@@ -41,8 +43,8 @@ public class DaoAuthorsTest {
         }
     }
 
-    @AfterClass
-    public static void dropDB() {
+    @After
+    public void dropDB() {
         File f = new File("test.db");
         boolean deleted = f.delete();
         System.out.println("File deleted: " + deleted);
@@ -57,6 +59,25 @@ public class DaoAuthorsTest {
     public void test_whenGetAllAuthors_withDefaultSQL_thenReturnExpectedCollection() {
         AuthorsCollection authorsCollection = daoAuthors.getAllAuthors(c);
         assertTrue(authorsCollection.getAuthors().size() == 9);
+    }
+
+    @Test(expected = AuthorNotFoundException.class)
+    public void test_whenGetAuthorByName_withNonExistingAuthor_thenThrowNotFoundException()
+            throws AuthorNotFoundException {
+        String fakeName = "Foo";
+
+        daoAuthors.getAuthorByName(c, fakeName);
+    }
+
+    @Test
+    public void test_whenGetAuthorByName_withExistingAuthor_thenReturnAuthor()
+            throws SQLException, AuthorNotFoundException {
+        String name = "Foo";
+        Author expectedAuthor = new Author(name);
+
+        daoAuthors.createAuthor(c, name);
+        Author author = daoAuthors.getAuthorByName(c, name);
+        assertTrue(author.equals(expectedAuthor));
     }
 
 }

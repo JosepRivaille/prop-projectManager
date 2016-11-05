@@ -1,7 +1,9 @@
 package edu.upc.fib.prop.exceptions;
 
-/**
- * Created by joseprivaille on 5/11/16.
- */
-public class AuthorNotFoundException {
+public class AuthorNotFoundException extends Exception {
+
+    public AuthorNotFoundException() {
+        super("Non existing author with this name");
+    }
+
 }

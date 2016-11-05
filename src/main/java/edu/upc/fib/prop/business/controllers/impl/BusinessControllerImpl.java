@@ -15,6 +15,7 @@ import edu.upc.fib.prop.persistence.controllers.PersistenceController;
 import edu.upc.fib.prop.persistence.controllers.impl.PersistenceControllerImpl;
 import javafx.util.Pair;
 
+import java.sql.SQLException;
 import java.util.Set;
 
 public class BusinessControllerImpl implements BusinessController {
@@ -114,7 +115,7 @@ public class BusinessControllerImpl implements BusinessController {
             try {
                 persistenceController.writeNewDocument(documentAnalyser.getDocument());
                 return true;
-            } catch (AlreadyExistingDocumentException e) {
+            } catch (AlreadyExistingDocumentException | SQLException e) {
                 e.printStackTrace();
             }
         }
