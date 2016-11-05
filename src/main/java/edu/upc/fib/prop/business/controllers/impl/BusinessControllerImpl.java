@@ -46,12 +46,12 @@ public class BusinessControllerImpl implements BusinessController {
     }
 
     @Override
-    public AuthorsCollection searchMatchingAuthors(String authorPrefix) {
+    public AuthorsCollection searchMatchingAuthors(String authorPrefix) throws AuthorNotFoundException {
         return this.searchAuthor.filterByPrefix(this.authorsCollection, authorPrefix);
     }
 
     @Override
-    public DocumentsCollection searchDocumentsByAuthor(String authorName) {
+    public DocumentsCollection searchDocumentsByAuthor(String authorName) throws DocumentNotFoundException {
         return this.searchDocument.filterByAuthor(this.documentsCollection, authorName);
     }
 

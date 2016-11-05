@@ -1,5 +1,6 @@
 package edu.upc.fib.prop.business.search;
 
+import edu.upc.fib.prop.exceptions.AuthorNotFoundException;
 import edu.upc.fib.prop.models.AuthorsCollection;
 
 public interface SearchAuthor {
@@ -10,6 +11,6 @@ public interface SearchAuthor {
      * @param authorPrefix Prefix to filter to.
      * @return Set of matching authors.
      */
-    AuthorsCollection filterByPrefix(AuthorsCollection authorsCollection, String authorPrefix);
+    AuthorsCollection filterByPrefix(AuthorsCollection authorsCollection, String authorPrefix) throws AuthorNotFoundException;
 
 }

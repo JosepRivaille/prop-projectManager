@@ -1,9 +1,6 @@
 package edu.upc.fib.prop.view.menu;
 
-import edu.upc.fib.prop.exceptions.AlreadyExistingUserException;
-import edu.upc.fib.prop.exceptions.DocumentNotFoundException;
-import edu.upc.fib.prop.exceptions.InvalidDetailsException;
-import edu.upc.fib.prop.exceptions.UserNotFoundException;
+import edu.upc.fib.prop.exceptions.*;
 import edu.upc.fib.prop.models.Author;
 import edu.upc.fib.prop.models.AuthorsCollection;
 import edu.upc.fib.prop.models.Document;
@@ -190,36 +187,44 @@ public class MainMenu {
             case "SearchAuthorPrefix":
                 System.out.print("Type prefix > ");
                 String prefix = scan.next();
-                authorsCollection = viewController.getAuthorsWithPrefix(prefix);
-                int i = 0;
-                printHeader("AUTHORS FOUND WITH PREFIX " + prefix);
-                if (!authorsCollection.getAuthors().isEmpty()) {
-                    for (Author author : authorsCollection.getAuthors()) {
-                        System.out.println(++i + "- " + author.getName());
-                    }
-                    System.out.print("Type author id > ");
-                    i = scan.nextInt();
-                    if (i > 0 && i <= authorsCollection.getAuthors().size()) {
-                        authorName = authorsCollection.getAuthors().get(i - 1).getName();
-                        printHeader("DOCUMENTS OF: " + authorName);
-                        documentsCollection = viewController.getDocumentsByAuthorId(authorName);
-                        i = 0;
-                        for (Document document : documentsCollection.getDocuments()) {
-                            System.out.println(++i + "- " + document.getTitle());
+                try {
+                    authorsCollection = viewController.getAuthorsWithPrefix(prefix);
+                    int i = 0;
+                    printHeader("AUTHORS FOUND WITH PREFIX " + prefix);
+                    if (!authorsCollection.getAuthors().isEmpty()) {
+                        for (Author author : authorsCollection.getAuthors()) {
+                            System.out.println(++i + "- " + author.getName());
                         }
-                        System.out.print("Type document id > ");
+                        System.out.print("Type author id > ");
                         i = scan.nextInt();
-                        //TODO: Refactor prints and data showing to view classes
-                        if (i > 0 && i <= documentsCollection.getDocuments().size()) {
-                            Document document = documentsCollection.getDocuments().get(i - 1);
-                            documentTitle = document.getTitle();
-                            String documentContent = document.getContent();
-                            System.out.println(documentTitle);
-                            for (i = 0; i < documentTitle.length(); i++)
-                                System.out.print("-");
-                            System.out.println(documentContent);
+                        if (i > 0 && i <= authorsCollection.getAuthors().size()) {
+                            authorName = authorsCollection.getAuthors().get(i - 1).getName();
+                            printHeader("DOCUMENTS OF: " + authorName);
+                            try {
+                                documentsCollection = viewController.getDocumentsByAuthorId(authorName);
+                                i = 0;
+                                for (Document document : documentsCollection.getDocuments()) {
+                                    System.out.println(++i + "- " + document.getTitle());
+                                }
+                                System.out.print("Type document id > ");
+                                i = scan.nextInt();
+                                //TODO: Refactor prints and data showing to view classes
+                                if (i > 0 && i <= documentsCollection.getDocuments().size()) {
+                                    Document document = documentsCollection.getDocuments().get(i - 1);
+                                    documentTitle = document.getTitle();
+                                    String documentContent = document.getContent();
+                                    System.out.println(documentTitle);
+                                    for (i = 0; i < documentTitle.length(); i++)
+                                        System.out.print("-");
+                                    System.out.println(documentContent);
+                                }
+                            } catch (DocumentNotFoundException e) {
+                                System.out.println("This author currently has no books in the system!");
+                            }
                         }
                     }
+                } catch (AuthorNotFoundException e) {
+                    System.out.println("This prefix did not matched any author!");
                 }
                 break;
             case "SearchDocumentsTitle":

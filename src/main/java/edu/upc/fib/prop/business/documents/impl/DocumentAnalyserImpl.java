@@ -28,9 +28,9 @@ public class DocumentAnalyserImpl implements DocumentAnalyser {
     }
 
     public boolean checkCorrectData() {
-        return !this.document.getTitle().equals("")
-                && !this.document.getAuthor().equals("")
-                && !this.document.getContent().equals("");
+        return !this.document.getTitle().equals("") &&
+                !this.document.getAuthor().equals("") &&
+                !this.document.getContent().equals("");
     }
 
     public void calculateDocumentParameters() throws DocumentNotFoundException {

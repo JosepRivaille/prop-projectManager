@@ -1,9 +1,6 @@
 package edu.upc.fib.prop.view.controllers;
 
-import edu.upc.fib.prop.exceptions.AlreadyExistingUserException;
-import edu.upc.fib.prop.exceptions.DocumentNotFoundException;
-import edu.upc.fib.prop.exceptions.InvalidDetailsException;
-import edu.upc.fib.prop.exceptions.UserNotFoundException;
+import edu.upc.fib.prop.exceptions.*;
 import edu.upc.fib.prop.models.AuthorsCollection;
 import edu.upc.fib.prop.models.Document;
 import edu.upc.fib.prop.models.DocumentsCollection;
@@ -13,9 +10,9 @@ import java.sql.SQLException;
 
 public interface ViewController {
 
-    AuthorsCollection getAuthorsWithPrefix(String authorPrefix);
+    AuthorsCollection getAuthorsWithPrefix(String authorPrefix) throws AuthorNotFoundException;
 
-    DocumentsCollection getDocumentsByAuthorId(String authorName);
+    DocumentsCollection getDocumentsByAuthorId(String authorName) throws DocumentNotFoundException;
 
     Document getDocumentByTitleAndAuthor(String title, String author) throws DocumentNotFoundException;
 

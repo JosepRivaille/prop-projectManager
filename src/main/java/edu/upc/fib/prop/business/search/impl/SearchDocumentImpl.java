@@ -7,11 +7,15 @@ import edu.upc.fib.prop.business.search.SearchDocument;
 
 public class SearchDocumentImpl implements SearchDocument {
 
-    public DocumentsCollection filterByAuthor(DocumentsCollection documentsCollection, String authorName) {
+    public DocumentsCollection filterByAuthor(DocumentsCollection documentsCollection, String authorName)
+            throws DocumentNotFoundException {
         DocumentsCollection filteredDocuments = new DocumentsCollection();
         documentsCollection.getDocuments().stream().filter(document ->
                 document.getAuthor().toLowerCase().contains(authorName.toLowerCase()))
                 .forEach(filteredDocuments::addDocument);
+        if (filteredDocuments.getDocuments().isEmpty()) {
+            throw new DocumentNotFoundException();
+        }
         return filteredDocuments;
     }
 

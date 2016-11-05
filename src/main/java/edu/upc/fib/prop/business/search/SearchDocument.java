@@ -13,7 +13,7 @@ public interface SearchDocument {
      * @param authorName Author identifier name.
      * @return Set of matching documents.
      */
-    DocumentsCollection filterByAuthor(DocumentsCollection documentsCollection, String authorName);
+    DocumentsCollection filterByAuthor(DocumentsCollection documentsCollection, String authorName) throws DocumentNotFoundException;
 
     /**
      * Filter documents by the user owner.

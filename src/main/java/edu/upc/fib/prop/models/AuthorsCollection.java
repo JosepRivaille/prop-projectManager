@@ -19,4 +19,13 @@ public class AuthorsCollection {
         this.authors.add(author);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AuthorsCollection that = (AuthorsCollection) o;
+        return authors != null ? authors.equals(that.authors) : that.authors == null;
+
+    }
+
 }

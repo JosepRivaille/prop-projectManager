@@ -30,4 +30,12 @@ public class DocumentsCollection {
     public void setInverseDocumentFrequency(Map<String,Float> inverseDocumentFrequency) {
         this.inverseDocumentFrequency = inverseDocumentFrequency;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DocumentsCollection that = (DocumentsCollection) o;
+        return documents != null ? documents.equals(that.documents) : that.documents == null;
+    }
 }

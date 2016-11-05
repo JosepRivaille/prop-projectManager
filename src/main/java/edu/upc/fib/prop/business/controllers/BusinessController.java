@@ -1,9 +1,6 @@
 package edu.upc.fib.prop.business.controllers;
 
-import edu.upc.fib.prop.exceptions.AlreadyExistingUserException;
-import edu.upc.fib.prop.exceptions.DocumentNotFoundException;
-import edu.upc.fib.prop.exceptions.InvalidDetailsException;
-import edu.upc.fib.prop.exceptions.UserNotFoundException;
+import edu.upc.fib.prop.exceptions.*;
 import edu.upc.fib.prop.models.AuthorsCollection;
 import edu.upc.fib.prop.models.Document;
 import edu.upc.fib.prop.models.DocumentsCollection;
@@ -16,14 +13,14 @@ public interface BusinessController {
      * @param authorPrefix User input to search.
      * @return Collection of matching authors (even if empty).
      */
-    AuthorsCollection searchMatchingAuthors(String authorPrefix);
+    AuthorsCollection searchMatchingAuthors(String authorPrefix) throws AuthorNotFoundException;
 
     /**
      * Search for documents written by an author.
      * @param authorName Author name identifier.
      * @return Collection of matching documents (even if empty).
      */
-    DocumentsCollection searchDocumentsByAuthor(String authorName);
+    DocumentsCollection searchDocumentsByAuthor(String authorName) throws DocumentNotFoundException;
 
     /**
      * Search for documents given a title and an author.
