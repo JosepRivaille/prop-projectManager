@@ -28,7 +28,8 @@ public class SearchDocumentImpl implements SearchDocument {
     }
 
     @Override
-    public Document filterByTitleAndAuthor(DocumentsCollection documentsCollection, String title, String authorName) throws DocumentNotFoundException {
+    public Document filterByTitleAndAuthor(DocumentsCollection documentsCollection, String title, String authorName)
+            throws DocumentNotFoundException {
         for (Document document : documentsCollection.getDocuments()) {
             if (document.getTitle().equals(title) && document.getAuthor().equals(authorName)) {
                 return document;

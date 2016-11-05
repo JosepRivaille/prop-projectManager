@@ -107,6 +107,71 @@ public class SearchTest {
         assertTrue(expected.equals(result));
     }
 
+    @Test
+    public void test_whenFilterDocumentsByUser_withNonMatchingResults_thenReturnEmptyCollection()
+            throws DocumentNotFoundException {
+        DocumentsCollection documentsCollection = createDocumentsCollection();
+        String user = "Marx";
+
+        DocumentsCollection expected = new DocumentsCollection();
+
+        DocumentsCollection result = searchDocument.filterByUser(documentsCollection, user);
+        assertTrue(expected.equals(result));
+    }
+
+    @Test
+    public void test_whenFilterDocumentsByUser_withAMatchingResult_thenReturnCollectionOfSize1()
+            throws DocumentNotFoundException {
+        DocumentsCollection documentsCollection = createDocumentsCollection();
+        String user = "foo@upc.edu";
+
+        DocumentsCollection expected = new DocumentsCollection();
+        expected.addDocument(new Document("TLOTR", "Tolkien", "tlotr.txt", "foo@upc.edu"));
+
+        DocumentsCollection result = searchDocument.filterByUser(documentsCollection, user);
+
+        assertTrue(expected.equals(result));
+    }
+
+    @Test
+    public void test_whenFilterDocumentsByUser_withNMatchingResults_thenReturnCollectionOfSizeN()
+            throws DocumentNotFoundException {
+        DocumentsCollection documentsCollection = createDocumentsCollection();
+        String user = "bar@upc.edu";
+
+        DocumentsCollection expected = new DocumentsCollection();
+        expected.addDocument(new Document("Hobbit", "Tolkien", "hobbit.txt", "bar@upc.edu"));
+        expected.addDocument(new Document("Via di fuga", "Child", "viadifuga.txt", "bar@upc.edu"));
+
+        DocumentsCollection result = searchDocument.filterByUser(documentsCollection, user);
+
+        assertTrue(expected.equals(result));
+    }
+
+    @Test(expected = DocumentNotFoundException.class)
+    public void test_whenFilterDocumentsByTitleAndAuthor_withNonMatchingResult_thenThrowNotFoundException()
+            throws DocumentNotFoundException {
+        DocumentsCollection documentsCollection = createDocumentsCollection();
+        String title = "Foo";
+        String author = "Bar";
+
+        searchDocument.filterByTitleAndAuthor(documentsCollection, title, author);
+    }
+
+    @Test
+    public void test_whenFilterDocumentsByTitleAndAuthor_withMatchingResult_thenReturnDocument()
+            throws DocumentNotFoundException {
+        DocumentsCollection documentsCollection = createDocumentsCollection();
+        String title = "TLOTR";
+        String author = "Tolkien";
+
+        Document expected = new Document("TLOTR", "Tolkien", "tlotr.txt", "foo@upc.edu");
+
+        Document result = searchDocument.filterByTitleAndAuthor(documentsCollection, title, author);
+
+        assertTrue(expected.equals(result));
+    }
+
     //////////
 
     private AuthorsCollection createAuthorsCollection() {

@@ -13,7 +13,8 @@ public interface SearchDocument {
      * @param authorName Author identifier name.
      * @return Set of matching documents.
      */
-    DocumentsCollection filterByAuthor(DocumentsCollection documentsCollection, String authorName) throws DocumentNotFoundException;
+    DocumentsCollection filterByAuthor(DocumentsCollection documentsCollection, String authorName)
+            throws DocumentNotFoundException;
 
     /**
      * Filter documents by the user owner.
@@ -23,6 +24,13 @@ public interface SearchDocument {
      */
     DocumentsCollection filterByUser(DocumentsCollection documentsCollection, String email);
 
+    /**
+     * Filter documents by title and author
+     * @param documentsCollection List of all documents
+     * @param title Document title
+     * @param authorName Author name
+     * @return Matching document
+     */
     Document filterByTitleAndAuthor(DocumentsCollection documentsCollection, String title, String authorName)
             throws DocumentNotFoundException;
 }

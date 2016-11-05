@@ -37,5 +37,6 @@ public class DocumentsCollection {
         if (o == null || getClass() != o.getClass()) return false;
         DocumentsCollection that = (DocumentsCollection) o;
         return documents != null ? documents.equals(that.documents) : that.documents == null;
+
     }
 }
