@@ -224,21 +224,30 @@ public class MainMenu {
                 break;
             case "SearchDocumentsTitle":
                 break;
+
             case "CreateDocument":
                 Document document = documentManager.createDocument();
-                viewController.storeNewDocument(document);
+                if (viewController.storeNewDocument(document)) {
+                    this.documentManager.addDocumentToCollection(document);
+                    System.out.println("Document created successfully.");
+                } else {
+                    System.out.println("Document couldn't be created!");
+                }
                 DocumentsCollection myDocuments = this.viewController.getCurrentUserDocuments();
                 documentManager.setDocumentsCollection(myDocuments);
                 break;
+
             case "ReadDocument":
                 documentManager.readDocument();
                 break;
+
             case "UpdateDocument":
                 Pair<String, Document> updatedDocument = documentManager.updateDocument();
                 viewController.updateDocument(updatedDocument);
                 myDocuments = this.viewController.getCurrentUserDocuments();
                 documentManager.setDocumentsCollection(myDocuments);
                 break;
+
             case "DeleteDocument":
                 document = documentManager.deleteDocument();
                 viewController.deleteDocument(document);
@@ -250,16 +259,19 @@ public class MainMenu {
 
     private void printHeader(String s) {
         System.out.println();
-        for (int i = 0; i < s.length() + 10; ++i)
+        for (int i = 0; i < s.length() + 10; ++i) {
             System.out.print("-");
+        }
 
         System.out.println();
-        for (int i = 0; i < 5; ++i)
+        for (int i = 0; i < 5; ++i) {
             System.out.print(" ");
+        }
         System.out.println(s);
 
-        for (int i = 0; i < s.length() + 10; ++i)
+        for (int i = 0; i < s.length() + 10; ++i) {
             System.out.print("-");
+        }
         System.out.println();
     }
 

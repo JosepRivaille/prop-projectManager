@@ -23,6 +23,10 @@ public class DocumentManager {
         this.documentsCollection = documentsCollection;
     }
 
+    public void addDocumentToCollection(Document document) {
+        this.documentsCollection.addDocument(document);
+    }
+
     public Document createDocument() {
         String title = IOUtils.askForString("Title");
         String author = IOUtils.askForString("Author");
@@ -31,23 +35,27 @@ public class DocumentManager {
     }
 
     public void readDocument() {
-        showList();
-        int documentSelected = scan.nextInt() - 1;
-        Document document = documentsCollection.getDocuments().get(documentSelected);
-        System.out.println(document.getTitle().toUpperCase() + " | " + document.getAuthor().toUpperCase());
-        String documentFileName = document.getContent();
-        try {
-            String documentContent = FileUtils.readDocument(documentFileName);
-            System.out.println(documentContent);
-        } catch (DocumentNotFoundException e) {
-            System.out.println("Document not found in docs folder.");
+        int size = showList();
+        if (size > 0) {
+            int documentSelected = IOUtils.askForInt("Document", 1, size) - 1;
+            Document document = this.documentsCollection.getDocuments().get(documentSelected);
+            System.out.println(document.getTitle().toUpperCase() + " | " + document.getAuthor().toUpperCase());
+            String documentFileName = document.getContent();
+            try {
+                String documentContent = FileUtils.readDocument(documentFileName);
+                System.out.println(documentContent);
+            } catch (DocumentNotFoundException e) {
+                System.out.println("Document content not found in /resources/documents folder.");
+            }
+        } else {
+            System.out.println("No documents found!");
         }
     }
 
     public Pair<String, Document> updateDocument() {
         showList();
         int documentSelected = scan.nextInt() - 1;
-        Document oldDocument = documentsCollection.getDocuments().get(documentSelected);
+        Document oldDocument = this.documentsCollection.getDocuments().get(documentSelected);
         String newTitle = scan.next();
         String newAuthor = scan.next();
         String newContent = scan.next();
@@ -57,14 +65,15 @@ public class DocumentManager {
 
     public Document deleteDocument() {
         int documentSelected = scan.nextInt() - 1;
-        return documentsCollection.getDocuments().get(documentSelected);
+        return this.documentsCollection.getDocuments().get(documentSelected);
     }
 
-    private void showList() {
+    private int showList() {
         int i = 0;
         for (Document document : this.documentsCollection.getDocuments()) {
             System.out.println(++i + "- " + document.getTitle() + " | " + document.getAuthor());
         }
+        return this.documentsCollection.getDocuments().size();
     }
 
 }
