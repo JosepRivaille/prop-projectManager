@@ -8,21 +8,23 @@ public class IOUtils {
 
     public static String askForString(String text) {
         printQuestion(text);
-        return scan.next();
+        return scan.nextLine();
     }
 
     public static Integer askForInt(String text, int min, int max) {
         printQuestion(text);
-        int response = -1;
-        while (response == -1) {
-            response = scan.nextInt();
-            if (response < min || response > max) {
+        while (true) {
+            String strResponse = scan.nextLine();
+            if (strResponse.matches(Constants.NUMBER_REGEX)) {
+                int response = Integer.parseInt(strResponse);
+                if (response >= min && response <= max) {
+                    return response;
+                }
+            } else {
                 System.out.println("Invalid input, try it again.");
                 printQuestion(text);
-                response = -1;
             }
         }
-        return response;
     }
 
     private static void printQuestion(String text) {

@@ -6,6 +6,7 @@ import edu.upc.fib.prop.models.AuthorsCollection;
 import edu.upc.fib.prop.models.Document;
 import edu.upc.fib.prop.models.DocumentsCollection;
 import edu.upc.fib.prop.utils.FileUtils;
+import edu.upc.fib.prop.utils.IOUtils;
 import edu.upc.fib.prop.utils.MenuTree;
 import edu.upc.fib.prop.view.controllers.ViewController;
 import edu.upc.fib.prop.view.document.DocumentManager;
@@ -13,15 +14,12 @@ import javafx.util.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class MainMenu {
 
     private ViewController viewController;
 
     private DocumentManager documentManager;
-
-    private Scanner scan = new Scanner(System.in);
 
     public MainMenu(ViewController viewController) {
         this.viewController = viewController;
@@ -44,7 +42,8 @@ public class MainMenu {
                 printHeader(menuTree.getHeaderText());
                 menuTree.getOptions().forEach(System.out::println);
                 System.out.print("> ");
-                optionSelected = scan.nextInt();
+                // TODO: Set variable max input value
+                optionSelected = IOUtils.askForInt("Select an option", 0, 10);
                 if (optionSelected != 0 && optionSelected <= menuTree.getChildren().size()) {
                     MenuTree childSelected = menuTree.getChildren().get(optionSelected - 1);
                     displayMenuOptions(childSelected);
@@ -55,42 +54,40 @@ public class MainMenu {
 
     private boolean accountManagement() {
         int optionSelected;
+        String email, userName, password, password2;
         printHeader("LOGIN OR SIGN UP");
         do {
             System.out.println("1. Login");
             System.out.println("2. Register");
             System.out.println("0. Exit");
-            System.out.print("> ");
-            optionSelected = scan.nextInt();
+            optionSelected = IOUtils.askForInt("Select an option", 0, 2);
             switch (optionSelected) {
                 case 1:
-                    System.out.print("Email > ");
-                    String email = scan.next();
-                    System.out.print("Password > ");
-                    String password = scan.next();
+                    email = IOUtils.askForString("Email");
+                    password = IOUtils.askForString("Password");
                     try {
                         viewController.userLogin(email, password);
                         System.out.println("Welcome " + email + "!");
                         return true;
-                    } catch (UserNotFoundException | InvalidDetailsException e) {
-                        System.out.println("Non existing user or invalid user+password combination!");
+                    } catch (UserNotFoundException e) {
+                        System.out.println("Non existing user in the system.");
+                    } catch (InvalidDetailsException e){
+                        System.out.println("Invalid user - password combination!");
                     }
                     break;
                 case 2:
-                    System.out.print("Email > ");
-                    email = scan.next();
-                    System.out.print("Name > ");
-                    String userName = scan.next();
-                    System.out.print("Password > ");
-                    password = scan.next();
-                    System.out.print("Repeat password > ");
-                    String password2 = scan.next();
+                    email = IOUtils.askForString("Email");
+                    userName = IOUtils.askForString("Name");
+                    password = IOUtils.askForString("Password");
+                    password2 = IOUtils.askForString("Repeat password");
                     try {
                         viewController.userRegister(email, userName, password, password2);
                         System.out.println("Welcome " + email + "!");
                         return true;
-                    } catch (AlreadyExistingUserException | InvalidDetailsException e) {
-                        System.out.println("Already existing user or invalid input data!");
+                    } catch (AlreadyExistingUserException e) {
+                        System.out.println("This user is already in system.");
+                    } catch (InvalidDetailsException e){
+                        System.out.println("Invalid input data!");
                     }
                     break;
             }
@@ -171,10 +168,8 @@ public class MainMenu {
         DocumentsCollection documentsCollection;
         switch (action) {
             case "SearchDocumentTitle":
-                System.out.print("Type document title > ");
-                String documentTitle = scan.next();
-                System.out.print("Type author > ");
-                String authorName = scan.next();
+                String documentTitle = IOUtils.askForString("Type document title");
+                String authorName = IOUtils.askForString("Type author");
                 try {
                     Document matchingDocument = viewController.getDocumentByTitleAndAuthor(documentTitle, authorName);
                     System.out.println(documentTitle.toUpperCase() + " - " + authorName);
@@ -185,8 +180,7 @@ public class MainMenu {
 
                 break;
             case "SearchAuthorPrefix":
-                System.out.print("Type prefix > ");
-                String prefix = scan.next();
+                String prefix = IOUtils.askForString("Type prefix");
                 try {
                     authorsCollection = viewController.getAuthorsWithPrefix(prefix);
                     int i = 0;
@@ -195,8 +189,7 @@ public class MainMenu {
                         for (Author author : authorsCollection.getAuthors()) {
                             System.out.println(++i + "- " + author.getName());
                         }
-                        System.out.print("Type author id > ");
-                        i = scan.nextInt();
+                        i = IOUtils.askForInt("Choose author", 1, authorsCollection.getAuthors().size());
                         if (i > 0 && i <= authorsCollection.getAuthors().size()) {
                             authorName = authorsCollection.getAuthors().get(i - 1).getName();
                             printHeader("DOCUMENTS OF: " + authorName);
@@ -206,8 +199,7 @@ public class MainMenu {
                                 for (Document document : documentsCollection.getDocuments()) {
                                     System.out.println(++i + "- " + document.getTitle());
                                 }
-                                System.out.print("Type document id > ");
-                                i = scan.nextInt();
+                                i = IOUtils.askForInt("Choose document", 1, documentsCollection.getDocuments().size());
                                 //TODO: Refactor prints and data showing to view classes
                                 if (i > 0 && i <= documentsCollection.getDocuments().size()) {
                                     Document document = documentsCollection.getDocuments().get(i - 1);
