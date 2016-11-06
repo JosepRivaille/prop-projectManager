@@ -6,8 +6,6 @@ import edu.upc.fib.prop.models.Document;
 import edu.upc.fib.prop.models.DocumentsCollection;
 import javafx.util.Pair;
 
-import java.sql.SQLException;
-
 public interface BusinessController {
 
     /*--------------- Users */
@@ -92,5 +90,5 @@ public interface BusinessController {
      * @param document Document to delete.
      * @return If delete is successful.
      */
-    boolean deleteDocument(Document document);
+    void deleteDocument(Document document);
 }

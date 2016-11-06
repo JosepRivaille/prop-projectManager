@@ -78,8 +78,8 @@ public class ViewControllerImpl implements ViewController {
     }
 
     @Override
-    public boolean deleteDocument(Document document) {
-        return this.businessController.deleteDocument(document);
+    public void deleteDocument(Document document) {
+        this.businessController.deleteDocument(document);
     }
 
 }

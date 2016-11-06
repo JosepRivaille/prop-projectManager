@@ -31,4 +31,6 @@ public interface PersistenceController {
     void updateUser(User currentUser, User newUser) throws UserNotFoundException, AlreadyExistingUserException;
 
     void deleteUser(User user) throws UserNotFoundException;
+
+    void deleteDocument(Document document);
 }

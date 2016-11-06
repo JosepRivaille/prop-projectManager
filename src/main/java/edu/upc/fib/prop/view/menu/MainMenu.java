@@ -255,10 +255,14 @@ public class MainMenu {
                 break;
 
             case "DeleteDocument":
-                document = documentManager.deleteDocument();
-                viewController.deleteDocument(document);
-                myDocuments = this.viewController.getCurrentUserDocuments();
-                documentManager.setDocumentsCollection(myDocuments);
+                try {
+                    document = documentManager.deleteDocument();
+                    viewController.deleteDocument(document);
+                    myDocuments = this.viewController.getCurrentUserDocuments();
+                    documentManager.setDocumentsCollection(myDocuments);
+                } catch (DocumentNotFoundException e) {
+                    System.out.println("Documents not found");
+                }
                 break;
         }
     }

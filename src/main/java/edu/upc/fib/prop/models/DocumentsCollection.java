@@ -1,5 +1,7 @@
 package edu.upc.fib.prop.models;
 
+import org.mockito.internal.util.collections.ArrayUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;

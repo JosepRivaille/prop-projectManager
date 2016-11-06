@@ -1,5 +1,6 @@
 package edu.upc.fib.prop.persistence.dao.documents.impl;
 
+import edu.upc.fib.prop.exceptions.DocumentNotFoundException;
 import edu.upc.fib.prop.models.Document;
 import edu.upc.fib.prop.models.DocumentsCollection;
 import edu.upc.fib.prop.exceptions.AlreadyExistingDocumentException;
@@ -49,6 +50,20 @@ public class DaoDocumentsImpl implements DaoDocuments {
             statement.executeUpdate(query);
         } catch (SQLException e) {
             throw new AlreadyExistingDocumentException();
+        }
+    }
+
+    @Override
+    public void deleteExistingDocument(Connection c, Document document) {
+        String title = document.getTitle();
+        String author = document.getAuthor();
+        try {
+            Statement statement = c.createStatement();
+            String query = String.format("DELETE FROM documents WHERE title='%s' AND author_name='%s';",
+                    title, author);
+            statement.executeUpdate(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 

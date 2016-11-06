@@ -30,7 +30,7 @@ public interface ViewController {
 
     boolean updateDocument(Pair<String, Document> updatedDocument);
 
-    boolean deleteDocument(Document document);
+    void deleteDocument(Document document);
 
 }
 

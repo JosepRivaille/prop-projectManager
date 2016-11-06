@@ -63,9 +63,14 @@ public class DocumentManager {
         return new Pair<>(oldDocument.getTitle(), newDocument);
     }
 
-    public Document deleteDocument() {
-        int documentSelected = scan.nextInt() - 1;
-        return this.documentsCollection.getDocuments().get(documentSelected);
+    public Document deleteDocument() throws DocumentNotFoundException {
+        int numDocuments = showList();
+        if (numDocuments == 0) {
+            throw new DocumentNotFoundException();
+        } else {
+            int documentSelected = IOUtils.askForInt("Choose a document", 1, numDocuments) - 1;
+            return this.documentsCollection.getDocuments().get(documentSelected);
+        }
     }
 
     private int showList() {

@@ -117,8 +117,8 @@ public class BusinessControllerImpl implements BusinessController {
     }
 
     @Override
-    public boolean deleteDocument(Document document) {
-        return false;
+    public void deleteDocument(Document document) {
+        persistenceController.deleteDocument(document);
     }
 
 }

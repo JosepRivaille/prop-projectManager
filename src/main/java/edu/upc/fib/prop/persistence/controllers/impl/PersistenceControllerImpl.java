@@ -112,6 +112,13 @@ public class PersistenceControllerImpl implements PersistenceController {
         }
     }
 
+    @Override
+    public void deleteDocument(Document document) {
+        openConnection();
+        daoDocuments.deleteExistingDocument(c, document);
+        closeConnection();
+    }
+
     /* Private helper methods */
 
     private void openConnection() {
