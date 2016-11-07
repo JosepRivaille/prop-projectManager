@@ -240,10 +240,16 @@ public class MainMenu {
                 break;
 
             case "UpdateDocument":
-                Pair<String, Document> updatedDocument = documentManager.updateDocument();
-                viewController.updateDocument(updatedDocument);
-                myDocuments = this.viewController.getCurrentUserDocuments();
-                documentManager.setDocumentsCollection(myDocuments);
+                try {
+                    Pair<Document, Document> updatedDocument = documentManager.updateDocument();
+                    viewController.updateDocument(updatedDocument);
+                    myDocuments = this.viewController.getCurrentUserDocuments();
+                    documentManager.setDocumentsCollection(myDocuments);
+                } catch (DocumentNotFoundException e) {
+                    System.out.println("No documents found, try to create one.");
+                } catch (InvalidDetailsException e) {
+                    System.out.println("Updated details are invalid, try it again.");
+                }
                 break;
 
             case "DeleteDocument":
@@ -253,7 +259,7 @@ public class MainMenu {
                     myDocuments = this.viewController.getCurrentUserDocuments();
                     documentManager.setDocumentsCollection(myDocuments);
                 } catch (DocumentNotFoundException e) {
-                    System.out.println("Documents not found");
+                    System.out.println("No documents found, try to create one.");
                 }
                 break;
         }

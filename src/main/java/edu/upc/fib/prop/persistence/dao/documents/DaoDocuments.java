@@ -21,4 +21,6 @@ public interface DaoDocuments {
     void addNewDocument(Connection c, Document document) throws AlreadyExistingDocumentException;
 
     void deleteExistingDocument(Connection c, Document document);
+
+    void updateExistingDocument(Connection c, Document oldDocument, Document newDocument);
 }

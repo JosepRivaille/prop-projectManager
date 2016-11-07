@@ -20,8 +20,6 @@ public interface PersistenceController {
 
     Set<String> getExcludedWords(String lang);
 
-
-
     void writeNewDocument(Document document) throws AlreadyExistingDocumentException, SQLException;
 
     void createUser(User user) throws AlreadyExistingUserException;
@@ -33,4 +31,7 @@ public interface PersistenceController {
     void deleteUser(User user) throws UserNotFoundException;
 
     void deleteDocument(Document document);
+
+    void updateDocument(Document oldDocument, Document newDocument);
+
 }

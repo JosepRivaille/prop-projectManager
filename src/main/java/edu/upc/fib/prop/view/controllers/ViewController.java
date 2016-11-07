@@ -28,7 +28,7 @@ public interface ViewController {
 
     void storeNewDocument(Document document) throws DocumentNotFoundException, AlreadyExistingDocumentException;
 
-    boolean updateDocument(Pair<String, Document> updatedDocument);
+    void updateDocument(Pair<Document, Document> updatedDocument) throws InvalidDetailsException;
 
     void deleteDocument(Document document);
 

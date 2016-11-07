@@ -83,7 +83,7 @@ public interface BusinessController {
      * @param updatedDocument Old document title, and new document data.
      * @return If update is successful.
      */
-    boolean updateDocument(Pair<String, Document> updatedDocument);
+    void updateDocument(Pair<Document, Document> updatedDocument) throws InvalidDetailsException;
 
     /**
      * Deletes a document in persistence.

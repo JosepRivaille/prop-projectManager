@@ -119,6 +119,13 @@ public class PersistenceControllerImpl implements PersistenceController {
         closeConnection();
     }
 
+    @Override
+    public void updateDocument(Document oldDocument, Document newDocument) {
+        openConnection();
+        daoDocuments.updateExistingDocument(c, oldDocument, newDocument);
+        closeConnection();
+    }
+
     /* Private helper methods */
 
     private void openConnection() {

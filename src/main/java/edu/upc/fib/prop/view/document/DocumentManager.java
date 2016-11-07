@@ -7,13 +7,9 @@ import edu.upc.fib.prop.utils.FileUtils;
 import edu.upc.fib.prop.utils.IOUtils;
 import javafx.util.Pair;
 
-import java.util.Scanner;
-
 public class DocumentManager {
 
     private DocumentsCollection documentsCollection;
-
-    private Scanner scan = new Scanner(System.in);
 
     public DocumentManager(DocumentsCollection documentsCollection) {
         this.documentsCollection = documentsCollection;
@@ -52,15 +48,19 @@ public class DocumentManager {
         }
     }
 
-    public Pair<String, Document> updateDocument() {
-        showList();
-        int documentSelected = scan.nextInt() - 1;
-        Document oldDocument = this.documentsCollection.getDocuments().get(documentSelected);
-        String newTitle = scan.next();
-        String newAuthor = scan.next();
-        String newContent = scan.next();
-        Document newDocument = new Document(newTitle, newAuthor, newContent, oldDocument.getUser());
-        return new Pair<>(oldDocument.getTitle(), newDocument);
+    public Pair<Document, Document> updateDocument() throws DocumentNotFoundException {
+        int numDocuments = showList();
+        if (numDocuments == 0) {
+            throw new DocumentNotFoundException();
+        } else {
+            int documentSelected = IOUtils.askForInt("Choose a document", 1, numDocuments);
+            Document oldDocument = this.documentsCollection.getDocuments().get(documentSelected - 1);
+            String newTitle = IOUtils.askForString("New title");
+            String newAuthor = IOUtils.askForString("New author");
+            String newContent = IOUtils.askForString("New content");
+            Document newDocument = new Document(newTitle, newAuthor, newContent, oldDocument.getUser());
+            return new Pair<>(oldDocument, newDocument);
+        }
     }
 
     public Document deleteDocument() throws DocumentNotFoundException {
@@ -68,8 +68,8 @@ public class DocumentManager {
         if (numDocuments == 0) {
             throw new DocumentNotFoundException();
         } else {
-            int documentSelected = IOUtils.askForInt("Choose a document", 1, numDocuments) - 1;
-            return this.documentsCollection.getDocuments().get(documentSelected);
+            int documentSelected = IOUtils.askForInt("Choose a document", 1, numDocuments);
+            return this.documentsCollection.getDocuments().get(documentSelected - 1);
         }
     }
 

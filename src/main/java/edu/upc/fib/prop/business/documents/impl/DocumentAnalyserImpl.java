@@ -27,7 +27,7 @@ public class DocumentAnalyserImpl implements DocumentAnalyser {
         this.document = document;
     }
 
-    public boolean isCorrectData() {
+    public boolean hasCorrectData() {
         return !this.document.getTitle().equals("") &&
                 !this.document.getAuthor().equals("") &&
                 !this.document.getContent().equals("");
@@ -36,6 +36,20 @@ public class DocumentAnalyserImpl implements DocumentAnalyser {
     public void calculateDocumentParameters() throws DocumentNotFoundException {
         this.document.setTermFrequency(calculateTermFrequency());
         this.documentsCollection.setInverseDocumentFrequency(calculateInverseDocumentFrequency());
+    }
+
+    @Override
+    public Document fillEmptyUpdatedFields(Document oldDocument, Document newDocument) {
+        if (newDocument.getTitle().equals("")) {
+            newDocument.setTitle(oldDocument.getTitle());
+        }
+        if (newDocument.getAuthor().equals("")) {
+            newDocument.setAuthor(oldDocument.getAuthor());
+        }
+        if (newDocument.getContent().equals("")) {
+            newDocument.setContent(oldDocument.getAuthor());
+        }
+        return newDocument;
     }
 
     private Map<String, Float> calculateTermFrequency() throws DocumentNotFoundException {
