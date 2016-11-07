@@ -74,21 +74,18 @@ public interface BusinessController {
     /**
      * Stores in persistence a new document.
      * @param document Document to store.
-     * @return If storage is successful.
      */
     void storeNewDocument(Document document) throws AlreadyExistingDocumentException;
 
     /**
      * Updates a document in persistence.
      * @param updatedDocument Old document title, and new document data.
-     * @return If update is successful.
      */
-    boolean updateDocument(Pair<String, Document> updatedDocument);
+    void updateDocument(Pair<Document, Document> updatedDocument) throws InvalidDetailsException;
 
     /**
      * Deletes a document in persistence.
      * @param document Document to delete.
-     * @return If delete is successful.
      */
     void deleteDocument(Document document);
 }

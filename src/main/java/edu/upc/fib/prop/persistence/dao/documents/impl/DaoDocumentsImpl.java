@@ -1,9 +1,8 @@
 package edu.upc.fib.prop.persistence.dao.documents.impl;
 
-import edu.upc.fib.prop.exceptions.DocumentNotFoundException;
+import edu.upc.fib.prop.exceptions.AlreadyExistingDocumentException;
 import edu.upc.fib.prop.models.Document;
 import edu.upc.fib.prop.models.DocumentsCollection;
-import edu.upc.fib.prop.exceptions.AlreadyExistingDocumentException;
 import edu.upc.fib.prop.persistence.dao.documents.DaoDocuments;
 import edu.upc.fib.prop.utils.StringUtils;
 
@@ -14,8 +13,6 @@ import java.sql.Statement;
 import java.util.Map;
 
 public class DaoDocumentsImpl implements DaoDocuments {
-
-    private Connection c;
 
     public DocumentsCollection getAllDocuments(Connection c) {
         DocumentsCollection documentsCollection = new DocumentsCollection();
@@ -61,6 +58,24 @@ public class DaoDocumentsImpl implements DaoDocuments {
             Statement statement = c.createStatement();
             String query = String.format("DELETE FROM documents WHERE title='%s' AND author_name='%s';",
                     title, author);
+            statement.executeUpdate(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void updateExistingDocument(Connection c, Document oldDocument, Document newDocument) {
+        String oldTitle = oldDocument.getTitle();
+        String oldAuthor = oldDocument.getAuthor();
+        try {
+            Statement statement = c.createStatement();
+            String query = String.format("UPDATE documents " +
+                    "SET title='%s', author_name='%s', term_frequency='%s', content='%s'" +
+                    "WHERE title='%s' AND author_name='%s';",
+                    newDocument.getTitle(), newDocument.getAuthor(),
+                    StringUtils.buildJSON(newDocument.getTermFrequencyList()),
+                    newDocument.getContent(), oldTitle, oldAuthor);
             statement.executeUpdate(query);
         } catch (SQLException e) {
             e.printStackTrace();

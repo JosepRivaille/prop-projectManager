@@ -41,7 +41,6 @@ public class MainMenu {
             } else {
                 printHeader(menuTree.getHeaderText());
                 menuTree.getOptions().forEach(System.out::println);
-                System.out.print("> ");
                 // TODO: Set variable max input value
                 optionSelected = IOUtils.askForInt("Select an option", 0, 10);
                 if (optionSelected != 0 && optionSelected <= menuTree.getChildren().size()) {
@@ -244,20 +243,26 @@ public class MainMenu {
                 break;
 
             case "UpdateDocument":
-                Pair<String, Document> updatedDocument = documentManager.updateDocument();
-                viewController.updateDocument(updatedDocument);
-                myDocuments = this.viewController.getCurrentUserDocuments();
-                documentManager.setDocumentsCollection(myDocuments);
+                try {
+                    Pair<Document, Document> updatedDocument = documentManager.updateDocument();
+                    viewController.updateDocument(updatedDocument);
+                    myDocuments = viewController.getCurrentUserDocuments();
+                    documentManager.setDocumentsCollection(myDocuments);
+                } catch (DocumentNotFoundException e) {
+                    System.out.println("No documents found, try to create one.");
+                } catch (InvalidDetailsException e) {
+                    System.out.println("Updated details are invalid, try it again.");
+                }
                 break;
 
             case "DeleteDocument":
                 try {
                     document = documentManager.deleteDocument();
                     viewController.deleteDocument(document);
-                    myDocuments = this.viewController.getCurrentUserDocuments();
+                    myDocuments = viewController.getCurrentUserDocuments();
                     documentManager.setDocumentsCollection(myDocuments);
                 } catch (DocumentNotFoundException e) {
-                    System.out.println("Documents not found");
+                    System.out.println("No documents found, try to create one.");
                 }
                 break;
         }

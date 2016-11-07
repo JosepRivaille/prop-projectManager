@@ -73,8 +73,8 @@ public class ViewControllerImpl implements ViewController {
     }
 
     @Override
-    public boolean updateDocument(Pair<String, Document> updatedDocument) {
-        return this.businessController.updateDocument(updatedDocument);
+    public void updateDocument(Pair<Document, Document> updatedDocument) throws InvalidDetailsException {
+        this.businessController.updateDocument(updatedDocument);
     }
 
     @Override

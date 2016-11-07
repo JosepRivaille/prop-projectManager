@@ -21,11 +21,18 @@ public interface DocumentAnalyser {
      * Checks if new document data is invalid in some way.
      * @return If document data is valid.
      */
-    boolean isCorrectData();
+    boolean hasCorrectData();
 
     /**
      * Calculates tf-idf of the document.
      */
     void calculateDocumentParameters() throws DocumentNotFoundException;
 
+    /**
+     * Fills fields that don't need to be updated with the old ones.
+     * @param oldDocument Original document.
+     * @param newDocument New input details.
+     * @return New document with non empty fields.
+     */
+    Document fillEmptyUpdatedFields(Document oldDocument, Document newDocument);
 }

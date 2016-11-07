@@ -101,10 +101,11 @@ public class BusinessControllerImpl implements BusinessController {
     public void storeNewDocument(Document document) throws AlreadyExistingDocumentException {
         document.setUser(usersManager.getCurrentUser().getEmail());
         documentAnalyser.setDocument(document);
-        if (documentAnalyser.isCorrectData()) {
+        if (documentAnalyser.hasCorrectData()) {
             try {
                 documentAnalyser.calculateDocumentParameters();
                 persistenceController.writeNewDocument(documentAnalyser.getDocument());
+                reloadDBData();
             } catch (SQLException | DocumentNotFoundException e) {
                 throw new AlreadyExistingDocumentException();
             }
@@ -112,13 +113,37 @@ public class BusinessControllerImpl implements BusinessController {
     }
 
     @Override
-    public boolean updateDocument(Pair<String, Document> updatedDocument) {
-        return false;
+    public void updateDocument(Pair<Document, Document> updatedDocument) throws InvalidDetailsException {
+        Document oldDocument = updatedDocument.getKey();
+        Document newDocument = updatedDocument.getValue();
+        newDocument = documentAnalyser.fillEmptyUpdatedFields(oldDocument, newDocument);
+        documentAnalyser.setDocument(newDocument);
+        if (documentAnalyser.hasCorrectData()) {
+            try {
+                documentAnalyser.calculateDocumentParameters();
+                newDocument = documentAnalyser.getDocument();
+                persistenceController.updateDocument(oldDocument, newDocument);
+                reloadDBData();
+            } catch (DocumentNotFoundException e) {
+                e.printStackTrace();
+            }
+        } else {
+            throw new InvalidDetailsException();
+        }
     }
 
     @Override
     public void deleteDocument(Document document) {
         persistenceController.deleteDocument(document);
+        reloadDBData();
+    }
+
+    //////////
+
+    // TODO: Improve performance
+    private void reloadDBData() {
+        authorsCollection = persistenceController.getAuthors();
+        documentsCollection = persistenceController.getDocuments();
     }
 
 }
