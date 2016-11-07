@@ -40,6 +40,7 @@ public class DocumentManager {
             try {
                 String documentContent = FileUtils.readDocument(documentFileName);
                 System.out.println(documentContent);
+                IOUtils.enterToContinue();
             } catch (DocumentNotFoundException e) {
                 System.out.println("Document content not found in /resources/documents folder.");
             }

@@ -200,18 +200,18 @@ public class MainMenu {
                                     System.out.println(++i + "- " + document.getTitle());
                                 }
                                 i = IOUtils.askForInt("Choose document", 1, documentsCollection.getDocuments().size());
-                                //TODO: Refactor prints and data showing to view classes
                                 if (i > 0 && i <= documentsCollection.getDocuments().size()) {
                                     Document document = documentsCollection.getDocuments().get(i - 1);
                                     documentTitle = document.getTitle();
-                                    String documentContent = document.getContent();
+                                    String documentFile = document.getContent();
+                                    String documentContent = FileUtils.readDocument(documentFile);
                                     System.out.print("\n");
                                     System.out.println(documentTitle.toUpperCase());
                                     for (i = 0; i < documentTitle.length(); i++)
                                         System.out.print("-");
                                     System.out.print("\n");
                                     System.out.println(documentContent);
-                                    IOUtils.waitForInputToContinue("\n> Press enter to continue..");
+                                    IOUtils.enterToContinue();
                                 }
                             } catch (DocumentNotFoundException e) {
                                 System.out.println("This author currently has no books in the system!");
@@ -265,6 +265,8 @@ public class MainMenu {
                     System.out.println("No documents found, try to create one.");
                 }
                 break;
+            default:
+                System.out.println("Not implemented yet!");
         }
     }
 
