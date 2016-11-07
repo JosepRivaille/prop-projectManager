@@ -16,6 +16,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -96,6 +97,19 @@ public class DaoDocumentsTest {
         DocumentsCollection documentsCollection = daoDocuments.getAllDocuments(c);
 
         assertTrue(documentsCollection.getDocuments().size() == 10);
+    }
+
+    @Test
+    public void test_whenGetADocument_withSomeTermFrequency_thenReturnValidMap() {
+        DocumentsCollection documentsCollection = daoDocuments.getAllDocuments(c);
+        Document document = documentsCollection.getDocuments().get(9);
+
+        Map<String, Float> expectedTermFrequency = new HashMap<>();
+        expectedTermFrequency.put("random", 5f);
+        expectedTermFrequency.put("randomer", 10f);
+        expectedTermFrequency.put("randomest", 15f);
+
+        assertTrue(expectedTermFrequency.equals(document.getTermFrequencyList()));
     }
 
     /*--------------- Update documents tests */

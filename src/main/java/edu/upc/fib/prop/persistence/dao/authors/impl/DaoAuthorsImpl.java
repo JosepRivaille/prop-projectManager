@@ -12,6 +12,13 @@ import java.sql.Statement;
 
 public class DaoAuthorsImpl implements DaoAuthors {
 
+    @Override
+    public void createAuthor(Connection c, String author) throws SQLException {
+        Statement statement = c.createStatement();
+        String query = String.format("INSERT INTO authors VALUES('%s');", author);
+        statement.executeUpdate(query);
+    }
+
     public AuthorsCollection getAllAuthors(Connection c) {
         AuthorsCollection authorsCollection = new AuthorsCollection();
         try {
@@ -42,13 +49,6 @@ public class DaoAuthorsImpl implements DaoAuthors {
             e.printStackTrace();
             return null;
         }
-    }
-
-    @Override
-    public void createAuthor(Connection c, String author) throws SQLException {
-        Statement statement = c.createStatement();
-        String query = String.format("INSERT INTO authors VALUES('%s');", author);
-        statement.executeUpdate(query);
     }
 
 }

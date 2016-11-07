@@ -28,7 +28,7 @@ public class DaoUsersTest {
     private DaoUsers daoUsers;
 
     @Before
-    public  void setUpTableAndDB() {
+    public void setUpTableAndDB() {
         try {
             Class.forName(Constants.JDBC_DRIVER);
             c = DriverManager.getConnection(Constants.DB_TEST);
@@ -49,8 +49,7 @@ public class DaoUsersTest {
     @After
     public void dropDB() {
         File f = new File("test.db");
-        boolean deleted = f.delete();
-        System.out.println("File deleted: " + deleted);
+        f.delete();
         try {
             c.close();
         } catch (SQLException e) {
@@ -152,14 +151,15 @@ public class DaoUsersTest {
     /*-------------------- Delete users tests */
 
     @Test(expected = UserNotFoundException.class)
-    public void test_whenDeleteUser_withNonExistingUser_thenDoNotDeleteUser()throws UserNotFoundException, SQLException {
+    public void test_whenDeleteUser_withNonExistingUser_thenDoNotDeleteUser()
+            throws UserNotFoundException, SQLException {
         String email = "fake@fib.upc.edu";
         User user = new User(email, "any", "any");
         daoUsers.deleteUser(c, user);
     }
 
     @Test
-    public void test_whenDeleteUser_withExistingUser_thenDeleteUser()throws UserNotFoundException, SQLException {
+    public void test_whenDeleteUser_withExistingUser_thenDeleteUser() throws UserNotFoundException, SQLException {
         String email = "admin@fib.upc.edu";
         User user = new User(email, "any", "any");
         daoUsers.deleteUser(c, user);

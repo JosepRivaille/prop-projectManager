@@ -15,13 +15,13 @@ INSERT INTO authors(author_name) VALUES
   ('Merrill Wolanski');
 
 INSERT INTO documents(title, author_name, user_owner, term_frequency, content) VALUES
-  ('presharing', 'Rodrick Weimer', 'admin', '[]', '1'),
-  ('cladoceran', 'Dwain Spratling', 'admin', '[]', '2'),
-  ('fabulously', 'Mardell Tucci', 'admin', '[]', '3'),
-  ('unlessened', 'Gaylord Lisowski', 'user', '[]', '4'),
-  ('impanelled', 'Rodrick Weimer', 'user', '[]', '5'),
-  ('unsluggish', 'Sima Hannon', 'admin', '[]', '6'),
-  ('rightabout', 'Zofia Bivens', 'admin', '[]', '7'),
-  ('hardfisted', 'Dwain Spratling', 'user', '[]', '8'),
-  ('unprowling', 'Earnestine Rine', 'admin', '[]', '9'),
-  ('uncaptured', 'Rodrick Weimer', 'admin', '[]', 'A');
+  ('presharing', 'Rodrick Weimer', 'admin', '{}', '1'),
+  ('cladoceran', 'Dwain Spratling', 'admin', '{}', '2'),
+  ('fabulously', 'Mardell Tucci', 'admin', '{}', '3'),
+  ('unlessened', 'Gaylord Lisowski', 'user', '{}', '4'),
+  ('impanelled', 'Rodrick Weimer', 'user', '{}', '5'),
+  ('unsluggish', 'Sima Hannon', 'admin', '{}', '6'),
+  ('rightabout', 'Zofia Bivens', 'admin', '{}', '7'),
+  ('hardfisted', 'Dwain Spratling', 'user', '{}', '8'),
+  ('unprowling', 'Earnestine Rine', 'admin', '{}', '9'),
+  ('uncaptured', 'Rodrick Weimer', 'admin', '{"random": 5.0, "randomer": 10.0, "randomest": 15.0}', 'A');

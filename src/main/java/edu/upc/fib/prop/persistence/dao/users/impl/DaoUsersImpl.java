@@ -5,7 +5,6 @@ import edu.upc.fib.prop.exceptions.InvalidDetailsException;
 import edu.upc.fib.prop.exceptions.UserNotFoundException;
 import edu.upc.fib.prop.models.User;
 import edu.upc.fib.prop.persistence.dao.users.DaoUsers;
-import edu.upc.fib.prop.utils.Constants;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -17,19 +16,20 @@ public class DaoUsersImpl implements DaoUsers {
     @Override
     public void registerNewUser(Connection c, User user) throws SQLException {
         Statement statement = c.createStatement();
-        String sql = "INSERT INTO users VALUES ('" +
-                user.getEmail() + "', '" + user.getName() + "', '" + user.getPassword() + "', 0);";
-        int inserted = statement.executeUpdate(sql);
+        String query = String.format("INSERT INTO users VALUES('%s', '%s', '%s', '%d');",
+                user.getEmail(), user.getName(), user.getPassword(), 0);
+        int inserted = statement.executeUpdate(query);
         if (inserted != 1)
             throw new SQLException();
         statement.close();
     }
 
     @Override
-    public User checkDetails(Connection c, String email, String password) throws UserNotFoundException, InvalidDetailsException, SQLException {
+    public User checkDetails(Connection c, String email, String password)
+            throws UserNotFoundException, InvalidDetailsException, SQLException {
         Statement statement = c.createStatement();
-        String sql = "SELECT * FROM users WHERE email = '" + email + "';";
-        ResultSet rs = statement.executeQuery(sql);
+        String query = String.format("SELECT * FROM users WHERE email='%s';", email);
+        ResultSet rs = statement.executeQuery(query);
         if (rs.next()) {
             String authEmail = rs.getString("email");
             String authName = rs.getString("user_name");
@@ -50,10 +50,9 @@ public class DaoUsersImpl implements DaoUsers {
         Statement statement = null;
         try {
             statement = c.createStatement();
-            String sql =
-                    "UPDATE users SET email = '" + updatedUser.getEmail() + "', user_name = '" + updatedUser.getName() +
-                            "', password = '" + updatedUser.getPassword() + "' WHERE email = '" + oldEmail + "';";
-            int updated = statement.executeUpdate(sql);
+            String query = String.format("UPDATE users SET email='%s', user_name='%s', password='%s' WHERE email='%s';",
+                    updatedUser.getEmail(), updatedUser.getName(), updatedUser.getPassword(), oldEmail);
+            int updated = statement.executeUpdate(query);
             if (updated != 1) {
                 throw new UserNotFoundException();
             }
@@ -73,8 +72,8 @@ public class DaoUsersImpl implements DaoUsers {
     @Override
     public void deleteUser(Connection c, User user) throws UserNotFoundException, SQLException {
         Statement statement = c.createStatement();
-        String sql = "DELETE FROM users WHERE email = '" + user.getEmail() + "';";
-        int deleted = statement.executeUpdate(sql);
+        String query = String.format("DELETE FROM users WHERE email='%s';", user.getEmail());
+        int deleted = statement.executeUpdate(query);
         if (deleted != 1)
             throw new UserNotFoundException();
         statement.close();

@@ -46,8 +46,7 @@ public class DaoAuthorsTest {
     @After
     public void dropDB() {
         File f = new File("test.db");
-        boolean deleted = f.delete();
-        System.out.println("File deleted: " + deleted);
+        f.delete();
         try {
             c.close();
         } catch (SQLException e) {
