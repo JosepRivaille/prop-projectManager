@@ -6,6 +6,11 @@ public class IOUtils {
 
     private static Scanner scan = new Scanner(System.in);
 
+    public static String waitForInputToContinue(String text) {
+        printMessage(text);
+        return scan.nextLine();
+    }
+
     public static String askForString(String text) {
         printQuestion(text);
         return scan.nextLine();
@@ -29,6 +34,9 @@ public class IOUtils {
 
     private static void printQuestion(String text) {
         System.out.print(text + " > ");
+    }
+    private static void printMessage(String text) {
+        System.out.print(text);
     }
 
 }

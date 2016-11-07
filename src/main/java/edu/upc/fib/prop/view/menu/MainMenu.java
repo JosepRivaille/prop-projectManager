@@ -108,18 +108,19 @@ public class MainMenu {
 
         //Level 1.
         options = new ArrayList<>();
-        options.add("1. Search documents by title and author");
+
         options.add("1. Search documents by author");
-        options.add("2. Search documents by document and relevance");
-        options.add("3. Search documents with boolean expression");
-        options.add("4. Search documents with query");
+        options.add("2. Search documents by title and author");
+        options.add("3. Search documents by document and relevance");
+        options.add("4. Search documents with boolean expression");
+        options.add("5. Search documents with query");
         options.add("0. Back");
         root.addChild(new MenuTree("DOCUMENTS SEARCH", options, false));
 
         //Level 1.1
-        root.getChildren().get(0).addChild(new MenuTree("SearchDocumentTitle", null, true));
-        //Level 1.2
         root.getChildren().get(0).addChild(new MenuTree("SearchAuthorPrefix", null, true));
+        //Level 1.2
+        root.getChildren().get(0).addChild(new MenuTree("SearchDocumentTitleAndAuthor", null, true));
         //Level 1.3
         root.getChildren().get(0).addChild(new MenuTree("SearchDocumentsRelevance", null, true));
         //Level 1.4
@@ -167,7 +168,7 @@ public class MainMenu {
         AuthorsCollection authorsCollection;
         DocumentsCollection documentsCollection;
         switch (action) {
-            case "SearchDocumentTitle":
+            case "SearchDocumentTitleAndAuthor":
                 String documentTitle = IOUtils.askForString("Type document title");
                 String authorName = IOUtils.askForString("Type author");
                 try {
@@ -205,10 +206,13 @@ public class MainMenu {
                                     Document document = documentsCollection.getDocuments().get(i - 1);
                                     documentTitle = document.getTitle();
                                     String documentContent = document.getContent();
-                                    System.out.println(documentTitle);
+                                    System.out.print("\n");
+                                    System.out.println(documentTitle.toUpperCase());
                                     for (i = 0; i < documentTitle.length(); i++)
                                         System.out.print("-");
+                                    System.out.print("\n");
                                     System.out.println(documentContent);
+                                    IOUtils.waitForInputToContinue("\n> Press enter to continue..");
                                 }
                             } catch (DocumentNotFoundException e) {
                                 System.out.println("This author currently has no books in the system!");

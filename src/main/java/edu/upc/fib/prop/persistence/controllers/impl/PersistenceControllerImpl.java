@@ -152,14 +152,13 @@ public class PersistenceControllerImpl implements PersistenceController {
             statement.close();
 
             System.out.println(Constants.DB_DEVELOPMENT + " initialized successfully");
-            /*
+
             statement = c.createStatement();
-            sql = FileUtils.readFile("src/main/resources/sql/dbFiller.sql");
+            sql = FileUtils.readFile("src/main/resources/sql/mockData.sql");
             statement.executeUpdate(sql);
             statement.close();
 
-            c.commit();
-            System.out.println("DB filled successfully");*/
+            System.out.println("DB filled successfully");
         } catch (SQLException e) {
             e.printStackTrace();
         }
