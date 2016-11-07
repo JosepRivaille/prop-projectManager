@@ -28,5 +28,11 @@ public interface DocumentAnalyser {
      */
     void calculateDocumentParameters() throws DocumentNotFoundException;
 
+    /**
+     * Fills fields that don't need to be updated with the old ones.
+     * @param oldDocument Original document.
+     * @param newDocument New input details.
+     * @return New document with non empty fields.
+     */
     Document fillEmptyUpdatedFields(Document oldDocument, Document newDocument);
 }

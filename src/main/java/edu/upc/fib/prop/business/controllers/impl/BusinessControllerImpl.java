@@ -105,6 +105,7 @@ public class BusinessControllerImpl implements BusinessController {
             try {
                 documentAnalyser.calculateDocumentParameters();
                 persistenceController.writeNewDocument(documentAnalyser.getDocument());
+                reloadDBData();
             } catch (SQLException | DocumentNotFoundException e) {
                 throw new AlreadyExistingDocumentException();
             }
@@ -122,6 +123,7 @@ public class BusinessControllerImpl implements BusinessController {
                 documentAnalyser.calculateDocumentParameters();
                 newDocument = documentAnalyser.getDocument();
                 persistenceController.updateDocument(oldDocument, newDocument);
+                reloadDBData();
             } catch (DocumentNotFoundException e) {
                 e.printStackTrace();
             }
@@ -133,6 +135,15 @@ public class BusinessControllerImpl implements BusinessController {
     @Override
     public void deleteDocument(Document document) {
         persistenceController.deleteDocument(document);
+        reloadDBData();
+    }
+
+    //////////
+
+    // TODO: Improve performance
+    private void reloadDBData() {
+        authorsCollection = persistenceController.getAuthors();
+        documentsCollection = persistenceController.getDocuments();
     }
 
 }
