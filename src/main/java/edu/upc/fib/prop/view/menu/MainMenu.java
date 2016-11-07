@@ -156,9 +156,9 @@ public class MainMenu {
         //Level 3.1
         root.getChildren().get(2).addChild(new MenuTree("EditAccount", null, true));
         //Level 3.2
-        root.getChildren().get(2).addChild(new MenuTree("EditAccount", null, true));
+        root.getChildren().get(2).addChild(new MenuTree("DeleteAccount", null, true));
         //Level 3.3
-        root.getChildren().get(2).addChild(new MenuTree("EditAccount", null, true));
+        root.getChildren().get(2).addChild(new MenuTree("Logout", null, true));
 
         return root;
     }
@@ -166,19 +166,10 @@ public class MainMenu {
     private void performAction(String action) {
         AuthorsCollection authorsCollection;
         DocumentsCollection documentsCollection;
-        switch (action) {
-            case "SearchDocumentTitleAndAuthor":
-                String documentTitle = IOUtils.askForString("Type document title");
-                String authorName = IOUtils.askForString("Type author");
-                try {
-                    Document matchingDocument = viewController.getDocumentByTitleAndAuthor(documentTitle, authorName);
-                    System.out.println(documentTitle.toUpperCase() + " - " + authorName);
-                    System.out.println(FileUtils.readDocument(matchingDocument.getContent()));
-                } catch (DocumentNotFoundException e) {
-                    System.out.println("No documents found!");
-                }
+        String authorName, documentTitle;
 
-                break;
+        switch (action) {
+
             case "SearchAuthorPrefix":
                 String prefix = IOUtils.askForString("Type prefix");
                 try {
@@ -200,30 +191,48 @@ public class MainMenu {
                                     System.out.println(++i + "- " + document.getTitle());
                                 }
                                 i = IOUtils.askForInt("Choose document", 1, documentsCollection.getDocuments().size());
-                                if (i > 0 && i <= documentsCollection.getDocuments().size()) {
-                                    Document document = documentsCollection.getDocuments().get(i - 1);
-                                    documentTitle = document.getTitle();
-                                    String documentFile = document.getContent();
-                                    String documentContent = FileUtils.readDocument(documentFile);
-                                    System.out.print("\n");
-                                    System.out.println(documentTitle.toUpperCase());
-                                    for (i = 0; i < documentTitle.length(); i++)
-                                        System.out.print("-");
-                                    System.out.print("\n");
-                                    System.out.println(documentContent);
-                                    IOUtils.enterToContinue();
+                                Document document = documentsCollection.getDocuments().get(i - 1);
+                                documentTitle = document.getTitle();
+                                String documentFile = document.getContent();
+                                String documentContent = FileUtils.readDocument(documentFile);
+                                System.out.println("\n" + documentTitle.toUpperCase());
+                                for (i = 0; i < documentTitle.length(); i++) {
+                                    System.out.print("-");
                                 }
+                                System.out.print("\n");
+                                System.out.println(documentContent);
+                                IOUtils.enterToContinue();
                             } catch (DocumentNotFoundException e) {
-                                System.out.println("This author currently has no books in the system!");
+                                System.out.println("This author has currently no books in the system!");
                             }
                         }
                     }
                 } catch (AuthorNotFoundException e) {
-                    System.out.println("This prefix did not matched any author!");
+                    System.out.println("This prefix did not match any author!");
                 }
                 break;
-            case "SearchDocumentsTitle":
+
+            case "SearchDocumentTitleAndAuthor":
+                documentTitle = IOUtils.askForString("Type document title");
+                authorName = IOUtils.askForString("Type author");
+                try {
+                    Document matchingDocument = viewController.getDocumentByTitleAndAuthor(documentTitle, authorName);
+                    System.out.println("\n" + documentTitle.toUpperCase() + " | " + authorName);
+                    System.out.println(FileUtils.readDocument(matchingDocument.getContent()));
+                    IOUtils.enterToContinue();
+                } catch (DocumentNotFoundException e) {
+                    System.out.println("No documents found!");
+                }
                 break;
+
+//            case "SearchDocumentsRelevance":
+//                break;
+
+//            case "SearchDocumentsExpression":
+//                break;
+
+//            case "SearchDocumentQuery":
+//                break;
 
             case "CreateDocument":
                 Document document = documentManager.createDocument();
@@ -238,9 +247,9 @@ public class MainMenu {
                 documentManager.setDocumentsCollection(myDocuments);
                 break;
 
-            case "ReadDocument":
-                documentManager.readDocument();
-                break;
+//            case "ReadDocument":
+//                documentManager.readDocument();
+//                break;
 
             case "UpdateDocument":
                 try {
@@ -265,6 +274,16 @@ public class MainMenu {
                     System.out.println("No documents found, try to create one.");
                 }
                 break;
+
+//            case "EditAccount":
+//                break;
+
+//            case "DeleteAccount":
+//                break;
+
+//            case "Logout":
+//                break;
+
             default:
                 System.out.println("Not implemented yet!");
         }
@@ -275,13 +294,11 @@ public class MainMenu {
         for (int i = 0; i < s.length() + 10; ++i) {
             System.out.print("-");
         }
-
         System.out.println();
         for (int i = 0; i < 5; ++i) {
             System.out.print(" ");
         }
         System.out.println(s);
-
         for (int i = 0; i < s.length() + 10; ++i) {
             System.out.print("-");
         }
