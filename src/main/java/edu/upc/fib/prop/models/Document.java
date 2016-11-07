@@ -1,5 +1,8 @@
 package edu.upc.fib.prop.models;
 
+import edu.upc.fib.prop.utils.Constants;
+import edu.upc.fib.prop.utils.FileUtils;
+
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -11,19 +14,21 @@ public class Document {
     private Map<String, Float> termFrequency;
 
     public Document(String title, String author, String content, String user) {
+        termFrequency = new TreeMap<>();
         this.title = title;
         this.author = author;
         this.user = user;
-        this.content = content;
-        termFrequency = new TreeMap<>();
+        setContent(content);
     }
 
-    public Document() {}
+    public Document() {
+        termFrequency = new TreeMap<>();
+    }
 
     public Document(String title, String author, String content) {
         this.title = title;
         this.author = author;
-        this.content = content;
+        setContent(content);
     }
 
     public String getTitle() {
@@ -48,6 +53,7 @@ public class Document {
 
     public void setContent(String content) {
         this.content = content;
+        updateFreqs();
     }
 
     public Map<String, Float> getTermFrequencyList() {
@@ -82,4 +88,23 @@ public class Document {
                         document.termFrequency == null))));
     }
 
+    private void updateFreqs(){
+        Float max = 1f;
+        termFrequency = new TreeMap<>();
+        for (String word : content.split(Constants.WORD_SEPARATION_REGEX)) {
+            word = word.toLowerCase();
+            if (!termFrequency.containsKey(word)) {
+                termFrequency.put(word, 1f);
+            } else {
+                Float aux = termFrequency.get(word) + 1;
+                termFrequency.put(word, aux);
+                if (aux > max)
+                    max = aux;
+            }
+        }
+        for (Map.Entry<String, Float> tf : termFrequency.entrySet()) {
+            Float newValue = 0.5f + (0.5f * tf.getValue() / max);
+            tf.setValue(newValue);
+        }
+    }
 }

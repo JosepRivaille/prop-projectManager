@@ -79,9 +79,10 @@ public interface BusinessController {
 
     /**
      * Updates a document in persistence.
-     * @param updatedDocument Old document title, and new document data.
+     * @param oldDoc Old document
+     * @param newDoc New document
      */
-    void updateDocument(Pair<Document, Document> updatedDocument) throws InvalidDetailsException;
+    void updateDocument(Document oldDoc, Document newDoc) throws InvalidDetailsException;
 
     /**
      * Deletes a document in persistence.

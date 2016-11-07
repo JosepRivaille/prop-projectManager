@@ -2,6 +2,7 @@ package edu.upc.fib.prop.business.controllers.impl;
 
 import edu.upc.fib.prop.business.controllers.BusinessController;
 import edu.upc.fib.prop.business.documents.impl.DocumentAnalyserImpl;
+import edu.upc.fib.prop.business.documents.impl.DocumentTools;
 import edu.upc.fib.prop.business.search.impl.SearchAuthorImpl;
 import edu.upc.fib.prop.business.search.impl.SearchDocumentImpl;
 import edu.upc.fib.prop.business.users.UsersManager;
@@ -98,42 +99,34 @@ public class BusinessControllerImpl implements BusinessController {
     }
 
     @Override
-    public void storeNewDocument(Document document) throws AlreadyExistingDocumentException {
-        document.setUser(usersManager.getCurrentUser().getEmail());
-        documentAnalyser.setDocument(document);
-        if (documentAnalyser.hasCorrectData()) {
+    public void storeNewDocument(Document doc) throws AlreadyExistingDocumentException {
+        doc.setUser(usersManager.getCurrentUser().getEmail());
+        if (DocumentTools.isCorrect(doc)) {
             try {
-                documentAnalyser.calculateDocumentParameters();
-                persistenceController.writeNewDocument(documentAnalyser.getDocument());
+                documentsCollection.addDocument(doc);
+                persistenceController.writeNewDocument(doc);
                 reloadDBData();
-            } catch (SQLException | DocumentNotFoundException e) {
+            } catch (SQLException e) {
                 throw new AlreadyExistingDocumentException();
             }
         }
     }
 
     @Override
-    public void updateDocument(Pair<Document, Document> updatedDocument) throws InvalidDetailsException {
-        Document oldDocument = updatedDocument.getKey();
-        Document newDocument = updatedDocument.getValue();
-        newDocument = documentAnalyser.fillEmptyUpdatedFields(oldDocument, newDocument);
-        documentAnalyser.setDocument(newDocument);
-        if (documentAnalyser.hasCorrectData()) {
+    public void updateDocument(Document oldDoc, Document newDoc) throws InvalidDetailsException {
             try {
-                documentAnalyser.calculateDocumentParameters();
-                newDocument = documentAnalyser.getDocument();
-                persistenceController.updateDocument(oldDocument, newDocument);
+                documentsCollection.updateDocument(oldDoc, newDoc);
+                persistenceController.updateDocument(oldDoc, newDoc);
                 reloadDBData();
-            } catch (DocumentNotFoundException e) {
+            } catch (InvalidDetailsException e) {
                 e.printStackTrace();
             }
-        } else {
-            throw new InvalidDetailsException();
-        }
+
     }
 
     @Override
     public void deleteDocument(Document document) {
+        documentsCollection.deleteDocument(document);
         persistenceController.deleteDocument(document);
         reloadDBData();
     }

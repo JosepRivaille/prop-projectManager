@@ -33,9 +33,31 @@ public class DocumentAnalyserImpl implements DocumentAnalyser {
                 !this.document.getContent().equals("");
     }
 
+    @Override
     public void calculateDocumentParameters() throws DocumentNotFoundException {
+
+    }
+
+    public void createDocument() throws DocumentNotFoundException {
         this.document.setTermFrequency(calculateTermFrequency());
-        this.documentsCollection.setInverseDocumentFrequency(calculateInverseDocumentFrequency());
+        this.addWordsToCollectionFreqs();
+    }
+    public void toUpdate() throws DocumentNotFoundException {
+        this.document.setTermFrequency(calculateTermFrequency());
+        this.addWordsToCollectionFreqs();
+    }
+    public void toDelete() throws DocumentNotFoundException {
+        this.document.setTermFrequency(calculateTermFrequency());
+        this.addWordsToCollectionFreqs();
+    }
+
+
+    public void addWordsToCollectionFreqs(){
+        for(Map.Entry<String,Float> entry : document.getTermFrequencyList().entrySet()) {
+            documentsCollection.addWord(entry.getKey());
+        } for(Map.Entry<String,Float> entry : document.getTermFrequencyList().entrySet()) {
+            documentsCollection.addWord(entry.getKey());
+        }
     }
 
     @Override
@@ -73,11 +95,4 @@ public class DocumentAnalyserImpl implements DocumentAnalyser {
         }
         return termFrequency;
     }
-
-    private Map<String, Float> calculateInverseDocumentFrequency() {
-        //Float documentsPerTerm = idf.get(word);
-        //Float weight = (float) log(this.documentsCollection.getDocuments().size() / (1 + documentsPerTerm));
-        return new TreeMap<>();
-    }
-
 }

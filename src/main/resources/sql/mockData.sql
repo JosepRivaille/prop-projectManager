@@ -2,7 +2,7 @@
 
 -- AUTHORS
 
-INSERT INTO authors(author_name) VALUES ('Donald Armstrong');
+/*INSERT INTO authors(author_name) VALUES ('Donald Armstrong');
 INSERT INTO authors(author_name) VALUES ('Kathleen Kelly');
 INSERT INTO authors(author_name) VALUES ('Lawrence Morrison');
 INSERT INTO authors(author_name) VALUES ('Tina Adams');
@@ -23,7 +23,7 @@ INSERT INTO authors(author_name) VALUES ('Anna Tucker');
 INSERT INTO authors(author_name) VALUES ('Randy Ramos');
 INSERT INTO authors(author_name) VALUES ('Joseph Murray');
 
-
+*/
 -- USERS
 
 INSERT INTO users(email, user_name, password, admin) VALUES ('asd@asd.asd','asd','688787d8ff144c502c7f5cffaafe2cc588d86079f9de88304c26b0cb99ce91c6',1);
@@ -34,7 +34,7 @@ INSERT INTO users(email, user_name, password, admin) VALUES ('imurphy2@wix.com',
 INSERT INTO users(email, user_name, password, admin) VALUES ('dpeterson3@unc.edu','jbutler3','688787d8ff144c502c7f5cffaafe2cc588d86079f9de88304c26b0cb99ce91c6',1);
 INSERT INTO users(email, user_name, password, admin) VALUES ('jrose4@usgs.gov','dalvarez4','688787d8ff144c502c7f5cffaafe2cc588d86079f9de88304c26b0cb99ce91c6',0);
 
-
+/*
 -- USERS
 
 INSERT INTO documents(title, author_name, user_owner, term_frequency, content) VALUES ('Belladonna, Calcarea iodata, Conium maculatum, Echinacea purpurea, Hepar sulphuris calcareum, Kali iodatum, Kali muriaticum, Mercurius vivus, Phytolacca decandra, Pulsatilla, Ricinus communis, Scrophularia nodosa, Solidago virgaurea, and sulphur iodatum','Marie Boyd','llittle0','[]','Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque.
@@ -371,3 +371,4 @@ Aenean lectus. Pellentesque eget nunc. Donec quis orci eget orci vehicula condim
 Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.
 
 Phasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum.');
+*/

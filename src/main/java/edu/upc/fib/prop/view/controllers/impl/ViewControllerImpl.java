@@ -74,7 +74,7 @@ public class ViewControllerImpl implements ViewController {
 
     @Override
     public void updateDocument(Pair<Document, Document> updatedDocument) throws InvalidDetailsException {
-        this.businessController.updateDocument(updatedDocument);
+        this.businessController.updateDocument(updatedDocument.getKey(), updatedDocument.getValue());
     }
 
     @Override
