@@ -19,7 +19,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Set;
 
 public class PersistenceControllerImpl implements PersistenceController {
 
@@ -51,11 +50,6 @@ public class PersistenceControllerImpl implements PersistenceController {
         DocumentsCollection documentsCollection = daoDocuments.getAllDocuments(c);
         closeConnection();
         return documentsCollection;
-    }
-
-    @Override
-    public Set<String> getExcludedWords(String lang) {
-        return FileUtils.getExcludedWords(lang);
     }
 
     @Override
@@ -98,6 +92,9 @@ public class PersistenceControllerImpl implements PersistenceController {
     public void updateUser(User currentUser, User newUser) throws UserNotFoundException, AlreadyExistingUserException {
         openConnection();
         daoUsers.updateUser(c, currentUser.getEmail(), newUser);
+        if (!currentUser.getEmail().equals(newUser.getEmail())) {
+            daoDocuments.updateDocumentOwner(c, currentUser.getEmail(), newUser.getEmail());
+        }
         closeConnection();
     }
 
@@ -106,6 +103,7 @@ public class PersistenceControllerImpl implements PersistenceController {
         try {
             openConnection();
             daoUsers.deleteUser(c, user);
+            daoDocuments.deleteDocuments(c, user.getEmail());
             closeConnection();
         } catch (UserNotFoundException | SQLException e) {
             throw new UserNotFoundException();

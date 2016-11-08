@@ -72,6 +72,18 @@ public class DaoDocumentsImpl implements DaoDocuments {
     }
 
     @Override
+    public void updateDocumentOwner(Connection c, String oldEmail, String newEmail) {
+        try {
+            Statement statement = c.createStatement();
+            String query = String.format("UPDATE documents " +
+                            "SET user_owner='%s' WHERE user_owner='%s'", oldEmail, newEmail);
+            statement.executeUpdate(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public void deleteExistingDocument(Connection c, Document document) {
         String title = document.getTitle();
         String author = document.getAuthor();
@@ -79,6 +91,17 @@ public class DaoDocumentsImpl implements DaoDocuments {
             Statement statement = c.createStatement();
             String query = String.format("DELETE FROM documents WHERE title='%s' AND author_name='%s';",
                     title, author);
+            statement.executeUpdate(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void deleteDocuments(Connection c, String email) {
+        try {
+            Statement statement = c.createStatement();
+            String query = String.format("DELETE FROM documents WHERE user_owner='%s'", email);
             statement.executeUpdate(query);
         } catch (SQLException e) {
             e.printStackTrace();

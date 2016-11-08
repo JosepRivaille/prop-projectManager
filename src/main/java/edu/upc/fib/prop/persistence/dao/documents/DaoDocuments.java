@@ -31,9 +31,25 @@ public interface DaoDocuments {
     void updateExistingDocument(Connection c, Document oldDocument, Document newDocument);
 
     /**
+     * Updates documents owned by a user when changes account details
+     * @param c DB connection.
+     * @param oldEmail Old email to replace.
+     * @param newEmail New email to set.
+     */
+    void updateDocumentOwner(Connection c, String oldEmail, String newEmail);
+
+    /**
      * Deletes an existing document in the system.
      * @param c DB connection.
      * @param document Document to delete.
      */
     void deleteExistingDocument(Connection c, Document document);
+
+    /**
+     * Deletes documents owned by a user.
+     * @param c DB connection.
+     * @param email Email to filter documents to delete.
+     */
+    void deleteDocuments(Connection c, String email);
+
 }

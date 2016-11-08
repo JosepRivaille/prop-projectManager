@@ -166,6 +166,7 @@ public class MainMenu {
         AuthorsCollection authorsCollection;
         DocumentsCollection documentsCollection;
         String authorName, documentTitle;
+        String email, userName, password;
 
         switch (action) {
 
@@ -274,11 +275,26 @@ public class MainMenu {
                 }
                 break;
 
-//            case "EditAccount":
-//                break;
+            case "EditAccount":
+                email = IOUtils.askForString("Email");
+                userName = IOUtils.askForString("Name");
+                password = IOUtils.askForString("Password");
+                try {
+                    viewController.userUpdate(email, userName, password);
+                } catch (InvalidDetailsException | UserNotFoundException e) {
+                    System.out.println("Your input details are invalid, try it again.");
+                } catch (AlreadyExistingUserException e) {
+                    System.out.println("Detail introduced already used by another user.");
+                }
+                break;
 
-//            case "DeleteAccount":
-//                break;
+            case "DeleteAccount":
+                try {
+                    viewController.userDelete();
+                } catch (UserNotFoundException e) {
+                    System.out.println("Unable to delete the user, try it again.");
+                }
+                break;
 
 //            case "Logout":
 //                break;
