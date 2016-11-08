@@ -3,6 +3,7 @@ package edu.upc.fib.prop.business.search;
 import edu.upc.fib.prop.exceptions.DocumentNotFoundException;
 import edu.upc.fib.prop.models.Document;
 import edu.upc.fib.prop.models.DocumentsCollection;
+import edu.upc.fib.prop.models.SortedDocumentsSet;
 
 public interface SearchDocument {
 
@@ -32,4 +33,13 @@ public interface SearchDocument {
      */
     Document filterByTitleAndAuthor(DocumentsCollection documentsCollection, String title, String authorName)
             throws DocumentNotFoundException;
+
+    /**
+     * Given a number k > 0 and a document, finds the k most similar documents in the collection.
+     * @param col   List of all documents
+     * @param doc   Document which will be used as a reference.
+     * @param k     number of documents that will be found if possible
+     * @return
+     */
+    SortedDocumentsSet searchForSimilarDocuments(DocumentsCollection col, Document doc, int k);
 }

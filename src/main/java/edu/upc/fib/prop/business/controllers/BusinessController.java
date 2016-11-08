@@ -4,6 +4,7 @@ import edu.upc.fib.prop.exceptions.*;
 import edu.upc.fib.prop.models.AuthorsCollection;
 import edu.upc.fib.prop.models.Document;
 import edu.upc.fib.prop.models.DocumentsCollection;
+import edu.upc.fib.prop.models.SortedDocumentsSet;
 import javafx.util.Pair;
 
 public interface BusinessController {
@@ -64,6 +65,16 @@ public interface BusinessController {
      * @return Document matching title and author.
      */
     Document searchDocumentsByTitleAndAuthor(String title, String authorName) throws DocumentNotFoundException;
+
+    /**
+     *
+     * @param document reference document
+     * @param k number of documents to find
+     * @return  sorted set of similar documents
+     * @throws DocumentNotFoundException
+     */
+    public SortedDocumentsSet searchDocumentsByRelevance(Document document, int k)
+            throws DocumentNotFoundException;
 
     /**
      * Gets current session logged user documents.

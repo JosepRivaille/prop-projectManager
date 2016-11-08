@@ -1,10 +1,7 @@
 package edu.upc.fib.prop.view.menu;
 
 import edu.upc.fib.prop.exceptions.*;
-import edu.upc.fib.prop.models.Author;
-import edu.upc.fib.prop.models.AuthorsCollection;
-import edu.upc.fib.prop.models.Document;
-import edu.upc.fib.prop.models.DocumentsCollection;
+import edu.upc.fib.prop.models.*;
 import edu.upc.fib.prop.utils.FileUtils;
 import edu.upc.fib.prop.utils.IOUtils;
 import edu.upc.fib.prop.utils.MenuTree;
@@ -225,8 +222,21 @@ public class MainMenu {
                 }
                 break;
 
-//            case "SearchDocumentsRelevance":
-//                break;
+            case "SearchDocumentsRelevance":
+                documentTitle = IOUtils.askForString("Type document title");
+                authorName = IOUtils.askForString("Type author");
+                int k = IOUtils.askForInt("Type number of documents", 1, 10000);
+                try {
+                    Document matchingDocument = viewController.getDocumentByTitleAndAuthor(documentTitle, authorName);
+                    SortedDocumentsSet list = viewController.getDocumentsByRelevance(matchingDocument, k);
+                    for(int i = 0; i< list.size();++i){
+                        System.out.println(list.get(i).getTitle());
+                    }
+                    IOUtils.enterToContinue();
+                } catch (DocumentNotFoundException e) {
+                    System.out.println("No documents found!");
+                }
+                break;
 
 //            case "SearchDocumentsExpression":
 //                break;

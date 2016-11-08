@@ -1,9 +1,20 @@
 package edu.upc.fib.prop.business.search.impl;
 
+import edu.upc.fib.prop.business.documents.impl.DocumentTools;
 import edu.upc.fib.prop.exceptions.DocumentNotFoundException;
 import edu.upc.fib.prop.models.Document;
 import edu.upc.fib.prop.models.DocumentsCollection;
 import edu.upc.fib.prop.business.search.SearchDocument;
+import edu.upc.fib.prop.models.SortedDocumentsSet;
+import edu.upc.fib.prop.models.WeightsVector;
+
+import javax.print.Doc;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.stream.Collectors;
+
 
 public class SearchDocumentImpl implements SearchDocument {
 
@@ -37,5 +48,23 @@ public class SearchDocumentImpl implements SearchDocument {
             }
         }
         throw new DocumentNotFoundException();
+    }
+
+    @Override
+    public SortedDocumentsSet searchForSimilarDocuments(DocumentsCollection col, Document doc, int k) {
+    //TODO REVISAR
+        WeightsVector wv1 = DocumentTools.getWeights(doc, col);
+        int min = Math.max(k, col.size());
+
+        SortedDocumentsSet res = new SortedDocumentsSet(min);
+
+        for (Document document : col.getDocuments()) {
+            if(!doc.equals(document)) {
+                WeightsVector wv2 = DocumentTools.getWeights(document, col);
+                Double relevance = DocumentTools.getRelevanceFactor(wv1, wv2);
+                res.add(document, relevance);
+            }
+        }
+        return res;
     }
 }

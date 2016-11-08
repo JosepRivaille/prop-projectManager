@@ -4,6 +4,7 @@ import edu.upc.fib.prop.exceptions.*;
 import edu.upc.fib.prop.models.AuthorsCollection;
 import edu.upc.fib.prop.models.Document;
 import edu.upc.fib.prop.models.DocumentsCollection;
+import edu.upc.fib.prop.models.SortedDocumentsSet;
 import javafx.util.Pair;
 
 public interface ViewController {
@@ -13,6 +14,7 @@ public interface ViewController {
     DocumentsCollection getDocumentsByAuthorId(String authorName) throws DocumentNotFoundException;
 
     Document getDocumentByTitleAndAuthor(String title, String author) throws DocumentNotFoundException;
+    SortedDocumentsSet getDocumentsByRelevance(Document document, int k) throws DocumentNotFoundException;
 
     void userLogin(String email, String password) throws UserNotFoundException, InvalidDetailsException;
 
