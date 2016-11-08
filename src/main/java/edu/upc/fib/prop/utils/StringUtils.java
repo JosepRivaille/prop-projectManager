@@ -10,7 +10,9 @@ import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class StringUtils { public static String hashData(String data) throws NoSuchAlgorithmException { MessageDigest md = MessageDigest.getInstance("SHA-256"); md.update(data.getBytes()); byte byteData[] = md.digest(); //Convert byte to hex format
+public class StringUtils {
+
+    public static String hashData(String data) throws NoSuchAlgorithmException { MessageDigest md = MessageDigest.getInstance("SHA-256"); md.update(data.getBytes()); byte byteData[] = md.digest(); //Convert byte to hex format
         StringBuilder sb = new StringBuilder();
         for (byte aByteData : byteData) {
             sb.append(Integer.toString((aByteData & 0xff) + 0x100, 16).substring(1));

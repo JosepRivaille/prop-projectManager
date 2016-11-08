@@ -35,7 +35,7 @@ public class DaoDocumentsImpl implements DaoDocuments {
         DocumentsCollection documentsCollection = new DocumentsCollection();
         try {
             Statement statement = c.createStatement();
-            String query = "SELECT * FROM documents;";
+            String query = "SELECT * FROM documents ORDER BY title ASC;";
             ResultSet rs = statement.executeQuery(query);
             while (rs.next()) {
                 String title = rs.getString("title");

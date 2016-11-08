@@ -54,11 +54,7 @@ public class DaoAuthorsTest {
         }
     }
 
-    @Test
-    public void test_whenGetAllAuthors_withDefaultSQL_thenReturnExpectedCollection() {
-        AuthorsCollection authorsCollection = daoAuthors.getAllAuthors(c);
-        assertTrue(authorsCollection.getAuthors().size() == 9);
-    }
+    /*--------------- Create */
 
     @Test(expected = AuthorNotFoundException.class)
     public void test_whenGetAuthorByName_withNonExistingAuthor_thenThrowNotFoundException()
@@ -66,6 +62,32 @@ public class DaoAuthorsTest {
         String fakeName = "Foo";
 
         daoAuthors.getAuthorByName(c, fakeName);
+    }
+
+    /*--------------- Read */
+
+    @Test
+    public void test_whenGetAllAuthors_withDefaultSQL_thenReturnExpectedCollection() {
+        AuthorsCollection authorsCollection = daoAuthors.getAllAuthors(c);
+        assertTrue(authorsCollection.getAuthors().size() == 9);
+    }
+
+    @Test
+    public void test_whenGetAllAuthors_withExistingData_thenReturnSortedCollection() {
+        AuthorsCollection authorsCollection = daoAuthors.getAllAuthors(c);
+
+        AuthorsCollection expectedCollection = new AuthorsCollection();
+        expectedCollection.addAuthor(new Author("Dwain Spratling"));
+        expectedCollection.addAuthor(new Author("Earnestine Rine"));
+        expectedCollection.addAuthor(new Author("Gaylord Lisowski"));
+        expectedCollection.addAuthor(new Author("Mardell Tucci"));
+        expectedCollection.addAuthor(new Author("Merrill Wolanski"));
+        expectedCollection.addAuthor(new Author("Rodrick Weimer"));
+        expectedCollection.addAuthor(new Author("Sima Hannon"));
+        expectedCollection.addAuthor(new Author("Teisha Suman"));
+        expectedCollection.addAuthor(new Author("Zofia Bivens"));
+
+        assertTrue(expectedCollection.equals(authorsCollection));
     }
 
     @Test

@@ -19,11 +19,12 @@ public class DaoAuthorsImpl implements DaoAuthors {
         statement.executeUpdate(query);
     }
 
+    @Override
     public AuthorsCollection getAllAuthors(Connection c) {
         AuthorsCollection authorsCollection = new AuthorsCollection();
         try {
             Statement statement = c.createStatement();
-            String query = "SELECT * FROM authors;";
+            String query = "SELECT * FROM authors ORDER BY author_name ASC;";
             ResultSet rs = statement.executeQuery(query);
             while (rs.next()) {
                 authorsCollection.addAuthor(new Author(rs.getString("author_name")));

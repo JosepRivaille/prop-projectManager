@@ -247,9 +247,9 @@ public class MainMenu {
                 documentManager.setDocumentsCollection(myDocuments);
                 break;
 
-//            case "ReadDocument":
-//                documentManager.readDocument();
-//                break;
+            case "ReadDocument":
+                documentManager.readDocument();
+                break;
 
             case "UpdateDocument":
                 try {
