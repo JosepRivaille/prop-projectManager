@@ -1,7 +1,6 @@
 package edu.upc.fib.prop.business.controllers.impl;
 
 import edu.upc.fib.prop.business.controllers.BusinessController;
-import edu.upc.fib.prop.business.documents.impl.DocumentAnalyserImpl;
 import edu.upc.fib.prop.business.documents.impl.DocumentTools;
 import edu.upc.fib.prop.business.search.impl.SearchAuthorImpl;
 import edu.upc.fib.prop.business.search.impl.SearchDocumentImpl;
@@ -29,7 +28,6 @@ public class BusinessControllerImpl implements BusinessController {
     private DocumentsCollection documentsCollection;
 
     private UsersManager usersManager;
-    private DocumentAnalyserImpl documentAnalyser;
 
     public BusinessControllerImpl() {
         System.out.println("Initializing business controller");
@@ -43,7 +41,6 @@ public class BusinessControllerImpl implements BusinessController {
         this.documentsCollection = this.persistenceController.getDocuments();
 
         this.usersManager = new UsersManagerImpl();
-        this.documentAnalyser = new DocumentAnalyserImpl(this.documentsCollection);
     }
 
     @Override
