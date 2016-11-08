@@ -1,6 +1,6 @@
 package edu.upc.fib.prop.models;
 
-import edu.upc.fib.prop.business.documents.impl.DocumentTools;
+import edu.upc.fib.prop.business.documents.DocumentTools;
 import edu.upc.fib.prop.exceptions.InvalidDetailsException;
 
 import java.util.ArrayList;

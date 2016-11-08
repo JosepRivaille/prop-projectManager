@@ -5,7 +5,7 @@ import java.util.TreeMap;
 
 public class WeightsVector implements Iterable{
 
-    TreeMap<String, Float> vector;
+    private TreeMap<String, Float> vector;
 
     public WeightsVector(){
         vector = new TreeMap<>();

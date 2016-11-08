@@ -1,23 +1,19 @@
 package edu.upc.fib.prop.models;
 
-import javafx.util.Pair;
-
 import java.util.*;
 
 public class SortedDocumentsSet{
 
-    NavigableMap<Double, List<Document>> docs;
+    private NavigableMap<Double, List<Document>> docs;
 
-    boolean limited;
-    int limit;
-    int cont;
+    private boolean limited;
+    private int limit;
+    private int cont;
 
-    /**
-     * Constructor por defecto
-     */
+    //TODO: Remove if unused
     public SortedDocumentsSet(){
         limited = false;
-        docs = new TreeMap<Double, List<Document>>();
+        docs = new TreeMap<>();
         cont = 0;
     }
 

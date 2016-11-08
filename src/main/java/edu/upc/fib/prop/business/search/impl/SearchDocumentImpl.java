@@ -1,6 +1,6 @@
 package edu.upc.fib.prop.business.search.impl;
 
-import edu.upc.fib.prop.business.documents.impl.DocumentTools;
+import edu.upc.fib.prop.business.documents.DocumentTools;
 import edu.upc.fib.prop.exceptions.DocumentNotFoundException;
 import edu.upc.fib.prop.models.Document;
 import edu.upc.fib.prop.models.DocumentsCollection;

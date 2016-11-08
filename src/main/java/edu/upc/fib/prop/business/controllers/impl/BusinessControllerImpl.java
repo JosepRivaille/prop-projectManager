@@ -1,7 +1,7 @@
 package edu.upc.fib.prop.business.controllers.impl;
 
 import edu.upc.fib.prop.business.controllers.BusinessController;
-import edu.upc.fib.prop.business.documents.impl.DocumentTools;
+import edu.upc.fib.prop.business.documents.DocumentTools;
 import edu.upc.fib.prop.business.search.impl.SearchAuthorImpl;
 import edu.upc.fib.prop.business.search.impl.SearchDocumentImpl;
 import edu.upc.fib.prop.business.users.UsersManager;

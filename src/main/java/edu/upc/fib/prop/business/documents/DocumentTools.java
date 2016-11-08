@@ -1,19 +1,13 @@
-package edu.upc.fib.prop.business.documents.impl;
+package edu.upc.fib.prop.business.documents;
 
-import edu.upc.fib.prop.exceptions.InvalidDetailsException;
 import edu.upc.fib.prop.models.Document;
 import edu.upc.fib.prop.models.DocumentsCollection;
 import edu.upc.fib.prop.models.WeightsVector;
 
-import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
 
-/**
- * Created by Guillermo on 07/11/2016.
- */
 public class DocumentTools {
-
 
     public static String getRelevantTerms(Document doc){
         //TODO Hay que aplicar un filtrado para descartar las palabras irrelevantes

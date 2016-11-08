@@ -42,10 +42,6 @@ public class User {
         return admin;
     }
 
-    public void setAdmin(Boolean admin) {
-        this.admin = admin;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
