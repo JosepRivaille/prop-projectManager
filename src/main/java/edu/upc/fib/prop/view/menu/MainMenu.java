@@ -296,8 +296,10 @@ public class MainMenu {
                 }
                 break;
 
-//            case "Logout":
-//                break;
+            case "Logout":
+                viewController.userLogout();
+                //TODO: Go to login menu again
+                break;
 
             default:
                 System.out.println("Not implemented yet!");

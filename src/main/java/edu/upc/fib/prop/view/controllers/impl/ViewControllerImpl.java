@@ -59,6 +59,11 @@ public class ViewControllerImpl implements ViewController {
         businessController.deleteUser();
     }
 
+    @Override
+    public void userLogout() {
+        businessController.logout();
+    }
+
     /*-------------------- Documents */
 
     @Override

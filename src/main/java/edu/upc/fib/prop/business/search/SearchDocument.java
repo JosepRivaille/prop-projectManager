@@ -32,4 +32,5 @@ public interface SearchDocument {
      */
     Document filterByTitleAndAuthor(DocumentsCollection documentsCollection, String title, String authorName)
             throws DocumentNotFoundException;
+
 }

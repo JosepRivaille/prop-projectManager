@@ -89,6 +89,11 @@ public class BusinessControllerImpl implements BusinessController {
     }
 
     @Override
+    public void logout() {
+        usersManager.logout();
+    }
+
+    @Override
     public DocumentsCollection getCurrentUserDocuments() {
         String user = this.usersManager.getCurrentUser().getEmail();
         return this.searchDocument.filterByUser(this.documentsCollection, user);
