@@ -5,6 +5,7 @@ import edu.upc.fib.prop.models.Document;
 import edu.upc.fib.prop.models.DocumentsCollection;
 import edu.upc.fib.prop.models.WeightsVector;
 
+import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -43,7 +44,7 @@ public class DocumentTools {
     }
 
     public static double getRelevanceFactor(WeightsVector wv1, WeightsVector wv2){
-        //TODO REVISAR
+        //TODO La idea es encapsular la estrucura de datos que almacena los pesos, habria que modificar esto y recorrerlo sin acceder directamente al map.
         Double sum = 0.0;
         TreeMap<String, Float> vec1 = wv1.getVector();
         TreeMap<String, Float> vec2 = wv2.getVector();
@@ -51,6 +52,11 @@ public class DocumentTools {
         for (Map.Entry<String, Float> elem : vec1.entrySet()) {
             if(vec2.containsKey(elem.getKey())) sum += elem.getValue() * vec2.get(elem.getKey());
         }
+        /*Iterator it1 = wv1.iterator();
+        Iterator it2 = wv2.iterator();
+        while(it1.hasNext()){
+            if(wv2.contains(wv1.iterator().next()));
+        }*/
         return sum;
     }
 }

@@ -54,7 +54,7 @@ public class SearchDocumentImpl implements SearchDocument {
     public SortedDocumentsSet searchForSimilarDocuments(DocumentsCollection col, Document doc, int k) {
     //TODO REVISAR
         WeightsVector wv1 = DocumentTools.getWeights(doc, col);
-        int min = Math.max(k, col.size());
+        int min = Math.min(k, col.size());
 
         SortedDocumentsSet res = new SortedDocumentsSet(min);
 
