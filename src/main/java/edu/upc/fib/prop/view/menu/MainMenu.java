@@ -41,8 +41,7 @@ public class MainMenu {
             } else {
                 printHeader(menuTree.getHeaderText());
                 menuTree.getOptions().forEach(System.out::println);
-                // TODO: Set variable max input value
-                optionSelected = IOUtils.askForInt("Select an option", 0, 10);
+                optionSelected = IOUtils.askForInt("Select an option", 0, menuTree.getChildren().size());
                 if (optionSelected != 0 && optionSelected <= menuTree.getChildren().size()) {
                     MenuTree childSelected = menuTree.getChildren().get(optionSelected - 1);
                     displayMenuOptions(childSelected);

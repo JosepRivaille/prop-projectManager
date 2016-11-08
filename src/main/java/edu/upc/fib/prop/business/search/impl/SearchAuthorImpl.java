@@ -10,7 +10,8 @@ public class SearchAuthorImpl implements SearchAuthor {
             throws AuthorNotFoundException {
         AuthorsCollection filteredAuthors = new AuthorsCollection();
         authorsCollection.getAuthors().stream().filter(author ->
-                author.getName().matches("(?i)" + authorPrefix + ".*")).forEach(filteredAuthors::addAuthor);
+                author.getName().toLowerCase().matches("(?i)" + authorPrefix.toLowerCase() + ".*"))
+                .forEach(filteredAuthors::addAuthor);
         if (filteredAuthors.getAuthors().isEmpty()) {
             throw new AuthorNotFoundException();
         }

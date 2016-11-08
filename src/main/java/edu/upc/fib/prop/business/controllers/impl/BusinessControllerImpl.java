@@ -13,7 +13,6 @@ import edu.upc.fib.prop.models.DocumentsCollection;
 import edu.upc.fib.prop.models.User;
 import edu.upc.fib.prop.persistence.controllers.PersistenceController;
 import edu.upc.fib.prop.persistence.controllers.impl.PersistenceControllerImpl;
-import javafx.util.Pair;
 
 import java.sql.SQLException;
 
