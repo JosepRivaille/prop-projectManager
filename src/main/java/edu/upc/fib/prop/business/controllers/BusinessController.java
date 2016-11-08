@@ -4,6 +4,7 @@ import edu.upc.fib.prop.exceptions.*;
 import edu.upc.fib.prop.models.AuthorsCollection;
 import edu.upc.fib.prop.models.Document;
 import edu.upc.fib.prop.models.DocumentsCollection;
+import edu.upc.fib.prop.models.SortedDocumentsSet;
 
 public interface BusinessController {
 
@@ -68,6 +69,15 @@ public interface BusinessController {
      * @return Document matching title and author.
      */
     Document searchDocumentsByTitleAndAuthor(String title, String authorName) throws DocumentNotFoundException;
+
+    /**
+     * Sorts a k size document set by relevance given a document.
+     * @param document reference document
+     * @param k number of documents to find
+     * @return  sorted set of similar documents
+     */
+    SortedDocumentsSet searchDocumentsByRelevance(Document document, int k)
+            throws DocumentNotFoundException;
 
     /**
      * Gets current session logged user documents.

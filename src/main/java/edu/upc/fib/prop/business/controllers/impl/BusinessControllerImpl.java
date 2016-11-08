@@ -7,10 +7,7 @@ import edu.upc.fib.prop.business.search.impl.SearchDocumentImpl;
 import edu.upc.fib.prop.business.users.UsersManager;
 import edu.upc.fib.prop.business.users.impl.UsersManagerImpl;
 import edu.upc.fib.prop.exceptions.*;
-import edu.upc.fib.prop.models.AuthorsCollection;
-import edu.upc.fib.prop.models.Document;
-import edu.upc.fib.prop.models.DocumentsCollection;
-import edu.upc.fib.prop.models.User;
+import edu.upc.fib.prop.models.*;
 import edu.upc.fib.prop.persistence.controllers.PersistenceController;
 import edu.upc.fib.prop.persistence.controllers.impl.PersistenceControllerImpl;
 
@@ -57,6 +54,13 @@ public class BusinessControllerImpl implements BusinessController {
             throws DocumentNotFoundException {
         return this.searchDocument.filterByTitleAndAuthor(this.documentsCollection, title, authorName);
     }
+
+    @Override
+    public SortedDocumentsSet searchDocumentsByRelevance(Document document, int k)
+            throws DocumentNotFoundException {
+        return this.searchDocument.searchForSimilarDocuments(this.documentsCollection, document, k);
+    }
+
 
     @Override
     public void checkLoginDetails(String email, String password)

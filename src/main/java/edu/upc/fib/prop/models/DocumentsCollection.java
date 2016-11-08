@@ -2,7 +2,6 @@ package edu.upc.fib.prop.models;
 
 import edu.upc.fib.prop.business.documents.impl.DocumentTools;
 import edu.upc.fib.prop.exceptions.InvalidDetailsException;
-import org.mockito.internal.util.collections.ArrayUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,10 +49,6 @@ public class DocumentsCollection {
         }
     }
 
-    public Float getWordWeight(Document doc, String word){
-        return doc.getTermFrequency(word) * getIdf(word);
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -76,4 +71,6 @@ public class DocumentsCollection {
     public Float getIdf(String word){
         return (float)Math.log(documents.size()/wordsFrequencies.get(word));
     }
+
+    public int size(){ return documents.size();}
 }
