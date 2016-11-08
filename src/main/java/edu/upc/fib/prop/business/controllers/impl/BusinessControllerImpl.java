@@ -29,7 +29,6 @@ public class BusinessControllerImpl implements BusinessController {
     private DocumentsCollection documentsCollection;
 
     private UsersManager usersManager;
-    private DocumentAnalyserImpl documentAnalyser;
 
     public BusinessControllerImpl() {
         System.out.println("Initializing business controller");
@@ -43,7 +42,6 @@ public class BusinessControllerImpl implements BusinessController {
         this.documentsCollection = this.persistenceController.getDocuments();
 
         this.usersManager = new UsersManagerImpl();
-        this.documentAnalyser = new DocumentAnalyserImpl(this.documentsCollection);
     }
 
     @Override
