@@ -2,6 +2,7 @@ package edu.upc.fib.prop.business.search.impl;
 
 import edu.upc.fib.prop.business.documents.DocumentTools;
 import edu.upc.fib.prop.exceptions.DocumentNotFoundException;
+import edu.upc.fib.prop.exceptions.InvalidDetailsException;
 import edu.upc.fib.prop.models.Document;
 import edu.upc.fib.prop.models.DocumentsCollection;
 import edu.upc.fib.prop.business.search.SearchDocument;
@@ -21,9 +22,17 @@ public class SearchDocumentImpl implements SearchDocument {
     public DocumentsCollection filterByAuthor(DocumentsCollection documentsCollection, String authorName)
             throws DocumentNotFoundException {
         DocumentsCollection filteredDocuments = new DocumentsCollection();
-        documentsCollection.getDocuments().stream().filter(document ->
+
+        for (Document document : documentsCollection.getDocuments()) {
+            if(document.getAuthor().toLowerCase().contains(authorName.toLowerCase())) {
+                try {
+                    filteredDocuments.addDocument(document);
+                } catch (InvalidDetailsException e){};
+            }
+        }
+        /*documentsCollection.getDocuments().stream().filter(document ->
                 document.getAuthor().toLowerCase().contains(authorName.toLowerCase()))
-                .forEach(filteredDocuments::addDocument);
+                .forEach(filteredDocu ments::addDocument);*/
         if (filteredDocuments.getDocuments().isEmpty()) {
             throw new DocumentNotFoundException();
         }
@@ -32,10 +41,19 @@ public class SearchDocumentImpl implements SearchDocument {
 
     public DocumentsCollection filterByUser(DocumentsCollection documentsCollection, String email) {
         DocumentsCollection filteredDocuments = new DocumentsCollection();
-        documentsCollection.getDocuments().stream().filter(document ->
+
+        for (Document document : documentsCollection.getDocuments()) {
+            if(document.getUser().toLowerCase().equals(email.toLowerCase())) {
+                try {
+                    filteredDocuments.addDocument(document);
+                } catch (InvalidDetailsException e){};
+            }
+        }
+        return filteredDocuments;
+        /*documentsCollection.getDocuments().stream().filter(document ->
                 document.getUser().equals(email))
                 .forEach(filteredDocuments::addDocument);
-        return filteredDocuments;
+        return filteredDocuments;*/
     }
 
     @Override

@@ -4,10 +4,11 @@ import edu.upc.fib.prop.business.documents.DocumentTools;
 import edu.upc.fib.prop.exceptions.InvalidDetailsException;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 
-public class DocumentsSet {
+public class DocumentsSet implements Iterable<Document>{
     private List<Document> documents;
 
     public DocumentsSet() {
@@ -39,5 +40,10 @@ public class DocumentsSet {
 
     public int size(){
         return this.documents.size();
+    }
+
+    @Override
+    public Iterator iterator() {
+        return documents.iterator();
     }
 }

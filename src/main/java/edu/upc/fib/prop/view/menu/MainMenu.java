@@ -5,12 +5,14 @@ import edu.upc.fib.prop.models.*;
 import edu.upc.fib.prop.utils.FileUtils;
 import edu.upc.fib.prop.utils.IOUtils;
 import edu.upc.fib.prop.utils.MenuTree;
+import edu.upc.fib.prop.utils.Strings;
 import edu.upc.fib.prop.view.controllers.ViewController;
 import edu.upc.fib.prop.view.document.DocumentManager;
 import javafx.util.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.io.Console;
 
 public class MainMenu {
 
@@ -26,7 +28,7 @@ public class MainMenu {
             documentManager = new DocumentManager(myDocuments);
             displayMenuOptions(menuTree);
         }
-        printHeader("CLOSING APP");
+        System.out.println(Strings.CLOSING_APP);
     }
 
     private void displayMenuOptions(MenuTree menuTree) {
@@ -38,52 +40,58 @@ public class MainMenu {
             } else {
                 printHeader(menuTree.getHeaderText());
                 menuTree.getOptions().forEach(System.out::println);
-                optionSelected = IOUtils.askForInt("Select an option", 0, menuTree.getChildren().size());
+                System.out.println();
+                optionSelected = IOUtils.askForInt(Strings.SELECT_AN_OPTION, 0, menuTree.getChildren().size());
+                System.out.println();
                 if (optionSelected != 0 && optionSelected <= menuTree.getChildren().size()) {
                     MenuTree childSelected = menuTree.getChildren().get(optionSelected - 1);
                     displayMenuOptions(childSelected);
                 }
             }
         } while (optionSelected != 0);
+        System.out.println();
     }
 
     private boolean accountManagement() {
         int optionSelected;
         String email, userName, password, password2;
-        printHeader("LOGIN OR SIGN UP");
+        printHeader(Strings.LOGIN_SIGNUP_HEADER);
         do {
-            System.out.println("1. Login");
-            System.out.println("2. Register");
-            System.out.println("0. Exit");
-            optionSelected = IOUtils.askForInt("Select an option", 0, 2);
+            System.out.println("1. " + Strings.LOGIN);
+            System.out.println("2. " + Strings.SIGNUP);
+            System.out.println("0. " + Strings.EXIT);
+            System.out.println();
+            optionSelected = IOUtils.askForInt(Strings.SELECT_AN_OPTION, 0, 2);
             switch (optionSelected) {
                 case 1:
-                    email = IOUtils.askForString("Email");
-                    password = IOUtils.askForString("Password");
+                    email = IOUtils.askForString(Strings.EMAIL);
+                    password = IOUtils.askForString(Strings.PASSWORD);
                     try {
                         viewController.userLogin(email, password);
-                        System.out.println("Welcome " + email + "!");
+                        System.out.println(Strings.WELCOME + " " + email + "!");
                         return true;
                     } catch (UserNotFoundException e) {
-                        System.out.println("Non existing user in the system.");
+                        System.out.println(Strings.USER_NOT_FOUND);
                     } catch (InvalidDetailsException e){
-                        System.out.println("Invalid user - password combination!");
+                        System.out.println(Strings.INVALID_CREDENTIALS);
                     }
+                    IOUtils.enterToContinue();
                     break;
                 case 2:
-                    email = IOUtils.askForString("Email");
-                    userName = IOUtils.askForString("Name");
-                    password = IOUtils.askForString("Password");
-                    password2 = IOUtils.askForString("Repeat password");
+                    email = IOUtils.askForString(Strings.EMAIL);
+                    userName = IOUtils.askForString(Strings.NAME);
+                    password = IOUtils.askForString(Strings.PASSWORD);
+                    password2 = IOUtils.askForString(Strings.REPEAT_PASSWORD);
                     try {
                         viewController.userRegister(email, userName, password, password2);
-                        System.out.println("Welcome " + email + "!");
+                        System.out.println(Strings.WELCOME + " " + email + "!");
                         return true;
                     } catch (AlreadyExistingUserException e) {
-                        System.out.println("This user is already in system.");
+                        System.out.println(Strings.USER_ALREADY_EXISTS);
                     } catch (InvalidDetailsException e){
-                        System.out.println("Invalid input data!");
+                        System.out.println(Strings.INVALID_INPUT_DATA);
                     }
+                    IOUtils.enterToContinue();
                     break;
             }
         } while (optionSelected != 0);
@@ -95,22 +103,23 @@ public class MainMenu {
 
         //Level 1
         options = new ArrayList<>();
-        options.add("1. Perform search");
-        options.add("2. Manage my documents");
-        options.add("3. Settings");
-        options.add("0. Exit");
-        MenuTree root = new MenuTree("MAIN MENU", options, false);
+        options.add("1. " + Strings.PERFORM_SEARCH);
+        options.add("2. " + Strings.MANAGE_MY_DOCUMENTS);
+        options.add("3. " + Strings.SETTINGS);
+        options.add("0. " + Strings.EXIT);
+        MenuTree root = new MenuTree(Strings.MAIN_MENU_HEADER, options, false);
 
         //Level 1.
         options = new ArrayList<>();
 
-        options.add("1. Search documents by author");
-        options.add("2. Search documents by title and author");
-        options.add("3. Search documents by document and relevance");
-        options.add("4. Search documents with boolean expression");
-        options.add("5. Search documents with query");
-        options.add("0. Back");
-        root.addChild(new MenuTree("DOCUMENTS SEARCH", options, false));
+        options.add("1. " + Strings.SEARCH_DOCUMENTS_BY_AUTHOR);
+        options.add("2. " + Strings.SEARCH_DOCUMENTS_BY_TITLE_AND_AUTHOR);
+        options.add("3. " + Strings.SEARCH_DOCUMENTS_BY_RELEVANCE);
+        options.add("4. " + Strings.SEARCH_DOCUMENTS_BY_BOOLEAN_EXPRESSION);
+        options.add("5. " + Strings.SEARCH_DOCUMENTS_BY_QUERY);
+        options.add("6. " + Strings.SEARCH_ALL_DOCUMENTS);
+        options.add("0. " + Strings.GO_BACK);
+        root.addChild(new MenuTree(Strings.DOCUMENTS_SEARCH_HEADER, options, false));
 
         //Level 1.1
         root.getChildren().get(0).addChild(new MenuTree("SearchAuthorPrefix", null, true));
@@ -122,15 +131,17 @@ public class MainMenu {
         root.getChildren().get(0).addChild(new MenuTree("SearchDocumentsExpression", null, true));
         //Level 1.5
         root.getChildren().get(0).addChild(new MenuTree("SearchDocumentsQuery", null, true));
+        //Level 1.6
+        root.getChildren().get(0).addChild(new MenuTree("SearchAllDocuments", null, true));
 
         //Level 2
         options = new ArrayList<>();
-        options.add("1. Create new document");
-        options.add("2. Read document");
-        options.add("3. Edit document");
-        options.add("4. Delete document");
+        options.add("1. " + Strings.CREATE_DOCUMENT);
+        options.add("2. " + Strings.READ_DOCUMENT);
+        options.add("3. " + Strings.EDIT_DOCUMENT);
+        options.add("4. " + Strings.DELETE_DOCUMENT);
         options.add("0. Back");
-        root.addChild(new MenuTree("DOCUMENT MANAGER", options, false));
+        root.addChild(new MenuTree(Strings.DOCUMENTS_MANAGER_HEADER, options, false));
 
         //Level 2.1
         root.getChildren().get(1).addChild(new MenuTree("CreateDocument", null, true));
@@ -143,11 +154,11 @@ public class MainMenu {
 
         //Level 3
         options = new ArrayList<>();
-        options.add("1. Edit account");
-        options.add("2. Delete account");
-        options.add("3. Logout");
-        options.add("0. Back");
-        root.addChild(new MenuTree("SETTINGS", options, false));
+        options.add("1. " + Strings.EDIT_ACCOUNT);
+        options.add("2. " + Strings.DELETE_ACCOUNT);
+        options.add("3. " + Strings.LOGOUT);
+        options.add("0. " + Strings.GO_BACK);
+        root.addChild(new MenuTree(Strings.SETTINGS_HEADER, options, false));
 
         //Level 3.1
         root.getChildren().get(2).addChild(new MenuTree("EditAccount", null, true));
@@ -168,26 +179,31 @@ public class MainMenu {
         switch (action) {
 
             case "SearchAuthorPrefix":
-                String prefix = IOUtils.askForString("Type prefix");
+                String prefix = IOUtils.askForString(Strings.TYPE_PREFIX);
+                System.out.println();
                 try {
                     authorsCollection = viewController.getAuthorsWithPrefix(prefix);
                     int i = 0;
-                    printHeader("AUTHORS FOUND WITH PREFIX " + prefix);
+                    printHeader(Strings.AUTHORS_FOUND_WITH_PREFIX+ " '" + prefix + "'");
                     if (!authorsCollection.getAuthors().isEmpty()) {
                         for (Author author : authorsCollection.getAuthors()) {
-                            System.out.println(++i + "- " + author.getName());
+                            System.out.printf( "%-3d %-45s %n",++i, author.getName());
                         }
-                        i = IOUtils.askForInt("Choose author", 1, authorsCollection.getAuthors().size());
+                        System.out.println();
+                        i = IOUtils.askForInt(Strings.CHOOSE_AUTHOR, 1, authorsCollection.getAuthors().size());
+                        System.out.println();
                         if (i > 0 && i <= authorsCollection.getAuthors().size()) {
                             authorName = authorsCollection.getAuthors().get(i - 1).getName();
-                            printHeader("DOCUMENTS OF: " + authorName);
+                            printHeader(Strings.DOCUMENTS_OF+ " '" + authorName + "'");
                             try {
                                 documentsCollection = viewController.getDocumentsByAuthorId(authorName);
                                 i = 0;
                                 for (Document document : documentsCollection.getDocuments()) {
-                                    System.out.println(++i + "- " + document.getTitle());
+                                    System.out.printf( "%-3d %-45s %n",++i, document.getTitle());
                                 }
-                                i = IOUtils.askForInt("Choose document", 1, documentsCollection.getDocuments().size());
+                                System.out.println();
+                                i = IOUtils.askForInt(Strings.CHOOSE_DOCUMENT, 1, documentsCollection.getDocuments().size());
+                                System.out.println();
                                 Document document = documentsCollection.getDocuments().get(i - 1);
                                 documentTitle = document.getTitle();
                                 String documentFile = document.getContent();
@@ -198,46 +214,66 @@ public class MainMenu {
                                 }
                                 System.out.print("\n");
                                 System.out.println(documentContent);
-                                IOUtils.enterToContinue();
                             } catch (DocumentNotFoundException e) {
-                                System.out.println("This author has currently no books in the system!");
+                                System.out.println(Strings.AUTHOR_HAS_NO_BOOKS);
                             }
                         }
                     }
                 } catch (AuthorNotFoundException e) {
-                    System.out.println("This prefix did not match any author!");
+                    System.out.println(Strings.PREFIX_DONT_MATCH);
                 }
+                IOUtils.enterToContinue();
                 break;
 
             case "SearchDocumentTitleAndAuthor":
-                documentTitle = IOUtils.askForString("Type document title");
-                authorName = IOUtils.askForString("Type author");
+                documentTitle = IOUtils.askForString(Strings.TYPE_DOCUMENT_TITLE);
+                authorName = IOUtils.askForString(Strings.TYPE_AUTHOR);
+                System.out.println();
                 try {
                     Document matchingDocument = viewController.getDocumentByTitleAndAuthor(documentTitle, authorName);
                     System.out.println("\n" + documentTitle.toUpperCase() + " | " + authorName);
+                    int size = documentTitle.length()+authorName.length()+3;
+                    int i=0;
+                    for (i = 0; i < size; i++) {
+                        System.out.print("-");
+                    }
+                    System.out.println();
                     System.out.println(FileUtils.readDocument(matchingDocument.getContent()));
-                    IOUtils.enterToContinue();
                 } catch (DocumentNotFoundException e) {
-                    System.out.println("No documents found!");
+                    System.out.println(Strings.NO_DOCUMENTS_FOUND);
                 }
+                IOUtils.enterToContinue();
                 break;
 
             case "SearchDocumentsRelevance":
-                documentTitle = IOUtils.askForString("Type document title");
-                authorName = IOUtils.askForString("Type author");
-                int k = IOUtils.askForInt("Type number of documents", 1, 10000);
+                documentTitle = IOUtils.askForString(Strings.TYPE_DOCUMENT_TITLE);
+                authorName = IOUtils.askForString(Strings.TYPE_AUTHOR);
+                int k = IOUtils.askForInt(Strings.TYPE_NUMBER_OF_DOCUMENTS, 1, 10000);
+                System.out.println();
                 try {
                     Document matchingDocument = viewController.getDocumentByTitleAndAuthor(documentTitle, authorName);
                     SortedDocumentsSet list = viewController.getDocumentsByRelevance(matchingDocument, k);
                     for(int i = 0; i< list.getSize();++i){
                         System.out.println(list.getValue(i) + " ==> " + list.getDocument(i).getTitle());
                     }
-                    IOUtils.enterToContinue();
+
                 } catch (DocumentNotFoundException e) {
-                    System.out.println("No documents found!");
+                    System.out.println(Strings.NO_DOCUMENTS_FOUND);
+                }
+                IOUtils.enterToContinue();
+                break;
+            case "SearchAllDocuments":
+                DocumentsSet allDocuments = viewController.searchForAllDocuments();
+                String fmt = "%1$4s %2$10s %3$10s%n";
+                drawLine(100);
+                System.out.printf( "    %-45s %-25s %-25s %n", "Title", "Author", "Created by");
+                drawLine(100);
+                int i=0;
+                for (Document doc : allDocuments) {
+                    System.out.printf( "%-3d %-45s %-25s %-25s %n",i++, doc.getTitle(),  doc.getAuthor(), doc.getUser());
+                   // System.out.println(i++ + "- " + doc.getTitle() + " | " + doc.getAuthor());
                 }
                 break;
-
 //            case "SearchDocumentsExpression":
 //                break;
 
@@ -249,16 +285,22 @@ public class MainMenu {
                 try {
                     viewController.storeNewDocument(document);
                     this.documentManager.addDocumentToCollection(document);
-                    System.out.println("Document created successfully.");
-                } catch (AlreadyExistingDocumentException | DocumentNotFoundException e) {
-                    System.out.println("Document couldn't be created!");
+                    System.out.println(Strings.DOCUMENT_CREATED_SUCCESSFULLY);
+                } catch (AlreadyExistingDocumentException e) {
+                    System.out.println(Strings.DOCUMENT_NOT_CREATED_ALREADY_EXISTS);
+                } catch (InvalidDetailsException e){
+                    System.out.println(Strings.DOCUMENT_NOT_CREATED_INVALID_DETAILS);
+                } catch (DocumentNotFoundException e){
+                    System.out.println(Strings.DOCUMENT_NOT_CREATED);
                 }
                 DocumentsCollection myDocuments = this.viewController.getCurrentUserDocuments();
                 documentManager.setDocumentsCollection(myDocuments);
+                IOUtils.enterToContinue();
                 break;
 
             case "ReadDocument":
                 documentManager.readDocument();
+                IOUtils.enterToContinue();
                 break;
 
             case "UpdateDocument":
@@ -268,10 +310,13 @@ public class MainMenu {
                     myDocuments = viewController.getCurrentUserDocuments();
                     documentManager.setDocumentsCollection(myDocuments);
                 } catch (DocumentNotFoundException e) {
-                    System.out.println("No documents found, try to create one.");
+                    System.out.println(Strings.NO_DOCUMENTS_FOUND);
                 } catch (InvalidDetailsException e) {
-                    System.out.println("Updated details are invalid, try it again.");
+                    System.out.println(Strings.UPDATE_FAILED_INVALID_DETAILS);
+                } catch (AlreadyExistingDocumentException e) {
+                    System.out.println(Strings.UPDATE_FAILED_DOCUMENT_ALREADY_EXISTS);
                 }
+                IOUtils.enterToContinue();
                 break;
 
             case "DeleteDocument":
@@ -281,28 +326,33 @@ public class MainMenu {
                     myDocuments = viewController.getCurrentUserDocuments();
                     documentManager.setDocumentsCollection(myDocuments);
                 } catch (DocumentNotFoundException e) {
-                    System.out.println("No documents found, try to create one.");
+                    System.out.println(Strings.NO_DOCUMENTS_FOUND);
                 }
+                IOUtils.enterToContinue();
                 break;
 
             case "EditAccount":
-                email = IOUtils.askForString("Email");
-                userName = IOUtils.askForString("Name");
-                password = IOUtils.askForString("Password");
+                email = IOUtils.askForString(Strings.EMAIL);
+                userName = IOUtils.askForString(Strings.NAME);
+                password = IOUtils.askForString(Strings.PASSWORD);
+                System.out.println();
                 try {
                     viewController.userUpdate(email, userName, password);
+                    System.out.println(Strings.ACCOUNT_DETAILS_UPDATED_SUCCESSFULLY);
+                    System.out.println();
                 } catch (InvalidDetailsException | UserNotFoundException e) {
-                    System.out.println("Your input details are invalid, try it again.");
+                    System.out.println(Strings.INVALID_DETAILS);
                 } catch (AlreadyExistingUserException e) {
-                    System.out.println("Detail introduced already used by another user.");
+                    System.out.println(Strings.DETAILS_USED_BY_ANOTHER_USER);
                 }
+                IOUtils.enterToContinue();
                 break;
 
             case "DeleteAccount":
                 try {
                     viewController.userDelete();
                 } catch (UserNotFoundException e) {
-                    System.out.println("Unable to delete the user, try it again.");
+                    System.out.println(Strings.UNABLE_DELETE_USER);
                 }
                 break;
 
@@ -312,7 +362,7 @@ public class MainMenu {
                 break;
 
             default:
-                System.out.println("Not implemented yet!");
+                System.out.println(Strings.NOT_IMPLEMENTED_YET);
         }
     }
 
@@ -332,6 +382,12 @@ public class MainMenu {
         System.out.println();
     }
 
+    public void drawLine(int longitude){
+        for(int i=0;i<longitude;++i){
+            System.out.print('-');
+        }
+        System.out.println();
+    }
 }
 
 

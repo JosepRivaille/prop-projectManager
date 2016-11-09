@@ -7,7 +7,7 @@ public class IOUtils {
     private static Scanner scan = new Scanner(System.in);
 
     public static String enterToContinue() {
-        printMessage("\nPress enter to continue...");
+        printLine("\nPress enter to continue...");
         return scan.nextLine();
     }
 
@@ -36,8 +36,7 @@ public class IOUtils {
         System.out.print(text + " > ");
     }
 
-    private static void printMessage(String text) {
-        System.out.println(text);
-    }
+    public static void printLine(String s){System.out.println(s);}
+    public static void printSeparatedLine(String s){System.out.println(s);}
 
 }

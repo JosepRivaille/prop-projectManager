@@ -1,10 +1,7 @@
 package edu.upc.fib.prop.business.controllers;
 
 import edu.upc.fib.prop.exceptions.*;
-import edu.upc.fib.prop.models.AuthorsCollection;
-import edu.upc.fib.prop.models.Document;
-import edu.upc.fib.prop.models.DocumentsCollection;
-import edu.upc.fib.prop.models.SortedDocumentsSet;
+import edu.upc.fib.prop.models.*;
 
 public interface BusinessController {
 
@@ -89,14 +86,14 @@ public interface BusinessController {
      * Stores in persistence a new document.
      * @param document Document to store.
      */
-    void storeNewDocument(Document document) throws AlreadyExistingDocumentException;
+    void storeNewDocument(Document document) throws AlreadyExistingDocumentException, InvalidDetailsException;
 
     /**
      * Updates a document in persistence.
      * @param oldDoc Old document
      * @param newDoc New document
      */
-    void updateDocument(Document oldDoc, Document newDoc) throws InvalidDetailsException;
+    void updateDocument(Document oldDoc, Document newDoc) throws InvalidDetailsException, AlreadyExistingDocumentException;
 
     /**
      * Deletes a document in persistence.
@@ -104,4 +101,9 @@ public interface BusinessController {
      */
     void deleteDocument(Document document);
 
+    /**
+     * Returns all the documents stored in the system
+     * @return
+     */
+    DocumentsSet searchForAllDocuments();
 }

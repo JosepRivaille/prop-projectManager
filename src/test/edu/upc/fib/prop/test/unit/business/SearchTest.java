@@ -6,6 +6,7 @@ import edu.upc.fib.prop.business.search.impl.SearchAuthorImpl;
 import edu.upc.fib.prop.business.search.impl.SearchDocumentImpl;
 import edu.upc.fib.prop.exceptions.AuthorNotFoundException;
 import edu.upc.fib.prop.exceptions.DocumentNotFoundException;
+import edu.upc.fib.prop.exceptions.InvalidDetailsException;
 import edu.upc.fib.prop.models.Author;
 import edu.upc.fib.prop.models.AuthorsCollection;
 import edu.upc.fib.prop.models.Document;
@@ -71,7 +72,7 @@ public class SearchTest {
 
     @Test(expected = DocumentNotFoundException.class)
     public void test_whenFilterDocumentsByAuthor_withNonMatchingResults_thenThrowNotFoundException()
-            throws DocumentNotFoundException {
+            throws DocumentNotFoundException, InvalidDetailsException {
         DocumentsCollection documentsCollection = createDocumentsCollection();
         String authorName = "Marx";
 
@@ -80,7 +81,7 @@ public class SearchTest {
 
     @Test
     public void test_whenFilterDocumentsByAuthor_withAMatchingResult_thenReturnCollectionOfSize1()
-            throws DocumentNotFoundException {
+            throws DocumentNotFoundException, InvalidDetailsException {
         DocumentsCollection documentsCollection = createDocumentsCollection();
         String authorName = "Child";
 
@@ -94,7 +95,7 @@ public class SearchTest {
 
     @Test
     public void test_whenFilterDocumentsByAuthor_withNMatchingResults_thenReturnCollectionOfSizeN()
-            throws DocumentNotFoundException {
+            throws DocumentNotFoundException, InvalidDetailsException {
         DocumentsCollection documentsCollection = createDocumentsCollection();
         String authorName = "Tolkien";
 
@@ -109,7 +110,7 @@ public class SearchTest {
 
     @Test
     public void test_whenFilterDocumentsByUser_withNonMatchingResults_thenReturnEmptyCollection()
-            throws DocumentNotFoundException {
+            throws DocumentNotFoundException, InvalidDetailsException {
         DocumentsCollection documentsCollection = createDocumentsCollection();
         String user = "Marx";
 
@@ -121,7 +122,7 @@ public class SearchTest {
 
     @Test
     public void test_whenFilterDocumentsByUser_withAMatchingResult_thenReturnCollectionOfSize1()
-            throws DocumentNotFoundException {
+            throws DocumentNotFoundException, InvalidDetailsException {
         DocumentsCollection documentsCollection = createDocumentsCollection();
         String user = "foo@upc.edu";
 
@@ -135,7 +136,7 @@ public class SearchTest {
 
     @Test
     public void test_whenFilterDocumentsByUser_withNMatchingResults_thenReturnCollectionOfSizeN()
-            throws DocumentNotFoundException {
+            throws DocumentNotFoundException, InvalidDetailsException {
         DocumentsCollection documentsCollection = createDocumentsCollection();
         String user = "bar@upc.edu";
 
@@ -150,7 +151,7 @@ public class SearchTest {
 
     @Test(expected = DocumentNotFoundException.class)
     public void test_whenFilterDocumentsByTitleAndAuthor_withNonMatchingResult_thenThrowNotFoundException()
-            throws DocumentNotFoundException {
+            throws DocumentNotFoundException, InvalidDetailsException {
         DocumentsCollection documentsCollection = createDocumentsCollection();
         String title = "Foo";
         String author = "Bar";
@@ -160,7 +161,7 @@ public class SearchTest {
 
     @Test
     public void test_whenFilterDocumentsByTitleAndAuthor_withMatchingResult_thenReturnDocument()
-            throws DocumentNotFoundException {
+            throws DocumentNotFoundException, InvalidDetailsException {
         DocumentsCollection documentsCollection = createDocumentsCollection();
         String title = "TLOTR";
         String author = "Tolkien";
@@ -188,7 +189,7 @@ public class SearchTest {
         return authorsCollection;
     }
 
-    private DocumentsCollection createDocumentsCollection() {
+    private DocumentsCollection createDocumentsCollection() throws InvalidDetailsException {
         DocumentsCollection documentsCollection = new DocumentsCollection();
         documentsCollection.addDocument(new Document("TLOTR", "Tolkien", "tlotr.txt", "foo@upc.edu"));
         documentsCollection.addDocument(new Document("Hobbit", "Tolkien", "hobbit.txt", "bar@upc.edu"));

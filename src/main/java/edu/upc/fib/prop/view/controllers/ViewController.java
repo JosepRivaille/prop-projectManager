@@ -1,10 +1,7 @@
 package edu.upc.fib.prop.view.controllers;
 
 import edu.upc.fib.prop.exceptions.*;
-import edu.upc.fib.prop.models.AuthorsCollection;
-import edu.upc.fib.prop.models.Document;
-import edu.upc.fib.prop.models.DocumentsCollection;
-import edu.upc.fib.prop.models.SortedDocumentsSet;
+import edu.upc.fib.prop.models.*;
 import javafx.util.Pair;
 
 public interface ViewController {
@@ -72,13 +69,15 @@ public interface ViewController {
      * Stores a new document in the system.
      * @param document New document to store.
      */
-    void storeNewDocument(Document document) throws DocumentNotFoundException, AlreadyExistingDocumentException;
+    void
+    storeNewDocument(Document document) throws DocumentNotFoundException, AlreadyExistingDocumentException,
+            InvalidDetailsException ;
 
     /**
      * Updates an existing document in the system.
      * @param updatedDocument Pair with current document and document to update.
      */
-    void updateDocument(Pair<Document, Document> updatedDocument) throws InvalidDetailsException;
+    void updateDocument(Pair<Document, Document> updatedDocument) throws InvalidDetailsException, AlreadyExistingDocumentException;
 
     /**
      * Document to delete from the system.
@@ -90,5 +89,7 @@ public interface ViewController {
      * Removes user session.
      */
     void userLogout();
+
+    DocumentsSet searchForAllDocuments();
 }
 

@@ -1,6 +1,7 @@
 package edu.upc.fib.prop.persistence.dao.documents.impl;
 
 import edu.upc.fib.prop.exceptions.AlreadyExistingDocumentException;
+import edu.upc.fib.prop.exceptions.InvalidDetailsException;
 import edu.upc.fib.prop.models.Document;
 import edu.upc.fib.prop.models.DocumentsCollection;
 import edu.upc.fib.prop.persistence.dao.documents.DaoDocuments;
@@ -45,7 +46,9 @@ public class DaoDocumentsImpl implements DaoDocuments {
                 String termFrequency = rs.getString("term_frequency");
                 Document document = new Document(title, authorName, content, user);
                 document.setTermFrequency(StringUtils.buildMapFromJSON(termFrequency));
-                documentsCollection.addDocument(document);
+                try {
+                    documentsCollection.addDocument(document);
+                } catch (InvalidDetailsException e){}
             }
         } catch (SQLException e) {
             e.printStackTrace();

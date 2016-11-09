@@ -21,10 +21,11 @@ public class DocumentTools {
     }
 
     public static Document mergeDocs(Document oldDoc, Document newDoc){
-        if(!newDoc.getTitle().equals("")) oldDoc.setTitle(newDoc.getTitle());
-        if(!newDoc.getAuthor().equals("")) oldDoc.setAuthor(newDoc.getAuthor());
-        if(!newDoc.getContent().equals("")) oldDoc.setContent(newDoc.getContent());
-        return oldDoc;
+        Document mergedDoc = oldDoc.clone();
+        if(!newDoc.getTitle().equals("")) mergedDoc.setTitle(newDoc.getTitle());
+        if(!newDoc.getAuthor().equals("")) mergedDoc.setAuthor(newDoc.getAuthor());
+        if(!newDoc.getContent().equals("")) mergedDoc.setContent(newDoc.getContent());
+        return mergedDoc;
     }
 
     public static WeightsVector getWeights(Document doc, DocumentsCollection col){

@@ -1,6 +1,7 @@
 package edu.upc.fib.prop.view.document;
 
 import edu.upc.fib.prop.exceptions.DocumentNotFoundException;
+import edu.upc.fib.prop.exceptions.InvalidDetailsException;
 import edu.upc.fib.prop.models.Document;
 import edu.upc.fib.prop.models.DocumentsCollection;
 import edu.upc.fib.prop.utils.FileUtils;
@@ -19,7 +20,7 @@ public class DocumentManager {
         this.documentsCollection = documentsCollection;
     }
 
-    public void addDocumentToCollection(Document document) {
+    public void addDocumentToCollection(Document document) throws InvalidDetailsException{
         this.documentsCollection.addDocument(document);
     }
 

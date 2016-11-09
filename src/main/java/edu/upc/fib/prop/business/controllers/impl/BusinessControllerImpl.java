@@ -42,6 +42,29 @@ public class BusinessControllerImpl implements BusinessController {
     /*--------------- Users */
 
     @Override
+    public DocumentsCollection searchDocumentsByAuthor(String authorName) throws DocumentNotFoundException {
+        return this.searchDocument.filterByAuthor(this.documentsCollection, authorName);
+    }
+
+    @Override
+    public Document searchDocumentsByTitleAndAuthor(String title, String authorName)
+            throws DocumentNotFoundException {
+        return this.searchDocument.filterByTitleAndAuthor(this.documentsCollection, title, authorName);
+    }
+
+    @Override
+    public DocumentsSet searchForAllDocuments() {
+        return this.documentsCollection.getAllDocuments();
+    }
+
+    @Override
+    public SortedDocumentsSet searchDocumentsByRelevance(Document document, int k)
+            throws DocumentNotFoundException {
+        return this.searchDocument.searchForSimilarDocuments(this.documentsCollection, document, k);
+    }
+
+
+    @Override
     public void checkLoginDetails(String email, String password)
             throws InvalidDetailsException, UserNotFoundException {
         password = usersManager.login(email, password);
@@ -107,7 +130,7 @@ public class BusinessControllerImpl implements BusinessController {
     }
 
     @Override
-    public void storeNewDocument(Document doc) throws AlreadyExistingDocumentException {
+    public void storeNewDocument(Document doc) throws AlreadyExistingDocumentException, InvalidDetailsException  {
         doc.setUser(usersManager.getCurrentUser().getEmail());
         if (DocumentTools.isCorrect(doc)) {
             try {
@@ -121,15 +144,10 @@ public class BusinessControllerImpl implements BusinessController {
     }
 
     @Override
-    public void updateDocument(Document oldDoc, Document newDoc) throws InvalidDetailsException {
-            try {
-                documentsCollection.updateDocument(oldDoc, newDoc);
-                persistenceController.updateDocument(oldDoc, newDoc);
+    public void updateDocument(Document oldDoc, Document newDoc) throws InvalidDetailsException, AlreadyExistingDocumentException {
+                Document updatedDoc = documentsCollection.updateDocument(oldDoc, newDoc);
+                persistenceController.updateDocument(oldDoc, updatedDoc);
                 reloadDBData();
-            } catch (InvalidDetailsException e) {
-                e.printStackTrace();
-            }
-
     }
 
     @Override
@@ -138,6 +156,8 @@ public class BusinessControllerImpl implements BusinessController {
         persistenceController.deleteDocument(document);
         reloadDBData();
     }
+
+
 
     //////////
 

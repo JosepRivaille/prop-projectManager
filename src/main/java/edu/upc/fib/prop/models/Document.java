@@ -3,6 +3,7 @@ package edu.upc.fib.prop.models;
 import edu.upc.fib.prop.utils.Constants;
 import edu.upc.fib.prop.utils.FileUtils;
 
+import javax.print.Doc;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -106,5 +107,11 @@ public class Document {
             Float newValue = 0.5f + (0.5f * tf.getValue() / max);
             tf.setValue(newValue);
         }
+    }
+
+    public Document clone(){
+        Document clonedDoc = new Document(this.title, this.author, this.content, this.user);
+        clonedDoc.setTermFrequency(this.termFrequency);
+        return clonedDoc;
     }
 }
