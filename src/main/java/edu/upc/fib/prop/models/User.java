@@ -1,17 +1,11 @@
 package edu.upc.fib.prop.models;
 
-import javafx.util.Pair;
-
-import java.util.ArrayList;
-
 public class User {
 
     private String email;
     private String name;
     private String password;
     private Boolean admin;
-    private ArrayList <Pair<String, String>> favorites = new ArrayList<>();
-    private ArrayList <Pair<String, String>> property = new ArrayList<>();
 
     public User(String email, String name, String password) {
         this.email = email;
@@ -47,18 +41,6 @@ public class User {
     public Boolean getAdmin() {
         return admin;
     }
-
-    public void setAdmin(Boolean admin) {this.admin = admin; }
-
-    public void addFavorites(String author, String titol) {favorites.add(new Pair<>(author,titol));}
-
-    public void addProperty(String author, String titol) {property.add(new Pair<>(author,titol));}
-
-    public void deleteFavorites(String author, String titol) {favorites.add(new Pair<>(author,titol);}
-
-    public void deleteProperty(String author, String titol) {property.add(new Pair<>(author,titol));}
-
-
 
     @Override
     public boolean equals(Object o) {
