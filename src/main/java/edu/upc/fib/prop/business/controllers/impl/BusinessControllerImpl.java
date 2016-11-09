@@ -39,28 +39,7 @@ public class BusinessControllerImpl implements BusinessController {
         this.usersManager = new UsersManagerImpl();
     }
 
-    @Override
-    public AuthorsCollection searchMatchingAuthors(String authorPrefix) throws AuthorNotFoundException {
-        return this.searchAuthor.filterByPrefix(this.authorsCollection, authorPrefix);
-    }
-
-    @Override
-    public DocumentsCollection searchDocumentsByAuthor(String authorName) throws DocumentNotFoundException {
-        return this.searchDocument.filterByAuthor(this.documentsCollection, authorName);
-    }
-
-    @Override
-    public Document searchDocumentsByTitleAndAuthor(String title, String authorName)
-            throws DocumentNotFoundException {
-        return this.searchDocument.filterByTitleAndAuthor(this.documentsCollection, title, authorName);
-    }
-
-    @Override
-    public SortedDocumentsSet searchDocumentsByRelevance(Document document, int k)
-            throws DocumentNotFoundException {
-        return this.searchDocument.searchForSimilarDocuments(this.documentsCollection, document, k);
-    }
-
+    /*--------------- Users */
 
     @Override
     public void checkLoginDetails(String email, String password)
@@ -95,6 +74,30 @@ public class BusinessControllerImpl implements BusinessController {
     @Override
     public void logout() {
         usersManager.logout();
+    }
+
+    /*--------------- Authors */
+
+    @Override
+    public AuthorsCollection searchMatchingAuthors(String authorPrefix) throws AuthorNotFoundException {
+        return this.searchAuthor.filterByPrefix(this.authorsCollection, authorPrefix);
+    }
+
+    @Override
+    public DocumentsCollection searchDocumentsByAuthor(String authorName) throws DocumentNotFoundException {
+        return this.searchDocument.filterByAuthor(this.documentsCollection, authorName);
+    }
+
+    @Override
+    public Document searchDocumentsByTitleAndAuthor(String title, String authorName)
+            throws DocumentNotFoundException {
+        return this.searchDocument.filterByTitleAndAuthor(this.documentsCollection, title, authorName);
+    }
+
+    @Override
+    public SortedDocumentsSet searchDocumentsByRelevance(Document document, int k)
+            throws DocumentNotFoundException {
+        return this.searchDocument.searchForSimilarDocuments(this.documentsCollection, document, k);
     }
 
     @Override
