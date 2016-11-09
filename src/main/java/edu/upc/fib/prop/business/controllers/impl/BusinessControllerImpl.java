@@ -42,17 +42,6 @@ public class BusinessControllerImpl implements BusinessController {
     /*--------------- Users */
 
     @Override
-    public DocumentsCollection searchDocumentsByAuthor(String authorName) throws DocumentNotFoundException {
-        return this.searchDocument.filterByAuthor(this.documentsCollection, authorName);
-    }
-
-    @Override
-    public Document searchDocumentsByTitleAndAuthor(String title, String authorName)
-            throws DocumentNotFoundException {
-        return this.searchDocument.filterByTitleAndAuthor(this.documentsCollection, title, authorName);
-    }
-
-    @Override
     public DocumentsSet searchForAllDocuments() {
         return this.documentsCollection.getAllDocuments();
     }
@@ -115,12 +104,6 @@ public class BusinessControllerImpl implements BusinessController {
     public Document searchDocumentsByTitleAndAuthor(String title, String authorName)
             throws DocumentNotFoundException {
         return this.searchDocument.filterByTitleAndAuthor(this.documentsCollection, title, authorName);
-    }
-
-    @Override
-    public SortedDocumentsSet searchDocumentsByRelevance(Document document, int k)
-            throws DocumentNotFoundException {
-        return this.searchDocument.searchForSimilarDocuments(this.documentsCollection, document, k);
     }
 
     @Override
