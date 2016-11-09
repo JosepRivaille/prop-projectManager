@@ -1,20 +1,13 @@
 package edu.upc.fib.prop.business.search.impl;
 
 import edu.upc.fib.prop.business.documents.DocumentTools;
+import edu.upc.fib.prop.business.search.SearchDocument;
 import edu.upc.fib.prop.exceptions.DocumentNotFoundException;
 import edu.upc.fib.prop.exceptions.InvalidDetailsException;
 import edu.upc.fib.prop.models.Document;
 import edu.upc.fib.prop.models.DocumentsCollection;
-import edu.upc.fib.prop.business.search.SearchDocument;
 import edu.upc.fib.prop.models.SortedDocumentsSet;
 import edu.upc.fib.prop.models.WeightsVector;
-
-import javax.print.Doc;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Map;
-import java.util.TreeMap;
-import java.util.stream.Collectors;
 
 
 public class SearchDocumentImpl implements SearchDocument {
@@ -23,16 +16,14 @@ public class SearchDocumentImpl implements SearchDocument {
             throws DocumentNotFoundException {
         DocumentsCollection filteredDocuments = new DocumentsCollection();
 
-        for (Document document : documentsCollection.getDocuments()) {
-            if(document.getAuthor().toLowerCase().contains(authorName.toLowerCase())) {
-                try {
-                    filteredDocuments.addDocument(document);
-                } catch (InvalidDetailsException e){};
+        documentsCollection.getDocuments().stream().filter(document ->
+                document.getAuthor().toLowerCase().contains(authorName.toLowerCase())).forEach(document -> {
+            try {
+                filteredDocuments.addDocument(document);
+            } catch (InvalidDetailsException e) {
+                e.printStackTrace();
             }
-        }
-        /*documentsCollection.getDocuments().stream().filter(document ->
-                document.getAuthor().toLowerCase().contains(authorName.toLowerCase()))
-                .forEach(filteredDocu ments::addDocument);*/
+        });
         if (filteredDocuments.getDocuments().isEmpty()) {
             throw new DocumentNotFoundException();
         }
@@ -41,19 +32,15 @@ public class SearchDocumentImpl implements SearchDocument {
 
     public DocumentsCollection filterByUser(DocumentsCollection documentsCollection, String email) {
         DocumentsCollection filteredDocuments = new DocumentsCollection();
-
-        for (Document document : documentsCollection.getDocuments()) {
-            if(document.getUser().toLowerCase().equals(email.toLowerCase())) {
-                try {
-                    filteredDocuments.addDocument(document);
-                } catch (InvalidDetailsException e){};
+        documentsCollection.getDocuments().stream().filter(document ->
+                document.getUser().toLowerCase().equals(email.toLowerCase())).forEach(document -> {
+            try {
+                filteredDocuments.addDocument(document);
+            } catch (InvalidDetailsException e) {
+                e.printStackTrace();
             }
-        }
+        });
         return filteredDocuments;
-        /*documentsCollection.getDocuments().stream().filter(document ->
-                document.getUser().equals(email))
-                .forEach(filteredDocuments::addDocument);
-        return filteredDocuments;*/
     }
 
     @Override
@@ -70,7 +57,7 @@ public class SearchDocumentImpl implements SearchDocument {
 
     @Override
     public SortedDocumentsSet searchForSimilarDocuments(DocumentsCollection col, Document doc, int k) {
-    //TODO REVISAR
+        //TODO REVISAR
         WeightsVector wv1 = DocumentTools.getWeights(doc, col);
         int min = Math.min(k, col.size());
 
