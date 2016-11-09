@@ -10,7 +10,11 @@ import edu.upc.fib.prop.utils.IOUtils;
 
 public class SearchAuthorDriver {
 
-    private static void printResult(String s) { System.out.println("\n---- " + s + " ----\n"); }
+    private static AuthorsCollection authorsCollection = new AuthorsCollection();
+
+    private static void printResult(String s) {
+        System.out.println("\n---- " + s + " ----\n");
+    }
 
     private static SearchAuthor searchAuthor = new SearchAuthorImpl();
 
@@ -20,13 +24,15 @@ public class SearchAuthorDriver {
         do {
             printResult("Enter a new author");
             String author = IOUtils.askForString("Author");
-            if(author.equals("-1")) { return authorsCollection; }
+            if(author.equals("-1")) {
+                return authorsCollection;
+            }
             authorsCollection.addAuthor(new Author(author));
         }
         while(true);
     }
 
-    private static void testfilterByPrefix(AuthorsCollection authorsCollection) {
+    private static void testFilterByPrefix() {
         String prefix = IOUtils.askForString("Type prefix");
         try {
             AuthorsCollection filteredAuthors = searchAuthor.filterByPrefix(authorsCollection, prefix);
@@ -41,10 +47,18 @@ public class SearchAuthorDriver {
     }
 
     public static void main(String[] args) {
+        authorsCollection = fillAuthorsCollection();
         do {
-            AuthorsCollection authorsCollection = new AuthorsCollection();
-            authorsCollection = fillAuthorsCollection();
-            testfilterByPrefix(authorsCollection);
+            System.out.println("1- Filter by prefix");
+            System.out.println("0- Exit");
+            int option = IOUtils.askForInt("Select an option", 0, 1);
+            switch (option) {
+                case 1:
+                    testFilterByPrefix();
+                    break;
+                default:
+                    return;
+            }
             IOUtils.enterToContinue();
         } while(true);
     }
