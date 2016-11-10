@@ -57,6 +57,7 @@ public class Strings {
     public static final String DOCUMENT_NOT_CREATED = "Document couldn't be created!";
     public static final String UPDATE_FAILED_INVALID_DETAILS = "Update failed, details are invalid.";
     public static final String UPDATE_FAILED_DOCUMENT_ALREADY_EXISTS = "Update failed, the document already exist.";
+    public static final String UPDATE_FAILED_DOCUMENT_CONTENT_NOT_FOUND = "Update failed, the document content was not found.";
     public static final String INVALID_DETAILS = "The details are invalid.";
     public static final String DETAILS_USED_BY_ANOTHER_USER = "The details are already in use";
     public static final String UNABLE_DELETE_USER = "Unable to delete the user.";
@@ -65,4 +66,6 @@ public class Strings {
     public static final String ACCOUNT_DETAILS_UPDATED_SUCCESSFULLY = "The account details have been updated seccessfully.";
     public static final String DOCUMENT_DELETED_SUCCESSFULLY = "The document has been deleted successfully.";
     public static final String DOCUMENT_UPDATED_SUCCESSFULY = "The document has been updated successfully";
+  public static final String DOCUMENT_CONTENT_NOT_FOUND = "The document content was not found.";
+ public static final String CREATE_FAILED_DOCUMENT_CONTENT_NOT_FOUND = "The document couldn't be created. Content not found.";
 }

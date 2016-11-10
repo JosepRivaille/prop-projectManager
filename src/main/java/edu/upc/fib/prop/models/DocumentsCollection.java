@@ -2,6 +2,7 @@ package edu.upc.fib.prop.models;
 
 import edu.upc.fib.prop.business.documents.DocumentTools;
 import edu.upc.fib.prop.exceptions.AlreadyExistingDocumentException;
+import edu.upc.fib.prop.exceptions.DocumentContentNotFoundException;
 import edu.upc.fib.prop.exceptions.InvalidDetailsException;
 import edu.upc.fib.prop.utils.Strings;
 
@@ -29,15 +30,15 @@ public class DocumentsCollection {
         if(!DocumentTools.isCorrect(document)) throw new InvalidDetailsException();
         this.documents.add(document);
 
-        for(Map.Entry<String,Float> entry : document.getTermFrequencyList().entrySet()) {
+        /*for(Map.Entry<String,Float> entry : document.getTermFrequencyList().entrySet()) {
             addWord(entry.getKey());
-        }
+        }*/
     }
 
     public void deleteDocument(Document document) {
         this.documents.remove(document);
         for(Map.Entry<String,Float> entry : document.getTermFrequencyList().entrySet()) {
-            removeWord(entry.getKey());
+            //removeWord(entry.getKey());
         }
     }
 
@@ -45,18 +46,18 @@ public class DocumentsCollection {
         return (this.getDocument(title,author) != null);
     }
 
-    public Document updateDocument(Document oldDoc, Document newDoc) throws InvalidDetailsException, AlreadyExistingDocumentException {
+    public Document updateDocument(Document oldDoc, Document newDoc) throws InvalidDetailsException, AlreadyExistingDocumentException, DocumentContentNotFoundException {
         Document updatedDoc = DocumentTools.mergeDocs(oldDoc, newDoc);
-        if(containsTitleAndAuthor(updatedDoc.getTitle(), updatedDoc.getAuthor())) throw new AlreadyExistingDocumentException();
-
+        //if(containsTitleAndAuthor(updatedDoc.getTitle(), updatedDoc.getAuthor())) throw new AlreadyExistingDocumentException();
         if(!DocumentTools.isCorrect(updatedDoc)) throw new InvalidDetailsException();
+        if (!DocumentTools.isContentPathCorrect(updatedDoc)) throw new DocumentContentNotFoundException();
         this.documents.remove(oldDoc);
         for(Map.Entry<String,Float> entry : oldDoc.getTermFrequencyList().entrySet()) {
-            removeWord(entry.getKey());
+            //removeWord(entry.getKey());
         }
         this.documents.add(updatedDoc);
         for(Map.Entry<String,Float> entry : updatedDoc.getTermFrequencyList().entrySet()) {
-            addWord(entry.getKey());
+            //addWord(entry.getKey());
         }
         return updatedDoc;
     }

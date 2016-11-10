@@ -86,14 +86,14 @@ public interface BusinessController {
      * Stores in persistence a new document.
      * @param document Document to store.
      */
-    void storeNewDocument(Document document) throws AlreadyExistingDocumentException, InvalidDetailsException;
+    void storeNewDocument(Document document) throws AlreadyExistingDocumentException, InvalidDetailsException, DocumentContentNotFoundException;
 
     /**
      * Updates a document in persistence.
      * @param oldDoc Old document
      * @param newDoc New document
      */
-    void updateDocument(Document oldDoc, Document newDoc) throws InvalidDetailsException, AlreadyExistingDocumentException;
+    void updateDocument(Document oldDoc, Document newDoc) throws InvalidDetailsException, AlreadyExistingDocumentException, DocumentContentNotFoundException;
 
     /**
      * Deletes a document in persistence.

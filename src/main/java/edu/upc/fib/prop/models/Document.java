@@ -1,5 +1,6 @@
 package edu.upc.fib.prop.models;
 
+import edu.upc.fib.prop.exceptions.DocumentContentNotFoundException;
 import edu.upc.fib.prop.utils.Constants;
 import edu.upc.fib.prop.utils.FileUtils;
 
@@ -19,19 +20,26 @@ public class Document {
         this.title = title;
         this.author = author;
         this.user = user;
-        setContent(content);
+        this.content = content;
+        termFrequency = new TreeMap<>();
+        test();
     }
 
     public Document() {
         termFrequency = new TreeMap<>();
+        test();
     }
 
     public Document(String title, String author, String content) {
         this.title = title;
         this.author = author;
-        setContent(content);
+        termFrequency = new TreeMap<>();
+        this.content = content;
+        test();
     }
-
+    public void test(){
+        termFrequency.put("test", 23f);
+    }
     public String getTitle() {
         return title;
     }
@@ -54,7 +62,6 @@ public class Document {
 
     public void setContent(String content) {
         this.content = content;
-        updateFreqs();
     }
 
     public Map<String, Float> getTermFrequencyList() {
@@ -89,7 +96,7 @@ public class Document {
                         document.termFrequency == null))));
     }
 
-    private void updateFreqs(){
+    public void updateFreqs() throws DocumentContentNotFoundException {
         Float max = 1f;
         termFrequency = new TreeMap<>();
         for (String word : content.split(Constants.WORD_SEPARATION_REGEX)) {

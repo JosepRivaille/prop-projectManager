@@ -1,8 +1,10 @@
 package edu.upc.fib.prop.business.documents;
 
+import edu.upc.fib.prop.exceptions.DocumentContentNotFoundException;
 import edu.upc.fib.prop.models.Document;
 import edu.upc.fib.prop.models.DocumentsCollection;
 import edu.upc.fib.prop.models.WeightsVector;
+import edu.upc.fib.prop.utils.FileUtils;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -53,5 +55,12 @@ public class DocumentTools {
             if(wv2.contains(wv1.iterator().next()));
         }*/
         return sum;
+    }
+
+    public static boolean isContentPathCorrect(Document doc) {
+        try {
+            FileUtils.readDocument(doc.getContent());
+            return true;
+        } catch (DocumentContentNotFoundException e){return false;}
     }
 }
