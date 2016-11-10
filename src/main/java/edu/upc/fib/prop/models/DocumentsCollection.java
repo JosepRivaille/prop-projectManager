@@ -41,7 +41,7 @@ public class DocumentsCollection {
         }
     }
 
-    private boolean containsTitleAndAuthor(String title, String author){
+    public boolean containsTitleAndAuthor(String title, String author){
         return (this.getDocument(title,author) != null);
     }
 

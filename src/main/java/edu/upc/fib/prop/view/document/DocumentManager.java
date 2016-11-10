@@ -34,14 +34,20 @@ public class DocumentManager {
     public void readDocument() {
         int size = showList();
         if (size > 0) {
+            System.out.println();
             int documentSelected = IOUtils.askForInt("Document", 1, size) - 1;
+            System.out.println();
             Document document = this.documentsCollection.getDocuments().get(documentSelected);
             System.out.println(document.getTitle().toUpperCase() + " | " + document.getAuthor().toUpperCase());
+            int space = document.getTitle().length()+document.getAuthor().length()+3;
+            for (int i = 0; i < space; i++) {
+                System.out.print("-");
+            }
+            System.out.println();
             String documentFileName = document.getContent();
             try {
                 String documentContent = FileUtils.readDocument(documentFileName);
                 System.out.println(documentContent);
-                IOUtils.enterToContinue();
             } catch (DocumentNotFoundException e) {
                 System.out.println("Document content not found in /resources/documents folder.");
             }
@@ -52,14 +58,17 @@ public class DocumentManager {
 
     public Pair<Document, Document> updateDocument() throws DocumentNotFoundException {
         int numDocuments = showList();
+        System.out.println();
         if (numDocuments == 0) {
             throw new DocumentNotFoundException();
         } else {
             int documentSelected = IOUtils.askForInt("Choose a document", 1, numDocuments);
             Document oldDocument = this.documentsCollection.getDocuments().get(documentSelected - 1);
+            System.out.println();
             String newTitle = IOUtils.askForString("New title");
             String newAuthor = IOUtils.askForString("New author");
             String newContent = IOUtils.askForString("New content");
+            System.out.println();
             Document newDocument = new Document(newTitle, newAuthor, newContent, oldDocument.getUser());
             return new Pair<>(oldDocument, newDocument);
         }
@@ -70,15 +79,20 @@ public class DocumentManager {
         if (numDocuments == 0) {
             throw new DocumentNotFoundException();
         } else {
+            System.out.println();
             int documentSelected = IOUtils.askForInt("Choose a document", 1, numDocuments);
+            System.out.println();
             return this.documentsCollection.getDocuments().get(documentSelected - 1);
         }
     }
 
     private int showList() {
         int i = 0;
+        IOUtils.drawLine(70);
+        System.out.printf( "    %-35s %-30s %n", "Title", "Author");
+        IOUtils.drawLine(70);
         for (Document document : this.documentsCollection.getDocuments()) {
-            System.out.println(++i + "- " + document.getTitle() + " | " + document.getAuthor());
+            System.out.printf("%-3d %-35s %-30s %n",++i,document.getTitle(),document.getAuthor());
         }
         return this.documentsCollection.getDocuments().size();
     }

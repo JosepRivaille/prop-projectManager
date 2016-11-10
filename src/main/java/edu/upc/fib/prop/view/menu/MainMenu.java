@@ -233,8 +233,7 @@ public class MainMenu {
                     Document matchingDocument = viewController.getDocumentByTitleAndAuthor(documentTitle, authorName);
                     System.out.println("\n" + documentTitle.toUpperCase() + " | " + authorName);
                     int size = documentTitle.length()+authorName.length()+3;
-                    int i=0;
-                    for (i = 0; i < size; i++) {
+                    for (int i = 0; i < size; i++) {
                         System.out.print("-");
                     }
                     System.out.println();
@@ -264,10 +263,9 @@ public class MainMenu {
                 break;
             case "SearchAllDocuments":
                 DocumentsSet allDocuments = viewController.searchForAllDocuments();
-                String fmt = "%1$4s %2$10s %3$10s%n";
-                drawLine(100);
+                IOUtils.drawLine(100);
                 System.out.printf( "    %-45s %-25s %-25s %n", "Title", "Author", "Created by");
-                drawLine(100);
+                IOUtils.drawLine(100);
                 int i=0;
                 for (Document doc : allDocuments) {
                     System.out.printf( "%-3d %-45s %-25s %-25s %n",i++, doc.getTitle(),  doc.getAuthor(), doc.getUser());
@@ -285,12 +283,16 @@ public class MainMenu {
                 try {
                     viewController.storeNewDocument(document);
                     this.documentManager.addDocumentToCollection(document);
+                    System.out.println();
                     System.out.println(Strings.DOCUMENT_CREATED_SUCCESSFULLY);
                 } catch (AlreadyExistingDocumentException e) {
+                    System.out.println();
                     System.out.println(Strings.DOCUMENT_NOT_CREATED_ALREADY_EXISTS);
                 } catch (InvalidDetailsException e){
+                    System.out.println();
                     System.out.println(Strings.DOCUMENT_NOT_CREATED_INVALID_DETAILS);
                 } catch (DocumentNotFoundException e){
+                    System.out.println();
                     System.out.println(Strings.DOCUMENT_NOT_CREATED);
                 }
                 DocumentsCollection myDocuments = this.viewController.getCurrentUserDocuments();
@@ -325,6 +327,7 @@ public class MainMenu {
                     viewController.deleteDocument(document);
                     myDocuments = viewController.getCurrentUserDocuments();
                     documentManager.setDocumentsCollection(myDocuments);
+                    System.out.println(Strings.DOCUMENT_DELETED_SUCCESSFULLY);
                 } catch (DocumentNotFoundException e) {
                     System.out.println(Strings.NO_DOCUMENTS_FOUND);
                 }
@@ -382,12 +385,7 @@ public class MainMenu {
         System.out.println();
     }
 
-    public void drawLine(int longitude){
-        for(int i=0;i<longitude;++i){
-            System.out.print('-');
-        }
-        System.out.println();
-    }
+
 }
 
 

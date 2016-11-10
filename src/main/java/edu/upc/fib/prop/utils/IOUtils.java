@@ -37,6 +37,11 @@ public class IOUtils {
     }
 
     public static void printLine(String s){System.out.println(s);}
-    public static void printSeparatedLine(String s){System.out.println(s);}
+    public static void drawLine(int longitude){
+        for(int i=0;i<longitude;++i){
+            System.out.print('-');
+        }
+        System.out.println();
+    }
 
 }

@@ -63,4 +63,5 @@ public class Strings {
     public static final String NOT_IMPLEMENTED_YET = "Not implemented yet!";
     public static final String SEARCH_ALL_DOCUMENTS = "Search all documents";
     public static final String ACCOUNT_DETAILS_UPDATED_SUCCESSFULLY = "The account details have been updated seccessfully.";
+    public static final String DOCUMENT_DELETED_SUCCESSFULLY = "The document has been deleted successfully.";
 }
