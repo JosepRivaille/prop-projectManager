@@ -311,6 +311,7 @@ public class MainMenu {
                     viewController.updateDocument(updatedDocument);
                     myDocuments = viewController.getCurrentUserDocuments();
                     documentManager.setDocumentsCollection(myDocuments);
+                    System.out.println(Strings.DOCUMENT_UPDATED_SUCCESSFULY);
                 } catch (DocumentNotFoundException e) {
                     System.out.println(Strings.NO_DOCUMENTS_FOUND);
                 } catch (InvalidDetailsException e) {

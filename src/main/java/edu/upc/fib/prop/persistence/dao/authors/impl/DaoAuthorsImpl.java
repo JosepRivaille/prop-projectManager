@@ -52,4 +52,30 @@ public class DaoAuthorsImpl implements DaoAuthors {
         }
     }
 
+    @Override
+    public boolean existsAuthor(Connection c, String author) {
+        try {
+            Statement statement = c.createStatement();
+            String query = String.format("SELECT * FROM authors WHERE author_name='%s';", author);
+            ResultSet rs = statement.executeQuery(query);
+            return rs.isBeforeFirst();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public void deleteIfNoDocuments(Connection c, String author) {
+        try {
+            Statement statement = c.createStatement();
+            String query = String.format("DELETE FROM authors WHERE author_name LIKE '%s' \n" +
+                    "AND NOT EXISTS (SELECT * FROM documents WHERE documents.author_name = authors.author_name);", author);
+            statement.executeUpdate(query);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

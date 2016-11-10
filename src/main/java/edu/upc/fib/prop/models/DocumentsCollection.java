@@ -98,4 +98,5 @@ public class DocumentsCollection {
         for(Document doc : this.documents) ds.add(doc);
         return ds;
     }
+
 }
