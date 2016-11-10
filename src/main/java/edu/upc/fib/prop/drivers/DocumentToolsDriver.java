@@ -7,8 +7,8 @@ import edu.upc.fib.prop.models.DocumentsCollection;
 import edu.upc.fib.prop.models.WeightsVector;
 import edu.upc.fib.prop.utils.IOUtils;
 
-import javax.lang.model.element.Element;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.TreeMap;
 
 public class DocumentToolsDriver {
@@ -17,32 +17,29 @@ public class DocumentToolsDriver {
     }
     private static void testIsCorrect() {
         printResult("Introduce data to test if a document is correct");
-        String titol = IOUtils.askForString("Insert titol");
-        String author = IOUtils.askForString("Insert author");
-        String contingut = IOUtils.askForString("Insert contingut");
+        String titol = IOUtils.askForString("Insert tito l");
+        String author = IOUtils.askForString("Insert author ");
+        String contingut = IOUtils.askForString("Insert contingut ");
         Document doc = new Document(titol,author,contingut,null);
         boolean correct = DocumentTools.isCorrect(doc);
         printResult("Testing if is correct");
-        System.out.println("resultat" + correct);
+        System.out.println("resultat: " + correct);
     }
     private static void testMergeDocs() {
         printResult("Introduce data to merge two documents");
         String titol = IOUtils.askForString("Insert titol document antic");
         String author = IOUtils.askForString("Insert author document antic");
         String contingut = IOUtils.askForString("Insert contingut document antic");
-        String usuari = IOUtils.askForString("Insert usuari document antic (ha de ser el mateix pels dos)");
-        Document docant = new Document(titol,author,contingut,usuari);
+        Document docant = new Document(titol,author,contingut,null);
         titol = IOUtils.askForString("Insert titol document nou");
         author = IOUtils.askForString("Insert author document nou");
         contingut = IOUtils.askForString("Insert contingut document nou");
-        usuari = IOUtils.askForString("Insert usuari document nou (ha de ser el mateix pels dos)");
-        Document docnou = new Document(titol,author,contingut,usuari);
+        Document docnou = new Document(titol,author,contingut,null);
         Document doc = DocumentTools.mergeDocs(docant, docnou);
         printResult("Document updated with the following data");
         System.out.println("autor " + doc.getAuthor());
-        System.out.println("titol" + doc.getTitle());
+        System.out.println("titol " + doc.getTitle());
         System.out.println("content" + doc.getContent());
-        System.out.println("user" + doc.getUser());
     }
     //AQUESTA FUNCIO ES CACA
     private static void testGetWeights(){
@@ -55,7 +52,7 @@ public class DocumentToolsDriver {
         Boolean continua=Boolean.TRUE;
         DocumentsCollection col=new DocumentsCollection();
         while(continua) {
-            titol = IOUtils.askForString("Inserta el titol del nou document, '-1' en cas de que no vulguis afegir mes documents a la colecció");
+            titol = IOUtils.askForString("Inserta el titol del nou document, '-1' si ja has acabat");
             if (titol.equals("-1")) continua = Boolean.FALSE;
             else {
                 author = IOUtils.askForString("Insert author");
@@ -72,10 +69,42 @@ public class DocumentToolsDriver {
         String K;
         Float V;
         TreeMap<String, Float> vec = wei.getVector();
-        System.out.println("El vector de pesos creats és:");
+        System.out.println("El vector de pesos creats és: ");
         for (Map.Entry<String, Float> elem : vec.entrySet()) {
             System.out.println("key = " + elem.getKey() + ", value = " + elem.getValue());
         }
+    }
+    private static void testGetRelevanceFactor() {
+        WeightsVector we1 = new WeightsVector();
+        WeightsVector we2 = new WeightsVector();
+        Boolean continua = Boolean.TRUE;
+        printResult("Inserta els valors desitjats pel primer WeightVector:");
+        while(continua) {
+            String key = IOUtils.askForString("Inserta una nova paraula (-1 si has acabat)");
+            if (key.equals("-1")) continua = Boolean.FALSE;
+            else {
+                Scanner scan = new Scanner(System.in);
+                System.out.print("Inserta el seu pes (coma per indicar decimals) > ");
+                Float value = scan.nextFloat();
+                we1.put(key,value);
+            }
+        }
+        printResult("Inserta els valors desitjats pel segón WeightVector:");
+        continua = Boolean.TRUE;
+        while(continua) {
+            String key = IOUtils.askForString("Inserta una nova paraula (-1 si has acabat)");
+            if (key.equals("-1")) continua = Boolean.FALSE;
+            else {
+                Scanner scan = new Scanner(System.in);
+                System.out.print("Inserta el seu pes (coma per indicar decimals) > ");
+                Float value = scan.nextFloat();
+                we2.put(key,value);
+            }
+        }
+        double res = DocumentTools.getRelevanceFactor(we1,we2);
+        System.out.println("El factor de relevancia és: " + res);
+
+
     }
     public static void main(String[] args) {
         do {
@@ -83,7 +112,8 @@ public class DocumentToolsDriver {
             System.out.println("1- Test Correct document");
             System.out.println("2- Test Merge documents");
             System.out.println("3- Test Get weights");
-            int option = IOUtils.askForInt("Select an option", 0, 3);
+            System.out.println("4- Test Get relevance factor");
+            int option = IOUtils.askForInt("Select an option", 0, 4);
             switch (option) {
                 case 1:
                     testIsCorrect();
@@ -93,6 +123,9 @@ public class DocumentToolsDriver {
                     break;
                 case 3:
                     testGetWeights();
+                    break;
+                case 4:
+                    testGetRelevanceFactor();
                     break;
                 default:
                     return;
