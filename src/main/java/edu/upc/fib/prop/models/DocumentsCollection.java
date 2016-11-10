@@ -1,6 +1,5 @@
 package edu.upc.fib.prop.models;
 
-import edu.upc.fib.prop.business.documents.DocumentTools;
 import edu.upc.fib.prop.exceptions.AlreadyExistingDocumentException;
 import edu.upc.fib.prop.exceptions.DocumentContentNotFoundException;
 import edu.upc.fib.prop.exceptions.InvalidDetailsException;
