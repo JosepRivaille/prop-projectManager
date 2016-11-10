@@ -33,4 +33,18 @@ public interface DaoAuthors {
      */
     Author getAuthorByName(Connection c, String author) throws AuthorNotFoundException;
 
+    /**
+     * Check if an author exists in the database
+     * @param c DB Connection
+     * @param author Author name
+     * @return  true if exists, false otherwise
+     * @throws AuthorNotFoundException
+     */
+    boolean existsAuthor(Connection c, String author);
+
+    /**
+     * If there is no documents in the database from the author, it is deleted.
+     * @param author author name
+     */
+    void deleteIfNoDocuments(Connection c, String author);
 }
