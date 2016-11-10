@@ -82,12 +82,12 @@ public class ViewControllerImpl implements ViewController {
 
     @Override
     public void storeNewDocument(Document document)
-            throws DocumentNotFoundException, AlreadyExistingDocumentException, InvalidDetailsException {
+            throws DocumentNotFoundException, AlreadyExistingDocumentException, InvalidDetailsException, DocumentContentNotFoundException {
         this.businessController.storeNewDocument(document);
     }
 
     @Override
-    public void updateDocument(Pair<Document, Document> updatedDocument) throws InvalidDetailsException, AlreadyExistingDocumentException {
+    public void updateDocument(Pair<Document, Document> updatedDocument) throws InvalidDetailsException, AlreadyExistingDocumentException, DocumentContentNotFoundException {
         this.businessController.updateDocument(updatedDocument.getKey(), updatedDocument.getValue());
     }
 

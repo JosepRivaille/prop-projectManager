@@ -69,15 +69,14 @@ public interface ViewController {
      * Stores a new document in the system.
      * @param document New document to store.
      */
-    void
-    storeNewDocument(Document document) throws DocumentNotFoundException, AlreadyExistingDocumentException,
-            InvalidDetailsException ;
+    void storeNewDocument(Document document) throws DocumentNotFoundException, AlreadyExistingDocumentException,
+            InvalidDetailsException, DocumentContentNotFoundException;
 
     /**
      * Updates an existing document in the system.
      * @param updatedDocument Pair with current document and document to update.
      */
-    void updateDocument(Pair<Document, Document> updatedDocument) throws InvalidDetailsException, AlreadyExistingDocumentException;
+    void updateDocument(Pair<Document, Document> updatedDocument) throws InvalidDetailsException, AlreadyExistingDocumentException, DocumentContentNotFoundException;
 
     /**
      * Document to delete from the system.

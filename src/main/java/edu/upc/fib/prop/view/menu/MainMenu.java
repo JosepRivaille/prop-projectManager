@@ -206,7 +206,12 @@ public class MainMenu {
                                 Document document = documentsCollection.getDocuments().get(i - 1);
                                 documentTitle = document.getTitle();
                                 String documentFile = document.getContent();
-                                String documentContent = FileUtils.readDocument(documentFile);
+                                String documentContent = null;
+                                try {
+                                    documentContent = FileUtils.readDocument(documentFile);
+                                } catch (DocumentContentNotFoundException e) {
+                                    System.out.println(Strings.DOCUMENT_CONTENT_NOT_FOUND);
+                                }
                                 System.out.println("\n" + documentTitle.toUpperCase() + " | " + document.getAuthor());
                                 int space = documentTitle.length() + document.getAuthor().length() + 3;
                                 for (i = 0; i < space; i++) {
@@ -240,6 +245,8 @@ public class MainMenu {
                     System.out.println(FileUtils.readDocument(matchingDocument.getContent()));
                 } catch (DocumentNotFoundException e) {
                     System.out.println(Strings.NO_DOCUMENTS_FOUND);
+                } catch (DocumentContentNotFoundException e) {
+                    System.out.println(Strings.DOCUMENT_CONTENT_NOT_FOUND);
                 }
                 IOUtils.enterToContinue();
                 break;
@@ -252,8 +259,11 @@ public class MainMenu {
                 try {
                     Document matchingDocument = viewController.getDocumentByTitleAndAuthor(documentTitle, authorName);
                     SortedDocumentsSet list = viewController.getDocumentsByRelevance(matchingDocument, k);
+                    IOUtils.drawLine(100);
+                    System.out.printf( "    %-10s %-45s %-25s %n", "S.Factor", "Title", "Author");
+                    IOUtils.drawLine(100);
                     for(int i = 0; i< list.getSize();++i){
-                        System.out.println(list.getValue(i) + " ==> " + list.getDocument(i).getTitle());
+                        System.out.printf("%-3d %-10s %-45s %-25s %n",i+1, String.format( "%.2f", list.getValue(i)),list.getDocument(i).getTitle(), list.getDocument(i).getAuthor());
                     }
 
                 } catch (DocumentNotFoundException e) {
@@ -294,6 +304,9 @@ public class MainMenu {
                 } catch (DocumentNotFoundException e){
                     System.out.println();
                     System.out.println(Strings.DOCUMENT_NOT_CREATED);
+                } catch (DocumentContentNotFoundException e) {
+                    System.out.println();
+                    System.out.println(Strings.CREATE_FAILED_DOCUMENT_CONTENT_NOT_FOUND);
                 }
                 DocumentsCollection myDocuments = this.viewController.getCurrentUserDocuments();
                 documentManager.setDocumentsCollection(myDocuments);
@@ -318,6 +331,8 @@ public class MainMenu {
                     System.out.println(Strings.UPDATE_FAILED_INVALID_DETAILS);
                 } catch (AlreadyExistingDocumentException e) {
                     System.out.println(Strings.UPDATE_FAILED_DOCUMENT_ALREADY_EXISTS);
+                } catch (DocumentContentNotFoundException e) {
+                    System.out.println(Strings.UPDATE_FAILED_DOCUMENT_CONTENT_NOT_FOUND);
                 }
                 IOUtils.enterToContinue();
                 break;

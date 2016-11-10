@@ -2,6 +2,7 @@ package edu.upc.fib.prop.models;
 
 import edu.upc.fib.prop.business.documents.DocumentTools;
 import edu.upc.fib.prop.exceptions.AlreadyExistingDocumentException;
+import edu.upc.fib.prop.exceptions.DocumentContentNotFoundException;
 import edu.upc.fib.prop.exceptions.InvalidDetailsException;
 import edu.upc.fib.prop.utils.Strings;
 
@@ -45,11 +46,12 @@ public class DocumentsCollection {
         return (this.getDocument(title,author) != null);
     }
 
-    public Document updateDocument(Document oldDoc, Document newDoc) throws InvalidDetailsException, AlreadyExistingDocumentException {
+    public Document updateDocument(Document oldDoc, Document newDoc) throws InvalidDetailsException, AlreadyExistingDocumentException, DocumentContentNotFoundException {
         Document updatedDoc = DocumentTools.mergeDocs(oldDoc, newDoc);
-        if(containsTitleAndAuthor(updatedDoc.getTitle(), updatedDoc.getAuthor())) throw new AlreadyExistingDocumentException();
-
+        //if(containsTitleAndAuthor(updatedDoc.getTitle(), updatedDoc.getAuthor())) throw new AlreadyExistingDocumentException();
         if(!DocumentTools.isCorrect(updatedDoc)) throw new InvalidDetailsException();
+        if (!DocumentTools.isContentPathCorrect(updatedDoc)) throw new DocumentContentNotFoundException();
+        if(!oldDoc.getContent().equals(newDoc.getContent())) updatedDoc.updateFreqs();
         this.documents.remove(oldDoc);
         for(Map.Entry<String,Float> entry : oldDoc.getTermFrequencyList().entrySet()) {
             removeWord(entry.getKey());

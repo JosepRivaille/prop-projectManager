@@ -39,7 +39,7 @@ public class DaoAuthorsImpl implements DaoAuthors {
     public Author getAuthorByName(Connection c, String author) throws AuthorNotFoundException {
         try {
             Statement statement = c.createStatement();
-            String query = String.format("SELECT * FROM authors WHERE author_name='%s';", author);
+            String query = String.format("SELECT * FROM authors WHERE UPPER(author_name)='%s';", author.toUpperCase());
             ResultSet rs = statement.executeQuery(query);
             if (rs.next()) {
                 return new Author(rs.getString("author_name"));
@@ -56,7 +56,7 @@ public class DaoAuthorsImpl implements DaoAuthors {
     public boolean existsAuthor(Connection c, String author) {
         try {
             Statement statement = c.createStatement();
-            String query = String.format("SELECT * FROM authors WHERE author_name='%s';", author);
+            String query = String.format("SELECT * FROM authors WHERE UPPER(author_name)='%s';", author.toUpperCase());
             ResultSet rs = statement.executeQuery(query);
             return rs.isBeforeFirst();
         } catch (SQLException e) {
