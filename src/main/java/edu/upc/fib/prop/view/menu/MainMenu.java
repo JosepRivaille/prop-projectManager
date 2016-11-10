@@ -7,6 +7,7 @@ import edu.upc.fib.prop.utils.IOUtils;
 import edu.upc.fib.prop.utils.MenuTree;
 import edu.upc.fib.prop.utils.Strings;
 import edu.upc.fib.prop.view.controllers.ViewController;
+import edu.upc.fib.prop.view.controllers.impl.ViewControllerImpl;
 import edu.upc.fib.prop.view.document.DocumentManager;
 import javafx.util.Pair;
 
@@ -19,8 +20,8 @@ public class MainMenu {
 
     private DocumentManager documentManager;
 
-    public MainMenu(ViewController viewController) {
-        this.viewController = viewController;
+    public MainMenu() {
+        this.viewController = new ViewControllerImpl();
         MenuTree menuTree = buildMenu();
         if (accountManagement()) {
             DocumentsCollection myDocuments = this.viewController.getCurrentUserDocuments();
