@@ -38,7 +38,7 @@ public class DocumentManager {
             int documentSelected = IOUtils.askForInt("Document", 1, size) - 1;
             System.out.println();
             Document document = this.documentsCollection.getDocuments().get(documentSelected);
-            System.out.println(document.getTitle().toUpperCase() + " | " + document.getAuthor().toUpperCase());
+            System.out.println(document.getTitle().toUpperCase() + " | " + document.getAuthor());
             int space = document.getTitle().length()+document.getAuthor().length()+3;
             for (int i = 0; i < space; i++) {
                 System.out.print("-");
