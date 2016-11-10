@@ -55,6 +55,7 @@ public class PersistenceControllerImpl implements PersistenceController {
     @Override
     public void writeNewDocument(Document document) throws AlreadyExistingDocumentException, SQLException {
         openConnection();
+        
         daoDocuments.addNewDocument(c, document);
         try {
             daoAuthors.getAuthorByName(c, document.getAuthor());
