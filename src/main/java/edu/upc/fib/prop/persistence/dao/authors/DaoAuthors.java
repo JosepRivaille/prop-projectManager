@@ -7,6 +7,9 @@ import edu.upc.fib.prop.models.AuthorsCollection;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+/**
+ * Data Access Object for authors in persistence.
+ */
 public interface DaoAuthors {
 
     /**

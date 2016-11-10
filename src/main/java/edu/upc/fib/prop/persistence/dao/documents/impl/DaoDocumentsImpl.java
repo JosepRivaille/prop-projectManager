@@ -48,7 +48,9 @@ public class DaoDocumentsImpl implements DaoDocuments {
                 document.setTermFrequency(StringUtils.buildMapFromJSON(termFrequency));
                 try {
                     documentsCollection.addDocument(document);
-                } catch (InvalidDetailsException e){}
+                } catch (InvalidDetailsException e) {
+                    e.printStackTrace();
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
