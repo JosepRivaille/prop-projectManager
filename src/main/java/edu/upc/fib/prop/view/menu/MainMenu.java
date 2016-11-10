@@ -390,7 +390,7 @@ public class MainMenu {
 //                viewController.userLogout();
 //                break;
 
-            case "ImportDocument":
+            case Strings.IMPORT_DOCUMENT:
                 String path = IOUtils.askForString(Strings.DOCUMENT_TO_IMPORT_PATH);
                 try {
 
@@ -412,7 +412,7 @@ public class MainMenu {
                     System.out.println(Strings.CREATE_FAILED_DOCUMENT_CONTENT_NOT_FOUND);
                 }
                 break;
-            case "ExportDocument":
+            case Strings.EXPORT_DOCUMENT:
                 documentTitle = IOUtils.askForString(Strings.TYPE_DOCUMENT_TITLE);
                 authorName = IOUtils.askForString(Strings.TYPE_AUTHOR);
                 String pathToExport = IOUtils.askForString(Strings.TYPE_PATH_TO_EXPORT);
