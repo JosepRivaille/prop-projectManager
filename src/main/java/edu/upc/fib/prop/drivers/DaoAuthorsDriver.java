@@ -5,15 +5,11 @@ import edu.upc.fib.prop.models.Author;
 import edu.upc.fib.prop.models.AuthorsCollection;
 import edu.upc.fib.prop.persistence.dao.authors.DaoAuthors;
 import edu.upc.fib.prop.persistence.dao.authors.impl.DaoAuthorsImpl;
-import edu.upc.fib.prop.utils.Constants;
-import edu.upc.fib.prop.utils.FileUtils;
 import edu.upc.fib.prop.utils.IOUtils;
 
 import java.io.File;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class DaoAuthorsDriver {
 
@@ -27,12 +23,7 @@ public class DaoAuthorsDriver {
 
     private static void createConnection() {
         try {
-            Class.forName(Constants.JDBC_DRIVER);
-            c = DriverManager.getConnection(Constants.DB_DRIVERS);
-            Statement statement = c.createStatement();
-            String sql = FileUtils.readFile("src/main/resources/sql/dbInitializer.sql");
-            statement.executeUpdate(sql);
-            statement.close();
+            c = DriversUtils.createConnectionAndDB();
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
