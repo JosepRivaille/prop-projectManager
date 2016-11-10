@@ -12,7 +12,6 @@ import javafx.util.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.io.Console;
 
 public class MainMenu {
 
@@ -268,10 +267,10 @@ public class MainMenu {
                 IOUtils.drawLine(100);
                 int i=0;
                 for (Document doc : allDocuments) {
-                    System.out.printf( "%-3d %-45s %-25s %-25s %n",i++, doc.getTitle(),  doc.getAuthor(), doc.getUser());
-                   // System.out.println(i++ + "- " + doc.getTitle() + " | " + doc.getAuthor());
+                    System.out.printf("%-3d %-45s %-25s %-25s %n",i++, doc.getTitle(),  doc.getAuthor(), doc.getUser());
                 }
                 break;
+
 //            case "SearchDocumentsExpression":
 //                break;
 

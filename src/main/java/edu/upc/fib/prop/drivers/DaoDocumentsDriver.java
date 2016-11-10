@@ -5,15 +5,11 @@ import edu.upc.fib.prop.models.Document;
 import edu.upc.fib.prop.models.DocumentsCollection;
 import edu.upc.fib.prop.persistence.dao.documents.DaoDocuments;
 import edu.upc.fib.prop.persistence.dao.documents.impl.DaoDocumentsImpl;
-import edu.upc.fib.prop.utils.Constants;
-import edu.upc.fib.prop.utils.FileUtils;
 import edu.upc.fib.prop.utils.IOUtils;
 
 import java.io.File;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class DaoDocumentsDriver {
 
@@ -25,15 +21,9 @@ public class DaoDocumentsDriver {
         System.out.println("\n---- " + s + " ----\n");
     }
 
-    //TODO: Refactor to utils class
     private static void createConnection() {
         try {
-            Class.forName(Constants.JDBC_DRIVER);
-            c = DriverManager.getConnection(Constants.DB_DRIVERS);
-            Statement statement = c.createStatement();
-            String sql = FileUtils.readFile("src/main/resources/sql/dbInitializer.sql");
-            statement.executeUpdate(sql);
-            statement.close();
+            c = DriversUtils.createConnectionAndDB();
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
@@ -54,7 +44,7 @@ public class DaoDocumentsDriver {
         String title = IOUtils.askForString("Title");
         String author = IOUtils.askForString("Author");
         String owner = IOUtils.askForString("Owner");
-        Document document = new Document(title, author, null, owner);
+        Document document = new Document(title, author, "fake", owner);
         try {
             daoDocuments.addNewDocument(c, document);
             printResult("Author created in the DB");
@@ -69,27 +59,58 @@ public class DaoDocumentsDriver {
             printResult("There are no documents in the system");
         } else {
             printResult("All documents");
+            System.out.println(String.format("%-45s %-25s %-25s",
+                    "Title", "Author", "Owner"));
+            System.out.println(String.format("%-45s %-25s %-25s",
+                    "-----", "------", "-----"));
             for (Document document : documentsCollection.getDocuments()) {
-                System.out.println(
-                        "- " + document.getTitle() + " | " + document.getAuthor() + " | " + document.getUser());
+                System.out.println(String.format("%-45s %-25s %-25s",
+                        document.getTitle(), document.getAuthor(), document.getUser()));
             }
         }
     }
 
     private static void testUpdateDocument() {
+        System.out.println("Choose document to update");
+        String oldTitle = IOUtils.askForString("Old title");
+        String oldAuthor = IOUtils.askForString("Old author");
+        Document oldDocument = new Document(oldTitle, oldAuthor, "fake");
 
+        String newTitle = IOUtils.askForString("New title");
+        String newAuthor = IOUtils.askForString("New author");
+        Document newDocument = new Document(newTitle, newAuthor, "fake");
+
+        daoDocuments.updateExistingDocument(c, oldDocument, newDocument);
+        printResult("Document updated successfully");
     }
 
     private static void testUpdateDocumentWithEmail() {
+        System.out.println("Enter old email");
+        String oldEmail = IOUtils.askForString("Old email");
 
+        System.out.println("New email");
+        String newEmail = IOUtils.askForString("New email");
+
+        daoDocuments.updateDocumentOwner(c, oldEmail, newEmail);
+        printResult("Document updated successfully");
     }
 
     private static void testDeleteDocumentWithTitleAndAuthor() {
+        System.out.println("Choose document to delete by title and author");
+        String title = IOUtils.askForString("Title");
+        String author = IOUtils.askForString("Author");
+        Document document = new Document(title, author, "fake");
 
+        daoDocuments.deleteExistingDocument(c, document);
+        printResult("Document deleted successfully");
     }
 
     private static void testDeleteDocumentWithUser() {
+        System.out.println("Choose document to delete by owner");
+        String user = IOUtils.askForString("Owner");
 
+        daoDocuments.deleteDocuments(c, user);
+        printResult("Document deleted successfully");
     }
 
     public static void main(String[] args) {
@@ -103,7 +124,7 @@ public class DaoDocumentsDriver {
             System.out.println("5- Delete documents by title-author");
             System.out.println("6- Delete documents by owner");
             System.out.println("0- Exit");
-            int option = IOUtils.askForInt("Select an option", 0, 3);
+            int option = IOUtils.askForInt("Select an option", 0, 6);
             switch (option) {
                 case 1:
                     testCreateDocument();
