@@ -66,6 +66,16 @@ public class Strings {
     public static final String ACCOUNT_DETAILS_UPDATED_SUCCESSFULLY = "The account details have been updated seccessfully.";
     public static final String DOCUMENT_DELETED_SUCCESSFULLY = "The document has been deleted successfully.";
     public static final String DOCUMENT_UPDATED_SUCCESSFULY = "The document has been updated successfully";
-  public static final String DOCUMENT_CONTENT_NOT_FOUND = "The document content was not found.";
- public static final String CREATE_FAILED_DOCUMENT_CONTENT_NOT_FOUND = "The document couldn't be created. Content not found.";
+    public static final String DOCUMENT_CONTENT_NOT_FOUND = "The document content was not found.";
+    public static final String CREATE_FAILED_DOCUMENT_CONTENT_NOT_FOUND = "The document couldn't be created. Content not found.";
+    public static final String TOOLS = "Tools";
+    public static final String IMPORT_DOCUMENT = "Import document";
+    public static final String EXPORT_DOCUMENT = "Export document";
+    public static final String DOCUMENT_TO_IMPORT_PATH = "Type the path of the document";
+    public static final String ERROR_IMPORTING_THE_DOCUMENT = "An error occurred importing the document, check the path.";
+
+    public static final String DOCUMENT_IMPORTED_SUCCESSFULLY = "The document has been imported successfully.";
+    public static final String TYPE_PATH_TO_EXPORT = "Type the path to export the document";
+    public static final String DOCUMENT_EXPORTED_SUCCESSFULLY = "The document has been exported successfully.";
+ public static final String ERROR_EXPORTING_THE_DOCUMENT = "An error occurred exporting the document, check the path";
 }

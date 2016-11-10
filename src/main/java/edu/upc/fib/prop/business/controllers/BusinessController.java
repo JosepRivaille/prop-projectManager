@@ -106,4 +106,17 @@ public interface BusinessController {
      * @return
      */
     DocumentsSet searchForAllDocuments();
+
+    /**
+     * Imports a document
+     * @param path Path of the document to import
+     */
+    Document importDocument(String path) throws ImportExportException, AlreadyExistingDocumentException, InvalidDetailsException, DocumentContentNotFoundException;
+
+    /**
+     * Exports an existing document
+     * @param pathToExport  Path where the document will be exported
+     * @param document  Document to export
+     */
+    void exportDocument(String pathToExport, Document document) throws ImportExportException, DocumentContentNotFoundException;
 }

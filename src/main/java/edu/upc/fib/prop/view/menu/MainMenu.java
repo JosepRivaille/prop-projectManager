@@ -104,7 +104,8 @@ public class MainMenu {
         options = new ArrayList<>();
         options.add("1. " + Strings.PERFORM_SEARCH);
         options.add("2. " + Strings.MANAGE_MY_DOCUMENTS);
-        options.add("3. " + Strings.SETTINGS);
+        options.add("3. " + Strings.TOOLS);
+        options.add("4. " + Strings.SETTINGS);
         options.add("0. " + Strings.EXIT);
         MenuTree root = new MenuTree(Strings.MAIN_MENU_HEADER, options, false);
 
@@ -139,7 +140,7 @@ public class MainMenu {
         options.add("2. " + Strings.READ_DOCUMENT);
         options.add("3. " + Strings.EDIT_DOCUMENT);
         options.add("4. " + Strings.DELETE_DOCUMENT);
-        options.add("0. Back");
+        options.add("0. " + Strings.GO_BACK);
         root.addChild(new MenuTree(Strings.DOCUMENTS_MANAGER_HEADER, options, false));
 
         //Level 2.1
@@ -153,18 +154,30 @@ public class MainMenu {
 
         //Level 3
         options = new ArrayList<>();
+        options.add("1. " + Strings.IMPORT_DOCUMENT);
+        options.add("2. " + Strings.EXPORT_DOCUMENT);
+        options.add("0. " + Strings.GO_BACK);
+        root.addChild(new MenuTree(Strings.DOCUMENTS_MANAGER_HEADER, options, false));
+
+        //Level 3.1
+        root.getChildren().get(2).addChild(new MenuTree("ImportDocument", null, true));
+        //Level 3.2
+        root.getChildren().get(2).addChild(new MenuTree("ExportDocument", null, true));
+
+        //Level 4
+        options = new ArrayList<>();
         options.add("1. " + Strings.EDIT_ACCOUNT);
         options.add("2. " + Strings.DELETE_ACCOUNT);
         options.add("3. " + Strings.LOGOUT);
         options.add("0. " + Strings.GO_BACK);
         root.addChild(new MenuTree(Strings.SETTINGS_HEADER, options, false));
 
-        //Level 3.1
-        root.getChildren().get(2).addChild(new MenuTree("EditAccount", null, true));
-        //Level 3.2
-        root.getChildren().get(2).addChild(new MenuTree("DeleteAccount", null, true));
-        //Level 3.3
-        root.getChildren().get(2).addChild(new MenuTree("Logout", null, true));
+        //Level 4.1
+        root.getChildren().get(3).addChild(new MenuTree("EditAccount", null, true));
+        //Level 4.2
+        root.getChildren().get(3).addChild(new MenuTree("DeleteAccount", null, true));
+        //Level 4.3
+        root.getChildren().get(3).addChild(new MenuTree("Logout", null, true));
 
         return root;
     }
@@ -378,6 +391,50 @@ public class MainMenu {
             case "Logout":
                 viewController.userLogout();
                 //TODO: Go to login menu again
+                break;
+
+            case "ImportDocument":
+                String path = IOUtils.askForString(Strings.DOCUMENT_TO_IMPORT_PATH);
+                try {
+
+                    Document importedDoc = viewController.importDocument(path);
+                    this.documentManager.addDocumentToCollection(importedDoc);
+
+                    System.out.println();
+                    System.out.println(Strings.DOCUMENT_IMPORTED_SUCCESSFULLY);
+                } catch (ImportExportException e) {
+                    System.out.println(Strings.ERROR_IMPORTING_THE_DOCUMENT);
+                } catch (AlreadyExistingDocumentException e) {
+                    System.out.println();
+                    System.out.println(Strings.DOCUMENT_NOT_CREATED_ALREADY_EXISTS);
+                } catch (InvalidDetailsException e){
+                    System.out.println();
+                    System.out.println(Strings.DOCUMENT_NOT_CREATED_INVALID_DETAILS);
+                } catch (DocumentContentNotFoundException e) {
+                    System.out.println();
+                    System.out.println(Strings.CREATE_FAILED_DOCUMENT_CONTENT_NOT_FOUND);
+                }
+                break;
+            case "ExportDocument":
+                documentTitle = IOUtils.askForString(Strings.TYPE_DOCUMENT_TITLE);
+                authorName = IOUtils.askForString(Strings.TYPE_AUTHOR);
+                String pathToExport = IOUtils.askForString(Strings.TYPE_PATH_TO_EXPORT);
+                System.out.println();
+                System.out.println(Strings.DOCUMENT_EXPORTED_SUCCESSFULLY);
+                System.out.println();
+                try {
+                    Document matchingDocument = viewController.getDocumentByTitleAndAuthor(documentTitle, authorName);
+                    viewController.exportDocument(pathToExport, matchingDocument);
+                } catch (DocumentNotFoundException e) {
+                    System.out.println();
+                    System.out.println(Strings.NO_DOCUMENTS_FOUND);
+                } catch (ImportExportException e) {
+                    System.out.println();
+                    System.out.println(Strings.ERROR_EXPORTING_THE_DOCUMENT);
+                } catch (DocumentContentNotFoundException e) {
+                    System.out.println(Strings.DOCUMENT_CONTENT_NOT_FOUND);
+                }
+                IOUtils.enterToContinue();
                 break;
 
             default:

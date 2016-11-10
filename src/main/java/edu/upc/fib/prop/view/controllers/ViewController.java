@@ -89,6 +89,28 @@ public interface ViewController {
      */
     void userLogout();
 
+    /**
+     * Returns all the documents in the system
+     * @return DocumentSet with all the documents
+     */
     DocumentsSet searchForAllDocuments();
+
+    /**
+     * Imports a document to the system
+     * @param path
+     * @return
+     * @throws ImportExportException
+     * @throws AlreadyExistingDocumentException
+     * @throws InvalidDetailsException
+     * @throws DocumentContentNotFoundException
+     */
+    Document importDocument(String path) throws ImportExportException, AlreadyExistingDocumentException, InvalidDetailsException, DocumentContentNotFoundException;
+
+    /**
+     * Exports an existing document
+     * @param pathToExport The path where the doccument will be exported
+     * @param document  The document to export
+     */
+    void exportDocument(String pathToExport, Document document) throws ImportExportException, DocumentContentNotFoundException;
 }
 

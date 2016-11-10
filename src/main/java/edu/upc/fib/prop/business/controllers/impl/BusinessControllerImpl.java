@@ -10,6 +10,7 @@ import edu.upc.fib.prop.exceptions.*;
 import edu.upc.fib.prop.models.*;
 import edu.upc.fib.prop.persistence.controllers.PersistenceController;
 import edu.upc.fib.prop.persistence.controllers.impl.PersistenceControllerImpl;
+import edu.upc.fib.prop.utils.ImportExport;
 
 import java.sql.SQLException;
 
@@ -44,6 +45,18 @@ public class BusinessControllerImpl implements BusinessController {
     @Override
     public DocumentsSet searchForAllDocuments() {
         return this.documentsCollection.getAllDocuments();
+    }
+
+    @Override
+    public Document importDocument(String path) throws ImportExportException, AlreadyExistingDocumentException, InvalidDetailsException, DocumentContentNotFoundException {
+        Document doc = ImportExport.importDocument(path);
+        this.storeNewDocument(doc);
+        return doc;
+    }
+
+    @Override
+    public void exportDocument(String pathToExport, Document document) throws ImportExportException, DocumentContentNotFoundException {
+        ImportExport.exportDocument(pathToExport, document);
     }
 
     @Override

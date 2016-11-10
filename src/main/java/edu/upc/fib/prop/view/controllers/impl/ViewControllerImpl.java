@@ -44,6 +44,8 @@ public class ViewControllerImpl implements ViewController {
     }
 
 
+
+
     /*-------------------- Users */
 
     @Override
@@ -96,4 +98,13 @@ public class ViewControllerImpl implements ViewController {
         this.businessController.deleteDocument(document);
     }
 
+    @Override
+    public Document importDocument(String path) throws ImportExportException, AlreadyExistingDocumentException, InvalidDetailsException, DocumentContentNotFoundException {
+        return this.businessController.importDocument(path);
+    }
+
+    @Override
+    public void exportDocument(String pathToExport, Document document) throws ImportExportException, DocumentContentNotFoundException {
+        this.businessController.exportDocument(pathToExport, document);
+    }
 }
