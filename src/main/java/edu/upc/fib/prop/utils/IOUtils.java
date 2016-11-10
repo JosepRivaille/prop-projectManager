@@ -25,6 +25,7 @@ public class IOUtils {
                 if (response >= min && response <= max) {
                     return response;
                 }
+                System.out.println("Input out of range, try it again.");
             } else {
                 System.out.println("Invalid input, try it again.");
                 printQuestion(text);
@@ -36,9 +37,12 @@ public class IOUtils {
         System.out.print(text + " > ");
     }
 
-    public static void printLine(String s){System.out.println(s);}
-    public static void drawLine(int longitude){
-        for(int i=0;i<longitude;++i){
+    private static void printLine(String s) {
+        System.out.println(s);
+    }
+
+    public static void drawLine(int longitude) {
+        for (int i = 0 ;i < longitude; i++) {
             System.out.print('-');
         }
         System.out.println();

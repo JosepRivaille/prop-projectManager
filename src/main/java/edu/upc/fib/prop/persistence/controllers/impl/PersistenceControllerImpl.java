@@ -114,6 +114,7 @@ public class PersistenceControllerImpl implements PersistenceController {
     public void deleteDocument(Document document) {
         openConnection();
         daoDocuments.deleteExistingDocument(c, document);
+        daoAuthors.deleteIfNoDocuments(c, document.getAuthor());
         closeConnection();
     }
 
@@ -121,6 +122,12 @@ public class PersistenceControllerImpl implements PersistenceController {
     public void updateDocument(Document oldDocument, Document newDocument) {
         openConnection();
         daoDocuments.updateExistingDocument(c, oldDocument, newDocument);
+        daoAuthors.deleteIfNoDocuments(c, oldDocument.getAuthor());
+        if(!daoAuthors.existsAuthor(c, newDocument.getAuthor())) try {
+            daoAuthors.createAuthor(c, newDocument.getAuthor());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         closeConnection();
     }
 

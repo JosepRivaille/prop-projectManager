@@ -12,7 +12,6 @@ import javafx.util.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.io.Console;
 
 public class MainMenu {
 
@@ -208,8 +207,9 @@ public class MainMenu {
                                 documentTitle = document.getTitle();
                                 String documentFile = document.getContent();
                                 String documentContent = FileUtils.readDocument(documentFile);
-                                System.out.println("\n" + documentTitle.toUpperCase());
-                                for (i = 0; i < documentTitle.length(); i++) {
+                                System.out.println("\n" + documentTitle.toUpperCase() + " | " + document.getAuthor());
+                                int space = documentTitle.length() + document.getAuthor().length() + 3;
+                                for (i = 0; i < space; i++) {
                                     System.out.print("-");
                                 }
                                 System.out.print("\n");
@@ -231,8 +231,8 @@ public class MainMenu {
                 System.out.println();
                 try {
                     Document matchingDocument = viewController.getDocumentByTitleAndAuthor(documentTitle, authorName);
-                    System.out.println("\n" + documentTitle.toUpperCase() + " | " + authorName);
-                    int size = documentTitle.length()+authorName.length()+3;
+                    System.out.println("\n" + documentTitle.toUpperCase() + " | " + matchingDocument.getAuthor());
+                    int size = documentTitle.length()+matchingDocument.getAuthor().length()+3;
                     for (int i = 0; i < size; i++) {
                         System.out.print("-");
                     }
@@ -268,10 +268,10 @@ public class MainMenu {
                 IOUtils.drawLine(100);
                 int i=0;
                 for (Document doc : allDocuments) {
-                    System.out.printf( "%-3d %-45s %-25s %-25s %n",i++, doc.getTitle(),  doc.getAuthor(), doc.getUser());
-                   // System.out.println(i++ + "- " + doc.getTitle() + " | " + doc.getAuthor());
+                    System.out.printf("%-3d %-45s %-25s %-25s %n",i++, doc.getTitle(),  doc.getAuthor(), doc.getUser());
                 }
                 break;
+
 //            case "SearchDocumentsExpression":
 //                break;
 
@@ -311,6 +311,7 @@ public class MainMenu {
                     viewController.updateDocument(updatedDocument);
                     myDocuments = viewController.getCurrentUserDocuments();
                     documentManager.setDocumentsCollection(myDocuments);
+                    System.out.println(Strings.DOCUMENT_UPDATED_SUCCESSFULY);
                 } catch (DocumentNotFoundException e) {
                     System.out.println(Strings.NO_DOCUMENTS_FOUND);
                 } catch (InvalidDetailsException e) {
