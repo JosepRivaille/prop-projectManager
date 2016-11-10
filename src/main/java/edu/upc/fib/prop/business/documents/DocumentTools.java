@@ -41,19 +41,10 @@ public class DocumentTools {
     }
 
     public static double getRelevanceFactor(WeightsVector wv1, WeightsVector wv2){
-        //TODO La idea es encapsular la estrucura de datos que almacena los pesos, habria que modificar esto y recorrerlo sin acceder directamente al map.
         Double sum = 0.0;
-        TreeMap<String, Float> vec1 = wv1.getVector();
-        TreeMap<String, Float> vec2 = wv2.getVector();
-
-        for (Map.Entry<String, Float> elem : vec1.entrySet()) {
-            if(vec2.containsKey(elem.getKey())) sum += elem.getValue() * vec2.get(elem.getKey());
+        for(String term : wv1){
+            if(wv2.contains(term)) sum += wv1.getWeight(term) * wv2.getWeight(term);
         }
-        /*Iterator it1 = wv1.iterator();
-        Iterator it2 = wv2.iterator();
-        while(it1.hasNext()){
-            if(wv2.contains(wv1.iterator().next()));
-        }*/
         return sum;
     }
 

@@ -259,8 +259,11 @@ public class MainMenu {
                 try {
                     Document matchingDocument = viewController.getDocumentByTitleAndAuthor(documentTitle, authorName);
                     SortedDocumentsSet list = viewController.getDocumentsByRelevance(matchingDocument, k);
+                    IOUtils.drawLine(100);
+                    System.out.printf( "    %-10s %-45s %-25s %n", "S.Factor", "Title", "Author");
+                    IOUtils.drawLine(100);
                     for(int i = 0; i< list.getSize();++i){
-                        System.out.println(list.getValue(i) + " ==> " + list.getDocument(i).getTitle());
+                        System.out.printf("%-3d %-10s %-45s %-25s %n",i+1, String.format( "%.2f", list.getValue(i)),list.getDocument(i).getTitle(), list.getDocument(i).getAuthor());
                     }
 
                 } catch (DocumentNotFoundException e) {

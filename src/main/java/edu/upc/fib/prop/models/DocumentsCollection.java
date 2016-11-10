@@ -30,15 +30,15 @@ public class DocumentsCollection {
         if(!DocumentTools.isCorrect(document)) throw new InvalidDetailsException();
         this.documents.add(document);
 
-        /*for(Map.Entry<String,Float> entry : document.getTermFrequencyList().entrySet()) {
+        for(Map.Entry<String,Float> entry : document.getTermFrequencyList().entrySet()) {
             addWord(entry.getKey());
-        }*/
+        }
     }
 
     public void deleteDocument(Document document) {
         this.documents.remove(document);
         for(Map.Entry<String,Float> entry : document.getTermFrequencyList().entrySet()) {
-            //removeWord(entry.getKey());
+            removeWord(entry.getKey());
         }
     }
 
@@ -51,13 +51,14 @@ public class DocumentsCollection {
         //if(containsTitleAndAuthor(updatedDoc.getTitle(), updatedDoc.getAuthor())) throw new AlreadyExistingDocumentException();
         if(!DocumentTools.isCorrect(updatedDoc)) throw new InvalidDetailsException();
         if (!DocumentTools.isContentPathCorrect(updatedDoc)) throw new DocumentContentNotFoundException();
+        if(!oldDoc.getContent().equals(newDoc.getContent())) updatedDoc.updateFreqs();
         this.documents.remove(oldDoc);
         for(Map.Entry<String,Float> entry : oldDoc.getTermFrequencyList().entrySet()) {
-            //removeWord(entry.getKey());
+            removeWord(entry.getKey());
         }
         this.documents.add(updatedDoc);
         for(Map.Entry<String,Float> entry : updatedDoc.getTermFrequencyList().entrySet()) {
-            //addWord(entry.getKey());
+            addWord(entry.getKey());
         }
         return updatedDoc;
     }

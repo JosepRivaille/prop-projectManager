@@ -3,7 +3,7 @@ package edu.upc.fib.prop.models;
 import java.util.Iterator;
 import java.util.TreeMap;
 
-public class WeightsVector implements Iterable{
+public class WeightsVector implements Iterable<String> {
 
     private TreeMap<String, Float> vector;
 
@@ -23,7 +23,7 @@ public class WeightsVector implements Iterable{
         return vector.containsKey(word);
     }
 
-    public Float get(String word){
+    public Float getWeight(String word){
         return vector.get(word);
     }
 
@@ -33,6 +33,6 @@ public class WeightsVector implements Iterable{
 
     @Override
     public Iterator iterator() {
-        return vector.entrySet().iterator();
+        return vector.keySet().iterator();
     }
 }

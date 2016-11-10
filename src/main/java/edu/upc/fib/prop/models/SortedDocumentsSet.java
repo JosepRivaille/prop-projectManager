@@ -4,17 +4,17 @@ import java.util.*;
 
 public class SortedDocumentsSet{
 
-    private NavigableMap<Double, List<Document>> docs;
+    private TreeMap<Double, List<Document>> docs;
 
     private boolean limited;
     private int limit;
-    private int cont;
+    private int size;
 
     //TODO: Remove if unused
     public SortedDocumentsSet(){
         limited = false;
-        docs = new TreeMap<>();
-        cont = 0;
+        docs = new TreeMap<>(Collections.reverseOrder());
+        size=0;
     }
 
     /**
@@ -24,8 +24,8 @@ public class SortedDocumentsSet{
     public SortedDocumentsSet(int max){
         limited = true;
         limit = max;
-        docs = new TreeMap<>();
-        cont = 0;
+        docs = new TreeMap<>(Collections.reverseOrder());
+        size=0;
     }
 
     /**
@@ -33,7 +33,7 @@ public class SortedDocumentsSet{
      * @return tamaño de la lista
      */
     public int getSize(){
-        return docs.size();
+        return this.size;
     }
 
     /**
@@ -42,13 +42,13 @@ public class SortedDocumentsSet{
      * @param weight
      */
     public void add(Document doc, Double weight){
-        if(limited && cont>=limit){
+        if(limited && size>=limit){
             putElement(doc, weight);
             removeLessWeighted();
         }
         else{
             putElement(doc, weight);
-            cont++;
+            size++;
         }
     }
 
@@ -58,7 +58,14 @@ public class SortedDocumentsSet{
      * @return
      */
     public Document getDocument(int index){
-        //TODO por implementar
+        if(index>=size) return null;
+        int cont = 0;
+        for(Double weight : docs.keySet()){
+            for(Document doc : docs.get(weight)){
+                if(cont == index) return doc;
+                cont++;
+            }
+        }
         return null;
     }
 
@@ -68,7 +75,14 @@ public class SortedDocumentsSet{
      * @return
      */
     public Double getValue(int index){
-        //TODO por implementar
+        if(index>=size) return null;
+        int cont = 0;
+        for(Double weight : docs.keySet()){
+            for(Document doc : docs.get(weight)){
+                if(cont == index) return weight;
+                cont++;
+            }
+        }
         return null;
     }
 
@@ -76,12 +90,12 @@ public class SortedDocumentsSet{
      * Elimina el ultimo documento
      */
     private void removeLessWeighted() {
-        Map.Entry<Double, List<Document>> lastEntry = docs.lastEntry();
-        if(lastEntry.getValue().size()==1){
-            docs.remove(lastEntry.getKey());
+        Double lowerKey =Collections.min(docs.keySet());
+        if(docs.get(lowerKey).size()==1){
+            docs.remove(lowerKey);
         }
         else {
-            docs.get(lastEntry.getKey()).remove(lastEntry.getValue().size()-1);
+            docs.get(lowerKey).remove(docs.get(lowerKey).size()-1);
         }
     }
 

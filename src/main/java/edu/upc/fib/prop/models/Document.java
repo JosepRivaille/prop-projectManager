@@ -5,6 +5,7 @@ import edu.upc.fib.prop.utils.Constants;
 import edu.upc.fib.prop.utils.FileUtils;
 
 import javax.print.Doc;
+import java.io.File;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -99,7 +100,7 @@ public class Document {
     public void updateFreqs() throws DocumentContentNotFoundException {
         Float max = 1f;
         termFrequency = new TreeMap<>();
-        for (String word : content.split(Constants.WORD_SEPARATION_REGEX)) {
+        for (String word : FileUtils.readDocument(content).split(Constants.WORD_SEPARATION_REGEX)) {
             word = word.toLowerCase();
             if (!termFrequency.containsKey(word)) {
                 termFrequency.put(word, 1f);
