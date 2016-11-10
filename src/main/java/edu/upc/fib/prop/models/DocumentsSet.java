@@ -24,7 +24,7 @@ public class DocumentsSet implements Iterable<Document>{
     }
 
     public void update(Document oldDoc, Document newDoc) throws InvalidDetailsException {
-        newDoc = DocumentTools.mergeDocs(oldDoc, newDoc);
+        newDoc = oldDoc.merge(newDoc);
         this.documents.remove(oldDoc);
         this.documents.add(newDoc);
     }

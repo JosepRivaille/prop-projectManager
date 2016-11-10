@@ -1,7 +1,6 @@
 package edu.upc.fib.prop.business.controllers.impl;
 
 import edu.upc.fib.prop.business.controllers.BusinessController;
-import edu.upc.fib.prop.business.documents.DocumentTools;
 import edu.upc.fib.prop.business.search.impl.SearchAuthorImpl;
 import edu.upc.fib.prop.business.search.impl.SearchDocumentImpl;
 import edu.upc.fib.prop.business.users.UsersManager;
@@ -128,8 +127,8 @@ public class BusinessControllerImpl implements BusinessController {
     @Override
     public void storeNewDocument(Document doc) throws AlreadyExistingDocumentException, InvalidDetailsException, DocumentContentNotFoundException {
         doc.setUser(usersManager.getCurrentUser().getEmail());
-        if (!DocumentTools.isCorrect(doc)) throw new InvalidDetailsException();
-        if (!DocumentTools.isContentPathCorrect(doc)) throw new DocumentContentNotFoundException();
+        if (!doc.isCorrect()) throw new InvalidDetailsException();
+        if (!doc.isContentPathCorrect()) throw new DocumentContentNotFoundException();
         if(documentsCollection.containsTitleAndAuthor(doc.getTitle(), doc.getAuthor())) throw  new AlreadyExistingDocumentException();
         else{
             doc.updateFreqs();
@@ -146,6 +145,7 @@ public class BusinessControllerImpl implements BusinessController {
     @Override
     public void updateDocument(Document oldDoc, Document newDoc) throws InvalidDetailsException, AlreadyExistingDocumentException, DocumentContentNotFoundException {
         if(!(newDoc.getAuthor().equals("") && newDoc.getTitle().equals("") && newDoc.getContent().equals(""))){
+            if(documentsCollection.containsTitleAndAuthor(newDoc.getTitle(), newDoc.getAuthor())) throw  new AlreadyExistingDocumentException();
             Document updatedDoc = documentsCollection.updateDocument(oldDoc, newDoc);
             persistenceController.updateDocument(oldDoc, updatedDoc);
             reloadDBData();

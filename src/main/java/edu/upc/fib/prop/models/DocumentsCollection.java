@@ -27,7 +27,7 @@ public class DocumentsCollection {
     }
 
     public void addDocument(Document document) throws InvalidDetailsException{
-        if(!DocumentTools.isCorrect(document)) throw new InvalidDetailsException();
+        if(!document.isCorrect()) throw new InvalidDetailsException();
         this.documents.add(document);
 
         for(Map.Entry<String,Float> entry : document.getTermFrequencyList().entrySet()) {
@@ -47,10 +47,10 @@ public class DocumentsCollection {
     }
 
     public Document updateDocument(Document oldDoc, Document newDoc) throws InvalidDetailsException, AlreadyExistingDocumentException, DocumentContentNotFoundException {
-        Document updatedDoc = DocumentTools.mergeDocs(oldDoc, newDoc);
+        Document updatedDoc = oldDoc.merge(newDoc);
         //if(containsTitleAndAuthor(updatedDoc.getTitle(), updatedDoc.getAuthor())) throw new AlreadyExistingDocumentException();
-        if(!DocumentTools.isCorrect(updatedDoc)) throw new InvalidDetailsException();
-        if (!DocumentTools.isContentPathCorrect(updatedDoc)) throw new DocumentContentNotFoundException();
+        if(!updatedDoc.isCorrect()) throw new InvalidDetailsException();
+        if (!updatedDoc.isContentPathCorrect()) throw new DocumentContentNotFoundException();
         if(!oldDoc.getContent().equals(newDoc.getContent())) updatedDoc.updateFreqs();
         this.documents.remove(oldDoc);
         for(Map.Entry<String,Float> entry : oldDoc.getTermFrequencyList().entrySet()) {
@@ -99,6 +99,16 @@ public class DocumentsCollection {
         DocumentsSet ds = new DocumentsSet();
         for(Document doc : this.documents) ds.add(doc);
         return ds;
+    }
+
+    public WeightsVector getWeights(Document doc){
+        WeightsVector vec = new WeightsVector();
+
+        for (Map.Entry<String, Float> tf : doc.getTermFrequencyList().entrySet()) {
+            vec.put(tf.getKey(), tf.getValue()*getIdf(tf.getKey()));
+        }
+
+        return vec;
     }
 
 }
