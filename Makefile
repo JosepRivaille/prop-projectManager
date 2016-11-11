@@ -20,18 +20,20 @@ CLASSES = \
 	src/main/java/edu/upc/fib/prop/exceptions/AlreadyExistingDocumentException.java \
 	src/main/java/edu/upc/fib/prop/exceptions/DocumentNotFoundException.java \
 	src/main/java/edu/upc/fib/prop/exceptions/DocumentContentNotFoundException.java \
+	src/main/java/edu/upc/fib/prop/exceptions/ImportExportException.java \
 	src/main/java/edu/upc/fib/prop/utils/Constants.java \
 	src/main/java/edu/upc/fib/prop/utils/Strings.java \
 	src/main/java/edu/upc/fib/prop/utils/FileUtils.java \
 	src/main/java/edu/upc/fib/prop/utils/StringUtils.java \
 	src/main/java/edu/upc/fib/prop/utils/MenuTree.java \
 	src/main/java/edu/upc/fib/prop/utils/IOUtils.java \
+	src/main/java/edu/upc/fib/prop/utils/ImportExport.java \
 	src/main/java/edu/upc/fib/prop/models/Author.java \
 	src/main/java/edu/upc/fib/prop/models/Document.java \
 	src/main/java/edu/upc/fib/prop/models/User.java \
+	src/main/java/edu/upc/fib/prop/models/WeightsVector.java \
 	src/main/java/edu/upc/fib/prop/models/DocumentsSet.java \
 	src/main/java/edu/upc/fib/prop/models/DocumentsCollection.java \
-	src/main/java/edu/upc/fib/prop/models/WeightsVector.java \
 	src/main/java/edu/upc/fib/prop/models/SortedDocumentsSet.java \
 	src/main/java/edu/upc/fib/prop/models/AuthorsCollection.java \
 	src/main/java/edu/upc/fib/prop/persistence/dao/authors/DaoAuthors.java \
@@ -42,7 +44,6 @@ CLASSES = \
 	src/main/java/edu/upc/fib/prop/persistence/dao/documents/impl/DaoDocumentsImpl.java \
 	src/main/java/edu/upc/fib/prop/persistence/controllers/PersistenceController.java \
 	src/main/java/edu/upc/fib/prop/persistence/controllers/impl/PersistenceControllerImpl.java \
-	src/main/java/edu/upc/fib/prop/business/documents/DocumentTools.java \
 	src/main/java/edu/upc/fib/prop/business/users/UsersManager.java \
 	src/main/java/edu/upc/fib/prop/business/users/impl/UsersManagerImpl.java \
 	src/main/java/edu/upc/fib/prop/business/search/SearchDocument.java \

@@ -55,8 +55,7 @@ public class ImportExport {
         final String prettyGson  = myGson.toJson(d);
 
 
-
-        OutputStream outputStream = null;
+        OutputStream outputStream;
         try {
             outputStream = new FileOutputStream(pathToExport + '\\' + fileName);
             Writer outputStreamWriter = new OutputStreamWriter(outputStream, "UTF-8");

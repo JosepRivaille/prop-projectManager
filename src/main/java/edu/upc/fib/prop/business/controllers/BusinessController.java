@@ -43,7 +43,7 @@ public interface BusinessController {
      */
     void logout();
 
-    /*--------------- Documents */
+    /*--------------- Authors */
 
     /**
      * Search for matching authors with a given prefix.
@@ -51,6 +51,8 @@ public interface BusinessController {
      * @return Collection of matching authors (even if empty).
      */
     AuthorsCollection searchMatchingAuthors(String authorPrefix) throws AuthorNotFoundException;
+
+    /*--------------- Documents */
 
     /**
      * Search for documents written by an author.
@@ -66,6 +68,12 @@ public interface BusinessController {
      * @return Document matching title and author.
      */
     Document searchDocumentsByTitleAndAuthor(String title, String authorName) throws DocumentNotFoundException;
+
+    /**
+     * Returns all the documents stored in the system
+     * @return All documents in the system.
+     */
+    DocumentsSet searchForAllDocuments();
 
     /**
      * Sorts a k size document set by relevance given a document.
@@ -86,14 +94,16 @@ public interface BusinessController {
      * Stores in persistence a new document.
      * @param document Document to store.
      */
-    void storeNewDocument(Document document) throws AlreadyExistingDocumentException, InvalidDetailsException, DocumentContentNotFoundException;
+    void storeNewDocument(Document document)
+            throws AlreadyExistingDocumentException, InvalidDetailsException, DocumentContentNotFoundException;
 
     /**
      * Updates a document in persistence.
      * @param oldDoc Old document
      * @param newDoc New document
      */
-    void updateDocument(Document oldDoc, Document newDoc) throws InvalidDetailsException, AlreadyExistingDocumentException, DocumentContentNotFoundException;
+    void updateDocument(Document oldDoc, Document newDoc)
+            throws InvalidDetailsException, AlreadyExistingDocumentException, DocumentContentNotFoundException;
 
     /**
      * Deletes a document in persistence.
@@ -102,21 +112,17 @@ public interface BusinessController {
     void deleteDocument(Document document);
 
     /**
-     * Returns all the documents stored in the system
-     * @return
-     */
-    DocumentsSet searchForAllDocuments();
-
-    /**
      * Imports a document
      * @param path Path of the document to import
      */
-    Document importDocument(String path) throws ImportExportException, AlreadyExistingDocumentException, InvalidDetailsException, DocumentContentNotFoundException;
+    Document importDocument(String path)throws ImportExportException, AlreadyExistingDocumentException,
+            InvalidDetailsException, DocumentContentNotFoundException;
 
     /**
      * Exports an existing document
      * @param pathToExport  Path where the document will be exported
      * @param document  Document to export
      */
-    void exportDocument(String pathToExport, Document document) throws ImportExportException, DocumentContentNotFoundException;
+    void exportDocument(String pathToExport, Document document)
+            throws ImportExportException, DocumentContentNotFoundException;
 }

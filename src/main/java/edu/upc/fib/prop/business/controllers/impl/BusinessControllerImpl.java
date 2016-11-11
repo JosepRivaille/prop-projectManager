@@ -42,30 +42,6 @@ public class BusinessControllerImpl implements BusinessController {
     /*--------------- Users */
 
     @Override
-    public DocumentsSet searchForAllDocuments() {
-        return this.documentsCollection.getAllDocuments();
-    }
-
-    @Override
-    public Document importDocument(String path) throws ImportExportException, AlreadyExistingDocumentException, InvalidDetailsException, DocumentContentNotFoundException {
-        Document doc = ImportExport.importDocument(path);
-        this.storeNewDocument(doc);
-        return doc;
-    }
-
-    @Override
-    public void exportDocument(String pathToExport, Document document) throws ImportExportException, DocumentContentNotFoundException {
-        ImportExport.exportDocument(pathToExport, document);
-    }
-
-    @Override
-    public SortedDocumentsSet searchDocumentsByRelevance(Document document, int k)
-            throws DocumentNotFoundException {
-        return this.searchDocument.searchForSimilarDocuments(this.documentsCollection, document, k);
-    }
-
-
-    @Override
     public void checkLoginDetails(String email, String password)
             throws InvalidDetailsException, UserNotFoundException {
         password = usersManager.login(email, password);
@@ -99,6 +75,32 @@ public class BusinessControllerImpl implements BusinessController {
     public void logout() {
         usersManager.logout();
     }
+
+    /*--------------- Documents */
+
+    @Override
+    public DocumentsSet searchForAllDocuments() {
+        return this.documentsCollection.getAllDocuments();
+    }
+
+    @Override
+    public Document importDocument(String path) throws ImportExportException, AlreadyExistingDocumentException, InvalidDetailsException, DocumentContentNotFoundException {
+        Document doc = ImportExport.importDocument(path);
+        this.storeNewDocument(doc);
+        return doc;
+    }
+
+    @Override
+    public void exportDocument(String pathToExport, Document document) throws ImportExportException, DocumentContentNotFoundException {
+        ImportExport.exportDocument(pathToExport, document);
+    }
+
+    @Override
+    public SortedDocumentsSet searchDocumentsByRelevance(Document document, int k)
+            throws DocumentNotFoundException {
+        return this.searchDocument.searchForSimilarDocuments(this.documentsCollection, document, k);
+    }
+
 
     /*--------------- Authors */
 
@@ -137,7 +139,7 @@ public class BusinessControllerImpl implements BusinessController {
                 persistenceController.writeNewDocument(doc);
                 reloadDBData();
             } catch (SQLException e) {
-               e.printStackTrace();
+                e.printStackTrace();
             }
         }
     }
@@ -149,8 +151,7 @@ public class BusinessControllerImpl implements BusinessController {
             Document updatedDoc = documentsCollection.updateDocument(oldDoc, newDoc);
             persistenceController.updateDocument(oldDoc, updatedDoc);
             reloadDBData();
-        };
-
+        }
     }
 
     @Override
@@ -159,8 +160,6 @@ public class BusinessControllerImpl implements BusinessController {
         persistenceController.deleteDocument(document);
         reloadDBData();
     }
-
-
 
     //////////
 
