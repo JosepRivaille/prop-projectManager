@@ -45,20 +45,7 @@ public class SearchDocumentDriver {
                 System.out.println("- " + document.getTitle());
             }
         } catch (DocumentNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static void testFilterUser() {
-        String owner = IOUtils.askForString("User to search his/her documents");
-        DocumentsCollection filteredDocuments = searchDocument.filterByUser(documentsCollection, owner);
-        if (filteredDocuments.getDocuments().isEmpty()) {
             System.out.println("Non matching documents");
-        } else {
-            System.out.println("Next documents found in the system owned by " + owner + ":");
-            for (Document document : filteredDocuments.getDocuments()) {
-                System.out.println("- " + document.getTitle());
-            }
         }
     }
 
@@ -74,12 +61,12 @@ public class SearchDocumentDriver {
     }
 
     public static void main(String[] args) {
+        printResult("First insert some documents (all -1 to exit)");
         documentsCollection = createDocumentsCollection();
         do {
             printResult("Select test to perform");
             System.out.println("1- Filter by author");
-            System.out.println("2- Filter by user");
-            System.out.println("3- Filter by title and author");
+            System.out.println("2- Filter by title and author");
             System.out.println("0- Exit");
             int option = IOUtils.askForInt("Select an option", 0, 3);
             switch (option) {
@@ -87,9 +74,6 @@ public class SearchDocumentDriver {
                     testFilterAuthor();
                     break;
                 case 2:
-                    testFilterUser();
-                    break;
-                case 3:
                     testFilterTitleAndAuthor();
                     break;
                 default:

@@ -48,7 +48,6 @@ public class UsersManagerDriver {
 
     private static void testUpdate() {
         printResult("Enter new data to set");
-        IOUtils.enterToContinue();
         String email = IOUtils.askForString("New email");
         String username = IOUtils.askForString("New username");
         String password = IOUtils.askForString("New password");

@@ -20,7 +20,6 @@ public class SearchAuthorDriver {
 
     private static AuthorsCollection fillAuthorsCollection() {
         AuthorsCollection authorsCollection = new AuthorsCollection();
-        System.out.println("Enter -1 to stop inserting");
         do {
             printResult("Enter a new author");
             String author = IOUtils.askForString("Author");
@@ -47,6 +46,7 @@ public class SearchAuthorDriver {
     }
 
     public static void main(String[] args) {
+        printResult("First insert some authors (-1 to exit)");
         authorsCollection = fillAuthorsCollection();
         do {
             System.out.println("1- Filter by prefix");

@@ -71,7 +71,8 @@ public class DaoUsersDriver {
     }
 
     private static void testUpdateUser() {
-        String oldEmail = IOUtils.askForString("User email to update");
+        printResult("Introduce data to update an existing user");
+        String oldEmail = IOUtils.askForString("Old user email to update");
         String newEmail = IOUtils.askForString("New email");
         String newName = IOUtils.askForString("New name");
         String newPassword = IOUtils.askForString("New password");
@@ -88,6 +89,7 @@ public class DaoUsersDriver {
     }
 
     private static void testDeleteUser() {
+        printResult("Introduce data to delete an existing user");
         String email = IOUtils.askForString("User email");
         try {
             daoUsers.deleteUser(c, new User(email, "fake", "fake"));
