@@ -13,7 +13,6 @@ CLASSPATH = -classpath
 
 SOURCEPATH = .
 CLASSES = \
-	libs/sqlite-jdbc-3.14.2.1.jar \
 	src/main/java/edu/upc/fib/prop/exceptions/AuthorNotFoundException.java \
 	src/main/java/edu/upc/fib/prop/exceptions/UserNotFoundException.java \
 	src/main/java/edu/upc/fib/prop/exceptions/InvalidDetailsException.java \
@@ -73,7 +72,7 @@ all: $(CLS) buildJar buildTests
 buildJar: $(CLS)
 	jar cmvf ./META-INF/MANIFEST_MAIN.MF prop-projectManager.jar -C $(TARGET)/ .
 
-buildTests:	$(CLS)
+buildTests: $(CLS)
 	jar cmvf ./META-INF/MANIFEST_DAOAUTHORS.MF daoAuthorsDriver.jar -C $(TARGET)/ .
 	jar cmvf ./META-INF/MANIFEST_DAODOCUMENTS.MF daoDocumentsDriver.jar -C $(TARGET)/ .
 	jar cmvf ./META-INF/MANIFEST_DAOUSERS.MF daoUsersDriver.jar -C $(TARGET)/ .
