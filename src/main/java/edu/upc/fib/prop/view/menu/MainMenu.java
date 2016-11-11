@@ -268,19 +268,33 @@ public class MainMenu {
 //                break;
 
             case Strings.SEARCH_DOCUMENTS_BY_RELEVANCE:
-                documentTitle = IOUtils.askForString(Strings.TYPE_DOCUMENT_TITLE);
-                authorName = IOUtils.askForString(Strings.TYPE_AUTHOR);
+
+                DocumentsSet allDocuments = viewController.searchForAllDocuments();
+                IOUtils.drawLine(100);
+                System.out.printf("    %-48s %-30s %-25s %n", "Title", "Author", "Created by");
+                IOUtils.drawLine(100);
+                int i=0;
+                for (Document doc : allDocuments) {
+                    System.out.printf("%-3d %-48s %-30s %-25s %n", ++i, doc.getTitle(), doc.getAuthor(), doc.getUser());
+                }
+                System.out.println();
+                int docNum = IOUtils.askForInt(Strings.SELECT_A_DOCUMENT, 1, allDocuments.size());
                 int k = IOUtils.askForInt(Strings.TYPE_NUMBER_OF_DOCUMENTS, 1, 10000);
                 System.out.println();
                 try {
-                    Document matchingDocument = viewController.getDocumentByTitleAndAuthor(documentTitle, authorName);
+                    Document matchingDocument = null;
+                    i=1;
+                    for (Document doc : allDocuments) {
+                        if(i==docNum) matchingDocument = doc;
+                        ++i;
+                    }
                     SortedDocumentsSet list = viewController.getDocumentsByRelevance(matchingDocument, k);
                     IOUtils.drawLine(100);
-                    System.out.printf("%-10s %-45s %-25s %n", "S.Factor", "Title", "Author");
+                    System.out.printf("    %-10s %-45s %-25s %n", "S.Factor", "Title", "Author");
                     IOUtils.drawLine(100);
-                    for(int i = 0; i< list.getSize();++i){
-                        System.out.printf("%-3d %-10s %-45s %-25s %n",i+1, String.format("%.2f", list.getValue(i)),
-                                list.getDocument(i).getTitle(), list.getDocument(i).getAuthor());
+                    for(int kk = 0; kk< list.getSize();++kk){
+                        System.out.printf("%-3d %-10s %-45s %-25s %n",kk+1, String.format("%.2f", list.getValue(kk)),
+                                list.getDocument(kk).getTitle(), list.getDocument(kk).getAuthor());
                     }
                 } catch (DocumentNotFoundException e) {
                     System.out.println(Strings.NO_DOCUMENTS_FOUND);
@@ -289,13 +303,13 @@ public class MainMenu {
                 break;
 
             case Strings.SEARCH_ALL_DOCUMENTS:
-                DocumentsSet allDocuments = viewController.searchForAllDocuments();
+                DocumentsSet allDocs = viewController.searchForAllDocuments();
                 IOUtils.drawLine(100);
-                System.out.printf("%-45s %-25s %-25s %n", "Title", "Author", "Created by");
+                System.out.printf("    %-48s %-30s %-29s %n", "Title", "Author", "Created by");
                 IOUtils.drawLine(100);
-                int i=0;
-                for (Document doc : allDocuments) {
-                    System.out.printf("%-3d %-45s %-25s %-25s %n", i++, doc.getTitle(), doc.getAuthor(), doc.getUser());
+                int ii=0;
+                for (Document doc : allDocs) {
+                    System.out.printf("%-3d %-48s %-30s %-29s %n", ++ii, doc.getTitle(), doc.getAuthor(), doc.getUser());
                 }
                 break;
 

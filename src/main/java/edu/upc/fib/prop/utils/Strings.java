@@ -74,4 +74,5 @@ public class Strings {
     public static final String DOCUMENT_EXPORTED_SUCCESSFULLY = "The document has been exported successfully.";
     public static final String ERROR_EXPORTING_THE_DOCUMENT = "An error occurred exporting the document, check the path";
     public static final String ARE_YOU_USING_UNIX_OR_WINDOWS = "Are you using an UNIX based OS or Windows? (u/w)";
+    public static final String SELECT_A_DOCUMENT = "Select a document";
 }

@@ -45,4 +45,8 @@ public class DocumentsSet implements Iterable<Document>{
     public Iterator iterator() {
         return documents.iterator();
     }
+
+    public Document get(int index) {
+        return documents.get(index);
+    }
 }
