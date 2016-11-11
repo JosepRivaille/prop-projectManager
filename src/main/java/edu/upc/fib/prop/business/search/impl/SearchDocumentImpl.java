@@ -1,6 +1,5 @@
 package edu.upc.fib.prop.business.search.impl;
 
-import edu.upc.fib.prop.business.documents.DocumentTools;
 import edu.upc.fib.prop.business.search.SearchDocument;
 import edu.upc.fib.prop.exceptions.DocumentNotFoundException;
 import edu.upc.fib.prop.exceptions.InvalidDetailsException;
@@ -57,18 +56,26 @@ public class SearchDocumentImpl implements SearchDocument {
 
     @Override
     public SortedDocumentsSet searchForSimilarDocuments(DocumentsCollection col, Document doc, int k) {
-        WeightsVector wv1 = DocumentTools.getWeights(doc, col);
+        WeightsVector wv1 = col.getWeights(doc);
         int min = Math.min(k, col.size());
 
         SortedDocumentsSet res = new SortedDocumentsSet(min);
 
         for (Document document : col.getDocuments()) {
             if(!doc.equals(document)) {
-                WeightsVector wv2 = DocumentTools.getWeights(document, col);
-                Double relevance = DocumentTools.getRelevanceFactor(wv1, wv2);
+                WeightsVector wv2 = col.getWeights(document);
+                Double relevance = getRelevanceFactor(wv1, wv2);
                 res.add(document, relevance);
             }
         }
         return res;
+    }
+
+    private double getRelevanceFactor(WeightsVector wv1, WeightsVector wv2){
+        Double sum = 0.0;
+        for(String term : wv1){
+            if(wv2.contains(term)) sum += wv1.getWeight(term) * wv2.getWeight(term);
+        }
+        return sum;
     }
 }

@@ -122,4 +122,25 @@ public class Document {
         clonedDoc.setTermFrequency(this.termFrequency);
         return clonedDoc;
     }
+
+    public boolean isCorrect() {
+        return !this.title.equals("") &&
+                !this.author.equals("") &&
+                !this.content.equals("");
+    }
+
+    public Document merge(Document newDoc){
+        Document mergedDoc = this.clone();
+        if(!newDoc.getTitle().equals("")) mergedDoc.setTitle(newDoc.getTitle());
+        if(!newDoc.getAuthor().equals("")) mergedDoc.setAuthor(newDoc.getAuthor());
+        if(!newDoc.getContent().equals("")) mergedDoc.setContent(newDoc.getContent());
+        return mergedDoc;
+    }
+
+    public boolean isContentPathCorrect() {
+        try {
+            FileUtils.readDocument(this.getContent());
+            return true;
+        } catch (DocumentContentNotFoundException e){return false;}
+    }
 }

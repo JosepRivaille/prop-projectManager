@@ -4,7 +4,6 @@ import edu.upc.fib.prop.business.controllers.BusinessController;
 import edu.upc.fib.prop.business.controllers.impl.BusinessControllerImpl;
 import edu.upc.fib.prop.exceptions.*;
 import edu.upc.fib.prop.models.*;
-import edu.upc.fib.prop.view.menu.MainMenu;
 import edu.upc.fib.prop.view.controllers.ViewController;
 import javafx.util.Pair;
 
@@ -15,7 +14,6 @@ public class ViewControllerImpl implements ViewController {
     public ViewControllerImpl() {
         System.out.println("Initializating view controller");
         businessController = new BusinessControllerImpl();
-        new MainMenu(this);
     }
 
     @Override
@@ -104,7 +102,7 @@ public class ViewControllerImpl implements ViewController {
     }
 
     @Override
-    public void exportDocument(String pathToExport, Document document) throws ImportExportException, DocumentContentNotFoundException {
-        this.businessController.exportDocument(pathToExport, document);
+    public void exportDocument(String pathToExport, Document document, String os) throws ImportExportException, DocumentContentNotFoundException {
+        this.businessController.exportDocument(pathToExport, document, os);
     }
 }

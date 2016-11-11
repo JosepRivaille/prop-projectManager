@@ -7,6 +7,7 @@ import edu.upc.fib.prop.utils.IOUtils;
 import edu.upc.fib.prop.utils.MenuTree;
 import edu.upc.fib.prop.utils.Strings;
 import edu.upc.fib.prop.view.controllers.ViewController;
+import edu.upc.fib.prop.view.controllers.impl.ViewControllerImpl;
 import edu.upc.fib.prop.view.document.DocumentManager;
 import javafx.util.Pair;
 
@@ -19,8 +20,8 @@ public class MainMenu {
 
     private DocumentManager documentManager;
 
-    public MainMenu(ViewController viewController) {
-        this.viewController = viewController;
+    public MainMenu() {
+        this.viewController = new ViewControllerImpl();
         MenuTree menuTree = buildMenu();
         if (accountManagement()) {
             DocumentsCollection myDocuments = this.viewController.getCurrentUserDocuments();
@@ -122,17 +123,17 @@ public class MainMenu {
         root.addChild(new MenuTree(Strings.DOCUMENTS_SEARCH_HEADER, options, false));
 
         //Level 1.1
-        root.getChildren().get(0).addChild(new MenuTree("SearchAuthorPrefix", null, true));
+        root.getChildren().get(0).addChild(new MenuTree(Strings.SEARCH_DOCUMENTS_BY_AUTHOR, null, true));
         //Level 1.2
-        root.getChildren().get(0).addChild(new MenuTree("SearchDocumentTitleAndAuthor", null, true));
+        root.getChildren().get(0).addChild(new MenuTree(Strings.SEARCH_DOCUMENTS_BY_TITLE_AND_AUTHOR, null, true));
         //Level 1.3
-        root.getChildren().get(0).addChild(new MenuTree("SearchDocumentsRelevance", null, true));
+        root.getChildren().get(0).addChild(new MenuTree(Strings.SEARCH_DOCUMENTS_BY_RELEVANCE, null, true));
         //Level 1.4
-        root.getChildren().get(0).addChild(new MenuTree("SearchDocumentsExpression", null, true));
+        root.getChildren().get(0).addChild(new MenuTree(Strings.SEARCH_DOCUMENTS_BY_BOOLEAN_EXPRESSION, null, true));
         //Level 1.5
-        root.getChildren().get(0).addChild(new MenuTree("SearchDocumentsQuery", null, true));
+        root.getChildren().get(0).addChild(new MenuTree(Strings.SEARCH_DOCUMENTS_BY_QUERY, null, true));
         //Level 1.6
-        root.getChildren().get(0).addChild(new MenuTree("SearchAllDocuments", null, true));
+        root.getChildren().get(0).addChild(new MenuTree(Strings.SEARCH_ALL_DOCUMENTS, null, true));
 
         //Level 2
         options = new ArrayList<>();
@@ -144,13 +145,13 @@ public class MainMenu {
         root.addChild(new MenuTree(Strings.DOCUMENTS_MANAGER_HEADER, options, false));
 
         //Level 2.1
-        root.getChildren().get(1).addChild(new MenuTree("CreateDocument", null, true));
+        root.getChildren().get(1).addChild(new MenuTree(Strings.CREATE_DOCUMENT, null, true));
         //Level 2.2
-        root.getChildren().get(1).addChild(new MenuTree("ReadDocument", null, true));
+        root.getChildren().get(1).addChild(new MenuTree(Strings.READ_DOCUMENT, null, true));
         //Level 2.3
-        root.getChildren().get(1).addChild(new MenuTree("UpdateDocument", null, true));
+        root.getChildren().get(1).addChild(new MenuTree(Strings.EDIT_DOCUMENT, null, true));
         //Level 2.4
-        root.getChildren().get(1).addChild(new MenuTree("DeleteDocument", null, true));
+        root.getChildren().get(1).addChild(new MenuTree(Strings.DELETE_DOCUMENT, null, true));
 
         //Level 3
         options = new ArrayList<>();
@@ -160,24 +161,20 @@ public class MainMenu {
         root.addChild(new MenuTree(Strings.DOCUMENTS_MANAGER_HEADER, options, false));
 
         //Level 3.1
-        root.getChildren().get(2).addChild(new MenuTree("ImportDocument", null, true));
+        root.getChildren().get(2).addChild(new MenuTree(Strings.IMPORT_DOCUMENT, null, true));
         //Level 3.2
-        root.getChildren().get(2).addChild(new MenuTree("ExportDocument", null, true));
+        root.getChildren().get(2).addChild(new MenuTree(Strings.EXPORT_DOCUMENT, null, true));
 
         //Level 4
         options = new ArrayList<>();
         options.add("1. " + Strings.EDIT_ACCOUNT);
-        options.add("2. " + Strings.DELETE_ACCOUNT);
-        options.add("3. " + Strings.LOGOUT);
         options.add("0. " + Strings.GO_BACK);
         root.addChild(new MenuTree(Strings.SETTINGS_HEADER, options, false));
 
         //Level 4.1
-        root.getChildren().get(3).addChild(new MenuTree("EditAccount", null, true));
+        root.getChildren().get(3).addChild(new MenuTree(Strings.EDIT_ACCOUNT, null, true));
         //Level 4.2
-        root.getChildren().get(3).addChild(new MenuTree("DeleteAccount", null, true));
-        //Level 4.3
-        root.getChildren().get(3).addChild(new MenuTree("Logout", null, true));
+        root.getChildren().get(3).addChild(new MenuTree(Strings.DELETE_ACCOUNT, null, true));
 
         return root;
     }
@@ -190,16 +187,16 @@ public class MainMenu {
 
         switch (action) {
 
-            case "SearchAuthorPrefix":
+            case Strings.SEARCH_DOCUMENTS_BY_AUTHOR:
                 String prefix = IOUtils.askForString(Strings.TYPE_PREFIX);
                 System.out.println();
                 try {
                     authorsCollection = viewController.getAuthorsWithPrefix(prefix);
                     int i = 0;
-                    printHeader(Strings.AUTHORS_FOUND_WITH_PREFIX+ " '" + prefix + "'");
+                    printHeader(Strings.AUTHORS_FOUND_WITH_PREFIX + " '" + prefix + "'");
                     if (!authorsCollection.getAuthors().isEmpty()) {
                         for (Author author : authorsCollection.getAuthors()) {
-                            System.out.printf( "%-3d %-45s %n",++i, author.getName());
+                            System.out.printf("%-3d %-45s %n",++i, author.getName());
                         }
                         System.out.println();
                         i = IOUtils.askForInt(Strings.CHOOSE_AUTHOR, 1, authorsCollection.getAuthors().size());
@@ -211,7 +208,7 @@ public class MainMenu {
                                 documentsCollection = viewController.getDocumentsByAuthorId(authorName);
                                 i = 0;
                                 for (Document document : documentsCollection.getDocuments()) {
-                                    System.out.printf( "%-3d %-45s %n",++i, document.getTitle());
+                                    System.out.printf("%-3d %-45s %n",++i, document.getTitle());
                                 }
                                 System.out.println();
                                 i = IOUtils.askForInt(Strings.CHOOSE_DOCUMENT, 1, documentsCollection.getDocuments().size());
@@ -243,7 +240,7 @@ public class MainMenu {
                 IOUtils.enterToContinue();
                 break;
 
-            case "SearchDocumentTitleAndAuthor":
+            case Strings.SEARCH_DOCUMENTS_BY_TITLE_AND_AUTHOR:
                 documentTitle = IOUtils.askForString(Strings.TYPE_DOCUMENT_TITLE);
                 authorName = IOUtils.askForString(Strings.TYPE_AUTHOR);
                 System.out.println();
@@ -264,44 +261,59 @@ public class MainMenu {
                 IOUtils.enterToContinue();
                 break;
 
-            case "SearchDocumentsRelevance":
-                documentTitle = IOUtils.askForString(Strings.TYPE_DOCUMENT_TITLE);
-                authorName = IOUtils.askForString(Strings.TYPE_AUTHOR);
+//            case Strings.SEARCH_DOCUMENTS_BY_BOOLEAN_EXPRESSION:
+//                break;
+
+//            case Strings.SEARCH_DOCUMENTS_BY_QUERY:
+//                break;
+
+            case Strings.SEARCH_DOCUMENTS_BY_RELEVANCE:
+
+                DocumentsSet allDocuments = viewController.searchForAllDocuments();
+                IOUtils.drawLine(100);
+                System.out.printf("    %-48s %-30s %-25s %n", "Title", "Author", "Created by");
+                IOUtils.drawLine(100);
+                int i=0;
+                for (Document doc : allDocuments) {
+                    System.out.printf("%-3d %-48s %-30s %-25s %n", ++i, doc.getTitle(), doc.getAuthor(), doc.getUser());
+                }
+                System.out.println();
+                int docNum = IOUtils.askForInt(Strings.SELECT_A_DOCUMENT, 1, allDocuments.size());
                 int k = IOUtils.askForInt(Strings.TYPE_NUMBER_OF_DOCUMENTS, 1, 10000);
                 System.out.println();
                 try {
-                    Document matchingDocument = viewController.getDocumentByTitleAndAuthor(documentTitle, authorName);
+                    Document matchingDocument = null;
+                    i=1;
+                    for (Document doc : allDocuments) {
+                        if(i==docNum) matchingDocument = doc;
+                        ++i;
+                    }
                     SortedDocumentsSet list = viewController.getDocumentsByRelevance(matchingDocument, k);
                     IOUtils.drawLine(100);
-                    System.out.printf( "    %-10s %-45s %-25s %n", "S.Factor", "Title", "Author");
+                    System.out.printf("    %-10s %-45s %-25s %n", "S.Factor", "Title", "Author");
                     IOUtils.drawLine(100);
-                    for(int i = 0; i< list.getSize();++i){
-                        System.out.printf("%-3d %-10s %-45s %-25s %n",i+1, String.format( "%.2f", list.getValue(i)),list.getDocument(i).getTitle(), list.getDocument(i).getAuthor());
+                    for(int kk = 0; kk< list.getSize();++kk){
+                        System.out.printf("%-3d %-10s %-45s %-25s %n",kk+1, String.format("%.2f", list.getValue(kk)),
+                                list.getDocument(kk).getTitle(), list.getDocument(kk).getAuthor());
                     }
-
                 } catch (DocumentNotFoundException e) {
                     System.out.println(Strings.NO_DOCUMENTS_FOUND);
                 }
                 IOUtils.enterToContinue();
                 break;
-            case "SearchAllDocuments":
-                DocumentsSet allDocuments = viewController.searchForAllDocuments();
+
+            case Strings.SEARCH_ALL_DOCUMENTS:
+                DocumentsSet allDocs = viewController.searchForAllDocuments();
                 IOUtils.drawLine(100);
-                System.out.printf( "    %-45s %-25s %-25s %n", "Title", "Author", "Created by");
+                System.out.printf("    %-48s %-30s %-29s %n", "Title", "Author", "Created by");
                 IOUtils.drawLine(100);
-                int i=0;
-                for (Document doc : allDocuments) {
-                    System.out.printf("%-3d %-45s %-25s %-25s %n",i++, doc.getTitle(),  doc.getAuthor(), doc.getUser());
+                int ii=0;
+                for (Document doc : allDocs) {
+                    System.out.printf("%-3d %-48s %-30s %-29s %n", ++ii, doc.getTitle(), doc.getAuthor(), doc.getUser());
                 }
                 break;
 
-//            case "SearchDocumentsExpression":
-//                break;
-
-//            case "SearchDocumentQuery":
-//                break;
-
-            case "CreateDocument":
+            case Strings.CREATE_DOCUMENT:
                 Document document = documentManager.createDocument();
                 try {
                     viewController.storeNewDocument(document);
@@ -326,12 +338,12 @@ public class MainMenu {
                 IOUtils.enterToContinue();
                 break;
 
-            case "ReadDocument":
+            case Strings.READ_DOCUMENT:
                 documentManager.readDocument();
                 IOUtils.enterToContinue();
                 break;
 
-            case "UpdateDocument":
+            case Strings.EDIT_DOCUMENT:
                 try {
                     Pair<Document, Document> updatedDocument = documentManager.updateDocument();
                     viewController.updateDocument(updatedDocument);
@@ -350,7 +362,7 @@ public class MainMenu {
                 IOUtils.enterToContinue();
                 break;
 
-            case "DeleteDocument":
+            case Strings.DELETE_DOCUMENT:
                 try {
                     document = documentManager.deleteDocument();
                     viewController.deleteDocument(document);
@@ -363,7 +375,7 @@ public class MainMenu {
                 IOUtils.enterToContinue();
                 break;
 
-            case "EditAccount":
+            case Strings.EDIT_ACCOUNT:
                 email = IOUtils.askForString(Strings.EMAIL);
                 userName = IOUtils.askForString(Strings.NAME);
                 password = IOUtils.askForString(Strings.PASSWORD);
@@ -380,21 +392,21 @@ public class MainMenu {
                 IOUtils.enterToContinue();
                 break;
 
-            case "DeleteAccount":
-                try {
-                    viewController.userDelete();
-                } catch (UserNotFoundException e) {
-                    System.out.println(Strings.UNABLE_DELETE_USER);
-                }
-                break;
+//            case Strings.DELETE_ACCOUNT:
+//                try {
+//                    viewController.userDelete();
+//                } catch (UserNotFoundException e) {
+//                    System.out.println(Strings.UNABLE_DELETE_USER);
+//                }
+//                break;
 
-            case "Logout":
-                viewController.userLogout();
-                //TODO: Go to login menu again
-                break;
+//            case "Logout":
+//                viewController.userLogout();
+//                break;
 
-            case "ImportDocument":
+            case Strings.IMPORT_DOCUMENT:
                 String path = IOUtils.askForString(Strings.DOCUMENT_TO_IMPORT_PATH);
+
                 try {
 
                     Document importedDoc = viewController.importDocument(path);
@@ -415,16 +427,21 @@ public class MainMenu {
                     System.out.println(Strings.CREATE_FAILED_DOCUMENT_CONTENT_NOT_FOUND);
                 }
                 break;
-            case "ExportDocument":
+            case Strings.EXPORT_DOCUMENT:
                 documentTitle = IOUtils.askForString(Strings.TYPE_DOCUMENT_TITLE);
                 authorName = IOUtils.askForString(Strings.TYPE_AUTHOR);
                 String pathToExport = IOUtils.askForString(Strings.TYPE_PATH_TO_EXPORT);
-                System.out.println();
-                System.out.println(Strings.DOCUMENT_EXPORTED_SUCCESSFULLY);
+                String os;
+                os = IOUtils.askForString(Strings.ARE_YOU_USING_UNIX_OR_WINDOWS);
+                while(!os.toLowerCase().equals("w") && !os.toLowerCase().equals("u")) {
+                    os = IOUtils.askForString(Strings.ARE_YOU_USING_UNIX_OR_WINDOWS);
+                }
                 System.out.println();
                 try {
                     Document matchingDocument = viewController.getDocumentByTitleAndAuthor(documentTitle, authorName);
-                    viewController.exportDocument(pathToExport, matchingDocument);
+                    viewController.exportDocument(pathToExport, matchingDocument, os);
+                    System.out.println();
+                    System.out.println(Strings.DOCUMENT_EXPORTED_SUCCESSFULLY);
                 } catch (DocumentNotFoundException e) {
                     System.out.println();
                     System.out.println(Strings.NO_DOCUMENTS_FOUND);

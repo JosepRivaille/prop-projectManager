@@ -1,11 +1,7 @@
 package edu.upc.fib.prop.utils;
 
-/**
- * Created by Guillermo on 09/11/2016.
- */
 public class Strings {
-
-   public static final String NO_DOCUMENTS_FOUND = "No documents found.";
+    public static final String NO_DOCUMENTS_FOUND = "No documents found.";
     public static final String CLOSING_APP = "Closing app..";
     public static final String SELECT_AN_OPTION = "Select an option";
     public static final String LOGIN_SIGNUP_HEADER = "LOGIN OR SIGN UP";
@@ -39,7 +35,6 @@ public class Strings {
     public static final String DOCUMENTS_MANAGER_HEADER = "DOCUMENTS MANAGER";
     public static final String EDIT_ACCOUNT = "Edit account";
     public static final String DELETE_ACCOUNT = "Delete account";
-    public static final String LOGOUT = "Log out";
     public static final String SETTINGS_HEADER = "SETTINGS";
     public static final String TYPE_PREFIX = "Type prefix";
     public static final String AUTHORS_FOUND_WITH_PREFIX = "Authors with prefix";
@@ -77,5 +72,7 @@ public class Strings {
     public static final String DOCUMENT_IMPORTED_SUCCESSFULLY = "The document has been imported successfully.";
     public static final String TYPE_PATH_TO_EXPORT = "Type the path to export the document";
     public static final String DOCUMENT_EXPORTED_SUCCESSFULLY = "The document has been exported successfully.";
- public static final String ERROR_EXPORTING_THE_DOCUMENT = "An error occurred exporting the document, check the path";
+    public static final String ERROR_EXPORTING_THE_DOCUMENT = "An error occurred exporting the document, check the path";
+    public static final String ARE_YOU_USING_UNIX_OR_WINDOWS = "Are you using an UNIX based OS or Windows? (u/w)";
+    public static final String SELECT_A_DOCUMENT = "Select a document";
 }

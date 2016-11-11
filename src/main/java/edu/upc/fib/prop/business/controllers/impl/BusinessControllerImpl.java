@@ -1,7 +1,6 @@
 package edu.upc.fib.prop.business.controllers.impl;
 
 import edu.upc.fib.prop.business.controllers.BusinessController;
-import edu.upc.fib.prop.business.documents.DocumentTools;
 import edu.upc.fib.prop.business.search.impl.SearchAuthorImpl;
 import edu.upc.fib.prop.business.search.impl.SearchDocumentImpl;
 import edu.upc.fib.prop.business.users.UsersManager;
@@ -42,29 +41,6 @@ public class BusinessControllerImpl implements BusinessController {
 
     /*--------------- Users */
 
-    @Override
-    public DocumentsSet searchForAllDocuments() {
-        return this.documentsCollection.getAllDocuments();
-    }
-
-    @Override
-    public Document importDocument(String path) throws ImportExportException, AlreadyExistingDocumentException, InvalidDetailsException, DocumentContentNotFoundException {
-        Document doc = ImportExport.importDocument(path);
-        this.storeNewDocument(doc);
-        return doc;
-    }
-
-    @Override
-    public void exportDocument(String pathToExport, Document document) throws ImportExportException, DocumentContentNotFoundException {
-        ImportExport.exportDocument(pathToExport, document);
-    }
-
-    @Override
-    public SortedDocumentsSet searchDocumentsByRelevance(Document document, int k)
-            throws DocumentNotFoundException {
-        return this.searchDocument.searchForSimilarDocuments(this.documentsCollection, document, k);
-    }
-
 
     @Override
     public void checkLoginDetails(String email, String password)
@@ -101,6 +77,32 @@ public class BusinessControllerImpl implements BusinessController {
         usersManager.logout();
     }
 
+    /*--------------- Documents */
+
+    @Override
+    public DocumentsSet searchForAllDocuments() {
+        return this.documentsCollection.getAllDocuments();
+    }
+
+    @Override
+    public Document importDocument(String path) throws ImportExportException, AlreadyExistingDocumentException, InvalidDetailsException, DocumentContentNotFoundException {
+        Document doc = ImportExport.importDocument(path);
+        this.storeNewDocument(doc);
+        return doc;
+    }
+
+    @Override
+    public void exportDocument(String pathToExport, Document document, String os) throws ImportExportException, DocumentContentNotFoundException {
+        ImportExport.exportDocument(pathToExport, document, os);
+    }
+
+    @Override
+    public SortedDocumentsSet searchDocumentsByRelevance(Document document, int k)
+            throws DocumentNotFoundException {
+        return this.searchDocument.searchForSimilarDocuments(this.documentsCollection, document, k);
+    }
+
+
     /*--------------- Authors */
 
     @Override
@@ -128,8 +130,8 @@ public class BusinessControllerImpl implements BusinessController {
     @Override
     public void storeNewDocument(Document doc) throws AlreadyExistingDocumentException, InvalidDetailsException, DocumentContentNotFoundException {
         doc.setUser(usersManager.getCurrentUser().getEmail());
-        if (!DocumentTools.isCorrect(doc)) throw new InvalidDetailsException();
-        if (!DocumentTools.isContentPathCorrect(doc)) throw new DocumentContentNotFoundException();
+        if (!doc.isCorrect()) throw new InvalidDetailsException();
+        if (!doc.isContentPathCorrect()) throw new DocumentContentNotFoundException();
         if(documentsCollection.containsTitleAndAuthor(doc.getTitle(), doc.getAuthor())) throw  new AlreadyExistingDocumentException();
         else{
             doc.updateFreqs();
@@ -138,7 +140,7 @@ public class BusinessControllerImpl implements BusinessController {
                 persistenceController.writeNewDocument(doc);
                 reloadDBData();
             } catch (SQLException e) {
-               e.printStackTrace();
+                e.printStackTrace();
             }
         }
     }
@@ -146,11 +148,11 @@ public class BusinessControllerImpl implements BusinessController {
     @Override
     public void updateDocument(Document oldDoc, Document newDoc) throws InvalidDetailsException, AlreadyExistingDocumentException, DocumentContentNotFoundException {
         if(!(newDoc.getAuthor().equals("") && newDoc.getTitle().equals("") && newDoc.getContent().equals(""))){
+            if(documentsCollection.containsTitleAndAuthor(newDoc.getTitle(), newDoc.getAuthor())) throw  new AlreadyExistingDocumentException();
             Document updatedDoc = documentsCollection.updateDocument(oldDoc, newDoc);
             persistenceController.updateDocument(oldDoc, updatedDoc);
             reloadDBData();
-        };
-
+        }
     }
 
     @Override
@@ -159,8 +161,6 @@ public class BusinessControllerImpl implements BusinessController {
         persistenceController.deleteDocument(document);
         reloadDBData();
     }
-
-
 
     //////////
 

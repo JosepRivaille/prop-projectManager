@@ -11,7 +11,7 @@ public class WeightsVector implements Iterable<String> {
         vector = new TreeMap<>();
     }
 
-    public void put(String word, Float weight){
+    void put(String word, Float weight){
         vector.put(word,weight);
     }
 

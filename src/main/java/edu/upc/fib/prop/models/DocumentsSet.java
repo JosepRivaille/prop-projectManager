@@ -1,6 +1,5 @@
 package edu.upc.fib.prop.models;
 
-import edu.upc.fib.prop.business.documents.DocumentTools;
 import edu.upc.fib.prop.exceptions.InvalidDetailsException;
 
 import java.util.ArrayList;
@@ -24,7 +23,7 @@ public class DocumentsSet implements Iterable<Document>{
     }
 
     public void update(Document oldDoc, Document newDoc) throws InvalidDetailsException {
-        newDoc = DocumentTools.mergeDocs(oldDoc, newDoc);
+        newDoc = oldDoc.merge(newDoc);
         this.documents.remove(oldDoc);
         this.documents.add(newDoc);
     }
@@ -45,5 +44,9 @@ public class DocumentsSet implements Iterable<Document>{
     @Override
     public Iterator iterator() {
         return documents.iterator();
+    }
+
+    public Document get(int index) {
+        return documents.get(index);
     }
 }
