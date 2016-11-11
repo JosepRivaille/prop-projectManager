@@ -1,374 +1,52 @@
+--SQLite Maestro 15.1.0.6
+------------------------------------------
+--Host     : fyf
+--Database : C:\Users\Guillermo\IdeaProjects\prop-projectManager\development.db
+
+
+/* Data for table authors */
+INSERT INTO authors (author_name) VALUES ('Carl Sagan\t');
+INSERT INTO authors (author_name) VALUES ('Chema Alonso');
+INSERT INTO authors (author_name) VALUES ('Edgar Allan Poe');
+INSERT INTO authors (author_name) VALUES ('Miguel de Cervantes');
+INSERT INTO authors (author_name) VALUES ('Oscar Wilde');
+INSERT INTO authors (author_name) VALUES ('Paul J. Steinhardt');
+INSERT INTO authors (author_name) VALUES ('James Fenimore Cooper');
+INSERT INTO authors (author_name) VALUES ('Erasmo de Rotterdam');
+INSERT INTO authors (author_name) VALUES ('Stephen Hawking');
+INSERT INTO authors (author_name) VALUES ('Jane Austen');
+INSERT INTO authors (author_name) VALUES ('Daniel Defoe');
+INSERT INTO authors (author_name) VALUES ('Tom Sharpe');
+INSERT INTO authors (author_name) VALUES ('Alicia Ortiz');
+
+
+
+/* Data for table documents */
+INSERT INTO documents (title, author_name, user_owner, term_frequency, content) VALUES ('A pale blue dot', 'Carl Sagan\t', 'josep.de.cid@est.fib.upc.edu', '{\"a\":0.5714286,\"ahí\":0.5714286,\"alegrías\":0.52380955,\"algún\":0.52380955,\"amas\":0.52380955,\"amos\":0.52380955,\"ansia\":0.52380955,\"apenas\":0.52380955,\"arena\":0.52380955,\"auto\":0.52380955,\"cabo\":0.52380955,\"cada\":0.78571427,\"campesino\":0.52380955,\"cazador\":0.52380955,\"civilización\":0.52380955,\"cobarde\":0.52380955,\"conflicto\":0.52380955,\"conjunto\":0.52380955,\"conoces\":0.52380955,\"convertirse\":0.52380955,\"corrupto\":0.52380955,\"creador\":0.52380955,\"crueldad\":0.52380955,\"cósmica\":0.52380955,\"de\":1.0,\"desafiados\":0.', 'Apalebluedot.txt');
+INSERT INTO documents (title, author_name, user_owner, term_frequency, content) VALUES ('Funciones Hash', 'Chema Alonso', 'josep.de.cid@est.fib.upc.edu', '{\"(hash\":0.5555556,\"(message-digest\":0.5555556,\"(race\":0.5555556,\"(secure\":0.5555556,\"a\":0.7777778,\"actualidad\":0.5555556,\"algorithm)\":0.6111111,\"algoritmos\":0.6111111,\"algunas\":0.6111111,\"aparición\":0.5555556,\"aunque\":0.5555556,\"aún\":0.5555556,\"baja\":0.5555556,\"cabo\":0.5555556,\"codes\":0.5555556,\"codes)\":0.5555556,\"comienzan\":0.5555556,\"como\":0.6111111,\"criptografía\":0.6111111,\"criptográficos\":0.5555556,\"código\":0.5555556,\"de\":1.0,\"debilidades\":0.5555556,\"definirán\":0.5555556,\"del\":0.5555556,\"denominados\":0', 'FuncionesHash.txt');
+INSERT INTO documents (title, author_name, user_owner, term_frequency, content) VALUES ('Corazon delator', 'Edgar Allan Poe', 'josep.de.cid@est.fib.upc.edu', '{\"\":1.0,\"a\":0.6388889,\"abrir\":0.5277778,\"al\":0.5555556,\"alarido\":0.5277778,\"algún\":0.5277778,\"allí\":0.5277778,\"anda\":0.5277778,\"atentado\":0.5277778,\"audacia\":0.5277778,\"bajé\":0.5277778,\"bien\":0.5277778,\"bienvenida\":0.5277778,\"caballeros\":0.5277778,\"cadáver\":0.5277778,\"calle\":0.5277778,\"campanada\":0.5277778,\"campo\":0.5277778,\"casa\":0.5277778,\"colocaba\":0.5277778,\"como\":0.5555556,\"con\":0.5555556,\"confianza\":0.5277778,\"cordialmente\":0.5277778,\"cual\":0.5277778,\"cuando\":0.5277778,\"cuarto\":0.5277778,\"cuatro\":0.52', 'Corazondelator.txt');
+INSERT INTO documents (title, author_name, user_owner, term_frequency, content) VALUES ('Don Quijote de la Mancha', 'Miguel de Cervantes', 'guillermo.valentin@est.fib.upc.edu', '{\"a\":0.6166667,\"acaba\":0.55,\"adornado\":0.51666665,\"afable\":0.51666665,\"al\":0.55,\"alabados\":0.51666665,\"alabanza\":0.51666665,\"alcanzan\":0.51666665,\"alegre\":0.51666665,\"ancho\":0.51666665,\"andante\":0.51666665,\"anejos\":0.51666665,\"angosto\":0.51666665,\"aquellos\":0.51666665,\"armas\":0.55,\"arrogante\":0.51666665,\"así\":0.51666665,\"aunque\":0.51666665,\"avaro\":0.51666665,\"balde\":0.51666665,\"bien\":0.53333336,\"bienes\":0.51666665,\"bobas\":0.51666665,\"buena\":0.51666665,\"caballero\":0.53333336,\"caballería\":0.51666665,\"camino\":', 'DonQuijotedelaMancha.txt');
+INSERT INTO documents (title, author_name, user_owner, term_frequency, content) VALUES ('El fantasma de Canterville', 'Oscar Wilde', 'guillermo.valentin@est.fib.upc.edu', '{\"a\":0.60714287,\"acabó\":0.53571427,\"acero\":0.53571427,\"al\":0.71428573,\"alba\":0.53571427,\"amaneciese\":0.53571427,\"amigo\":0.53571427,\"ancho\":0.53571427,\"antiguos\":0.5714286,\"aquella\":0.53571427,\"aquél\":0.53571427,\"aspecto\":0.53571427,\"atroz\":0.53571427,\"ayuda\":0.53571427,\"bien\":0.53571427,\"blanca;\":0.53571427,\"boca\":0.53571427,\"botas\":0.53571427,\"brotaba\":0.53571427,\"cabeza\":0.5714286,\"cabo\":0.53571427,\"caer\":0.53571427,\"canterville\":0.53571427,\"caracteres\":0.53571427,\"carnosa\":0.53571427,\"cartel\":0.53571427,', 'ElfantasmadeCanterville.txt');
+INSERT INTO documents (title, author_name, user_owner, term_frequency, content) VALUES ('El retrato de Dorian Gray', 'Oscar Wilde', 'guillermo.valentin@est.fib.upc.edu', '{\"a\":0.7083333,\"acción\":0.5416667,\"acontecimientos\":0.5416667,\"alegría\":0.5416667,\"algo\":0.5416667,\"alguien\":0.5416667,\"alma\":0.5416667,\"apetencia\":0.5416667,\"arrastrar\":0.5416667,\"arrepentimiento\":0.5416667,\"asustado\":0.5833333,\"así\":0.5416667,\"aún\":0.5416667,\"bello\":0.5416667,\"castigados\":0.5416667,\"cerebro\":0.5833333,\"completamente\":0.5416667,\"con\":0.5833333,\"cosas\":0.5416667,\"creo\":0.5416667,\"cuerpo\":0.5416667,\"cuyo\":0.5416667,\"dando\":0.5416667,\"de\":0.7916666,\"dejarse\":0.5416667,\"del\":0.6666667,\"desecha', 'ElretratodeDorianGray.txt');
+INSERT INTO documents (title, author_name, user_owner, term_frequency, content) VALUES ('El ruiseñor y la rosa', 'Oscar Wilde', 'guillermo.valentin@est.fib.upc.edu', '{\"a\":0.5833333,\"alas\":0.5416667,\"aliento\":0.5416667,\"amante\":0.5416667,\"amor\":0.5833333,\"balancear\":0.5416667,\"cambio\":0.5833333,\"cariño\":0.5416667,\"color\":0.5416667,\"como\":0.5833333,\"comprendió\":0.5833333,\"con\":0.5833333,\"construido\":0.5416667,\"construiré\":0.5416667,\"corazón\":0.5416667,\"cuerpo\":0.5416667,\"de\":0.6666667,\"decía\":0.5416667,\"del\":0.625,\"dichoso\":0.5416667,\"dulces\":0.5416667,\"el\":0.7083333,\"ella\":0.5416667,\"en\":0.6666667,\"encina\":0.5416667,\"entender\":0.5416667,\"es\":0.7083333,\"escrito\":0.5416667', 'Elruiseñorylarosa.txt');
+INSERT INTO documents (title, author_name, user_owner, term_frequency, content) VALUES ('El universo y su quinta esencia', 'Paul J. Steinhardt', 'valles@cs.upc.edu', '{\"-las\":0.53333336,\"000\":0.53333336,\"15\":0.53333336,\"a\":0.76666665,\"acalorados\":0.53333336,\"admitido\":0.53333336,\"altísimas\":0.53333336,\"atracción\":0.53333336,\"atrás\":0.53333336,\"años\":0.6,\"baña\":0.53333336,\"breve\":0.53333336,\"casi\":0.53333336,\"ciencia\":0.53333336,\"cinco\":0.53333336,\"comenzaría\":0.53333336,\"complejas\":0.53333336,\"comúnmente\":0.53333336,\"con\":0.56666666,\"conjunto\":0.53333336,\"constituida\":0.53333336,\"constituyen\":0.53333336,\"contenido\":0.53333336,\"convencido\":0.53333336,\"cosmos\":0.53333336,\"', 'Eluniversoysuquintaesencia.txt');
+INSERT INTO documents (title, author_name, user_owner, term_frequency, content) VALUES ('El último mohicano', 'James Fenimore Cooper', 'valles@cs.upc.edu', '{\"56\":0.53571427,\"a\":0.5714286,\"abajo—\":0.53571427,\"admirando\":0.53571427,\"al\":0.5714286,\"algunas\":0.53571427,\"alicia\":0.53571427,\"alimentaran\":0.53571427,\"allá\":0.53571427,\"allí\":0.5714286,\"alta\":0.53571427,\"altura\":0.5714286,\"amanece\":0.53571427,\"amanecer\":0.53571427,\"anchos\":0.53571427,\"animales\":0.53571427,\"aquella\":0.53571427,\"atentos\":0.53571427,\"aurora\":0.53571427,\"avanzaban\":0.53571427,\"avanzado\":0.53571427,\"barrancos\":0.53571427,\"breve\":0.53571427,\"camino\":0.53571427,\"canadá\":0.53571427,\"cazador\":0', 'Elúltimomohicano.txt');
+INSERT INTO documents (title, author_name, user_owner, term_frequency, content) VALUES ('Elogio de la locura', 'Erasmo de Rotterdam', 'valles@cs.upc.edu', '{\"a\":0.5833333,\"alabanzas\":0.5416667,\"animales\":0.5416667,\"antojo\":0.5416667,\"aprenden\":0.5416667,\"aquel\":0.5833333,\"arte\":0.5416667,\"asechanzas\":0.5416667,\"asignado\":0.5416667,\"bajo\":0.5416667,\"caballo\":0.5416667,\"cambio\":0.5416667,\"ciudadano\":0.5416667,\"connatural:\":0.5416667,\"consienten¡\":0.5416667,\"creado\":0.5416667,\"creo-\":0.5416667,\"cualquier\":0.5416667,\"de\":0.7916666,\"degrada\":0.5416667,\"del\":0.5416667,\"demás\":0.5416667,\"dentro\":0.5416667,\"deseable\":0.5416667,\"el\":0.6666667,\"ella\":0.5416667,\"ello\":0.', 'Elogiodelalocura.txt');
+INSERT INTO documents (title, author_name, user_owner, term_frequency, content) VALUES ('La historia del tiempo', 'Oscar Wilde', 'valles@cs.upc.edu', '{\"000\":0.53571427,\"1676\":0.51785713,\"225\":0.51785713,\"300\":0.51785713,\"a\":0.60714287,\"absoluto\":0.53571427,\"acerca\":0.51785713,\"afirmar\":0.51785713,\"alrededor\":0.53571427,\"ambigüedad\":0.51785713,\"ambos\":0.53571427,\"antes\":0.51785713,\"aplican\":0.51785713,\"argumentó\":0.51785713,\"aristóteles\":0.51785713,\"astrónomo\":0.51785713,\"así\":0.51785713,\"aunque\":0.53571427,\"años\":0.51785713,\"bien\":0.51785713,\"buen\":0.51785713,\"buenas\":0.51785713,\"cambiar\":0.51785713,\"cerca\":0.51785713,\"christensen\":0.51785713,\"como\":0.57', 'Lahistoriadeltiempo.txt');
+INSERT INTO documents (title, author_name, user_owner, term_frequency, content) VALUES ('Persuasión', 'Jane Austen', 'valles@cs.upc.edu', '{\"a\":0.6666667,\"acostumbrada\":0.53333336,\"afligía\":0.53333336,\"afrenta\":0.53333336,\"afrentas;\":0.53333336,\"agraciada\":0.53333336,\"agradables\":0.53333336,\"agravante\":0.53333336,\"agudamente\":0.53333336,\"alguno\":0.53333336,\"ana\":0.6,\"aquel\":0.53333336,\"aquella\":0.56666666,\"asiduas\":0.53333336,\"asombraba\":0.53333336,\"asustaba\":0.53333336,\"atractivo\":0.53333336,\"aviso\":0.53333336,\"ayuda\":0.53333336,\"aún\":0.53333336,\"bien\":0.53333336,\"calidad\":0.53333336,\"capacidad\":0.53333336,\"carácter\":0.53333336,\"catástrofe\":0', 'Persuasión.txt');
+INSERT INTO documents (title, author_name, user_owner, term_frequency, content) VALUES ('Robinson Crusoe', 'Daniel Defoe', 'valles@cs.upc.edu', '{\"\":1.0,\"(o\":0.51428574,\"a\":0.62857145,\"acercarse\":0.51428574,\"acerté\":0.51428574,\"acudido\":0.51428574,\"agradecidos\":0.51428574,\"agua\":0.54285717,\"ahogo\":0.51428574,\"al\":0.55714285,\"alcanzarla\":0.51428574,\"algo\":0.51428574,\"allí\":0.51428574,\"antes\":0.51428574,\"aparecer\":0.51428574,\"aquel\":0.51428574,\"aquella\":0.5285714,\"arma\":0.51428574,\"asustada\":0.51428574,\"así\":0.51428574,\"atacar\":0.51428574,\"avanzó\":0.51428574,\"barco\":0.51428574,\"bien\":0.51428574,\"brindó\":0.51428574,\"cabeza;\":0.51428574,\"cargado\":0.5142', 'RobinsonCrusoe.txt');
+INSERT INTO documents (title, author_name, user_owner, term_frequency, content) VALUES ('Sentido y sensibilidad', 'Jane Austen', 'valles@cs.upc.edu', '{\"a\":0.82142854,\"abandonado\":0.53571427,\"abatimiento\":0.53571427,\"abierto\":0.53571427,\"agobiaba\":0.53571427,\"al\":0.53571427,\"alguna\":0.53571427,\"allanarse\":0.53571427,\"amor;\":0.53571427,\"antes\":0.53571427,\"atención\":0.53571427,\"aunque\":0.60714287,\"autenticidad\":0.53571427,\"brandon\":0.53571427,\"callado\":0.53571427,\"certeza\":0.53571427,\"comentó\":0.53571427,\"como\":0.5714286,\"compasivo\":0.53571427,\"complacida\":0.53571427,\"completo\":0.53571427,\"comportamiento\":0.53571427,\"con\":0.71428573,\"conocer\":0.53571427,\"co', 'Sentidoysensibilidad.txt');
+INSERT INTO documents (title, author_name, user_owner, term_frequency, content) VALUES ('Wilt', 'Tom Sharpe', 'valles@cs.upc.edu', '{\"(y\":0.516129,\"a\":0.58064514,\"abordaba\":0.516129,\"adquisición\":0.516129,\"agudeza\":0.516129,\"al\":0.53225803,\"algo\":0.53225803,\"algún\":0.516129,\"allí\":0.516129,\"alrededor\":0.516129,\"ambos\":0.516129,\"apariencia\":0.516129,\"aquél\":0.516129,\"argumentaciones\":0.516129,\"aún\":0.516129,\"bajaban\":0.516129,\"bajo\":0.516129,\"barrio\":0.516129,\"boca\":0.516129,\"bordeaba\":0.516129,\"calles\":0.516129,\"campo\":0.516129,\"cariñosamente\":0.516129,\"casa\":0.516129,\"casas\":0.516129,\"cierta\":0.516129,\"clem\":0.516129,\"coches\":0.516129,', 'Wilt.txt');
+INSERT INTO documents (title, author_name, user_owner, term_frequency, content) VALUES ('Busqueda mediante transformación de claves', 'Alicia Ortiz', 'valles@cs.upc.edu', '{\"\":0.5217391,\"(delete)\":0.51086956,\"(insert)\":0.51086956,\"(search)\":0.51086956,\"(select)\":0.51086956,\"(sort)\":0.51086956,\"a\":0.57608694,\"abierto”\":0.51086956,\"acceso\":0.51086956,\"adelantado\":0.51086956,\"ahora\":0.5217391,\"ajustando\":0.51086956,\"al\":0.51086956,\"algoritmos\":0.51086956,\"algún\":0.51086956,\"almacenamiento\":0.51086956,\"aplica\":0.51086956,\"aplicaciones\":0.5217391,\"archivos\":0.51086956,\"aritméticas\":0.51086956,\"arreglo\":0.51086956,\"arreglos\":0.51086956,\"balance\":0.5326087,\"basados\":0.51086956,\"borr', 'Busquedamediantetransformacióndeclaves.txt');
+
+
+
+/* Data for table users */
+INSERT INTO users (email, user_name, password, admin) VALUES ('admin@admin.admin', 'Admin', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', 1);
+INSERT INTO users (email, user_name, password, admin) VALUES ('user@user.user', 'User', '04f8996da763b7a969b1028ee3007569eaf3a635486ddab211d512c85b9df8fb1', 0);
+INSERT INTO users (email, user_name, password, admin) VALUES ('valles@cs.upc.edu', 'Borja Valles', 'fff5fc9b5777031e6ee5b1c7f2d2ea9bddfae5e2c33eea4c0c9e9ab505c7cdba', 1);
+INSERT INTO users (email, user_name, password, admin) VALUES ('guillermo.valentin@est.fib.upc.edu', 'Guillermo Valentin', '48cb0041ceae7ad8dc1d6af69cde36b531e7104177140f96cf536257872b1236', 1);
+INSERT INTO users (email, user_name, password, admin) VALUES ('josep.de.cid@est.fib.upc.edu', 'Josep de Cid', '2ea3314ac471788030cccbe48b8375f6e79ab5f3203d2368d42f1d5435fbadc6', 1);
+INSERT INTO users (email, user_name, password, admin) VALUES ('gabriel.puigdemunt@est.fib.upc.edu', 'Gabriel Puigdemunt', 'ff06535ac1029cca2fc2b86ac7355a7b4e0b8d839fc76b51d30833f4e1347ddc', 1);
+INSERT INTO users (email, user_name, password, admin) VALUES ('aleix.boixader@est.fib.upc.edu', 'Aleix Boixader', '90464100c6e6370dd296bda01aa325c22078952ca99d3f9f991317ea2798a91c', 1);
 
-
--- AUTHORS
-
-/*INSERT INTO authors(author_name) VALUES ('Donald Armstrong');
-INSERT INTO authors(author_name) VALUES ('Kathleen Kelly');
-INSERT INTO authors(author_name) VALUES ('Lawrence Morrison');
-INSERT INTO authors(author_name) VALUES ('Tina Adams');
-INSERT INTO authors(author_name) VALUES ('Amanda Smith');
-INSERT INTO authors(author_name) VALUES ('Marie Boyd');
-INSERT INTO authors(author_name) VALUES ('Jimmy Chavez');
-INSERT INTO authors(author_name) VALUES ('Mark Snyder');
-INSERT INTO authors(author_name) VALUES ('Cheryl Ward');
-INSERT INTO authors(author_name) VALUES ('Dennis Bryant');
-INSERT INTO authors(author_name) VALUES ('Phyllis Ortiz');
-INSERT INTO authors(author_name) VALUES ('Jessica Perez');
-INSERT INTO authors(author_name) VALUES ('Howard Fields');
-INSERT INTO authors(author_name) VALUES ('Donna Fields');
-INSERT INTO authors(author_name) VALUES ('Ronald Reyes');
-INSERT INTO authors(author_name) VALUES ('Carl Knight');
-INSERT INTO authors(author_name) VALUES ('Roy Morales');
-INSERT INTO authors(author_name) VALUES ('Anna Tucker');
-INSERT INTO authors(author_name) VALUES ('Randy Ramos');
-INSERT INTO authors(author_name) VALUES ('Joseph Murray');
-
-*/
--- USERS
-
-INSERT INTO users(email, user_name, password, admin) VALUES ('asd@asd.asd','asd','688787d8ff144c502c7f5cffaafe2cc588d86079f9de88304c26b0cb99ce91c6',1);
-INSERT INTO users(email, user_name, password, admin) VALUES ('qwe@qwe.qwe','qwe','489cd5dbc708c7e541de4d7cd91ce6d0f1613573b7fc5b40d3942ccb9555cf35',0);
-INSERT INTO users(email, user_name, password, admin) VALUES ('mwatson0@bbc.co.uk','llittle0','688787d8ff144c502c7f5cffaafe2cc588d86079f9de88304c26b0cb99ce91c6',0);
-INSERT INTO users(email, user_name, password, admin) VALUES ('wwillis1@digg.com','rellis1','688787d8ff144c502c7f5cffaafe2cc588d86079f9de88304c26b0cb99ce91c6',1);
-INSERT INTO users(email, user_name, password, admin) VALUES ('imurphy2@wix.com','jlawrence2','688787d8ff144c502c7f5cffaafe2cc588d86079f9de88304c26b0cb99ce91c6',0);
-INSERT INTO users(email, user_name, password, admin) VALUES ('dpeterson3@unc.edu','jbutler3','688787d8ff144c502c7f5cffaafe2cc588d86079f9de88304c26b0cb99ce91c6',1);
-INSERT INTO users(email, user_name, password, admin) VALUES ('jrose4@usgs.gov','dalvarez4','688787d8ff144c502c7f5cffaafe2cc588d86079f9de88304c26b0cb99ce91c6',0);
-
-/*
--- USERS
-
-INSERT INTO documents(title, author_name, user_owner, term_frequency, content) VALUES ('Belladonna, Calcarea iodata, Conium maculatum, Echinacea purpurea, Hepar sulphuris calcareum, Kali iodatum, Kali muriaticum, Mercurius vivus, Phytolacca decandra, Pulsatilla, Ricinus communis, Scrophularia nodosa, Solidago virgaurea, and sulphur iodatum','Marie Boyd','llittle0','[]','Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque.
-
-Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.');
-INSERT INTO documents(title, author_name, user_owner, term_frequency, content) VALUES ('Acetaminophen, Aspirin, Caffeine','Cheryl Ward','rellis1','[]','Sed ante. Vivamus tortor. Duis mattis egestas metus.
-
-Aenean fermentum. Donec ut mauris eget massa tempor convallis. Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh.
-
-Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.
-
-Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat.
-
-In congue. Etiam justo. Etiam pretium iaculis justo.');
-INSERT INTO documents(title, author_name, user_owner, term_frequency, content) VALUES ('ETHYL ALCOHOL','Howard Fields','rellis1','[]','Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus.
-
-Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero.
-
-Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum. Integer a nibh.
-
-In quis justo. Maecenas rhoncus aliquam lacus. Morbi quis tortor id nulla ultrices aliquet.
-
-Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui.');
-INSERT INTO documents(title, author_name, user_owner, term_frequency, content) VALUES ('Cefotaxime','Donald Armstrong','llittle0','[]','Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus.
-
-Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.
-
-Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum sagittis sapien. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.');
-INSERT INTO documents(title, author_name, user_owner, term_frequency, content) VALUES ('Sodium Fluoride','Dennis Bryant','jbutler3','[]','Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.
-
-Praesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.
-
-Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.
-
-Fusce consequat. Nulla nisl. Nunc nisl.
-
-Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum.');
-INSERT INTO documents(title, author_name, user_owner, term_frequency, content) VALUES ('Octocrylene and Oxybenzone and Avobenzone','Howard Fields','llittle0','[]','Curabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.
-
-Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.
-
-Praesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.
-
-Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.
-
-Fusce consequat. Nulla nisl. Nunc nisl.');
-INSERT INTO documents(title, author_name, user_owner, term_frequency, content) VALUES ('Ampicillin','Phyllis Ortiz','llittle0','[]','Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-
-Proin interdum mauris non ligula pellentesque ultrices. Phasellus id sapien in sapien iaculis congue. Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl.
-
-Aenean lectus. Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum.
-
-Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.
-
-Phasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum.');
-INSERT INTO documents(title, author_name, user_owner, term_frequency, content) VALUES ('Povidone Iodine','Randy Ramos','llittle0','[]','Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.
-
-Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat.
-
-In congue. Etiam justo. Etiam pretium iaculis justo.
-
-In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.
-
-Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.');
-INSERT INTO documents(title, author_name, user_owner, term_frequency, content) VALUES ('Propranolol Hydrochloride','Ronald Reyes','jlawrence2','[]','Proin interdum mauris non ligula pellentesque ultrices. Phasellus id sapien in sapien iaculis congue. Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl.
-
-Aenean lectus. Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum.
-
-Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.
-
-Phasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum.');
-INSERT INTO documents(title, author_name, user_owner, term_frequency, content) VALUES ('Oxycodone Hydrochloride','Dennis Bryant','jlawrence2','[]','In congue. Etiam justo. Etiam pretium iaculis justo.
-
-In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.');
-INSERT INTO documents(title, author_name, user_owner, term_frequency, content) VALUES ('Benzocaine','Jessica Perez','jlawrence2','[]','Sed ante. Vivamus tortor. Duis mattis egestas metus.
-
-Aenean fermentum. Donec ut mauris eget massa tempor convallis. Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh.');
-INSERT INTO documents(title, author_name, user_owner, term_frequency, content) VALUES ('OCTINOXATE, OCTOCRYLENE, and ZINC OXIDE','Jessica Perez','jlawrence2','[]','Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum.
-
-In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.
-
-Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis.
-
-Sed ante. Vivamus tortor. Duis mattis egestas metus.');
-INSERT INTO documents(title, author_name, user_owner, term_frequency, content) VALUES ('benzonatate','Jimmy Chavez','jbutler3','[]','Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.
-
-Phasellus in felis. Donec semper sapien a libero. Nam dui.
-
-Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.
-
-Integer ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi.
-
-Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla. Sed vel enim sit amet nunc viverra dapibus. Nulla suscipit ligula in lacus.');
-INSERT INTO documents(title, author_name, user_owner, term_frequency, content) VALUES ('laricifomes officinalis fruiting body','Carl Knight','llittle0','[]','Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.
-
-In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.
-
-Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.');
-INSERT INTO documents(title, author_name, user_owner, term_frequency, content) VALUES ('Venlafaxine','Cheryl Ward','jlawrence2','[]','Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem.
-
-Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio.
-
-Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.');
-INSERT INTO documents(title, author_name, user_owner, term_frequency, content) VALUES ('TITANIUM DIOXIDE','Lawrence Morrison','llittle0','[]','In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.
-
-Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.
-
-Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.
-
-Curabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.');
-INSERT INTO documents(title, author_name, user_owner, term_frequency, content) VALUES ('ARIPIPRAZOLE','Cheryl Ward','llittle0','[]','Aenean lectus. Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum.
-
-Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.
-
-Phasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum.
-
-Proin eu mi. Nulla ac enim. In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem.
-
-Duis aliquam convallis nunc. Proin at turpis a pede posuere nonummy. Integer non velit.');
-INSERT INTO documents(title, author_name, user_owner, term_frequency, content) VALUES ('Potassium Chloride and Dextrose Monohydrate','Anna Tucker','jlawrence2','[]','In quis justo. Maecenas rhoncus aliquam lacus. Morbi quis tortor id nulla ultrices aliquet.
-
-Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui.
-
-Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti.
-
-Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.');
-INSERT INTO documents(title, author_name, user_owner, term_frequency, content) VALUES ('Hydrocortisone Lotion with Shampoo and Body Wash','Cheryl Ward','llittle0','[]','Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.
-
-Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.
-
-Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem.
-
-Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus.
-
-Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.');
-INSERT INTO documents(title, author_name, user_owner, term_frequency, content) VALUES ('Camphor, Menthol, Methyl salicylate','Lawrence Morrison','jlawrence2','[]','Phasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum.
-
-Proin eu mi. Nulla ac enim. In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem.');
-INSERT INTO documents(title, author_name, user_owner, term_frequency, content) VALUES ('Ceftazidime','Roy Morales','jlawrence2','[]','Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus.
-
-Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.
-
-Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum sagittis sapien. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.');
-INSERT INTO documents(title, author_name, user_owner, term_frequency, content) VALUES ('Desoximetasone','Tina Adams','jbutler3','[]','Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis.
-
-Sed ante. Vivamus tortor. Duis mattis egestas metus.
-
-Aenean fermentum. Donec ut mauris eget massa tempor convallis. Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh.');
-INSERT INTO documents(title, author_name, user_owner, term_frequency, content) VALUES ('ETHYL ALCOHOL','Donna Fields','jlawrence2','[]','Proin eu mi. Nulla ac enim. In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem.
-
-Duis aliquam convallis nunc. Proin at turpis a pede posuere nonummy. Integer non velit.
-
-Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque.
-
-Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.
-
-In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.');
-INSERT INTO documents(title, author_name, user_owner, term_frequency, content) VALUES ('Naproxen Sodium','Mark Snyder','llittle0','[]','Fusce consequat. Nulla nisl. Nunc nisl.
-
-Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum.
-
-In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.
-
-Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis.
-
-Sed ante. Vivamus tortor. Duis mattis egestas metus.');
-INSERT INTO documents(title, author_name, user_owner, term_frequency, content) VALUES ('Atovaquone and Proguanil Hydrochloride','Jimmy Chavez','jbutler3','[]','Proin interdum mauris non ligula pellentesque ultrices. Phasellus id sapien in sapien iaculis congue. Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl.
-
-Aenean lectus. Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum.
-
-Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.
-
-Phasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum.
-
-Proin eu mi. Nulla ac enim. In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem.');
-INSERT INTO documents(title, author_name, user_owner, term_frequency, content) VALUES ('Miconazole Nitrate','Jessica Perez','llittle0','[]','Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.
-
-Cras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque.
-
-Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.
-
-Phasellus in felis. Donec semper sapien a libero. Nam dui.');
-INSERT INTO documents(title, author_name, user_owner, term_frequency, content) VALUES ('White Petrolatum','Roy Morales','llittle0','[]','Phasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum.
-
-Proin eu mi. Nulla ac enim. In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem.
-
-Duis aliquam convallis nunc. Proin at turpis a pede posuere nonummy. Integer non velit.
-
-Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque.');
-INSERT INTO documents(title, author_name, user_owner, term_frequency, content) VALUES ('Alnus rhombifolia','Marie Boyd','jlawrence2','[]','In congue. Etiam justo. Etiam pretium iaculis justo.
-
-In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.');
-INSERT INTO documents(title, author_name, user_owner, term_frequency, content) VALUES ('OCTINOXATE, TITANIUM DIOXIDE, DIMETHICONE, ALUMINUM HYDROXIDE, STEARIC ACID, HYDROXYPROLINE,','Dennis Bryant','rellis1','[]','Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.
-
-Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.
-
-Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem.
-
-Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus.');
-INSERT INTO documents(title, author_name, user_owner, term_frequency, content) VALUES ('Ibuprofen','Roy Morales','jbutler3','[]','Fusce consequat. Nulla nisl. Nunc nisl.
-
-Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum.
-
-In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.
-
-Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis.');
-INSERT INTO documents(title, author_name, user_owner, term_frequency, content) VALUES ('Isosorbide Dinitrate','Kathleen Kelly','jbutler3','[]','Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat.
-
-In congue. Etiam justo. Etiam pretium iaculis justo.
-
-In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.
-
-Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.
-
-Cras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque.');
-INSERT INTO documents(title, author_name, user_owner, term_frequency, content) VALUES ('Methyldopa','Howard Fields','jlawrence2','[]','In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.
-
-Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.');
-INSERT INTO documents(title, author_name, user_owner, term_frequency, content) VALUES ('OCTINOXATE','Amanda Smith','llittle0','[]','Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.
-
-Curabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.
-
-Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.
-
-Praesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.');
-INSERT INTO documents(title, author_name, user_owner, term_frequency, content) VALUES ('IBUPROFEN','Lawrence Morrison','jbutler3','[]','In congue. Etiam justo. Etiam pretium iaculis justo.
-
-In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.
-
-Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.');
-INSERT INTO documents(title, author_name, user_owner, term_frequency, content) VALUES ('Oxycodone Hydrochloride','Dennis Bryant','jlawrence2','[]','Curabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.
-
-Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.
-
-Praesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.
-
-Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.');
-INSERT INTO documents(title, author_name, user_owner, term_frequency, content) VALUES ('HUMAN PAPILLOMAVIRUS','Donna Fields','rellis1','[]','Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat.
-
-In congue. Etiam justo. Etiam pretium iaculis justo.
-
-In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.');
-INSERT INTO documents(title, author_name, user_owner, term_frequency, content) VALUES ('Simvastatin','Tina Adams','rellis1','[]','Phasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum.
-
-Proin eu mi. Nulla ac enim. In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem.
-
-Duis aliquam convallis nunc. Proin at turpis a pede posuere nonummy. Integer non velit.
-
-Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque.
-
-Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.');
-INSERT INTO documents(title, author_name, user_owner, term_frequency, content) VALUES ('Dextroamphetamine saccharate, amphetamine aspartate monohydrate, dextroamphetamine sulfate, amphetamine sulfate','Tina Adams','jbutler3','[]','Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.
-
-Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem.');
-INSERT INTO documents(title, author_name, user_owner, term_frequency, content) VALUES ('BIOTIN','Howard Fields','jbutler3','[]','Aenean lectus. Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum.
-
-Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.
-
-Phasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum.
-
-Proin eu mi. Nulla ac enim. In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem.');
-INSERT INTO documents(title, author_name, user_owner, term_frequency, content) VALUES ('EUPATORIUM PERFOLIATUM FLOWERING TOP','Dennis Bryant','llittle0','[]','Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus.
-
-Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.
-
-Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum sagittis sapien. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-
-Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem.
-
-Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio.');
-INSERT INTO documents(title, author_name, user_owner, term_frequency, content) VALUES ('Doxycycline','Phyllis Ortiz','llittle0','[]','Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum. Integer a nibh.
-
-In quis justo. Maecenas rhoncus aliquam lacus. Morbi quis tortor id nulla ultrices aliquet.
-
-Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui.
-
-Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti.
-
-Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.');
-INSERT INTO documents(title, author_name, user_owner, term_frequency, content) VALUES ('Hydrocodone Bitartrate and Ibuprofen','Donna Fields','llittle0','[]','Cras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque.
-
-Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.
-
-Phasellus in felis. Donec semper sapien a libero. Nam dui.
-
-Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.');
-INSERT INTO documents(title, author_name, user_owner, term_frequency, content) VALUES ('Oxybutynin Chloride','Ronald Reyes','jlawrence2','[]','Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum.
-
-In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.
-
-Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis.');
-INSERT INTO documents(title, author_name, user_owner, term_frequency, content) VALUES ('Aluminum Chloride','Anna Tucker','rellis1','[]','In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.
-
-Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.
-
-Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.');
-INSERT INTO documents(title, author_name, user_owner, term_frequency, content) VALUES ('Anticoagulant Citrate Phosphate Dextrose (CPD) AND AS-5 Red Cell Preservative','Roy Morales','rellis1','[]','Vestibulum quam sapien, varius ut, blandit non, interdum in, ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio. Curabitur convallis.
-
-Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus.
-
-Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero.
-
-Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum. Integer a nibh.');
-INSERT INTO documents(title, author_name, user_owner, term_frequency, content) VALUES ('galphimia glauca flowering top, histamine dihydrochloride, luffa operculata fruit, and sulfur','Lawrence Morrison','llittle0','[]','Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus.
-
-Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero.');
-INSERT INTO documents(title, author_name, user_owner, term_frequency, content) VALUES ('Ranitidine','Tina Adams','rellis1','[]','Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem.
-
-Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio.
-
-Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.');
-INSERT INTO documents(title, author_name, user_owner, term_frequency, content) VALUES ('mesalamine','Jessica Perez','llittle0','[]','Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.
-
-In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.
-
-Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.
-
-Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.');
-INSERT INTO documents(title, author_name, user_owner, term_frequency, content) VALUES ('OCTINOXATE','Mark Snyder','jlawrence2','[]','Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.
-
-Curabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.
-
-Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.
-
-Praesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.
-
-Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.');
-INSERT INTO documents(title, author_name, user_owner, term_frequency, content) VALUES ('Paroxetine hydrochloride','Lawrence Morrison','jlawrence2','[]','Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-
-Proin interdum mauris non ligula pellentesque ultrices. Phasellus id sapien in sapien iaculis congue. Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl.
-
-Aenean lectus. Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum.
-
-Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.
-
-Phasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum.');
-*/

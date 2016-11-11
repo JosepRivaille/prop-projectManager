@@ -41,6 +41,11 @@ public class IOUtils {
         System.out.println(s);
     }
 
+    public static void printContent(String s) {
+        //System.out.println("VA POR EL PRINT CONTENT!");
+        System.out.println(s);
+    }
+
     public static void drawLine(int longitude) {
         for (int i = 0 ;i < longitude; i++) {
             System.out.print('-');
