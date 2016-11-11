@@ -228,7 +228,7 @@ public class MainMenu {
                                     System.out.print("-");
                                 }
                                 System.out.print("\n");
-                                System.out.println(documentContent);
+                                IOUtils.printContent(documentContent);
                             } catch (DocumentNotFoundException e) {
                                 System.out.println(Strings.AUTHOR_HAS_NO_BOOKS);
                             }
@@ -252,7 +252,7 @@ public class MainMenu {
                         System.out.print("-");
                     }
                     System.out.println();
-                    System.out.println(FileUtils.readDocument(matchingDocument.getContent()));
+                    IOUtils.printContent(FileUtils.readDocument(matchingDocument.getContent()));
                 } catch (DocumentNotFoundException e) {
                     System.out.println(Strings.NO_DOCUMENTS_FOUND);
                 } catch (DocumentContentNotFoundException e) {
@@ -270,9 +270,9 @@ public class MainMenu {
             case Strings.SEARCH_DOCUMENTS_BY_RELEVANCE:
 
                 DocumentsSet allDocuments = viewController.searchForAllDocuments();
-                IOUtils.drawLine(100);
+                IOUtils.drawLine(120);
                 System.out.printf("    %-48s %-30s %-25s %n", "Title", "Author", "Created by");
-                IOUtils.drawLine(100);
+                IOUtils.drawLine(120);
                 int i=0;
                 for (Document doc : allDocuments) {
                     System.out.printf("%-3d %-48s %-30s %-25s %n", ++i, doc.getTitle(), doc.getAuthor(), doc.getUser());
@@ -304,9 +304,9 @@ public class MainMenu {
 
             case Strings.SEARCH_ALL_DOCUMENTS:
                 DocumentsSet allDocs = viewController.searchForAllDocuments();
-                IOUtils.drawLine(100);
+                IOUtils.drawLine(120);
                 System.out.printf("    %-48s %-30s %-29s %n", "Title", "Author", "Created by");
-                IOUtils.drawLine(100);
+                IOUtils.drawLine(120);
                 int ii=0;
                 for (Document doc : allDocs) {
                     System.out.printf("%-3d %-48s %-30s %-29s %n", ++ii, doc.getTitle(), doc.getAuthor(), doc.getUser());

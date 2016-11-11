@@ -122,7 +122,7 @@ public class SortedDocumentsSet{
 
         Collections.sort(docs.get(weight), comp);
     }
-    
+
 
 
 }

@@ -49,7 +49,7 @@ public class DocumentManager {
             String documentFileName = document.getContent();
             try {
                 String documentContent = FileUtils.readDocument(documentFileName);
-                System.out.println(documentContent);
+                IOUtils.printContent(documentContent);
             } catch (DocumentContentNotFoundException e) {
                 System.out.println(Strings.DOCUMENT_CONTENT_NOT_FOUND);
             }
