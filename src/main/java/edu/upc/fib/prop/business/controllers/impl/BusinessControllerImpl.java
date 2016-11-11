@@ -42,6 +42,30 @@ public class BusinessControllerImpl implements BusinessController {
     /*--------------- Users */
 
     @Override
+    public DocumentsSet searchForAllDocuments() {
+        return this.documentsCollection.getAllDocuments();
+    }
+
+    @Override
+    public Document importDocument(String path) throws ImportExportException, AlreadyExistingDocumentException, InvalidDetailsException, DocumentContentNotFoundException {
+        Document doc = ImportExport.importDocument(path);
+        this.storeNewDocument(doc);
+        return doc;
+    }
+
+    @Override
+    public void exportDocument(String pathToExport, Document document, String os) throws ImportExportException, DocumentContentNotFoundException {
+        ImportExport.exportDocument(pathToExport, document, os);
+    }
+
+    @Override
+    public SortedDocumentsSet searchDocumentsByRelevance(Document document, int k)
+            throws DocumentNotFoundException {
+        return this.searchDocument.searchForSimilarDocuments(this.documentsCollection, document, k);
+    }
+
+
+    @Override
     public void checkLoginDetails(String email, String password)
             throws InvalidDetailsException, UserNotFoundException {
         password = usersManager.login(email, password);

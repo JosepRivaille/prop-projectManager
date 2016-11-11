@@ -73,4 +73,5 @@ public class Strings {
     public static final String TYPE_PATH_TO_EXPORT = "Type the path to export the document";
     public static final String DOCUMENT_EXPORTED_SUCCESSFULLY = "The document has been exported successfully.";
     public static final String ERROR_EXPORTING_THE_DOCUMENT = "An error occurred exporting the document, check the path";
+    public static final String ARE_YOU_USING_UNIX_OR_WINDOWS = "Are you using an UNIX based OS or Windows? (u/w)";
 }

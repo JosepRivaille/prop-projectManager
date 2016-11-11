@@ -122,7 +122,7 @@ public interface BusinessController {
      * Exports an existing document
      * @param pathToExport  Path where the document will be exported
      * @param document  Document to export
+     * @param os OS used by the user
      */
-    void exportDocument(String pathToExport, Document document)
-            throws ImportExportException, DocumentContentNotFoundException;
+    void exportDocument(String pathToExport, Document document, String os) throws ImportExportException, DocumentContentNotFoundException;
 }

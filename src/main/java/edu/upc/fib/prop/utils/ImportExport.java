@@ -45,7 +45,7 @@ public class ImportExport {
         return doc;
     }
 
-    public static void exportDocument(String pathToExport, Document document) throws ImportExportException, DocumentContentNotFoundException {
+    public static void exportDocument(String pathToExport, Document document, String os) throws ImportExportException, DocumentContentNotFoundException {
         String fileName = document.getTitle().replace(" ", "") + ".json";
         Document d = document.clone();
         d.setTermFrequency(null);
@@ -57,7 +57,8 @@ public class ImportExport {
 
         OutputStream outputStream;
         try {
-            outputStream = new FileOutputStream(pathToExport + '\\' + fileName);
+            if(os.toLowerCase().equals("w")) outputStream = new FileOutputStream(pathToExport + '\\' + fileName);
+            else outputStream = new FileOutputStream(pathToExport + '/' + fileName);
             Writer outputStreamWriter = new OutputStreamWriter(outputStream, "UTF-8");
 
             outputStreamWriter.write(prettyGson);
