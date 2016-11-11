@@ -102,7 +102,7 @@ public class ViewControllerImpl implements ViewController {
     }
 
     @Override
-    public void exportDocument(String pathToExport, Document document) throws ImportExportException, DocumentContentNotFoundException {
-        this.businessController.exportDocument(pathToExport, document);
+    public void exportDocument(String pathToExport, Document document, String os) throws ImportExportException, DocumentContentNotFoundException {
+        this.businessController.exportDocument(pathToExport, document, os);
     }
 }

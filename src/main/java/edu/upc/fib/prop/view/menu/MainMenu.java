@@ -392,6 +392,7 @@ public class MainMenu {
 
             case Strings.IMPORT_DOCUMENT:
                 String path = IOUtils.askForString(Strings.DOCUMENT_TO_IMPORT_PATH);
+
                 try {
 
                     Document importedDoc = viewController.importDocument(path);
@@ -416,12 +417,17 @@ public class MainMenu {
                 documentTitle = IOUtils.askForString(Strings.TYPE_DOCUMENT_TITLE);
                 authorName = IOUtils.askForString(Strings.TYPE_AUTHOR);
                 String pathToExport = IOUtils.askForString(Strings.TYPE_PATH_TO_EXPORT);
-                System.out.println();
-                System.out.println(Strings.DOCUMENT_EXPORTED_SUCCESSFULLY);
+                String os;
+                os = IOUtils.askForString(Strings.ARE_YOU_USING_UNIX_OR_WINDOWS);
+                while(!os.toLowerCase().equals("w") && !os.toLowerCase().equals("u")) {
+                    os = IOUtils.askForString(Strings.ARE_YOU_USING_UNIX_OR_WINDOWS);
+                }
                 System.out.println();
                 try {
                     Document matchingDocument = viewController.getDocumentByTitleAndAuthor(documentTitle, authorName);
-                    viewController.exportDocument(pathToExport, matchingDocument);
+                    viewController.exportDocument(pathToExport, matchingDocument, os);
+                    System.out.println();
+                    System.out.println(Strings.DOCUMENT_EXPORTED_SUCCESSFULLY);
                 } catch (DocumentNotFoundException e) {
                     System.out.println();
                     System.out.println(Strings.NO_DOCUMENTS_FOUND);

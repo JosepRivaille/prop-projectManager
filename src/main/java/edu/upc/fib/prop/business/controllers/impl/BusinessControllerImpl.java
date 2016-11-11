@@ -41,6 +41,7 @@ public class BusinessControllerImpl implements BusinessController {
 
     /*--------------- Users */
 
+
     @Override
     public void checkLoginDetails(String email, String password)
             throws InvalidDetailsException, UserNotFoundException {
@@ -91,8 +92,8 @@ public class BusinessControllerImpl implements BusinessController {
     }
 
     @Override
-    public void exportDocument(String pathToExport, Document document) throws ImportExportException, DocumentContentNotFoundException {
-        ImportExport.exportDocument(pathToExport, document);
+    public void exportDocument(String pathToExport, Document document, String os) throws ImportExportException, DocumentContentNotFoundException {
+        ImportExport.exportDocument(pathToExport, document, os);
     }
 
     @Override

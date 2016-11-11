@@ -107,6 +107,6 @@ public interface ViewController {
      * @param pathToExport The path where the doccument will be exported.
      * @param document  The document to export.
      */
-    void exportDocument(String pathToExport, Document document) throws ImportExportException, DocumentContentNotFoundException;
+    void exportDocument(String pathToExport, Document document, String os) throws ImportExportException, DocumentContentNotFoundException;
 }
 
