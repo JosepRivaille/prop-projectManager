@@ -27,7 +27,6 @@ CLASSES = \
 	src/main/java/edu/upc/fib/prop/utils/StringUtils.java \
 	src/main/java/edu/upc/fib/prop/utils/MenuTree.java \
 	src/main/java/edu/upc/fib/prop/utils/IOUtils.java \
-	src/main/java/edu/upc/fib/prop/utils/ImportExport.java \
 	src/main/java/edu/upc/fib/prop/models/Author.java \
 	src/main/java/edu/upc/fib/prop/models/Document.java \
 	src/main/java/edu/upc/fib/prop/models/User.java \
@@ -36,6 +35,7 @@ CLASSES = \
 	src/main/java/edu/upc/fib/prop/models/DocumentsCollection.java \
 	src/main/java/edu/upc/fib/prop/models/SortedDocumentsSet.java \
 	src/main/java/edu/upc/fib/prop/models/AuthorsCollection.java \
+	src/main/java/edu/upc/fib/prop/utils/ImportExport.java \
 	src/main/java/edu/upc/fib/prop/persistence/dao/authors/DaoAuthors.java \
 	src/main/java/edu/upc/fib/prop/persistence/dao/authors/impl/DaoAuthorsImpl.java \
 	src/main/java/edu/upc/fib/prop/persistence/dao/users/DaoUsers.java \
@@ -60,7 +60,10 @@ CLASSES = \
 
 CLS = $(CLASSES:.java=.class)
 
-all: $(CLS)
+all: $(CLS) buildJar
+
+buildJar: $(CLS)
+	jar cmvf ./META-INF/MANIFEST.MF qwe-jar.jar -C $(TARGET)/* .
 
 clean:
 	$(RM) $(RFLAGS) $(TARGET)/*
