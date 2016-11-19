@@ -6,7 +6,6 @@
         .config(config);
 
     function config($stateProvider) {
-        console.log(1212341453);
         $stateProvider
             .state('projectManager.documents', {
                 url: '/documents',

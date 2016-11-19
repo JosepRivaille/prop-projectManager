@@ -11,10 +11,10 @@
     angular
         .module('projectManager', [
             'ui.router',
-            'projectManager.documents'
+            'pascalprecht.translate'
         ])
         .run(function ($rootScope) {
 
-        })
+        });
 }());
 

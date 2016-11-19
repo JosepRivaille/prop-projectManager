@@ -1,0 +1,19 @@
+{
+  "TITLE_PPP": "Project Manager",
+
+  "MENU_HOME": "Home",
+  "MENU_SEARCH": "Searcher",
+  "MENU_SEARCH_ALL": "All documents",
+  "MENU_SEARCH_AUTHOR": "Filter by author",
+  "MENU_SEARCH_SINGLE_DOCUMENT": "Specific document",
+  "MENU_MANAGEMENT": "Management",
+  "MENU_MANAGEMENT_ALL": "My files",
+  "MENU_MANAGEMENT_CREATE": "Create file",
+  "MENU_MANAGEMENT_UPDATE": "Update file",
+  "MENU_MANAGEMENT_DELETE": "Delete file",
+  "MENU_SETTINGS": "Settings",
+  "MENU_LANGUAGE": "Change language",
+  "MENU_SETTINGS_DELETE": "Delete account",
+  "MENU_SETTINGS_LOGOUT": "Logout",
+  "MENU_ABOUT": "About"
+}

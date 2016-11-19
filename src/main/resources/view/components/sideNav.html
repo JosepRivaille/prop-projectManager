@@ -1,0 +1,21 @@
+<div id="sidebar-wrapper">
+    <ul class="sidebar-nav">
+        <li class="sidebar-brand">
+            {{$ctrl.title | translate}}
+        </li>
+        <li ng-repeat="item in $ctrl.menuItems">
+            <a href="#">
+                <span><i class="fa {{item.icon}}"></i></span>
+                {{item.name | translate}}
+            </a>
+            <!--
+            <ul>
+                <li ng-repeat="childItem in item.children">
+                    <span><i class="fa {{childItem.icon}}"></i></span>
+                    {{childItem.name}}
+                </li>
+            </ul>
+            -->
+        </li>
+    </ul>
+</div>
