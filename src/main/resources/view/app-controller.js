@@ -12,10 +12,9 @@
         .module('projectManager')
         .controller('AppController', AppController);
 
-    function AppController($state) {
+    function AppController() {
         var vm = this;
         vm.ctrlName = 'AppController';
-        $state.go('projectManager.documents');
     }
 
 }());
