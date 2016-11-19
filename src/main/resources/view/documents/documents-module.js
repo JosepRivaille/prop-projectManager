@@ -1,16 +1,16 @@
 (function () {
-  'use strict';
+    'use strict';
 
-  /**
-   * @ngdoc object
-   * @name projectManager.documents
-   *
-   * @description
-   *
-   */
-  angular
-    .module('projectManager.documents', [
-      'ui.router'
-    ]);
+    /**
+     * @ngdoc object
+     * @name projectManager.documents
+     *
+     * @description
+     *
+     */
+    angular
+        .module('projectManager.documents', [
+            'ui.router'
+        ]);
 }());
 

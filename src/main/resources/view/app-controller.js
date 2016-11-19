@@ -10,11 +10,12 @@
      */
     angular
         .module('projectManager')
-        .controller('AppController', AppCtrl);
+        .controller('AppController', AppController);
 
-    function AppCtrl($scope, $rootScope, $state, $stateParams, $timeout, $log) {
+    function AppController($state) {
         var vm = this;
         vm.ctrlName = 'AppController';
+        $state.go('projectManager.documents');
     }
 
 }());

@@ -12,7 +12,7 @@
         .module('projectManager.documents')
         .controller('DocumentsController', DocumentsController);
 
-    function SideNavController($stateParams, $scope) {
+    function DocumentsController() {
         var vm = this;
         vm.ctrlName = 'DocumentsController';
     }
