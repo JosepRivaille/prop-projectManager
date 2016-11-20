@@ -2,23 +2,22 @@
     'use strict';
 
     angular
-        .module('project.searcher')
+        .module('project.search')
         .config(config);
 
     function config($stateProvider) {
         $stateProvider
-            .state('project.searcher', {
-                url: '/searcher',
+            .state('project.search', {
+                url: '/search',
                 parent: 'project',
                 views: {
                     'wrapper': {
-                        templateUrl: 'searcher/searcher.tpl.html',
-                        controller: 'SearcherCtrl',
+                        templateUrl: 'search/search.tpl.html',
+                        controller: 'SearchCtrl',
                         controllerAs: 'vm'
                     }
                 }
             })
-            .state('project.searcher')
     }
 }());
 

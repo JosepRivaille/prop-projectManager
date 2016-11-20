@@ -13,7 +13,10 @@
             'ui.router',
             'pascalprecht.translate',
 
-            'project.documents'
+            'project.search',
+            'project.manage',
+            'project.settings',
+            'project.about'
         ])
         .run(function ($rootScope) {
 

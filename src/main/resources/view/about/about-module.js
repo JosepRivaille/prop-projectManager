@@ -3,13 +3,13 @@
 
     /**
      * @ngdoc object
-     * @name project.searcher
+     * @name project.about
      *
      * @description
      *
      */
     angular
-        .module('project.searcher', [
+        .module('project.about', [
             'ui.router'
         ]);
 }());

@@ -21,7 +21,7 @@
             {
                 nodeId: 1,
                 name: 'MENU_SEARCH',
-                state: 'project.searcher',
+                state: 'project.search',
                 icon: 'search',
                 selected: false,
                 collapsed: true,
@@ -49,7 +49,7 @@
             {
                 nodeId: 5,
                 name: 'MENU_MANAGEMENT',
-                state: 'management',
+                state: 'project.manage',
                 icon: 'pie-chart',
                 selected: false,
                 collapsed: true,
@@ -83,7 +83,7 @@
             {
                 nodeId: 10,
                 name: 'MENU_SETTINGS',
-                state: 'settings',
+                state: 'project.settings',
                 icon: 'gears',
                 selected: false,
                 collapsed: true,
@@ -111,7 +111,7 @@
             {
                 nodeId: 14,
                 name: 'MENU_ABOUT',
-                state: 'about',
+                state: 'project.about',
                 selected: false,
                 icon: 'question'
             }

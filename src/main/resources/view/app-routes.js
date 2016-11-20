@@ -18,7 +18,7 @@
                 url: '/project',
                 views: {
                     'body': {
-                        templateUrl: 'project-manager.tpl.html'
+                        templateUrl: 'project.tpl.html'
                     }
                 }
             });
