@@ -12,9 +12,13 @@
         .module('project')
         .controller('AppCtrl', AppCtrl);
 
-    function AppCtrl() {
+    function AppCtrl($scope) {
         var vm = this;
         vm.ctrlName = 'AppCtrl';
+
+        // viewController.searchForAllDocuments(function (data) {
+        //     $scope.documents = data;
+        // });
     }
 
 }());

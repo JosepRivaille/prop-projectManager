@@ -11,4 +11,6 @@ public class Constants {
     public static final String EMAIL_REGEX = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
     public static final String WORD_SEPARATION_REGEX = "[.,]\\s|\\s|[.]";
     static final String NUMBER_REGEX = "-?\\d+(\\.\\d+)?";
+
+    static final String J2JS_LINKER = "__CONNECT__BACKEND__";
 }
