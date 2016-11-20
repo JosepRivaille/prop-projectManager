@@ -3,16 +3,16 @@
 
     /**
      * @ngdoc component
-     * @name projectManager.components.component:SideNav
+     * @name project.components.component:SideNav
      *
      * @description
      *
      */
     angular
-        .module('projectManager')
+        .module('project')
         .controller('SideNavController', SideNavController)
         .component('sideNav', {
-            templateUrl: 'components/sideNav.html',
+            templateUrl: 'components/side-nav.html',
             controller: SideNavController
         });
 

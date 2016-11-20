@@ -3,8 +3,8 @@
         <li class="sidebar-brand">
             {{$ctrl.title | translate}}
         </li>
-        <li ng-repeat="item in $ctrl.menuItems">
-            <a href="#">
+        <li ng-repeat="item in $ctrl.menuItems" ng-class="{'active-option-menu': item.selected}">
+            <a ui-sref="{{item.state}}" href="#">
                 <span><i class="fa {{item.icon}}"></i></span>
                 {{item.name | translate}}
             </a>

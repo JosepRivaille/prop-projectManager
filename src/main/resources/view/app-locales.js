@@ -3,13 +3,13 @@
 
     /**
      * @ngdoc object
-     * @name projectManager.locale:Locales
+     * @name project.locale:Locales
      *
      * @description
      *
      */
     angular
-        .module('projectManager')
+        .module('project')
         .config(['$translateProvider', function ($translateProvider) {
             $translateProvider.useStaticFilesLoader({
                 prefix: 'res/locales/locale-',

@@ -3,15 +3,17 @@
 
     /**
      * @ngdoc object
-     * @name projectManager
+     * @name project
      *
      * @description
      *
      */
     angular
-        .module('projectManager', [
+        .module('project', [
             'ui.router',
-            'pascalprecht.translate'
+            'pascalprecht.translate',
+
+            'project.documents'
         ])
         .run(function ($rootScope) {
 

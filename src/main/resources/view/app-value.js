@@ -3,23 +3,25 @@
 
     /**
      * @ngdoc object
-     * @name projectManager.constant:MenuValues
+     * @name project.constant:MenuValues
      *
      * @description
      *
      */
     angular
-        .module('projectManager')
+        .module('project')
         .value('menuItems', [
             {
                 nodeId: 0,
                 name: 'MENU_HOME',
+                state: 'project',
                 icon: 'home',
                 selected: true
             },
             {
                 nodeId: 1,
                 name: 'MENU_SEARCH',
+                state: 'project.searcher',
                 icon: 'search',
                 selected: false,
                 collapsed: true,
@@ -47,6 +49,7 @@
             {
                 nodeId: 5,
                 name: 'MENU_MANAGEMENT',
+                state: 'management',
                 icon: 'pie-chart',
                 selected: false,
                 collapsed: true,
@@ -80,6 +83,7 @@
             {
                 nodeId: 10,
                 name: 'MENU_SETTINGS',
+                state: 'settings',
                 icon: 'gears',
                 selected: false,
                 collapsed: true,
@@ -107,6 +111,7 @@
             {
                 nodeId: 14,
                 name: 'MENU_ABOUT',
+                state: 'about',
                 selected: false,
                 icon: 'question'
             }

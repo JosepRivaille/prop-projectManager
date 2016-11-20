@@ -3,18 +3,18 @@
 
     /**
      * @ngdoc object
-     * @name projectManager.controller:AppController
+     * @name project.controller:AppCtrl
      *
      * @description
      *
      */
     angular
-        .module('projectManager')
-        .controller('AppController', AppController);
+        .module('project')
+        .controller('AppCtrl', AppCtrl);
 
-    function AppController() {
+    function AppCtrl() {
         var vm = this;
-        vm.ctrlName = 'AppController';
+        vm.ctrlName = 'AppCtrl';
     }
 
 }());

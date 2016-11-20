@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('projectManager')
+        .module('project')
         .config(config)
         .run(['$rootScope', '$state', '$stateParams',
             function ($rootScope, $state, $stateParams) {
@@ -12,17 +12,19 @@
         ]);
 
     function config($stateProvider, $urlRouterProvider) {
+
         $stateProvider
-            .state('projectManager', {
-                url: '',
+            .state('project', {
+                url: '/project',
                 views: {
                     'body': {
-                        templateUrl: 'app.tpl.html'
+                        templateUrl: 'project-manager.tpl.html'
                     }
                 }
             });
 
-        $urlRouterProvider.otherwise('');
+        $urlRouterProvider.otherwise('/project');
+
     }
 
 }());
