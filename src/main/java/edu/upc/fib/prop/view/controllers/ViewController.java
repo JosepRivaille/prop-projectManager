@@ -108,5 +108,7 @@ public interface ViewController {
      * @param document  The document to export.
      */
     void exportDocument(String pathToExport, Document document, String os) throws ImportExportException, DocumentContentNotFoundException;
+
+    DocumentsSet getDocumentsByBooleanExpression(String booleanExpression) throws InvalidDetailsException;
 }
 

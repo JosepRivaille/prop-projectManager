@@ -105,4 +105,9 @@ public class ViewControllerImpl implements ViewController {
     public void exportDocument(String pathToExport, Document document, String os) throws ImportExportException, DocumentContentNotFoundException {
         this.businessController.exportDocument(pathToExport, document, os);
     }
+
+    @Override
+    public DocumentsSet getDocumentsByBooleanExpression(String booleanExpression) {
+        return businessController.searchDocumentsByBooleanExpression(booleanExpression);
+    }
 }

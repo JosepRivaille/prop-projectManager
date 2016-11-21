@@ -125,4 +125,6 @@ public interface BusinessController {
      * @param os OS used by the user
      */
     void exportDocument(String pathToExport, Document document, String os) throws ImportExportException, DocumentContentNotFoundException;
+
+    DocumentsSet searchDocumentsByBooleanExpression(String booleanExpression);
 }
