@@ -97,6 +97,11 @@ public class BusinessControllerImpl implements BusinessController {
     }
 
     @Override
+    public DocumentsSet searchDocumentsByBooleanExpression(String booleanExpression) {
+        return null;
+    }
+
+    @Override
     public SortedDocumentsSet searchDocumentsByRelevance(Document document, int k)
             throws DocumentNotFoundException {
         return this.searchDocument.searchForSimilarDocuments(this.documentsCollection, document, k);

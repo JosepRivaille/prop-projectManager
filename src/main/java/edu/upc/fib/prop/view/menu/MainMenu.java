@@ -182,6 +182,7 @@ public class MainMenu {
     private void performAction(String action) {
         AuthorsCollection authorsCollection;
         DocumentsCollection documentsCollection;
+        DocumentsSet documentsSet;
         String authorName, documentTitle;
         String email, userName, password;
 
@@ -261,8 +262,20 @@ public class MainMenu {
                 IOUtils.enterToContinue();
                 break;
 
-//            case Strings.SEARCH_DOCUMENTS_BY_BOOLEAN_EXPRESSION:
-//                break;
+            case Strings.SEARCH_DOCUMENTS_BY_BOOLEAN_EXPRESSION:
+                String booleanExpression = IOUtils.askForString(Strings.TYPE_THE_BOOLEAN_EXPRESSION);
+                try {
+                    documentsSet = viewController.getDocumentsByBooleanExpression(booleanExpression);
+                    /*for (Document doc : documentsSet) {
+                        System.out.printf(doc.getTitle());
+                    }*/
+                } catch(InvalidDetailsException e) {
+                    System.out.println();
+                    System.out.println(Strings.INVALID_BOOLEAN_EXPRESSION);
+                }
+
+                IOUtils.enterToContinue();
+                break;
 
 //            case Strings.SEARCH_DOCUMENTS_BY_QUERY:
 //                break;
