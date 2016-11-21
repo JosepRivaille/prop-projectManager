@@ -5,7 +5,7 @@
         .module('project')
         .config(config)
         .run(['$rootScope', '$state', '$stateParams',
-            function ($rootScope, $state, $stateParams, menuItems) {
+            function ($rootScope, $state, $stateParams) {
                 $rootScope.$state = $state;
                 $rootScope.$stateParams = $stateParams;
             }

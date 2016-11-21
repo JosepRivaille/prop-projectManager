@@ -31,22 +31,20 @@
         });
         vm.menuItems = menuItems;
 
-        $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
+        $rootScope.$on('$stateChangeStart', function(event, toState) {
             angular.forEach(menuItems, function (item) {
-                //TODO: Remove harcoded
-                if (item.state === 'project') {
-                    item.selected = false;
-                }
-                if (item.state === fromState.name) {
-                    item.selected = false;
-                    if (angular.isDefined(item.collapsed)) {
-                        item.collapsed = true;
-                    }
-                } else if (item.state === toState.name) {
-                    item.selected = true;
-                    if (angular.isDefined(item.collapsed)) {
-                        item.collapsed = false;
-                    }
+                item.selected = item.state === toState.name;
+                item.collapsed = true;
+                if (angular.isDefined(item.children)) {
+                    angular.forEach(item.children, function (child) {
+                        if (child.state === toState.name) {
+                            item.selected = true;
+                            item.collapsed = false;
+                            child.selected = true;
+                        } else {
+                            child.selected = false;
+                        }
+                    });
                 }
             });
         });
