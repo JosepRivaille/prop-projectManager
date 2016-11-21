@@ -5,7 +5,7 @@
         .module('project')
         .config(config)
         .run(['$rootScope', '$state', '$stateParams',
-            function ($rootScope, $state, $stateParams) {
+            function ($rootScope, $state, $stateParams, menuItems) {
                 $rootScope.$state = $state;
                 $rootScope.$stateParams = $stateParams;
             }
@@ -24,7 +24,6 @@
             });
 
         $urlRouterProvider.otherwise('/project');
-
     }
 
 }());

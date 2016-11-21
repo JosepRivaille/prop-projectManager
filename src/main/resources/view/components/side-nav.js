@@ -16,7 +16,7 @@
             controller: SideNavController
         });
 
-    function SideNavController(menuItems) {
+    function SideNavController($rootScope, menuItems) {
         var vm = this;
 
         vm.title = 'TITLE_PPP';
@@ -30,6 +30,26 @@
             }
         });
         vm.menuItems = menuItems;
+
+        $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
+            angular.forEach(menuItems, function (item) {
+                //TODO: Remove harcoded
+                if (item.state === 'project') {
+                    item.selected = false;
+                }
+                if (item.state === fromState.name) {
+                    item.selected = false;
+                    if (angular.isDefined(item.collapsed)) {
+                        item.collapsed = true;
+                    }
+                } else if (item.state === toState.name) {
+                    item.selected = true;
+                    if (angular.isDefined(item.collapsed)) {
+                        item.collapsed = false;
+                    }
+                }
+            });
+        });
     }
 
 }());

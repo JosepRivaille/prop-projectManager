@@ -4,18 +4,18 @@
             {{$ctrl.title | translate}}
         </li>
         <li ng-repeat="item in $ctrl.menuItems" ng-class="{'active-option-menu': item.selected}">
-            <a ui-sref="{{item.state}}" href="#">
+            <a ui-sref="{{item.state}}">
                 <span><i class="fa {{item.icon}}"></i></span>
                 {{item.name | translate}}
             </a>
-            <!--
             <ul>
-                <li ng-repeat="childItem in item.children">
-                    <span><i class="fa {{childItem.icon}}"></i></span>
-                    {{childItem.name}}
+                <li ng-if="item.collapsed === false" ng-repeat="childItem in item.children">
+                    <a ui-sref="{{childItem.state}}">
+                        <span><i class="menu-item-child fa {{childItem.icon}}"></i></span>
+                        {{childItem.name | translate}}
+                    </a>
                 </li>
             </ul>
-            -->
         </li>
     </ul>
 </div>
