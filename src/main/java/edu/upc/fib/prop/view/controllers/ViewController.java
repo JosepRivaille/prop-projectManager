@@ -2,6 +2,8 @@ package edu.upc.fib.prop.view.controllers;
 
 import edu.upc.fib.prop.exceptions.*;
 import edu.upc.fib.prop.models.*;
+import javafx.scene.web.WebEngine;
+import javafx.stage.Stage;
 import javafx.util.Pair;
 
 public interface ViewController {
@@ -27,6 +29,22 @@ public interface ViewController {
      * @return Matching document
      */
     Document getDocumentByTitleAndAuthor(String title, String author) throws DocumentNotFoundException;
+
+    /**
+     * Gets documents matching a boolean expression
+     * @param booleanExpression
+     * @return
+     * @throws InvalidDetailsException
+     */
+    DocumentsSet getDocumentsByBooleanExpression(String booleanExpression) throws InvalidDetailsException;
+
+    /**
+     * Gets the k most similar document to a given document
+     * @param document
+     * @param k
+     * @return
+     * @throws DocumentNotFoundException
+     */
     SortedDocumentsSet getDocumentsByRelevance(Document document, int k) throws DocumentNotFoundException;
 
     /**
@@ -109,6 +127,5 @@ public interface ViewController {
      */
     void exportDocument(String pathToExport, Document document, String os) throws ImportExportException, DocumentContentNotFoundException;
 
-    DocumentsSet getDocumentsByBooleanExpression(String booleanExpression) throws InvalidDetailsException;
 }
 
