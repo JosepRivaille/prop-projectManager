@@ -1,12 +1,13 @@
-<div layout="">
+<h1 class="title-landing">
+    {{ vm.title | translate }}
+</h1>
+<!--
+<div layout="row" layout-align="center center">
     <div class="container">
-        <p>{{vm.title | translate}}</p>
-        <h1>{{ title }}</h1>
-        <div ng-repeat="document in vm.documents" class="row">
-            <div class="col-sm-4">
-                <h5>{{document.title}}</h5>
-                <h6>{{document.author}}</h6>
-            </div>
+        <div ng-repeat="document in vm.documents" layout="column" layout-align="center center">
+                <h5 class="text-white">{{document.title}}</h5>
+                <h6 class="text-white">{{document.author}}</h6>
         </div>
     </div>
 </div>
+-->

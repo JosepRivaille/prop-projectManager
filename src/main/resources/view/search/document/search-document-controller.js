@@ -3,18 +3,18 @@
 
     /**
      * @ngdoc object
-     * @name project.search.controller:SearchCtrl
+     * @name project.search.document.controller:SearchDocumentCtrl
      *
      * @description
      *
      */
     angular
         .module('project.search')
-        .controller('SearchCtrl', SearchCtrl);
+        .controller('SearchDocumentCtrl', SearchDocumentCtrl);
 
-    function SearchCtrl() {
+    function SearchDocumentCtrl() {
         var vm = this;
-        vm.ctrlName = 'SearchCtrl';
+        vm.ctrlName = 'SearchDocumentCtrl';
 
         vm.title = "TITLE_ALL_DOCUMENTS";
     }

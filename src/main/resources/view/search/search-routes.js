@@ -13,24 +13,42 @@
                 abstract: true,
                 views: {
                     'wrapper': {
-                        templateUrl: 'search/search.tpl.html',
-                        controller: 'SearchCtrl',
+                        templateUrl: 'search/search.tpl.html'
+                    }
+                }
+            })
+            .state('project.search.all', {
+                url: '/all',
+                parent: 'project.search',
+                views: {
+                    'search-content': {
+                        templateUrl: 'search/all/search-all.tpl.html',
+                        controller: 'SearchAllCtrl',
                         controllerAs: 'vm'
                     }
                 }
             })
-
-            .state('project.search.all', {
-                url: '/all',
-                parent: 'project.search'
-            })
             .state('project.search.author', {
                 url: '/author',
-                parent: 'project.search'
+                parent: 'project.search',
+                views: {
+                    'search-content': {
+                        templateUrl: 'search/author/search-author.tpl.html',
+                        controller: 'SearchAuthorCtrl',
+                        controllerAs: 'vm'
+                    }
+                }
             })
             .state('project.search.document', {
                 url: '/document',
-                parent: 'project.search'
+                parent: 'project.search',
+                views: {
+                    'search-content': {
+                        templateUrl: 'search/document/search-document.tpl.html',
+                        controller: 'SearchAuthorCtrl',
+                        controllerAs: 'vm'
+                    }
+                }
             });
     }
 }());

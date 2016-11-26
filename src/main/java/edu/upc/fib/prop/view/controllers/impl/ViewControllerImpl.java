@@ -12,9 +12,7 @@ import javafx.util.Pair;
 public class ViewControllerImpl implements ViewController {
 
     private BusinessController businessController;
-
     private WebEngine webEngine;
-
     private Stage stage;
 
     public ViewControllerImpl() {
@@ -127,6 +125,10 @@ public class ViewControllerImpl implements ViewController {
     @Override
     public DocumentsSet getDocumentsByBooleanExpression(String booleanExpression) {
         return businessController.searchDocumentsByBooleanExpression(booleanExpression);
+    }
+
+    public void test(String text){
+        System.out.println("Your text is: " + text);
     }
 
 }
