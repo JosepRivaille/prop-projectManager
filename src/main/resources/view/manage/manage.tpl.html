@@ -1,1 +1,12 @@
-<p>asdasdasdasdasd</p>
+<div layout="">
+    <div class="container">
+        <p>{{vm.title | translate}}</p>
+        <h1>{{ title }}</h1>
+        <div ng-repeat="document in vm.documents" class="row">
+            <div class="col-sm-4">
+                <h5>{{document.title}}</h5>
+                <h6>{{document.author}}</h6>
+            </div>
+        </div>
+    </div>
+</div>

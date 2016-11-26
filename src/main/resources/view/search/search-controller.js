@@ -15,5 +15,7 @@
     function SearchCtrl() {
         var vm = this;
         vm.ctrlName = 'SearchCtrl';
+
+        vm.title = "TITLE_ALL_DOCUMENTS";
     }
 }());

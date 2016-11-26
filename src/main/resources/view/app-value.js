@@ -81,28 +81,7 @@
                 name: 'MENU_SETTINGS',
                 state: 'project.settings',
                 icon: 'gears',
-                selected: false,
-                collapsed: true,
-                children: [
-                    {
-                        name: 'MENU_LANGUAGE',
-                        state: 'project.settings.language',
-                        icon: 'language',
-                        selected: false
-                    },
-                    {
-                        name: 'MENU_SETTINGS_DELETE',
-                        state: 'project.settings.delete',
-                        icon: 'user-times',
-                        selected: false
-                    },
-                    {
-                        name: 'MENU_SETTINGS_LOGOUT',
-                        state: 'project.settings.logout',
-                        icon: 'sign-out',
-                        selected: false
-                    }
-                ]
+                selected: false
             },
             {
                 name: 'MENU_ABOUT',

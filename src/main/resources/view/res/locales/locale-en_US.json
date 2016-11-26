@@ -15,5 +15,7 @@
   "MENU_LANGUAGE": "Change language",
   "MENU_SETTINGS_DELETE": "Delete account",
   "MENU_SETTINGS_LOGOUT": "Logout",
-  "MENU_ABOUT": "About"
+  "MENU_ABOUT": "About",
+
+  "TITLE_ALL_DOCUMENTS": "All documents"
 }
