@@ -132,13 +132,12 @@ public class PersistenceControllerImpl implements PersistenceController {
         closeConnection();
     }
 
-    /* Private helper methods */
+    //////////
 
     private void openConnection() {
         try {
             Class.forName(Constants.JDBC_DRIVER);
             this.c = DriverManager.getConnection(Constants.DB_DEVELOPMENT);
-            //System.out.println("Opened database connection...");
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
@@ -147,7 +146,6 @@ public class PersistenceControllerImpl implements PersistenceController {
     private void closeConnection() {
         try {
             this.c.close();
-            //System.out.println("Closed database connection...");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -156,22 +154,12 @@ public class PersistenceControllerImpl implements PersistenceController {
     private void initializeDB() {
         openConnection();
 
-        Statement statement;
-        String sql;
         try {
-            statement = c.createStatement();
-            sql = FileUtils.readFile("src/main/resources/sql/dbInitializer.sql");
+            Statement statement = c.createStatement();
+            String sql = FileUtils.readFile("src/main/resources/sql/dbInitializer.sql");
             statement.executeUpdate(sql);
             statement.close();
-
             System.out.println(Constants.DB_DEVELOPMENT + " initialized successfully");
-
-            /*statement = c.createStatement();
-            sql = FileUtils.readFile("src/main/resources/sql/mockData.sql");
-            statement.executeUpdate(sql);
-            statement.close();
-
-            System.out.println("DB filled successfully");*/
         } catch (SQLException e) {
             e.printStackTrace();
         }

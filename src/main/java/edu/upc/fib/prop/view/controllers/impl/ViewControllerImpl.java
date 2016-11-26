@@ -95,12 +95,14 @@ public class ViewControllerImpl implements ViewController {
 
     @Override
     public void storeNewDocument(Document document)
-            throws DocumentNotFoundException, AlreadyExistingDocumentException, InvalidDetailsException, DocumentContentNotFoundException {
+            throws DocumentNotFoundException, AlreadyExistingDocumentException,
+            InvalidDetailsException, DocumentContentNotFoundException {
         this.businessController.storeNewDocument(document);
     }
 
     @Override
-    public void updateDocument(Pair<Document, Document> updatedDocument) throws InvalidDetailsException, AlreadyExistingDocumentException, DocumentContentNotFoundException {
+    public void updateDocument(Pair<Document, Document> updatedDocument)
+            throws InvalidDetailsException, AlreadyExistingDocumentException, DocumentContentNotFoundException {
         this.businessController.updateDocument(updatedDocument.getKey(), updatedDocument.getValue());
     }
 
@@ -110,12 +112,15 @@ public class ViewControllerImpl implements ViewController {
     }
 
     @Override
-    public Document importDocument(String path) throws ImportExportException, AlreadyExistingDocumentException, InvalidDetailsException, DocumentContentNotFoundException {
+    public Document importDocument(String path)
+            throws ImportExportException, AlreadyExistingDocumentException,
+            InvalidDetailsException, DocumentContentNotFoundException {
         return this.businessController.importDocument(path);
     }
 
     @Override
-    public void exportDocument(String pathToExport, Document document, String os) throws ImportExportException, DocumentContentNotFoundException {
+    public void exportDocument(String pathToExport, Document document, String os)
+            throws ImportExportException, DocumentContentNotFoundException {
         this.businessController.exportDocument(pathToExport, document, os);
     }
 
@@ -124,7 +129,4 @@ public class ViewControllerImpl implements ViewController {
         return businessController.searchDocumentsByBooleanExpression(booleanExpression);
     }
 
-    public void test(){
-        System.out.println("TEST!");
-    }
 }

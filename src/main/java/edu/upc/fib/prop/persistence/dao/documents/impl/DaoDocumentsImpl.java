@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Map;
+import java.util.Set;
 
 public class DaoDocumentsImpl implements DaoDocuments {
 
@@ -21,11 +22,13 @@ public class DaoDocumentsImpl implements DaoDocuments {
         String content = document.getContent();
         String user = document.getUser();
         Map<String, Float> tf = document.getTermFrequency();
-        String termFrequency = StringUtils.buildJSONFromMap(tf);
+        Map<String, Map<Integer, Set<Integer>>> tp = document.getTermPositions();
+        String termFrequency = StringUtils.buildJSONFromFrequencyMap(tf);
+        String termPositions = StringUtils.buildJSONFromPositionsMap(tp);
         try {
             Statement statement = c.createStatement();
-            String query = String.format("INSERT INTO documents VALUES('%s', '%s', '%s', '%s', '%s')",
-                    title, author, user, termFrequency, content);
+            String query = String.format("INSERT INTO documents VALUES('%s', '%s', '%s', '%s', '%s', '%s')",
+                    title, author, user, termFrequency, termPositions, content);
             statement.executeUpdate(query);
         } catch (SQLException e) {
             throw new AlreadyExistingDocumentException();
@@ -70,7 +73,7 @@ public class DaoDocumentsImpl implements DaoDocuments {
                             "SET title='%s', author_name='%s', term_frequency='%s', content='%s'" +
                             "WHERE title='%s' AND author_name='%s';",
                     newDocument.getTitle(), newDocument.getAuthor(),
-                    StringUtils.buildJSONFromMap(newDocument.getTermFrequency()),
+                    StringUtils.buildJSONFromFrequencyMap(newDocument.getTermFrequency()),
                     newDocument.getContent(), oldTitle, oldAuthor);
             statement.executeUpdate(query);
         } catch (SQLException e) {

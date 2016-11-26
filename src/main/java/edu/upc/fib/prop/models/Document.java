@@ -5,7 +5,9 @@ import edu.upc.fib.prop.utils.Constants;
 import edu.upc.fib.prop.utils.FileUtils;
 
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
+import java.util.TreeSet;
 
 public class Document {
     private String title;
@@ -13,7 +15,7 @@ public class Document {
     private String user;
     private String content;
     private Map<String, Float> termFrequency;
-    private Map<String, Integer> termPositions;
+    private Map<String, Map<Integer, Set<Integer>>> termPositions;
 
     public Document(String title, String author, String content, String user) {
         termFrequency = new TreeMap<>();
@@ -65,11 +67,11 @@ public class Document {
         this.termFrequency = termFrequency;
     }
 
-    public Map<String, Integer> getTermPositions() {
+    public Map<String, Map<Integer, Set<Integer>>> getTermPositions() {
         return termPositions;
     }
 
-    public void setTermPositions(Map<String, Integer> termPositions) {
+    public void setTermPositions(Map<String, Map<Integer, Set<Integer>>> termPositions) {
         this.termPositions = termPositions;
     }
 
@@ -83,6 +85,7 @@ public class Document {
 
     /* Utils */
 
+    //TODO: Extract into a logic class
     public void updateFrequencies() throws DocumentContentNotFoundException {
         Float max = 1f;
         termFrequency = new TreeMap<>();
@@ -101,6 +104,34 @@ public class Document {
         for (Map.Entry<String, Float> tf : termFrequency.entrySet()) {
             Float newValue = 0.5f + (0.5f * tf.getValue() / max);
             tf.setValue(newValue);
+        }
+    }
+
+    //TODO: Extract into a logic class
+    public void updatePositions() throws DocumentContentNotFoundException {
+        termPositions = new TreeMap<>();
+        Integer sentenceCounter = 0;
+        for (String sentence : FileUtils.readDocument(content).split(Constants.SENTENCE_SEPARATION_REGEX)) {
+            Integer offsetCounter = 0;
+            for (String word : sentence.split(Constants.WORD_SEPARATION_REGEX)) {
+                if (termPositions.containsKey(word)) {
+                    if (termPositions.get(word).containsKey(sentenceCounter)) {
+                        termPositions.get(word).get(sentenceCounter).add(offsetCounter);
+                    } else {
+                        Set<Integer> offsetData = new TreeSet<>();
+                        offsetData.add(offsetCounter);
+                        termPositions.get(word).put(sentenceCounter, offsetData);
+                    }
+                } else {
+                    Set<Integer> offsetData = new TreeSet<>();
+                    offsetData.add(offsetCounter);
+                    Map<Integer, Set<Integer>> sentenceData = new TreeMap<>();
+                    sentenceData.put(sentenceCounter, offsetData);
+                    termPositions.put(word, sentenceData);
+                }
+                offsetCounter++;
+            }
+            sentenceCounter++;
         }
     }
 

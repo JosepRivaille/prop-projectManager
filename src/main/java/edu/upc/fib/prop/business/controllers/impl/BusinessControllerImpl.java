@@ -133,16 +133,21 @@ public class BusinessControllerImpl implements BusinessController {
     }
 
     @Override
-    public void storeNewDocument(Document doc) throws AlreadyExistingDocumentException, InvalidDetailsException, DocumentContentNotFoundException {
-        doc.setUser(usersManager.getCurrentUser().getEmail());
-        if (!doc.isCorrect()) throw new InvalidDetailsException();
-        if (!doc.isContentPathCorrect()) throw new DocumentContentNotFoundException();
-        if(documentsCollection.containsTitleAndAuthor(doc.getTitle(), doc.getAuthor())) throw  new AlreadyExistingDocumentException();
-        else{
-            doc.updateFrequencies();
+    public void storeNewDocument(Document document)
+            throws AlreadyExistingDocumentException, InvalidDetailsException, DocumentContentNotFoundException {
+        document.setUser(usersManager.getCurrentUser().getEmail());
+        if (!document.isCorrect()) {
+            throw new InvalidDetailsException();
+        } else if (!document.isContentPathCorrect()) {
+            throw new DocumentContentNotFoundException();
+        } else if (documentsCollection.containsTitleAndAuthor(document.getTitle(), document.getAuthor())) {
+            throw new AlreadyExistingDocumentException();
+        } else {
+            document.updateFrequencies();
+            document.updatePositions();
             try {
-                documentsCollection.addDocument(doc);
-                persistenceController.writeNewDocument(doc);
+                documentsCollection.addDocument(document);
+                persistenceController.writeNewDocument(document);
                 reloadDBData();
             } catch (SQLException e) {
                 e.printStackTrace();
