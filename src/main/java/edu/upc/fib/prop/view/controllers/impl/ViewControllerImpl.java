@@ -5,14 +5,27 @@ import edu.upc.fib.prop.business.controllers.impl.BusinessControllerImpl;
 import edu.upc.fib.prop.exceptions.*;
 import edu.upc.fib.prop.models.*;
 import edu.upc.fib.prop.view.controllers.ViewController;
+import javafx.scene.web.WebEngine;
+import javafx.stage.Stage;
 import javafx.util.Pair;
 
 public class ViewControllerImpl implements ViewController {
 
     private BusinessController businessController;
 
+    private WebEngine webEngine;
+
+    private Stage stage;
+
     public ViewControllerImpl() {
-        System.out.println("Initializating view controller");
+        System.out.println("Initializating view controller (CONSOLE MODE)");
+        businessController = new BusinessControllerImpl();
+    }
+
+    public ViewControllerImpl(WebEngine we, Stage st) {
+        System.out.println("Initializating view controller (GRAPHICAL MODE)");
+        this.webEngine = we;
+        this.stage = st;
         businessController = new BusinessControllerImpl();
     }
 
@@ -82,12 +95,14 @@ public class ViewControllerImpl implements ViewController {
 
     @Override
     public void storeNewDocument(Document document)
-            throws DocumentNotFoundException, AlreadyExistingDocumentException, InvalidDetailsException, DocumentContentNotFoundException {
+            throws DocumentNotFoundException, AlreadyExistingDocumentException,
+            InvalidDetailsException, DocumentContentNotFoundException {
         this.businessController.storeNewDocument(document);
     }
 
     @Override
-    public void updateDocument(Pair<Document, Document> updatedDocument) throws InvalidDetailsException, AlreadyExistingDocumentException, DocumentContentNotFoundException {
+    public void updateDocument(Pair<Document, Document> updatedDocument)
+            throws InvalidDetailsException, AlreadyExistingDocumentException, DocumentContentNotFoundException {
         this.businessController.updateDocument(updatedDocument.getKey(), updatedDocument.getValue());
     }
 
@@ -97,12 +112,15 @@ public class ViewControllerImpl implements ViewController {
     }
 
     @Override
-    public Document importDocument(String path) throws ImportExportException, AlreadyExistingDocumentException, InvalidDetailsException, DocumentContentNotFoundException {
+    public Document importDocument(String path)
+            throws ImportExportException, AlreadyExistingDocumentException,
+            InvalidDetailsException, DocumentContentNotFoundException {
         return this.businessController.importDocument(path);
     }
 
     @Override
-    public void exportDocument(String pathToExport, Document document, String os) throws ImportExportException, DocumentContentNotFoundException {
+    public void exportDocument(String pathToExport, Document document, String os)
+            throws ImportExportException, DocumentContentNotFoundException {
         this.businessController.exportDocument(pathToExport, document, os);
     }
 
@@ -110,4 +128,5 @@ public class ViewControllerImpl implements ViewController {
     public DocumentsSet getDocumentsByBooleanExpression(String booleanExpression) {
         return businessController.searchDocumentsByBooleanExpression(booleanExpression);
     }
+
 }

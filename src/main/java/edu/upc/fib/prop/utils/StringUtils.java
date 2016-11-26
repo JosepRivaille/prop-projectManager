@@ -1,14 +1,10 @@
 package edu.upc.fib.prop.utils;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import com.google.gson.*;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class StringUtils {
 
@@ -19,19 +15,53 @@ public class StringUtils {
         } return sb.toString();
     }
 
-    public static String buildJSONFromMap(Map<String, Float> data) {
+    public static String buildJSONFromFrequencyMap(Map<String, Float> termFrequencies) {
         Gson gson = new Gson();
-        return gson.toJson(data);
+        return gson.toJson(termFrequencies);
     }
 
-    public static Map<String, Float> buildMapFromJSON(String json) {
-        Map<String, Float> parsedData = new HashMap<>();
+    public static String buildJSONFromPositionsMap(Map<String, Map<Integer, Set<Integer>>> termPositions) {
+        Gson gson = new Gson();
+        return gson.toJson(termPositions);
+    }
+
+    public static Map<String, Float> buildFrequencyMapFromJSON(String termFrequencies) {
+        Map<String, Float> deserializedObject = new HashMap<>();
         JsonParser parser = new JsonParser();
-        JsonObject jsonObject = parser.parse(json).getAsJsonObject();
+        JsonObject jsonObject = parser.parse(termFrequencies).getAsJsonObject();
         for (Map.Entry<String, JsonElement> word : jsonObject.entrySet()) {
-            parsedData.put(word.getKey(), Float.parseFloat(word.getValue().toString()));
+            deserializedObject.put(word.getKey(), Float.parseFloat(word.getValue().toString()));
         }
-        return parsedData;
+        return deserializedObject;
     }
 
+    public static Map<String, Map<Integer, Set<Integer>>> buildPositionMapFromJSON(String termPositions) {
+        Map<String, Map<Integer, Set<Integer>>> deserializedObject = new HashMap<>();
+        JsonParser parser = new JsonParser();
+        JsonObject jsonObject = parser.parse(termPositions).getAsJsonObject();
+        for (Map.Entry<String, JsonElement> word : jsonObject.entrySet()) {
+            for (Map.Entry<String, JsonElement> sentence : word.getValue().getAsJsonObject().entrySet()) {
+                for (JsonElement offset : sentence.getValue().getAsJsonArray()) {
+                    Integer sentenceNumber = Integer.parseInt(sentence.getKey());
+                    Integer offsetNumber = Integer.parseInt(offset.toString());
+                    if (deserializedObject.containsKey(word.getKey())) {
+                        if (deserializedObject.get(word.getKey()).containsKey(sentenceNumber)) {
+                            deserializedObject.get(word.getKey()).get(Integer.parseInt(sentence.getKey())).add(offsetNumber);
+                        } else {
+                            Set<Integer> offsets = new TreeSet<>();
+                            offsets.add(offsetNumber);
+                            deserializedObject.get(word.getKey()).put(sentenceNumber, offsets);
+                        }
+                    } else {
+                        Set<Integer> offsets = new TreeSet<>();
+                        offsets.add(offsetNumber);
+                        Map<Integer, Set<Integer>> sentences = new TreeMap<>();
+                        sentences.put(sentenceNumber, offsets);
+                        deserializedObject.put(word.getKey(), sentences);
+                    }
+                }
+            }
+        }
+        return deserializedObject;
+    }
 }

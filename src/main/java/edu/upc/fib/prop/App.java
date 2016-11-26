@@ -2,39 +2,86 @@ package edu.upc.fib.prop;
 
 import edu.upc.fib.prop.view.controllers.impl.ViewControllerImpl;
 import javafx.application.Application;
+import javafx.concurrent.Worker;
+import javafx.geometry.HPos;
+import javafx.geometry.VPos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
+import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
+import netscape.javascript.JSObject;
 
-import static edu.upc.fib.prop.utils.J2JS.connectBackendObject;
+import java.net.URL;
+
 
 public class App extends Application {
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
-        String PAGE = "/view/index.html";
-        createWebView(primaryStage, PAGE);
+    public void start(Stage stage) throws Exception {
+        stage.setTitle("PROP Library");
+        Scene scene = new Scene(new Browser(stage), 900, 600);
+        stage.setScene(scene);
+        stage.show();
     }
 
-    private void createWebView(Stage primaryStage, String page) {
-        final WebView webView = new WebView();
+    public static void main( String[] args ) { launch(args); }
+}
 
-        connectBackendObject(
-                webView.getEngine(),
-                "viewController", new ViewControllerImpl());
+class Browser extends Region {
 
-        webView.getEngine().setOnAlert(event -> System.err.println("alertwb1: " + event.getData()));
+    private final WebView browser = new WebView();
+    private final WebEngine webEngine = browser.getEngine();
 
-        webView.getEngine().load(getClass().getResource(page).toExternalForm());
+    Browser(Stage stage) {
+        //apply the styles
+        getStyleClass().add("browser");
 
-        primaryStage.setScene(new Scene(webView));
-        primaryStage.setTitle("Project Manager");
-        primaryStage.show();
+
+        // load the web page
+        URL url = getClass().getResource("/view/index.html");
+        webEngine.load(url.toExternalForm());
+        //Font.loadFont(getClass().getResource("www/fonts/ionicons.ttf").toExternalForm(),10);
+
+        browser.setContextMenuEnabled(false);
+
+        webEngine.getLoadWorker().stateProperty()
+                .addListener((obs, oldValue, newValue) -> {
+                    if (newValue == Worker.State.SUCCEEDED) {
+
+                        JSObject jsobj = (JSObject) webEngine.executeScript("window");
+                        jsobj.setMember("backend", new ViewControllerImpl(webEngine, stage));
+                    }
+                });
+
+        webEngine.setOnAlert(arg0 -> System.out.println("alert"));
+
+        //add the web view to the scene
+        getChildren().add(browser);
+
     }
 
-    public static void main( String[] args ) {
-        launch(args);
-        //new ViewControllerImpl();
+    private Node createSpacer() {
+        Region spacer = new Region();
+        HBox.setHgrow(spacer, Priority.ALWAYS);
+        return spacer;
+    }
+
+    @Override protected void layoutChildren() {
+        double w = getWidth();
+        double h = getHeight();
+        layoutInArea(browser,0,0,w,h,0, HPos.CENTER, VPos.CENTER);
+    }
+
+    @Override protected double computePrefWidth(double height) {
+        return 900;
+    }
+
+    @Override protected double computePrefHeight(double width) {
+        return 600;
     }
 
 }

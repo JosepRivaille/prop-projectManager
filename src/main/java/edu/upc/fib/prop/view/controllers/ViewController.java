@@ -27,6 +27,20 @@ public interface ViewController {
      * @return Matching document
      */
     Document getDocumentByTitleAndAuthor(String title, String author) throws DocumentNotFoundException;
+
+    /**
+     * Gets documents matching a boolean expression
+     * @param booleanExpression Expression following a format to search.
+     * @return Documents matching a boolean expression.
+     */
+    DocumentsSet getDocumentsByBooleanExpression(String booleanExpression) throws InvalidDetailsException;
+
+    /**
+     * Gets the k most similar document to a given document
+     * @param document Document to compare with.
+     * @param k Number of similar documents to look for.
+     * @return K more similar documents.
+     */
     SortedDocumentsSet getDocumentsByRelevance(Document document, int k) throws DocumentNotFoundException;
 
     /**
@@ -109,6 +123,5 @@ public interface ViewController {
      */
     void exportDocument(String pathToExport, Document document, String os) throws ImportExportException, DocumentContentNotFoundException;
 
-    DocumentsSet getDocumentsByBooleanExpression(String booleanExpression) throws InvalidDetailsException;
 }
 
