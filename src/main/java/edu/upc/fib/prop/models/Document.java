@@ -4,8 +4,6 @@ import edu.upc.fib.prop.exceptions.DocumentContentNotFoundException;
 import edu.upc.fib.prop.utils.Constants;
 import edu.upc.fib.prop.utils.FileUtils;
 
-import javax.print.Doc;
-import java.io.File;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -15,6 +13,7 @@ public class Document {
     private String user;
     private String content;
     private Map<String, Float> termFrequency;
+    private Map<String, Integer> termPositions;
 
     public Document(String title, String author, String content, String user) {
         termFrequency = new TreeMap<>();
@@ -23,12 +22,6 @@ public class Document {
         this.user = user;
         this.content = content;
         termFrequency = new TreeMap<>();
-        test();
-    }
-
-    public Document() {
-        termFrequency = new TreeMap<>();
-        test();
     }
 
     public Document(String title, String author, String content) {
@@ -36,11 +29,10 @@ public class Document {
         this.author = author;
         termFrequency = new TreeMap<>();
         this.content = content;
-        test();
     }
-    public void test(){
-        termFrequency.put("test", 23f);
-    }
+
+    /* Getters and Setters */
+
     public String getTitle() {
         return title;
     }
@@ -65,16 +57,20 @@ public class Document {
         this.content = content;
     }
 
-    public Map<String, Float> getTermFrequencyList() {
+    public Map<String, Float> getTermFrequency() {
         return termFrequency;
-    }
-
-    public Float getTermFrequency(String word) {
-        return termFrequency.get(word);
     }
 
     public void setTermFrequency(Map<String, Float> termFrequency) {
         this.termFrequency = termFrequency;
+    }
+
+    public Map<String, Integer> getTermPositions() {
+        return termPositions;
+    }
+
+    public void setTermPositions(Map<String, Integer> termPositions) {
+        this.termPositions = termPositions;
     }
 
     public String getUser() {
@@ -85,19 +81,9 @@ public class Document {
         this.user = user;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Document document = (Document) o;
-        return title != null ? title.equals(document.title) : document.title == null && (author != null ?
-                author.equals(document.author) : document.author == null && (user != null ? user.equals(document.user) :
-                document.user == null && (content != null ? content.equals(document.content) : document.content == null
-                        && (termFrequency != null ? termFrequency.equals(document.termFrequency) :
-                        document.termFrequency == null))));
-    }
+    /* Utils */
 
-    public void updateFreqs() throws DocumentContentNotFoundException {
+    public void updateFrequencies() throws DocumentContentNotFoundException {
         Float max = 1f;
         termFrequency = new TreeMap<>();
         for (String word : FileUtils.readDocument(content).split(Constants.WORD_SEPARATION_REGEX)) {
@@ -107,8 +93,9 @@ public class Document {
             } else {
                 Float aux = termFrequency.get(word) + 1;
                 termFrequency.put(word, aux);
-                if (aux > max)
+                if (aux > max) {
                     max = aux;
+                }
             }
         }
         for (Map.Entry<String, Float> tf : termFrequency.entrySet()) {
@@ -124,12 +111,12 @@ public class Document {
     }
 
     public boolean isCorrect() {
-        return !this.title.equals("") &&
-                !this.author.equals("") &&
-                !this.content.equals("");
+        return !this.title.equals("")
+                && !this.author.equals("")
+                && !this.content.equals("");
     }
 
-    public Document merge(Document newDoc){
+    Document merge(Document newDoc) {
         Document mergedDoc = this.clone();
         if(!newDoc.getTitle().equals("")) mergedDoc.setTitle(newDoc.getTitle());
         if(!newDoc.getAuthor().equals("")) mergedDoc.setAuthor(newDoc.getAuthor());
@@ -141,6 +128,21 @@ public class Document {
         try {
             FileUtils.readDocument(this.getContent());
             return true;
-        } catch (DocumentContentNotFoundException e){return false;}
+        } catch (DocumentContentNotFoundException e) {
+            return false;
+        }
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Document document = (Document) o;
+        return title != null ? title.equals(document.title) : document.title == null && (author != null ?
+                author.equals(document.author) : document.author == null && (user != null ? user.equals(document.user) :
+                document.user == null && (content != null ? content.equals(document.content) : document.content == null
+                        && (termFrequency != null ? termFrequency.equals(document.termFrequency) :
+                        document.termFrequency == null))));
+    }
+
 }

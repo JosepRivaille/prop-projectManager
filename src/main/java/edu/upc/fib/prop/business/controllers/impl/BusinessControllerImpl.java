@@ -139,7 +139,7 @@ public class BusinessControllerImpl implements BusinessController {
         if (!doc.isContentPathCorrect()) throw new DocumentContentNotFoundException();
         if(documentsCollection.containsTitleAndAuthor(doc.getTitle(), doc.getAuthor())) throw  new AlreadyExistingDocumentException();
         else{
-            doc.updateFreqs();
+            doc.updateFrequencies();
             try {
                 documentsCollection.addDocument(doc);
                 persistenceController.writeNewDocument(doc);

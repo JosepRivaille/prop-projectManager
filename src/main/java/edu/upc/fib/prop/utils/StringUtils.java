@@ -24,14 +24,17 @@ public class StringUtils {
         return gson.toJson(data);
     }
 
-    public static Map<String, Float> buildMapFromJSON(String json) {
+    public static Map<String, Float> buildFrequencyMapFromJSON(String termFrequencies) {
         Map<String, Float> parsedData = new HashMap<>();
         JsonParser parser = new JsonParser();
-        JsonObject jsonObject = parser.parse(json).getAsJsonObject();
+        JsonObject jsonObject = parser.parse(termFrequencies).getAsJsonObject();
         for (Map.Entry<String, JsonElement> word : jsonObject.entrySet()) {
             parsedData.put(word.getKey(), Float.parseFloat(word.getValue().toString()));
         }
         return parsedData;
     }
 
+    public static Map<String, Integer> buildPositionMapFromJSON(String termPositions) {
+        return null;
+    }
 }
