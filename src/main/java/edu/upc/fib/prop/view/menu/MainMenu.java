@@ -266,9 +266,11 @@ public class MainMenu {
                 String booleanExpression = IOUtils.askForString(Strings.TYPE_THE_BOOLEAN_EXPRESSION);
                 try {
                     documentsSet = viewController.getDocumentsByBooleanExpression(booleanExpression);
-                    /*for (Document doc : documentsSet) {
-                        System.out.printf(doc.getTitle());
-                    }*/
+                    int i = 0;
+                    for (Document document : documentsSet) {
+                        System.out.printf("%-3d %-48s %-30s %-25s %n", i++,
+                                document.getTitle(), document.getAuthor(), document.getUser());
+                    }
                 } catch(InvalidDetailsException e) {
                     System.out.println();
                     System.out.println(Strings.INVALID_BOOLEAN_EXPRESSION);

@@ -28,7 +28,9 @@ public class App extends Application {
         stage.show();
     }
 
-    public static void main( String[] args ) { launch(args); }
+    public static void main( String[] args ) {
+        launch(args);
+    }
 }
 
 class Browser extends Region {
@@ -39,7 +41,6 @@ class Browser extends Region {
     Browser(Stage stage) {
         //apply the styles
         getStyleClass().add("browser");
-
 
         // load the web page
         URL url = getClass().getResource("/view/index.html");

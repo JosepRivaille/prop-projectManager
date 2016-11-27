@@ -112,19 +112,25 @@ public interface BusinessController {
     void deleteDocument(Document document);
 
     /**
-     * Imports a document
-     * @param path Path of the document to import
+     * Imports a document.
+     * @param path Path of the document to import.
      */
     Document importDocument(String path)throws ImportExportException, AlreadyExistingDocumentException,
             InvalidDetailsException, DocumentContentNotFoundException;
 
     /**
-     * Exports an existing document
-     * @param pathToExport  Path where the document will be exported
-     * @param document  Document to export
-     * @param os OS used by the user
+     * Exports an existing document.
+     * @param pathToExport  Path where the document will be exported.
+     * @param document  Document to export.
+     * @param os OS used by the user.
      */
-    void exportDocument(String pathToExport, Document document, String os) throws ImportExportException, DocumentContentNotFoundException;
+    void exportDocument(String pathToExport, Document document, String os)
+            throws ImportExportException, DocumentContentNotFoundException;
 
+    /**
+     * Search for matching documents by a boolean expression.
+     * @param booleanExpression Expression to search by.
+     * @return A set of matching documents.
+     */
     DocumentsSet searchDocumentsByBooleanExpression(String booleanExpression);
 }

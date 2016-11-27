@@ -1,7 +1,9 @@
 package edu.upc.fib.prop.business.controllers.impl;
 
 import edu.upc.fib.prop.business.controllers.BusinessController;
+import edu.upc.fib.prop.business.search.SearchBooleanExpression;
 import edu.upc.fib.prop.business.search.impl.SearchAuthorImpl;
+import edu.upc.fib.prop.business.search.impl.SearchBooleanExpressionImpl;
 import edu.upc.fib.prop.business.search.impl.SearchDocumentImpl;
 import edu.upc.fib.prop.business.users.UsersManager;
 import edu.upc.fib.prop.business.users.impl.UsersManagerImpl;
@@ -19,6 +21,7 @@ public class BusinessControllerImpl implements BusinessController {
 
     private SearchAuthorImpl searchAuthor;
     private SearchDocumentImpl searchDocument;
+    private SearchBooleanExpression searchBooleanExpression;
 
     private AuthorsCollection authorsCollection;
     private DocumentsCollection documentsCollection;
@@ -31,6 +34,7 @@ public class BusinessControllerImpl implements BusinessController {
         this.persistenceController = new PersistenceControllerImpl();
         this.searchAuthor = new SearchAuthorImpl();
         this.searchDocument = new SearchDocumentImpl();
+        this.searchBooleanExpression = new SearchBooleanExpressionImpl();
 
         // Load in memory all authors and documents on instantiate
         this.authorsCollection = this.persistenceController.getAuthors();
@@ -97,16 +101,15 @@ public class BusinessControllerImpl implements BusinessController {
     }
 
     @Override
-    public DocumentsSet searchDocumentsByBooleanExpression(String booleanExpression) {
-        return null;
-    }
-
-    @Override
     public SortedDocumentsSet searchDocumentsByRelevance(Document document, int k)
             throws DocumentNotFoundException {
         return this.searchDocument.searchForSimilarDocuments(this.documentsCollection, document, k);
     }
 
+    @Override
+    public DocumentsSet searchDocumentsByBooleanExpression(String booleanExpression) {
+        return searchBooleanExpression.searchDocumentsByBooleanExpression(booleanExpression, documentsCollection);
+    }
 
     /*--------------- Authors */
 
