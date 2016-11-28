@@ -58,7 +58,7 @@ class Browser extends Region {
                     }
                 });
 
-        webEngine.setOnAlert(arg0 -> System.out.println("alert"));
+        webEngine.setOnAlert(arg0 -> System.out.println("alert: " + arg0.getData()));
 
         //add the web view to the scene
         getChildren().add(browser);

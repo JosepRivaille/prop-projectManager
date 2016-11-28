@@ -58,7 +58,13 @@
 
 <body>
 
-<div ui-view="body" onclick="backend.test()"></div>
+<div ui-view="body" onclick="test()"></div>
+
+<script>
+    function test() {
+        backend.test("Hello world!");
+    }
+</script>
 
 </body>
 </html>
