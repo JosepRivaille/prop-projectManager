@@ -4,6 +4,7 @@ import edu.upc.fib.prop.business.search.SearchBooleanExpression;
 import edu.upc.fib.prop.exceptions.InvalidQueryException;
 import edu.upc.fib.prop.models.*;
 
+import javax.annotation.PostConstruct;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -78,9 +79,9 @@ public class SearchBooleanExpressionImpl implements SearchBooleanExpression {
 
     private boolean checkDocumentMatchesQuery(Map<String, Map<Integer, Set<Integer>>> termPositions,
                                               String booleanExpression) {
-        Set<Integer> possibleSentences = new HashSet<Integer>();
+        Set<Integer> possibleSentences = new HashSet<>();
         checkWordExists(termPositions, "FAKE WORD");
-        return 0 == 0;
+        return true;
     }
 
     private Set<Integer> getWordSentences(Map<String, Map<Integer,

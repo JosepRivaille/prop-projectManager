@@ -271,7 +271,7 @@ public class MainMenu {
                         System.out.printf("%-3d %-48s %-30s %-25s %n", i++,
                                 document.getTitle(), document.getAuthor(), document.getUser());
                     }
-                } catch(InvalidDetailsException e) {
+                } catch(InvalidQueryException e) {
                     System.out.println();
                     System.out.println(Strings.INVALID_BOOLEAN_EXPRESSION);
                 }

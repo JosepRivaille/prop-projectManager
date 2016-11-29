@@ -123,7 +123,7 @@ public class ViewControllerImpl implements ViewController {
     }
 
     @Override
-    public DocumentsSet getDocumentsByBooleanExpression(String booleanExpression) {
+    public DocumentsSet getDocumentsByBooleanExpression(String booleanExpression) throws InvalidQueryException {
         return businessController.searchDocumentsByBooleanExpression(booleanExpression);
     }
 

@@ -33,7 +33,7 @@ public interface ViewController {
      * @param booleanExpression Expression following a format to search.
      * @return Documents matching a boolean expression.
      */
-    DocumentsSet getDocumentsByBooleanExpression(String booleanExpression) throws InvalidDetailsException;
+    DocumentsSet getDocumentsByBooleanExpression(String booleanExpression) throws InvalidQueryException;
 
     /**
      * Gets the k most similar document to a given document

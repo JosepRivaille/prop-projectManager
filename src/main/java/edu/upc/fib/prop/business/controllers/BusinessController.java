@@ -132,5 +132,5 @@ public interface BusinessController {
      * @param booleanExpression Expression to search by.
      * @return A set of matching documents.
      */
-    DocumentsSet searchDocumentsByBooleanExpression(String booleanExpression);
+    DocumentsSet searchDocumentsByBooleanExpression(String booleanExpression) throws InvalidQueryException;
 }

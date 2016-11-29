@@ -107,7 +107,7 @@ public class BusinessControllerImpl implements BusinessController {
     }
 
     @Override
-    public DocumentsSet searchDocumentsByBooleanExpression(String booleanExpression) {
+    public DocumentsSet searchDocumentsByBooleanExpression(String booleanExpression) throws InvalidQueryException {
         return searchBooleanExpression.searchDocumentsByBooleanExpression(booleanExpression, documentsCollection);
     }
 
