@@ -12,6 +12,4 @@ public class Constants {
     public static final String SENTENCE_SEPARATION_REGEX = "[.?!]\\s";
     public static final String WORD_SEPARATION_REGEX = "[.,]\\s|\\s|[.]";
     static final String NUMBER_REGEX = "-?\\d+(\\.\\d+)?";
-
-    static final String J2JS_LINKER = "__CONNECT__BACKEND__";
 }

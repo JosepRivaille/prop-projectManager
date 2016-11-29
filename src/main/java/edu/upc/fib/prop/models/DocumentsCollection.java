@@ -80,7 +80,7 @@ public class DocumentsCollection {
     }
 
     public Float getIdf(String word){
-        return (float)Math.log(documents.size()/wordsFrequencies.get(word));
+        return (float)Math.log((float)documents.size()/(float)wordsFrequencies.get(word));
     }
 
     public int size(){ return documents.size();}
