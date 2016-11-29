@@ -16,6 +16,6 @@
         var vm = this;
         vm.ctrlName = 'SearchAuthorCtrl';
 
-        vm.title = "TITLE_ALL_DOCUMENTS";
+        vm.title = "TITLE_SEARCH_AUTHORS";
     }
 }());

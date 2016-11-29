@@ -1,47 +1,20 @@
-<h1 class="title-landing">
-    {{ vm.title | translate}}
-</h1>
+<div ng-controller="SearchAuthorCtrl as vm">
+    <h1 class="title-landing">
+        {{ vm.title | translate}}
+    </h1>
 
-<style>
-    .inputdemoIcons .inputIconDemo {
-        min-height: 48px; }
-    .inputdemoIcons md-input-container:not(.md-input-invalid) > md-icon.email {
-        color: green; }
-    .inputdemoIcons md-input-container:not(.md-input-invalid) > md-icon.name {
-        color: dodgerblue; }
-    .inputdemoIcons md-input-container.md-input-invalid > md-icon.email,
-    .inputdemoIcons md-input-container.md-input-invalid > md-icon.name {
-        color: red; }
-</style>
-
-<div id="inputContainer" class="inputDemo" ng-controller="inputController as ctrl" ng-cloak>
-    <md-content layout-padding>
-        <form name="projectForm">
-            <md-input-container class="md-block">
-                <label>User Name</label>
-                <input required name="userName" ng-model="project.userName">
-                <div ng-messages="projectForm.userName.$error">
-                    <div ng-message="required">This is required.</div>
-                </div>
+    <md-content layout-gt-sm="row" layout-padding>
+        <div>
+            <md-input-container>
+                <label>Title</label>
+                <input ng-model="user.title">
             </md-input-container>
-            <md-input-container class="md-block">
+
+            <md-input-container>
                 <label>Email</label>
-                <input required type="email" name="userEmail" ng-model="project.userEmail"
-                       minlength="10" maxlength="100" ng-pattern="/^.+@.+\..+$/" />
-                <div ng-messages="projectForm.userEmail.$error" role="alert">
-                    <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
-                        Your email must be between 10 and 100 characters long and should be a valid email address.
-                    </div>
-                </div>
+                <input ng-model="user.email" type="email">
             </md-input-container>
-            <md-input-container class="md-block">
-                <label>Comments</label>
-                <input md-maxlength="300" required name="comments" ng-model="project.comments">
-                <div ng-messages="projectForm.comments.$error">
-                    <div ng-message="required">This is required.</div>
-                    <div ng-message="md-maxlength">The comments has to be less than 300 characters long.</div>
-                </div>
-            </md-input-container>
-        </form>
+        </div>
     </md-content>
+
 </div>

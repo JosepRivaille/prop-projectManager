@@ -4,11 +4,7 @@ import edu.upc.fib.prop.business.search.SearchBooleanExpression;
 import edu.upc.fib.prop.exceptions.InvalidQueryException;
 import edu.upc.fib.prop.models.*;
 
-import javax.annotation.PostConstruct;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-import java.util.Stack;
+import java.util.*;
 
 
 public class SearchBooleanExpressionImpl implements SearchBooleanExpression {
@@ -68,7 +64,7 @@ public class SearchBooleanExpressionImpl implements SearchBooleanExpression {
         } else {
             DocumentsSet matchingDocuments = new DocumentsSet();
             for (Document document : allDocuments.getDocuments()) {
-                boolean documentMatches = checkDocumentMatchesQuery(document.getTermPositions(), booleanExpression);
+                boolean documentMatches = checkDocumentMatchesExpression(document.getTermPositions(), booleanExpression);
                 if (documentMatches) {
                     matchingDocuments.add(document);
                 }
@@ -77,17 +73,12 @@ public class SearchBooleanExpressionImpl implements SearchBooleanExpression {
         }
     }
 
-    private boolean checkDocumentMatchesQuery(Map<String, Map<Integer, Set<Integer>>> termPositions,
-                                              String booleanExpression) {
-        Set<Integer> possibleSentences = new HashSet<>();
-        checkWordExists(termPositions, "FAKE WORD");
+    //TODO: Apply boolean expression for each document.
+    private boolean checkDocumentMatchesExpression(Map<String, Map<Integer, Set<Integer>>> termPositions,
+                                                   String booleanExpression) {
         return true;
     }
 
-    private Set<Integer> getWordSentences(Map<String, Map<Integer,
-            Set<Integer>>> termPositions, String word) {
-        return termPositions.get(word).keySet();
-    }
 
     private InDocumentPosition checkWordExists(Map<String, Map<Integer, Set<Integer>>> termPositions, String word) {
         return new InDocumentPosition(false, null, null);

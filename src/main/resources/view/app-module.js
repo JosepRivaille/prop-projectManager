@@ -12,6 +12,10 @@
         .module('project', [
             'ui.router',
             'pascalprecht.translate',
+            'ngAnimate',
+            'ngAria',
+            'ngMessages',
+            'ngMaterial',
 
             'project.search',
             'project.manage',

@@ -17,5 +17,6 @@
   "MENU_SETTINGS_LOGOUT": "Logout",
   "MENU_ABOUT": "About",
 
-  "TITLE_ALL_DOCUMENTS": "All documents"
+  "TITLE_ALL_DOCUMENTS": "All documents",
+  "TITLE_SEARCH_AUTHORS": "Filter by author"
 }
