@@ -279,8 +279,24 @@ public class MainMenu {
                 IOUtils.enterToContinue();
                 break;
 
-//            case Strings.SEARCH_DOCUMENTS_BY_QUERY:
-//                break;
+            case Strings.SEARCH_DOCUMENTS_BY_QUERY:
+                String query = IOUtils.askForString(Strings.TYPE_QUERY);
+                int k2 = IOUtils.askForInt(Strings.TYPE_NUMBER_OF_DOCUMENTS, 1, 10000);
+                try {
+                    Document temporal = new Document("query","query",query);
+                    SortedDocumentsSet list = viewController.getDocumentsByRelevance(temporal, k2);
+                    IOUtils.drawLine(100);
+                    System.out.printf("    %-10s %-45s %-25s %n", "S.Factor", "Title", "Author");
+                    IOUtils.drawLine(100);
+                    for(int kk = 0; kk< list.getSize();++kk){
+                        System.out.printf("%-3d %-10s %-45s %-25s %n",kk+1, String.format("%.2f", list.getValue(kk)),
+                                list.getDocument(kk).getTitle(), list.getDocument(kk).getAuthor());
+                    }
+                } catch (DocumentNotFoundException e) {
+                     System.out.println(Strings.NO_DOCUMENTS_FOUND);
+                }
+                IOUtils.enterToContinue();
+                break;
 
             case Strings.SEARCH_DOCUMENTS_BY_RELEVANCE:
 
