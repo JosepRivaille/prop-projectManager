@@ -131,4 +131,8 @@ public class ViewControllerImpl implements ViewController {
         System.out.println("Your text is: " + text);
     }
 
+    public String test2() {
+        return "Yo dude!";
+    }
+
 }

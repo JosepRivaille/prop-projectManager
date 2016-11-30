@@ -6,15 +6,25 @@
     <md-content layout-gt-sm="row" layout-padding>
         <div>
             <md-input-container>
-                <label>Title</label>
-                <input ng-model="user.title">
-            </md-input-container>
-
-            <md-input-container>
-                <label>Email</label>
-                <input ng-model="user.email" type="email">
+                <label>Author</label>
+                <input ng-model="vm.author.name">
             </md-input-container>
         </div>
+    </md-content>
+
+    <p>{{ vm.asd }}</p>
+
+    <md-content>
+        <md-list flex>
+            <md-subheader class="md-no-sticky">{{"AUTHORS_FOUND" | translate}}</md-subheader>
+            <md-divider></md-divider>
+            <md-list-item class="md-3-line" ng-repeat="author in vm.authors" ng-click="null">
+                <div class="md-list-item-text" layout="column">
+                    <h3>{{ author.name }}</h3>
+                    <h4>{{ author.documents }}</h4>
+                </div>
+            </md-list-item>
+        </md-list>
     </md-content>
 
 </div>
