@@ -16,9 +16,11 @@
         var vm = this;
         vm.ctrlName = 'SearchAllCtrl';
 
-        vm.title = "TITLE_ALL_DOCUMENTS";
+        vm.title = 'TITLE_ALL_DOCUMENTS';
 
-        //vm.documents = backend.searchForAllDocuments();
-        //alert(vm.documents);
+        vm.authorName = '';
+
+        var response = backend.searchForAllDocuments();
+        vm.documents = JSON.parse(response).documents;
     }
 }());

@@ -100,6 +100,7 @@ public class ViewGraphicControllerImpl implements ViewGraphicController {
     @Override
     public String searchForAllDocuments() {
         DocumentsSet documents = this.businessController.searchForAllDocuments();
+        //TODO: Return only basic info
         return new Gson().toJson(documents);
     }
 

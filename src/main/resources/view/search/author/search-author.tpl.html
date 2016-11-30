@@ -1,18 +1,19 @@
 <div ng-controller="SearchAuthorCtrl as vm">
     <h1 class="title-landing">
-        {{ vm.title | translate}}
+        {{vm.title | translate}}
     </h1>
 
         <div class="search-input">
             <md-input-container>
                 <label>Author</label>
-                <input ng-model="vm.author.name">
+                <input ng-model="vm.authorName">
             </md-input-container>
         </div>
 
         <md-list flex ng-cloak>
             <md-list-item ng-repeat="author in vm.authors" class="md-clickable">
                 <h5>{{author.name}}</h5>
+                <md-button ng-click="vm.doSecondaryAction()"></md-button>
             </md-list-item>
         </md-list>
 
