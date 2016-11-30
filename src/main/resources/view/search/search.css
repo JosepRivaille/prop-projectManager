@@ -1,0 +1,20 @@
+.book-cover {
+    padding: 20px;
+    border-radius: 10px;
+    background-color: rgba(200, 200, 200, 0.05);
+    color: white
+}
+
+.book-cover > .title {
+    font-weight: bold;
+    font-size: 1.4em;
+}
+
+.book-cover > .author {
+    font-style: italic;
+    font-size: 1.2em;
+}
+
+.book-cover > .user {
+    font-size: 1em;
+}

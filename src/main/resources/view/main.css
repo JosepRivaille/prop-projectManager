@@ -163,8 +163,3 @@ body {
     padding: 10px;
     background: white;
 }
-
-/**************************************** Settings Styles ****************************************/
-md-checkbox.md-checked.gold .md-icon {
-    background-color: rgba(152,95,13, 0.87);
-}

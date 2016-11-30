@@ -16,7 +16,7 @@
         var vm = this;
         vm.ctrlName = 'SearchAllCtrl';
 
-        vm.title = 'TITLE_ALL_DOCUMENTS';
+        vm.title = 'MENU_SEARCH_ALL';
 
         vm.authorName = '';
 
