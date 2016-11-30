@@ -15,6 +15,10 @@ import edu.upc.fib.prop.persistence.dao.users.impl.DaoUsersImpl;
 import edu.upc.fib.prop.utils.Constants;
 import edu.upc.fib.prop.utils.FileUtils;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -165,6 +169,25 @@ public class PersistenceControllerImpl implements PersistenceController {
         }
 
         closeConnection();
+    }
+
+    public void createContentFile(String content, String name){
+        PrintWriter writer = null;
+        try {
+            writer = new PrintWriter("src/main/resources/documents/" + name, "UTF-8");
+            writer.print(content);
+            writer.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void deleteContentFile(String name){
+        File f = new File("src/main/resources/documents/" + name);
+        f.delete();
     }
 
 }

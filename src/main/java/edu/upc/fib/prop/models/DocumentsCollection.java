@@ -80,6 +80,7 @@ public class DocumentsCollection {
     }
 
     public Float getIdf(String word){
+        if(!wordsFrequencies.containsKey(word)) return 0f;
         return (float)Math.log((float)documents.size()/(float)wordsFrequencies.get(word));
     }
 

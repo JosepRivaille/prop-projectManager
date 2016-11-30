@@ -107,6 +107,20 @@ public class BusinessControllerImpl implements BusinessController {
     }
 
     @Override
+    public SortedDocumentsSet searchDocumentsByQuery(String str, int k)
+            throws DocumentNotFoundException {
+        this.persistenceController.createContentFile(str, "query.txt");
+         Document document = new Document("", "", "query.txt");
+        try {
+            document.updateFrequencies();
+        } catch (DocumentContentNotFoundException e) {
+            e.printStackTrace();
+        }
+        this.persistenceController.deleteContentFile("query.txt");
+        return this.searchDocument.searchForSimilarDocuments(this.documentsCollection, document, k);
+    }
+
+    @Override
     public DocumentsSet searchDocumentsByBooleanExpression(String booleanExpression) throws InvalidQueryException {
         return searchBooleanExpression.searchDocumentsByBooleanExpression(booleanExpression, documentsCollection);
     }

@@ -133,4 +133,14 @@ public interface BusinessController {
      * @return A set of matching documents.
      */
     DocumentsSet searchDocumentsByBooleanExpression(String booleanExpression) throws InvalidQueryException;
+
+    /**
+     *  Search for k similar documents to a given key
+     * @param str query to search
+     * @param k number of documents to search
+     * @return sorted set of similar documents
+     * @throws DocumentNotFoundException
+     */
+    SortedDocumentsSet searchDocumentsByQuery(String str, int k)
+            throws DocumentNotFoundException;
 }

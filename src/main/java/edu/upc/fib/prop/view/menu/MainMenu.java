@@ -283,8 +283,7 @@ public class MainMenu {
                 String query = IOUtils.askForString(Strings.TYPE_QUERY);
                 int k2 = IOUtils.askForInt(Strings.TYPE_NUMBER_OF_DOCUMENTS, 1, 10000);
                 try {
-                    Document temporal = new Document("query","query",query);
-                    SortedDocumentsSet list = viewController.getDocumentsByRelevance(temporal, k2);
+                    SortedDocumentsSet list = viewController.searchDocumentsByQuery(query, k2);
                     IOUtils.drawLine(100);
                     System.out.printf("    %-10s %-45s %-25s %n", "S.Factor", "Title", "Author");
                     IOUtils.drawLine(100);

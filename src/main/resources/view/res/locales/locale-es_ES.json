@@ -3,14 +3,14 @@
 
   "MENU_HOME": "Inicio",
   "MENU_SEARCH": "Buscador",
-  "MENU_SEARCH_ALL": "Buscar todos los documentos",
+  "MENU_SEARCH_ALL": "Todos los documentos",
   "MENU_SEARCH_AUTHOR": "Filtrar por autor",
   "MENU_SEARCH_SINGLE_DOCUMENT": "Documento específico",
   "MENU_MANAGEMENT": "Administración",
   "MENU_MANAGEMENT_ALL": "Mis documentos",
-  "MENU_MANAGEMENT_CREATE": "Crear arxivo",
-  "MENU_MANAGEMENT_UPDATE": "Editar arxivo",
-  "MENU_MANAGEMENT_DELETE": "Eliminar arxivo",
+  "MENU_MANAGEMENT_CREATE": "Crear archivo",
+  "MENU_MANAGEMENT_UPDATE": "Editar archivo",
+  "MENU_MANAGEMENT_DELETE": "Eliminar archivo",
   "MENU_SETTINGS": "Configuración",
   "MENU_ABOUT": "Sobre",
 
