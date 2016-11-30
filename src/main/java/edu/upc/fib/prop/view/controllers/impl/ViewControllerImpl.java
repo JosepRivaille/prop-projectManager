@@ -1,5 +1,6 @@
 package edu.upc.fib.prop.view.controllers.impl;
 
+import com.google.gson.Gson;
 import edu.upc.fib.prop.business.controllers.BusinessController;
 import edu.upc.fib.prop.business.controllers.impl.BusinessControllerImpl;
 import edu.upc.fib.prop.exceptions.*;
@@ -131,8 +132,9 @@ public class ViewControllerImpl implements ViewController {
         System.out.println("Your text is: " + text);
     }
 
-    public String test2() {
-        return "Yo dude!";
+    public String testAuthorsJSON() throws AuthorNotFoundException {
+        AuthorsCollection authorsCollection = businessController.searchMatchingAuthors("");
+        return new Gson().toJson(authorsCollection);
     }
 
 }

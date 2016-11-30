@@ -1,6 +1,6 @@
 package edu.upc.fib.prop;
 
-import edu.upc.fib.prop.view.controllers.impl.ViewControllerImpl;
+import edu.upc.fib.prop.view.controllers.impl.ViewGraphicControllerImpl;
 import javafx.application.Application;
 import javafx.concurrent.Worker;
 import javafx.geometry.HPos;
@@ -54,7 +54,7 @@ class Browser extends Region {
                     if (newValue == Worker.State.SUCCEEDED) {
 
                         JSObject jsobj = (JSObject) webEngine.executeScript("window");
-                        jsobj.setMember("backend", new ViewControllerImpl(webEngine, stage));
+                        jsobj.setMember("backend", new ViewGraphicControllerImpl(webEngine, stage));
                     }
                 });
 
@@ -62,7 +62,6 @@ class Browser extends Region {
 
         //add the web view to the scene
         getChildren().add(browser);
-
     }
 
     private Node createSpacer() {
@@ -78,11 +77,11 @@ class Browser extends Region {
     }
 
     @Override protected double computePrefWidth(double height) {
-        return 900;
+        return 1080;
     }
 
     @Override protected double computePrefHeight(double width) {
-        return 600;
+        return 768;
     }
 
 }
