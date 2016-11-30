@@ -19,3 +19,12 @@ CREATE TABLE IF NOT EXISTS documents (
   FOREIGN KEY(author_name) REFERENCES authors(author_name),
   FOREIGN KEY(user_owner) REFERENCES users(email)
 );
+
+CREATE TABLE IF NOT EXISTS favorites (
+  title VARCHAR NOT NULL,
+  author_name VARCHAR NOT NULL,
+  user_email VARCHAR NOT NULL,
+  PRIMARY KEY(title, author_name, user_email),
+  FOREIGN KEY(title, author_name) REFERENCES documents(title, author_name),
+  FOREIGN KEY(user_email) REFERENCES users(email)
+);
