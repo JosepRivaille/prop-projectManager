@@ -1,0 +1,26 @@
+{
+  "TITLE_PPP": "Administrador Biblioteca",
+
+  "MENU_HOME": "Inici",
+  "MENU_SEARCH": "Cercador",
+  "MENU_SEARCH_ALL": "Cercar tots els documents",
+  "MENU_SEARCH_AUTHOR": "Filtrar per autor",
+  "MENU_SEARCH_SINGLE_DOCUMENT": "Document específic",
+  "MENU_MANAGEMENT": "Administració",
+  "MENU_MANAGEMENT_ALL": "Els meus documents",
+  "MENU_MANAGEMENT_CREATE": "Crear arxiu",
+  "MENU_MANAGEMENT_UPDATE": "Editar arxiu",
+  "MENU_MANAGEMENT_DELETE": "Esborrar arxiu",
+  "MENU_SETTINGS": "Configuració",
+  "MENU_ABOUT": "Sobre",
+
+  "AUTHORS_FOUND": "Autors trobats",
+  "AUTHOR_BOOKS_TITLE": "Documents escrits per",
+  "AUTHOR_BOOKS_TEXT": "S'han trobat els següents documents relacionats amb l'autor",
+
+  "SETTINGS_LANGUAGES": "Canvia l'idioma del sistema",
+  "LANG_ENGLISH": "Anglès",
+  "LANG_CATALAN": "Català",
+  "LANG_SPANISH": "Castellà"
+
+}

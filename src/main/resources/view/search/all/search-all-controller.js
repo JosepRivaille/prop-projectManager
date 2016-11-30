@@ -17,5 +17,8 @@
         vm.ctrlName = 'SearchAllCtrl';
 
         vm.title = "TITLE_ALL_DOCUMENTS";
+
+        //vm.documents = backend.searchForAllDocuments();
+        //alert(vm.documents);
     }
 }());

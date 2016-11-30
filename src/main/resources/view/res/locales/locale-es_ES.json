@@ -1,3 +1,25 @@
 {
+  "TITLE_PPP": "Administrador Biblioteca",
 
+  "MENU_HOME": "Inicio",
+  "MENU_SEARCH": "Buscador",
+  "MENU_SEARCH_ALL": "Buscar todos los documentos",
+  "MENU_SEARCH_AUTHOR": "Filtrar por autor",
+  "MENU_SEARCH_SINGLE_DOCUMENT": "Documento específico",
+  "MENU_MANAGEMENT": "Administración",
+  "MENU_MANAGEMENT_ALL": "Mis documentos",
+  "MENU_MANAGEMENT_CREATE": "Crear arxivo",
+  "MENU_MANAGEMENT_UPDATE": "Editar arxivo",
+  "MENU_MANAGEMENT_DELETE": "Eliminar arxivo",
+  "MENU_SETTINGS": "Configuración",
+  "MENU_ABOUT": "Sobre",
+
+  "AUTHORS_FOUND": "Autores encontrados",
+  "AUTHOR_BOOKS_TITLE": "Documentos escritos por",
+  "AUTHOR_BOOKS_TEXT": "Se han encontrado los siguientes documentos relacionados con el autor",
+
+  "SETTINGS_LANGUAGES": "Cambia el idioma del sistema",
+  "LANG_ENGLISH": "Inglés",
+  "LANG_CATALAN": "Catalán",
+  "LANG_SPANISH": "Castellano"
 }

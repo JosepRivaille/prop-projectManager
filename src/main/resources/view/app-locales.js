@@ -19,6 +19,6 @@
             //Languages accepted: en_US, ca_ES and es_ES
             $translateProvider.preferredLanguage('en_US');
             $translateProvider.useSanitizeValueStrategy(null);
-        }])
+        }]);
 }());
 

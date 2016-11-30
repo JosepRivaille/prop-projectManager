@@ -1,5 +1,5 @@
 {
-  "TITLE_PPP": "Project Manager",
+  "TITLE_PPP": "Library Manager",
 
   "MENU_HOME": "Home",
   "MENU_SEARCH": "Searcher",
@@ -12,11 +12,15 @@
   "MENU_MANAGEMENT_UPDATE": "Update file",
   "MENU_MANAGEMENT_DELETE": "Delete file",
   "MENU_SETTINGS": "Settings",
-  "MENU_LANGUAGE": "Change language",
-  "MENU_SETTINGS_DELETE": "Delete account",
-  "MENU_SETTINGS_LOGOUT": "Logout",
   "MENU_ABOUT": "About",
 
-  "TITLE_ALL_DOCUMENTS": "All documents",
-  "TITLE_SEARCH_AUTHORS": "Filter by author"
+  "AUTHORS_FOUND": "Authors found",
+  "AUTHOR_BOOKS_TITLE": "Books writen by",
+  "AUTHOR_BOOKS_TEXT": "Following books found related with selected author",
+
+  "SETTINGS_LANGUAGES": "Change the language of the system",
+  "LANG_ENGLISH": "English",
+  "LANG_CATALAN": "Catalan",
+  "LANG_SPANISH": "Spanish"
+
 }
