@@ -70,4 +70,8 @@ public interface PersistenceController {
      */
     void updateDocument(Document oldDocument, Document newDocument);
 
+    void createContentFile(String content, String name);
+
+    void deleteContentFile(String name);
+
 }

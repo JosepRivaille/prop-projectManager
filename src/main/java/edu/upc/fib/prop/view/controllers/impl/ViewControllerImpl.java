@@ -53,6 +53,14 @@ public class ViewControllerImpl implements ViewController {
         return this.businessController.searchForAllDocuments();
     }
 
+    @Override
+    public SortedDocumentsSet searchDocumentsByQuery(String str, int k) throws DocumentNotFoundException {
+        return this.businessController.searchDocumentsByQuery(str, k);
+    }
+
+
+
+
 
 
 
