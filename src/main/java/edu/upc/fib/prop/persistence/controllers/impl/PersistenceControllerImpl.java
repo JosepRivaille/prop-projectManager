@@ -211,5 +211,12 @@ public class PersistenceControllerImpl implements PersistenceController {
         closeConnection();
     }
 
+    @Override
+    public void deleteAllFavouritesOfDocument(Document document) {
+        openConnection();
+        daoDocuments.deleteAllFavouritesOfDocument(c, document);
+        closeConnection();
+    }
+
 
 }

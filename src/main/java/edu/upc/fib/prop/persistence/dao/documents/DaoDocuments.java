@@ -78,4 +78,11 @@ public interface DaoDocuments {
      * @param user User that wants to remove the document as a favourite
      */
     void deleteDocumentFromFavourites(Connection c, Document document, String user) throws DocumentNotFoundException;
+
+    /**
+     * Removes all favourites of a given document from all users
+     * @param c
+     * @param document
+     */
+    void deleteAllFavouritesOfDocument(Connection c, Document document);
 }

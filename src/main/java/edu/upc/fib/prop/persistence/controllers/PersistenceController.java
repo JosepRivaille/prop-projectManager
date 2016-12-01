@@ -101,4 +101,10 @@ public interface PersistenceController {
      * @param user User that deleted the document as a favourite
      */
     void deleteDocumentFromFavourites(Document document, String user) throws DocumentNotFoundException;
+
+    /**
+     * Removes all favourites from all users of a given document
+     * @param document The favourites related to this document will be deleted
+     */
+    void deleteAllFavouritesOfDocument(Document document);
 }

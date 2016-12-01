@@ -155,4 +155,17 @@ public class DaoDocumentsImpl implements DaoDocuments {
         }
     }
 
+    @Override
+    public void deleteAllFavouritesOfDocument(Connection c, Document document) {
+        Statement statement = null;
+        try {
+            statement = c.createStatement();
+            String query = String.format("DELETE FROM favourites WHERE title LIKE '%s' AND author_name like '%s'", document.getTitle(), document.getAuthor());
+            statement.executeUpdate(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 }

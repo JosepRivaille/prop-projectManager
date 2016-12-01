@@ -13,6 +13,7 @@ import edu.upc.fib.prop.persistence.controllers.PersistenceController;
 import edu.upc.fib.prop.persistence.controllers.impl.PersistenceControllerImpl;
 import edu.upc.fib.prop.utils.ImportExport;
 
+import javax.print.Doc;
 import java.sql.SQLException;
 
 public class BusinessControllerImpl implements BusinessController {
@@ -180,6 +181,11 @@ public class BusinessControllerImpl implements BusinessController {
             try {
                 documentsCollection.addDocument(document);
                 persistenceController.writeNewDocument(document);
+                try {
+                    this.addDocumentToFavourites(document);
+                } catch (DocumentNotFoundException e) {
+                    e.printStackTrace();
+                }
                 reloadDBData();
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -193,6 +199,9 @@ public class BusinessControllerImpl implements BusinessController {
             if(documentsCollection.containsTitleAndAuthor(newDoc.getTitle(), newDoc.getAuthor())) throw  new AlreadyExistingDocumentException();
             Document updatedDoc = documentsCollection.updateDocument(oldDoc, newDoc);
             persistenceController.updateDocument(oldDoc, updatedDoc);
+            if(!oldDoc.getTitle().equals(updatedDoc.getTitle()) || !oldDoc.getAuthor().equals(updatedDoc.getAuthor())){
+                persistenceController.deleteAllFavouritesOfDocument(oldDoc);
+            }
             reloadDBData();
         }
     }
@@ -201,6 +210,7 @@ public class BusinessControllerImpl implements BusinessController {
     public void deleteDocument(Document document) {
         documentsCollection.deleteDocument(document);
         persistenceController.deleteDocument(document);
+        persistenceController.deleteAllFavouritesOfDocument(document);
         reloadDBData();
     }
 
