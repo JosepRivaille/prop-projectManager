@@ -88,4 +88,17 @@ public interface PersistenceController {
      */
     void rateDocument(Document document, int rating, String user) throws DocumentNotFoundException;
 
+    /**
+     *  Adds a document as a favourite of a given user
+     * @param document document to add as a favourite
+     * @param user User that added the document as a favourite
+     */
+    void addDocumentToFavourites(Document document, String user) throws DocumentNotFoundException;
+
+    /**
+     * Removes a document from an user's favourite documents list
+     * @param document Document that will be removed from favourites list
+     * @param user User that deleted the document as a favourite
+     */
+    void deleteDocumentFromFavourites(Document document, String user) throws DocumentNotFoundException;
 }

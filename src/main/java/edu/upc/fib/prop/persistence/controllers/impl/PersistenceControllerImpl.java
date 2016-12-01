@@ -197,4 +197,19 @@ public class PersistenceControllerImpl implements PersistenceController {
             closeConnection();
     }
 
+    @Override
+    public void addDocumentToFavourites(Document document, String user) throws DocumentNotFoundException {
+        openConnection();
+        daoDocuments.addDocumentToFavourites(c, document, user);
+        closeConnection();
+    }
+
+    @Override
+    public void deleteDocumentFromFavourites(Document document, String user) throws DocumentNotFoundException {
+        openConnection();
+        daoDocuments.deleteDocumentFromFavourites(c, document, user);
+        closeConnection();
+    }
+
+
 }

@@ -151,7 +151,12 @@ public class ViewControllerImpl implements ViewController {
     }
 
     @Override
-    public void addDocumentToFavourites(Document document) {
+    public void addDocumentToFavourites(Document document) throws DocumentNotFoundException {
         this.businessController.addDocumentToFavourites(document);
+    }
+
+    @Override
+    public void deleteDocumentFromFavourites(Document document) throws DocumentNotFoundException {
+        this.businessController.deleteDocumentFromFavourites(document);
     }
 }

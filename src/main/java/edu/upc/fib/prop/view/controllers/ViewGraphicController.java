@@ -134,6 +134,6 @@ public interface ViewGraphicController {
      * Add document to favourites.
      * @param document
      */
-    void addDocumentToFavourites(Document document);
+    void addDocumentToFavourites(Document document) throws DocumentNotFoundException;
 }
 

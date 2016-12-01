@@ -174,6 +174,11 @@ public interface BusinessController {
      *
      * @param document
      */
-    void addDocumentToFavourites(Document document);
+    void addDocumentToFavourites(Document document) throws DocumentNotFoundException;
 
+    /**
+     * Removes a document from an user's favourites documents list
+     * @param document
+     */
+    void deleteDocumentFromFavourites(Document document) throws DocumentNotFoundException;
 }

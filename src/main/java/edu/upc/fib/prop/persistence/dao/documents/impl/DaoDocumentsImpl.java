@@ -133,4 +133,26 @@ public class DaoDocumentsImpl implements DaoDocuments {
         }
     }
 
+    @Override
+    public void addDocumentToFavourites(Connection c, Document document, String user) throws DocumentNotFoundException{
+        try {
+            Statement statement = c.createStatement();
+            String query = String.format("INSERT OR REPLACE INTO favourites(title,author_name,user_email) VALUES ('%s','%s','%s')", document.getTitle(), document.getAuthor(), user);
+            statement.executeUpdate(query);
+        } catch (SQLException e) {
+            throw new DocumentNotFoundException();
+        }
+    }
+
+    @Override
+    public void deleteDocumentFromFavourites(Connection c, Document document, String user) throws DocumentNotFoundException{
+        try {
+            Statement statement = c.createStatement();
+            String query = String.format("DELETE FROM favourites WHERE title LIKE '%s' AND author_name LIKE '%s' AND user_email LIKE '%s'", document.getTitle(), document.getAuthor(), user);
+            statement.executeUpdate(query);
+        } catch (SQLException e) {
+            throw new DocumentNotFoundException();
+        }
+    }
+
 }

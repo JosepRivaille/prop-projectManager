@@ -126,8 +126,13 @@ public class BusinessControllerImpl implements BusinessController {
     }
 
     @Override
-    public void addDocumentToFavourites(Document document) {
-        //TODO implementar add 2 favourites
+    public void addDocumentToFavourites(Document document) throws DocumentNotFoundException {
+        persistenceController.addDocumentToFavourites(document, this.usersManager.getCurrentUser().getEmail());
+    }
+
+    @Override
+    public void deleteDocumentFromFavourites(Document document) throws DocumentNotFoundException {
+        persistenceController.deleteDocumentFromFavourites(document, this.usersManager.getCurrentUser().getEmail());
     }
 
     @Override

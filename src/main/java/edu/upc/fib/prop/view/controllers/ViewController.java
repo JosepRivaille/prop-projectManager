@@ -144,6 +144,13 @@ public interface ViewController {
      * Add document to favourites.
      * @param document
      */
-    void addDocumentToFavourites(Document document);
+    void addDocumentToFavourites(Document document) throws DocumentNotFoundException;
+
+    /**
+     * Removes a document from an user's favourite documents lits
+     * @param document
+     * @throws DocumentNotFoundException
+     */
+    void deleteDocumentFromFavourites(Document document) throws DocumentNotFoundException;
 }
 

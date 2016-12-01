@@ -120,7 +120,7 @@ public class ViewGraphicControllerImpl implements ViewGraphicController {
     }
 
     @Override
-    public void addDocumentToFavourites(Document document) {
+    public void addDocumentToFavourites(Document document) throws DocumentNotFoundException {
         this.businessController.addDocumentToFavourites(document);
     }
 }
