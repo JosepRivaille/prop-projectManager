@@ -1,9 +1,6 @@
 package edu.upc.fib.prop.persistence.controllers;
 
-import edu.upc.fib.prop.exceptions.AlreadyExistingDocumentException;
-import edu.upc.fib.prop.exceptions.AlreadyExistingUserException;
-import edu.upc.fib.prop.exceptions.InvalidDetailsException;
-import edu.upc.fib.prop.exceptions.UserNotFoundException;
+import edu.upc.fib.prop.exceptions.*;
 import edu.upc.fib.prop.models.AuthorsCollection;
 import edu.upc.fib.prop.models.Document;
 import edu.upc.fib.prop.models.DocumentsCollection;
@@ -70,8 +67,25 @@ public interface PersistenceController {
      */
     void updateDocument(Document oldDocument, Document newDocument);
 
+    /**
+     * Creates a file in the documents content directory with a given name
+     * @param content Content of the file
+     * @param name Name of the file
+     */
     void createContentFile(String content, String name);
 
+    /**
+     * Deletes a file with a given name in the documents content directory
+     * @param name Name of the file to delete
+     */
     void deleteContentFile(String name);
+
+    /**
+     * Updates a document ratings
+     * @param document document to rate
+     * @param rating points given to the document
+     * @param user User who rates
+     */
+    void rateDocument(Document document, int rating, String user) throws DocumentNotFoundException;
 
 }

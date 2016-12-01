@@ -190,4 +190,11 @@ public class PersistenceControllerImpl implements PersistenceController {
         f.delete();
     }
 
+    @Override
+    public void rateDocument(Document document, int rating, String user) throws DocumentNotFoundException {
+            openConnection();
+            daoDocuments.rateDocument(c, document, rating, user);
+            closeConnection();
+    }
+
 }

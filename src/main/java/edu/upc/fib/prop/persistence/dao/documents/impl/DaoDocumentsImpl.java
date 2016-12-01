@@ -1,6 +1,8 @@
 package edu.upc.fib.prop.persistence.dao.documents.impl;
 
 import edu.upc.fib.prop.exceptions.AlreadyExistingDocumentException;
+import edu.upc.fib.prop.exceptions.DocumentContentNotFoundException;
+import edu.upc.fib.prop.exceptions.DocumentNotFoundException;
 import edu.upc.fib.prop.exceptions.InvalidDetailsException;
 import edu.upc.fib.prop.models.Document;
 import edu.upc.fib.prop.models.DocumentsCollection;
@@ -21,14 +23,15 @@ public class DaoDocumentsImpl implements DaoDocuments {
         String author = document.getAuthor();
         String content = document.getContent();
         String user = document.getUser();
+        String cover = document.getCover();
         Map<String, Float> tf = document.getTermFrequency();
         Map<String, Map<Integer, Set<Integer>>> tp = document.getTermPositions();
         String termFrequency = StringUtils.buildJSONFromFrequencyMap(tf);
         String termPositions = StringUtils.buildJSONFromPositionsMap(tp);
         try {
             Statement statement = c.createStatement();
-            String query = String.format("INSERT INTO documents VALUES('%s', '%s', '%s', '%s', '%s', '%s')",
-                    title, author, user, termFrequency, termPositions, content);
+            String query = String.format("INSERT INTO documents VALUES('%s', '%s', '%s', '%s', '%s', '%s', '%s')",
+                    title, author, user, termFrequency, termPositions, content, cover);
             statement.executeUpdate(query);
         } catch (SQLException e) {
             throw new AlreadyExistingDocumentException();
@@ -115,6 +118,18 @@ public class DaoDocumentsImpl implements DaoDocuments {
             statement.executeUpdate(query);
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void rateDocument(Connection c, Document doc, int rating, String user) throws DocumentNotFoundException{
+        try {
+            Statement statement = c.createStatement();
+            //String q = "INSERT OR REPLACE INTO users(user_email, title, author_name, points) VALUES ('%s','%s','%s',%d)";
+            String query = String.format("INSERT OR REPLACE INTO ratings(user_email, title, author_name, points) VALUES ('%s','%s','%s', %d)", user, doc.getTitle(), doc.getAuthor(), rating);
+            statement.executeUpdate(query);
+        } catch (SQLException e) {
+            throw new DocumentNotFoundException();
         }
     }
 

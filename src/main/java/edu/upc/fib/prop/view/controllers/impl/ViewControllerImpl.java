@@ -145,4 +145,13 @@ public class ViewControllerImpl implements ViewController {
         return new Gson().toJson(authorsCollection);
     }
 
+    @Override
+    public void rateDocument(Document document, int rating) throws DocumentNotFoundException {
+        this.businessController.rateDocument(document, rating);
+    }
+
+    @Override
+    public void addDocumentToFavourites(Document document) {
+        this.businessController.addDocumentToFavourites(document);
+    }
 }

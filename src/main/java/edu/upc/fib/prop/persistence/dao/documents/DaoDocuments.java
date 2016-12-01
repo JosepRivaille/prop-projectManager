@@ -1,6 +1,8 @@
 package edu.upc.fib.prop.persistence.dao.documents;
 
 import edu.upc.fib.prop.exceptions.AlreadyExistingDocumentException;
+import edu.upc.fib.prop.exceptions.DocumentContentNotFoundException;
+import edu.upc.fib.prop.exceptions.DocumentNotFoundException;
 import edu.upc.fib.prop.models.Document;
 import edu.upc.fib.prop.models.DocumentsCollection;
 
@@ -51,5 +53,14 @@ public interface DaoDocuments {
      * @param email Email to filter documents to delete.
      */
     void deleteDocuments(Connection c, String email);
+
+    /**
+     * Rates a document
+     * @param c DB connection
+     * @param doc   Document to rate
+     * @param rating Points given to the document
+     * @param user User who rates the document
+     */
+    void rateDocument(Connection c, Document doc, int rating, String user) throws DocumentNotFoundException;
 
 }

@@ -121,6 +121,16 @@ public class BusinessControllerImpl implements BusinessController {
     }
 
     @Override
+    public void rateDocument(Document document, int rating) throws DocumentNotFoundException {
+        persistenceController.rateDocument(document, rating, this.usersManager.getCurrentUser().getEmail());
+    }
+
+    @Override
+    public void addDocumentToFavourites(Document document) {
+        //TODO implementar add 2 favourites
+    }
+
+    @Override
     public DocumentsSet searchDocumentsByBooleanExpression(String booleanExpression) throws InvalidQueryException {
         return searchBooleanExpression.searchDocumentsByBooleanExpression(booleanExpression, documentsCollection);
     }

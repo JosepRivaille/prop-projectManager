@@ -113,4 +113,14 @@ public class ViewGraphicControllerImpl implements ViewGraphicController {
     public void exportDocument(String pathToExport, Document document, String os) throws ImportExportException, DocumentContentNotFoundException {
 
     }
+
+    @Override
+    public void rateDocument(Document document, int rating) throws DocumentNotFoundException {
+        this.businessController.rateDocument(document, rating);
+    }
+
+    @Override
+    public void addDocumentToFavourites(Document document) {
+        this.businessController.addDocumentToFavourites(document);
+    }
 }

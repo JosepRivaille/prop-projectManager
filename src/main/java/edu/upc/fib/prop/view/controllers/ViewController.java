@@ -133,5 +133,17 @@ public interface ViewController {
      */
     void exportDocument(String pathToExport, Document document, String os) throws ImportExportException, DocumentContentNotFoundException;
 
+    /**
+     * Rates a document.
+     * @param document
+     * @param rating
+     */
+    void rateDocument(Document document, int rating) throws DocumentNotFoundException;
+
+    /**
+     * Add document to favourites.
+     * @param document
+     */
+    void addDocumentToFavourites(Document document);
 }
 

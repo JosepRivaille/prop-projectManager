@@ -14,6 +14,8 @@ public class Document {
     private String author;
     private String user;
     private String content;
+    private String cover;
+    private float rating;
     private Map<String, Float> termFrequency;
     private Map<String, Map<Integer, Set<Integer>>> termPositions;
 
@@ -23,7 +25,9 @@ public class Document {
         this.author = author;
         this.user = user;
         this.content = content;
-        termFrequency = new TreeMap<>();
+        this.termFrequency = new TreeMap<>();
+        this.rating = 0f;
+        this.cover = "";
     }
 
     public Document(String title, String author, String content) {
@@ -31,6 +35,8 @@ public class Document {
         this.author = author;
         termFrequency = new TreeMap<>();
         this.content = content;
+        this.rating = 0f;
+        this.cover = "";
     }
 
     /* Getters and Setters */
@@ -81,6 +87,22 @@ public class Document {
 
     public void setUser(String user) {
         this.user = user;
+    }
+
+    public String getCover() {
+        return cover;
+    }
+
+    public void setCover(String cover) {
+        this.cover = cover;
+    }
+
+    public float getRating() {
+        return rating;
+    }
+
+    public void setRating(float rating) {
+        this.rating = rating;
     }
 
     /* Utils */
