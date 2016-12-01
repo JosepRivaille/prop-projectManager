@@ -3,12 +3,20 @@
         {{ vm.title | translate}}
     </h1>
     <md-content>
-        <md-list ng-repeat="setting in vm.settings">
-            <md-subheader class="md-no-sticky">{{setting.title | translate}}</md-subheader>
-            <md-list-item ng-repeat="value in setting.values">
+        <md-list>
+            <md-subheader class="md-no-sticky">{{vm.languages.title | translate}}</md-subheader>
+            <md-list-item ng-repeat="value in vm.languages.values">
                 <p>{{value.name | translate}}</p>
                 <md-checkbox class="md-secondary gold" ng-model="value.selected" aria-label="Language checkbox"
-                             ng-click="vm.disableOtherLanguages(setting, value)"></md-checkbox>
+                             ng-click="vm.disableOtherLanguages(value)"></md-checkbox>
+            </md-list-item>
+            <md-divider ></md-divider>
+            <md-subheader class="md-no-sticky">{{vm.theme.title | translate}}</md-subheader>
+            <md-list-item>
+                <p ng-if="vm.theme.darkTheme">{{vm.theme.themeDark}}</p>
+                <p ng-if="!vm.theme.darkTheme">{{vm.theme.themeLight}}</p>
+                <md-switch class="md-secondary gold" ng-model="vm.theme.darkTheme" aria-label="Switch theme"
+                           ng-click="vm.switchTheme()"></md-switch>
             </md-list-item>
         </md-list>
     </md-content>

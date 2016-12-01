@@ -21,6 +21,10 @@
   "SETTINGS_LANGUAGES": "Change the language of the system",
   "LANG_ENGLISH": "English",
   "LANG_CATALAN": "Catalan",
-  "LANG_SPANISH": "Spanish"
+  "LANG_SPANISH": "Spanish",
+  "SETTINGS_THEME": "Change application theme",
+  "SWITCH_THEME_DARK": "Dark theme",
+  "SWITCH_THEME_LIGHT": "Light theme"
+
 
 }
