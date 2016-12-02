@@ -1,20 +1,33 @@
-.book-cover {
-    padding: 20px;
-    border-radius: 10px;
+.item {
+    width: 100%;
+    padding: 5px;
+    border-radius: 3px;
     background-color: rgba(200, 200, 200, 0.05);
-    color: white
+    color: white;
 }
 
-.book-cover > .title {
+.item img {
+    width: 70px;
+}
+
+.item:hover{
+    cursor: hand;
+}
+
+.item > .item-info {
+    margin-left: 15px;
+}
+
+.item > .title {
     font-weight: bold;
     font-size: 1.4em;
 }
 
-.book-cover > .author {
+.item > .author {
     font-style: italic;
     font-size: 1.2em;
 }
 
-.book-cover > .user {
+.item > .user {
     font-size: 1em;
 }

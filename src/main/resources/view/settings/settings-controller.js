@@ -12,7 +12,7 @@
         .module('project.settings')
         .controller('SettingsCtrl', SettingsCtrl);
 
-    function SettingsCtrl($translate, $mdThemingProvider) {
+    function SettingsCtrl($translate) {
         var vm = this;
         vm.ctrlName = 'SettingsCtrl';
 

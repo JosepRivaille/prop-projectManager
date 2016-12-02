@@ -3,12 +3,17 @@
         {{ vm.title | translate}}
     </h1>
 
-    <md-list flex ng-cloak>
+    <md-list ng-cloak>
         <md-list-item ng-repeat="document in vm.documents" layout="row">
-            <div class="book-cover" flex="100">
-                <p class="title">{{document.title}}</p>
-                <p class="author">{{document.author}}</p>
-                <p class="user">{{document.user}}</p>
+            <div class="item" layout="row">
+                <div >
+                    <img class="doc-cover" src="../images/sample.png">
+                </div>
+                <div class="item-info" layout-align="center center">
+                    <p class="title">{{document.title}}</p>
+                    <p class="author">{{document.author}}</p>
+                    <p class="user">{{document.user}}</p>
+                </div>
             </div>
         </md-list-item>
     </md-list>

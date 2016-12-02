@@ -70,18 +70,8 @@ public class SearchDocumentImpl implements SearchDocument {
         }
         return res;
     }
-    /*
-    private double getRelevanceFactor(WeightsVector wv1, WeightsVector wv2){
-        Double sum = 0.0;
-        for(String term : wv1){
-            if(wv2.contains(term)) sum += wv1.getWeight(term) * wv2.getWeight(term);
-        }
-        return sum;
-    }*/
 
-    //TODO Esto debería hacerse mas eficiente, guardando suma cuadrados de cada doc por ejemplo
     private double getRelevanceFactor(WeightsVector wv1, WeightsVector wv2){
-        Double sum = 0.0;
         Double sumProd = 0.0;
         Double sumSquaresWv1 = 0.0;
         Double sumSquaresWv2 = 0.0;
