@@ -60,9 +60,8 @@ public interface DaoDocuments {
      * @param doc   Document to rate
      * @param rating Points given to the document
      * @param user User who rates the document
-     * @return it returns true if the user had already rated the document, false otherwise.
      */
-    boolean rateDocument(Connection c, Document doc, int rating, String user) throws DocumentNotFoundException;
+    void rateDocument(Connection c, Document doc, int rating, String user) throws DocumentNotFoundException;
 
     /**
      * Adds a document as a favourite of a given user
@@ -95,4 +94,11 @@ public interface DaoDocuments {
      */
     void updateRatings(Connection c, Document document, Float newRating);
 
+    /**
+     * It returns, if exists, the document with the given title and author
+     * @param title
+     * @param author
+     * @return
+     */
+    Document getDocument(Connection c, String title, String author);
 }

@@ -49,6 +49,8 @@ public class DocumentsCollection {
         if(!updatedDoc.isCorrect()) throw new InvalidDetailsException();
         if (!updatedDoc.isContentPathCorrect()) throw new DocumentContentNotFoundException();
         if(!oldDoc.getContent().equals(newDoc.getContent())) updatedDoc.updateFrequencies();
+        if(oldDoc.getRating() != newDoc.getRating()) updatedDoc.setRating(newDoc.getRating());
+        if(oldDoc.getCover() != newDoc.getCover()) updatedDoc.setCover(newDoc.getCover());
         this.documents.remove(oldDoc);
         for(Map.Entry<String,Float> entry : oldDoc.getTermFrequency().entrySet()) {
             removeWord(entry.getKey());
@@ -110,6 +112,6 @@ public class DocumentsCollection {
     }
 
     public void updateDocumentRating(Document doc, int rating, boolean alreadyRated) {
-        documents.get(documents.indexOf(doc)).updateRating(rating, alreadyRated);
+        //documents.get(documents.indexOf(doc)).updateRating(rating, alreadyRated);
     }
 }

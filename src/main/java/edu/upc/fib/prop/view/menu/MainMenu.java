@@ -410,7 +410,17 @@ public class MainMenu {
                 break;
 
             case Strings.RATE_DOCUMENT:
-                Document doc = documentManager.showDocumentsAndSelectOne();
+                DocumentsSet docs = viewController.searchForAllDocuments();
+                IOUtils.drawLine(120);
+                System.out.printf("    %-48s %-30s %-29s %n", "Title", "Author", "Created by");
+                IOUtils.drawLine(120);
+                int iii=0;
+                for (Document doc : docs) {
+                    System.out.printf("%-3d %-48s %-30s %-29s %n", ++iii, doc.getTitle(), doc.getAuthor(), doc.getUser());
+                }
+                System.out.println();
+                int opt = IOUtils.askForInt("Document",1, docs.size());
+                Document doc = docs.get(opt-1);
                 if(doc != null){
                     int input = IOUtils.askForInt("Type your rating", 1, 5);
                     try {

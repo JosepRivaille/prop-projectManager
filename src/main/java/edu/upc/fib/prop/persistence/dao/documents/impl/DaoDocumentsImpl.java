@@ -25,7 +25,6 @@ public class DaoDocumentsImpl implements DaoDocuments {
         String user = document.getUser();
         String cover = document.getCover();
         Float rating = document.getRating();
-        int n_ratings = document.getN_ratings();
         Map<String, Float> tf = document.getTermFrequency();
         Map<String, Map<Integer, Set<Integer>>> tp = document.getTermPositions();
         String termFrequency = StringUtils.buildJSONFromFrequencyMap(tf);
@@ -33,8 +32,8 @@ public class DaoDocumentsImpl implements DaoDocuments {
         try {
             Statement statement = c.createStatement();
             String query = String.format("INSERT INTO documents " +
-                            "VALUES('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%f', '%d')",
-                    title, author, user, termFrequency, termPositions, content, cover, rating, n_ratings);
+                            "VALUES('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%f')",
+                    title, author, user, termFrequency, termPositions, content, cover, rating);
             statement.executeUpdate(query);
         } catch (SQLException e) {
             throw new AlreadyExistingDocumentException();
@@ -54,7 +53,9 @@ public class DaoDocumentsImpl implements DaoDocuments {
                 String user = rs.getString("user_owner");
                 String termFrequency = rs.getString("term_frequency");
                 String termPositions = rs.getString("term_positions");
+                Float rating = rs.getFloat("rating");
                 Document document = new Document(title, authorName, content, user);
+                document.setRating(rating);
                 document.setTermFrequency(StringUtils.buildFrequencyMapFromJSON(termFrequency));
                 document.setTermPositions(StringUtils.buildPositionMapFromJSON(termPositions));
                 try {
@@ -126,21 +127,29 @@ public class DaoDocumentsImpl implements DaoDocuments {
     }
 
     @Override
-    public boolean rateDocument(Connection c, Document doc, int rating, String user) throws DocumentNotFoundException{
+    public void rateDocument(Connection c, Document doc, int rating, String user) throws DocumentNotFoundException{
         try {
-            boolean alreadyRated = false;
+
             Statement statement = c.createStatement();
-            String query = String.format("SELECT * FROM ratings WHERE title LIKE '%s' " +
-                    "AND author_name LIKE '%s' AND user_email LIKE '%s'", doc.getTitle(), doc.getAuthor(), user);
-            ResultSet rs = statement.executeQuery(query);
-            if(rs.next()){
-                alreadyRated = true;
-            }
-            statement = c.createStatement();
-            query = String.format("INSERT OR REPLACE INTO ratings(user_email, title, author_name, points)" +
+            String query = String.format("INSERT OR REPLACE INTO ratings(user_email, title, author_name, points)" +
                     " VALUES ('%s','%s','%s', %d)", user, doc.getTitle(), doc.getAuthor(), rating);
             statement.executeUpdate(query);
-            return alreadyRated;
+
+            statement = c.createStatement();
+            query = String.format("SELECT points FROM ratings WHERE title LIKE '%s' AND author_name LIKE '%s'", doc.getTitle(), doc.getAuthor());
+            ResultSet rs = statement.executeQuery(query);
+            Float total = 0f;
+            int n_ratings = 0;
+            while(rs.next()){
+                total += rs.getInt("points");
+                n_ratings++;
+            }
+
+            query = String.format("UPDATE documents SET rating = %.2f WHERE title " +
+                    "LIKE '%s' AND author_name LIKE '%s'", (float)total/n_ratings, doc.getTitle(), doc.getAuthor());
+            query = query.replace(",", ".");
+            statement.executeUpdate(query);
+
         } catch (SQLException e) {
             throw new DocumentNotFoundException();
         }
@@ -187,12 +196,36 @@ public class DaoDocumentsImpl implements DaoDocuments {
             Statement statement = c.createStatement();
             String query = String.format("UPDATE documents SET rating", document.getTitle(), document.getAuthor());
             statement.executeUpdate(query);
-
-
-            //TODO El rating del documento es points/votes
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public Document getDocument(Connection c, String title, String author) {
+        try {
+
+            Statement statement = c.createStatement();
+            String query = String.format("SELECT * FROM documents WHERE title LIKE '%s' AND author_name LIKE '%s'", title, author);
+            ResultSet rs = statement.executeQuery(query);
+
+            if(rs.next()){
+                String content = rs.getString("content");
+                String user = rs.getString("user_owner");
+                String termFrequency = rs.getString("term_frequency");
+                String termPositions = rs.getString("term_positions");
+                Float rating = rs.getFloat("rating");
+                Document document = new Document(title, author, content, user);
+                document.setRating(rating);
+                document.setTermFrequency(StringUtils.buildFrequencyMapFromJSON(termFrequency));
+                document.setTermPositions(StringUtils.buildPositionMapFromJSON(termPositions));
+                return document;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }

@@ -16,7 +16,6 @@ public class Document {
     private String content;
     private String cover;
     private float rating;
-    private int n_ratings;
     private Map<String, Float> termFrequency;
     private Map<String, Map<Integer, Set<Integer>>> termPositions;
 
@@ -28,7 +27,6 @@ public class Document {
         this.content = content;
         this.termFrequency = new TreeMap<>();
         this.rating = 0f;
-        this.n_ratings = 0;
         this.cover = "";
     }
 
@@ -38,7 +36,6 @@ public class Document {
         termFrequency = new TreeMap<>();
         this.content = content;
         this.rating = 0f;
-        this.n_ratings = 0;
         this.cover = "";
     }
 
@@ -108,14 +105,6 @@ public class Document {
         this.rating = rating;
     }
 
-    public void increaseRatings(){this.n_ratings++;}
-
-    public int getN_ratings() {
-        return n_ratings;
-    }
-
-    public void decreaseRatings(){this.n_ratings--;}
-
     /* Utils */
 
     //TODO: Extract into a logic class
@@ -171,6 +160,9 @@ public class Document {
     public Document clone(){
         Document clonedDoc = new Document(this.title, this.author, this.content, this.user);
         clonedDoc.setTermFrequency(this.termFrequency);
+        clonedDoc.setTermPositions((this.termPositions));
+        clonedDoc.setRating(this.rating);
+        clonedDoc.setCover(this.cover);
         return clonedDoc;
     }
 
@@ -207,10 +199,5 @@ public class Document {
                 document.user == null && (content != null ? content.equals(document.content) : document.content == null
                         && (termFrequency != null ? termFrequency.equals(document.termFrequency) :
                         document.termFrequency == null))));
-    }
-
-    public void updateRating(int rating, boolean alreadyRated) {
-        if(alreadyRated) this.rating = ((rating * (this.n_ratings-1)) + rating)/n_ratings;
-        else this.rating = ((rating * this.n_ratings) + rating)/++n_ratings;
     }
 }

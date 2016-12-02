@@ -123,8 +123,16 @@ public class BusinessControllerImpl implements BusinessController {
 
     @Override
     public void rateDocument(Document document, int rating) throws DocumentNotFoundException {
-        boolean alreadyRated = persistenceController.rateDocument(document, rating, this.usersManager.getCurrentUser().getEmail());
-        documentsCollection.updateDocumentRating(document, rating, alreadyRated);
+        persistenceController.rateDocument(document, rating, this.usersManager.getCurrentUser().getEmail());
+        try {
+            documentsCollection.updateDocument(document, persistenceController.getDocument(document.getTitle(), document.getAuthor()));
+        } catch (InvalidDetailsException e) {
+            e.printStackTrace();
+        } catch (AlreadyExistingDocumentException e) {
+            e.printStackTrace();
+        } catch (DocumentContentNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

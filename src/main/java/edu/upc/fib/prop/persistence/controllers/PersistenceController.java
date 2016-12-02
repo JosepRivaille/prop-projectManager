@@ -85,9 +85,8 @@ public interface PersistenceController {
      * @param document document to rate
      * @param rating points given to the document
      * @param user User who rates
-     * @return it returns true if the user had already rated the document, false otherwise.
      */
-    boolean rateDocument(Document document, int rating, String user) throws DocumentNotFoundException;
+    void rateDocument(Document document, int rating, String user) throws DocumentNotFoundException;
 
     /**
      *  Adds a document as a favourite of a given user
@@ -108,4 +107,12 @@ public interface PersistenceController {
      * @param document The favourites related to this document will be deleted
      */
     void deleteAllFavouritesOfDocument(Document document);
+
+    /**
+     * It returns, if exists, the document with a given title and author.
+     * @param title
+     * @param author
+     * @return
+     */
+    Document getDocument(String title, String author);
 }
