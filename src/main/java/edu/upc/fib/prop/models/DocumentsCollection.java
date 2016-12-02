@@ -109,4 +109,7 @@ public class DocumentsCollection {
         return vec;
     }
 
+    public void updateDocumentRating(Document doc, int rating, boolean alreadyRated) {
+        documents.get(documents.indexOf(doc)).updateRating(rating, alreadyRated);
+    }
 }

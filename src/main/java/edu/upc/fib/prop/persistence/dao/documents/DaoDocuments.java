@@ -60,8 +60,9 @@ public interface DaoDocuments {
      * @param doc   Document to rate
      * @param rating Points given to the document
      * @param user User who rates the document
+     * @return it returns true if the user had already rated the document, false otherwise.
      */
-    void rateDocument(Connection c, Document doc, int rating, String user) throws DocumentNotFoundException;
+    boolean rateDocument(Connection c, Document doc, int rating, String user) throws DocumentNotFoundException;
 
     /**
      * Adds a document as a favourite of a given user
@@ -81,8 +82,17 @@ public interface DaoDocuments {
 
     /**
      * Removes all favourites of a given document from all users
-     * @param c
-     * @param document
+     * @param c DB Connection
+     * @param document All favourites related with this book will be deleted
      */
     void deleteAllFavouritesOfDocument(Connection c, Document document);
+
+    /**
+     * Update all documents ratings
+     * @param c DB Connection
+     * @param document Dcument to update its rating
+     * @param newRating New rating
+     */
+    void updateRatings(Connection c, Document document, Float newRating);
+
 }

@@ -24,14 +24,17 @@ public class DaoDocumentsImpl implements DaoDocuments {
         String content = document.getContent();
         String user = document.getUser();
         String cover = document.getCover();
+        Float rating = document.getRating();
+        int n_ratings = document.getN_ratings();
         Map<String, Float> tf = document.getTermFrequency();
         Map<String, Map<Integer, Set<Integer>>> tp = document.getTermPositions();
         String termFrequency = StringUtils.buildJSONFromFrequencyMap(tf);
         String termPositions = StringUtils.buildJSONFromPositionsMap(tp);
         try {
             Statement statement = c.createStatement();
-            String query = String.format("INSERT INTO documents VALUES('%s', '%s', '%s', '%s', '%s', '%s', '%s')",
-                    title, author, user, termFrequency, termPositions, content, cover);
+            String query = String.format("INSERT INTO documents " +
+                            "VALUES('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%f', '%d')",
+                    title, author, user, termFrequency, termPositions, content, cover, rating, n_ratings);
             statement.executeUpdate(query);
         } catch (SQLException e) {
             throw new AlreadyExistingDocumentException();
@@ -68,6 +71,7 @@ public class DaoDocumentsImpl implements DaoDocuments {
 
     @Override
     public void updateExistingDocument(Connection c, Document oldDocument, Document newDocument) {
+        //TODO al modificar un documento deberian actualizarse tambien datos como posiciones de palabras, ratings..?
         String oldTitle = oldDocument.getTitle();
         String oldAuthor = oldDocument.getAuthor();
         try {
@@ -122,12 +126,21 @@ public class DaoDocumentsImpl implements DaoDocuments {
     }
 
     @Override
-    public void rateDocument(Connection c, Document doc, int rating, String user) throws DocumentNotFoundException{
+    public boolean rateDocument(Connection c, Document doc, int rating, String user) throws DocumentNotFoundException{
         try {
+            boolean alreadyRated = false;
             Statement statement = c.createStatement();
-            //String q = "INSERT OR REPLACE INTO users(user_email, title, author_name, points) VALUES ('%s','%s','%s',%d)";
-            String query = String.format("INSERT OR REPLACE INTO ratings(user_email, title, author_name, points) VALUES ('%s','%s','%s', %d)", user, doc.getTitle(), doc.getAuthor(), rating);
+            String query = String.format("SELECT * FROM ratings WHERE title LIKE '%s' " +
+                    "AND author_name LIKE '%s' AND user_email LIKE '%s'", doc.getTitle(), doc.getAuthor(), user);
+            ResultSet rs = statement.executeQuery(query);
+            if(rs.next()){
+                alreadyRated = true;
+            }
+            statement = c.createStatement();
+            query = String.format("INSERT OR REPLACE INTO ratings(user_email, title, author_name, points)" +
+                    " VALUES ('%s','%s','%s', %d)", user, doc.getTitle(), doc.getAuthor(), rating);
             statement.executeUpdate(query);
+            return alreadyRated;
         } catch (SQLException e) {
             throw new DocumentNotFoundException();
         }
@@ -166,6 +179,20 @@ public class DaoDocumentsImpl implements DaoDocuments {
             e.printStackTrace();
         }
 
+    }
+
+    @Override
+    public void updateRatings(Connection c, Document document, Float newRating) {
+        try {
+            Statement statement = c.createStatement();
+            String query = String.format("UPDATE documents SET rating", document.getTitle(), document.getAuthor());
+            statement.executeUpdate(query);
+
+
+            //TODO El rating del documento es points/votes
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 }

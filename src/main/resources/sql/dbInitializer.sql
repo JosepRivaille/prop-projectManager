@@ -16,6 +16,8 @@ CREATE TABLE IF NOT EXISTS documents (
   term_positions VARCHAR NOT NULL,                          -- JSON with word - positions
   content VARCHAR NOT NULL,
   cover VARCHAR NOT NULL,
+  rating REAL NOT NULL,
+  n_ratings INTEGER NOT NULL,
   PRIMARY KEY(title, author_name),
   FOREIGN KEY(author_name) REFERENCES authors(author_name),
   FOREIGN KEY(user_owner) REFERENCES users(email)

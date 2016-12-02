@@ -141,6 +141,7 @@ public class MainMenu {
         options.add("2. " + Strings.READ_DOCUMENT);
         options.add("3. " + Strings.EDIT_DOCUMENT);
         options.add("4. " + Strings.DELETE_DOCUMENT);
+        options.add("5. " + Strings.RATE_DOCUMENT);
         options.add("0. " + Strings.GO_BACK);
         root.addChild(new MenuTree(Strings.DOCUMENTS_MANAGER_HEADER, options, false));
 
@@ -152,6 +153,9 @@ public class MainMenu {
         root.getChildren().get(1).addChild(new MenuTree(Strings.EDIT_DOCUMENT, null, true));
         //Level 2.4
         root.getChildren().get(1).addChild(new MenuTree(Strings.DELETE_DOCUMENT, null, true));
+        //Level 2.5
+        root.getChildren().get(1).addChild(new MenuTree(Strings.RATE_DOCUMENT, null, true));
+
 
         //Level 3
         options = new ArrayList<>();
@@ -401,6 +405,19 @@ public class MainMenu {
                     System.out.println(Strings.DOCUMENT_DELETED_SUCCESSFULLY);
                 } catch (DocumentNotFoundException e) {
                     System.out.println(Strings.NO_DOCUMENTS_FOUND);
+                }
+                IOUtils.enterToContinue();
+                break;
+
+            case Strings.RATE_DOCUMENT:
+                Document doc = documentManager.showDocumentsAndSelectOne();
+                if(doc != null){
+                    int input = IOUtils.askForInt("Type your rating", 1, 5);
+                    try {
+                        viewController.rateDocument(doc, input);
+                    } catch (DocumentNotFoundException e) {
+                        e.printStackTrace();
+                    }
                 }
                 IOUtils.enterToContinue();
                 break;

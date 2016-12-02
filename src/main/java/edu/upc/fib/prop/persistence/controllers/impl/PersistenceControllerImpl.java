@@ -191,10 +191,11 @@ public class PersistenceControllerImpl implements PersistenceController {
     }
 
     @Override
-    public void rateDocument(Document document, int rating, String user) throws DocumentNotFoundException {
+    public boolean rateDocument(Document document, int rating, String user) throws DocumentNotFoundException {
             openConnection();
-            daoDocuments.rateDocument(c, document, rating, user);
+            boolean alreadyRated = daoDocuments.rateDocument(c, document, rating, user);
             closeConnection();
+            return alreadyRated;
     }
 
     @Override

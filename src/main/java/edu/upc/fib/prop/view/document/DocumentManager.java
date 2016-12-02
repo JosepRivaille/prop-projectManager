@@ -58,6 +58,20 @@ public class DocumentManager {
         }
     }
 
+    public Document showDocumentsAndSelectOne() {
+        int size = showList();
+        if (size > 0) {
+            System.out.println();
+            int documentSelected = IOUtils.askForInt("Document", 1, size) - 1;
+            System.out.println();
+            Document document = this.documentsCollection.getDocuments().get(documentSelected);
+            return document;
+        } else {
+            System.out.println("No documents found!");
+            return null;
+        }
+    }
+
     public Pair<Document, Document> updateDocument() throws DocumentNotFoundException {
         int numDocuments = showList();
         System.out.println();

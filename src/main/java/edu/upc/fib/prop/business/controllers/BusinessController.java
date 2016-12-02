@@ -166,6 +166,7 @@ public interface BusinessController {
      *
      * @param document
      * @param rating
+     * @throws DocumentNotFoundException
      */
     void rateDocument(Document document, int rating) throws DocumentNotFoundException;
 
