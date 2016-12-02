@@ -4,15 +4,16 @@
     </h1>
 
     <md-list ng-cloak>
-        <md-list-item ng-repeat="document in vm.documents" layout="row">
-            <div class="item" layout="row">
-                <div >
-                    <img class="doc-cover" src="../images/sample.png">
+        <md-list-item ng-repeat="document in vm.documents" layout="row" layout-margin>
+            <div flex class="item" layout="row" layout-align="left center">
+                <div>
+                    <img class="doc-cover " src="../images/sample.png">
                 </div>
-                <div class="item-info" layout-align="center center">
-                    <p class="title">{{document.title}}</p>
-                    <p class="author">{{document.author}}</p>
-                    <p class="user">{{document.user}}</p>
+                <div class="item-info">
+                    <span class="title">{{document.title}}</span><br>
+                    <span class="author">{{document.author}}</span><br>
+                    <span class="user">{{document.user}}</span><br>
+                    <span class="user">{{document.rating}}</span><br>
                 </div>
             </div>
         </md-list-item>

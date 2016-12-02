@@ -1,33 +1,32 @@
+[layout-margin] > [flex] {
+    margin: 1px;
+}
+
 .item {
     width: 100%;
     padding: 5px;
     border-radius: 3px;
     background-color: rgba(200, 200, 200, 0.05);
-    color: white;
 }
 
 .item img {
     width: 70px;
 }
 
-.item:hover{
-    cursor: hand;
-}
-
 .item > .item-info {
     margin-left: 15px;
 }
 
-.item > .title {
-    font-weight: bold;
-    font-size: 1.4em;
-}
-
-.item > .author {
-    font-style: italic;
+.item-info > .title {
+    font-weight: bolder;
     font-size: 1.2em;
 }
 
-.item > .user {
+.item-info > .author {
+    font-style: italic;
+    font-size: 1em;
+}
+
+.item-info > .user {
     font-size: 1em;
 }
