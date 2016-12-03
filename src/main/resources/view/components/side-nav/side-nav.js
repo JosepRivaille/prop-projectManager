@@ -12,7 +12,7 @@
         .module('project')
         .controller('SideNavController', SideNavController)
         .component('sideNav', {
-            templateUrl: 'components/side-nav.html',
+            templateUrl: 'components/side-nav/side-nav.tpl.html',
             controller: SideNavController
         });
 

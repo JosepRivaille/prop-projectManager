@@ -7,7 +7,7 @@
   "MENU_SEARCH_AUTHOR": "Filter by author",
   "MENU_SEARCH_SINGLE_DOCUMENT": "Specific document",
   "MENU_MANAGEMENT": "Management",
-  "MENU_MANAGEMENT_ALL": "My files",
+  "MENU_MANAGEMENT_ALL": "My documents",
   "MENU_MANAGEMENT_CREATE": "Create file",
   "MENU_MANAGEMENT_UPDATE": "Update file",
   "MENU_MANAGEMENT_DELETE": "Delete file",
@@ -18,6 +18,18 @@
   "AUTHOR_BOOKS_TITLE": "Books writen by",
   "AUTHOR_BOOKS_TEXT": "Following books found related with selected author",
 
+  "DIALOG_CREATE_TITLE": "Create document",
+  "DIALOG_CREATE_CONTENT": "You are about to create a new document and everyone will be able to see it. Are you sure you want to proceed?",
+  "DIALOG_CREATE_ARIA_LABEL": "Create document",
+  "DIALOG_CREATE_OK": "OK",
+  "DIALOG_CREATE_CANCEL": "Cancel",
+
+  "DIALOG_DELETE_TITLE": "Delete document",
+  "DIALOG_DELETE_CONTENT": "You are about to delete a document and this operation is irreversible. Are you sure you want to proceed?",
+  "DIALOG_DELETE_ARIA_LABEL": "Delete document",
+  "DIALOG_DELETE_OK": "OK",
+  "DIALOG_DELETE_CANCEL": "Cancel",
+
   "SETTINGS_LANGUAGES": "Change the language of the system",
   "LANG_ENGLISH": "English",
   "LANG_CATALAN": "Catalan",
@@ -25,6 +37,4 @@
   "SETTINGS_THEME": "Change application theme",
   "SWITCH_THEME_DARK": "Dark theme",
   "SWITCH_THEME_LIGHT": "Light theme"
-
-
 }

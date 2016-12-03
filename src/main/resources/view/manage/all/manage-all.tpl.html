@@ -1,26 +1,76 @@
 <h1 class="title-landing">
-    {{ vm.title | translate}}
+    {{vm.title | translate}}
 </h1>
 
-<md-list ng-cloak>
-    <md-list-item ng-repeat="document in vm.documents" layout="row" layout-margin>
-        <div flex class="item" layout="row" layout-align="left center">
-            <div>
-                <img class="doc-cover" ng-show="{{document.cover !== ''}}" ng-src="../images/{{document.cover}}">
-                <img class="doc-cover" ng-show="{{document.cover === ''}}" ng-src="../images/sample.png">
-            </div>
-            <div class="item-info">
-                <span class="title">{{document.title}}</span><br>
-                <span class="author">{{document.author}}</span><br>
-                <span class="user">{{document.user}}</span><br>
-                <span class="user">{{document.rating}}</span><br>
+<div ng-show="vm.isListSelected">
+    <div flex layout="column" layout-align="end end">
+        <md-button layout="row" layout-align="center center" class="white-button" ng-click="vm.createDocument()">
+            <i class="fa fa-plus"></i>
+        </md-button>
+        <md-button layout="row" layout-align="center center" class="white-button">
+            <i class="fa fa-upload"></i>
+        </md-button>
+    </div>
 
-                <md-button class="read-button"><i class="read-button fa fa-book"></i></md-button>
-                <md-button class="edit-button"><i class="fa fa-pencil-square-o"></i></md-button>
-                <md-button class="delete-button" ng-click="vm.showAlert($event)">
-                    <i class="fa fa-trash"></i>
-                </md-button>
+    <md-list ng-cloak>
+        <md-list-item ng-repeat="document in vm.documents" layout="row" layout-margin>
+            <div flex class="item" layout="row" layout-align="left center">
+                <div class="little-padding-left">
+                    <img class="doc-cover" ng-show="{{document.cover !== ''}}" ng-src="../images/{{document.cover}}">
+                    <img class="doc-cover" ng-show="{{document.cover === ''}}" ng-src="../images/sample.png">
+                </div>
+                <div class="item-info">
+                    <span class="title">{{document.title}}</span><br>
+                    <span class="author">{{document.author}}</span><br>
+                    <span class="user">{{document.user}}</span><br>
+                    <!-- TODO: NOT WORKING ON WEBVIEW -->
+                    <star-rating ng-model="document.rating"></star-rating><br>
+
+                    <div flex layout="row" layout-align="end end">
+                        <md-button layout="row" layout-align="center center" class="read-button">
+                            <i class="fa fa-book"></i>
+                        </md-button>
+                        <md-button layout="row" layout-align="center center" class="edit-button">
+                            <i class="fa fa-pencil-square-o"></i>
+                        </md-button>
+                        <md-button class="delete-button" ng-click="vm.showDeleteConfirm($event)">
+                            <i class="fa fa-trash"></i>
+                        </md-button>
+                    </div>
+                </div>
             </div>
+        </md-list-item>
+    </md-list>
+</div>
+
+<div ng-if="!vm.isListSelected">
+    <md-content class="md-no-momentum" layout-padding>
+        <div>
+            <form name="documentForm">
+                <div layout-gt-sm="row">
+                    <md-input-container class="md-icon-float md-block" flex-gt-sm="">
+                        <label>Document title</label>
+                        <input ng-model="vm.documentSelected.title" type="text">
+                    </md-input-container>
+                    <md-input-container class="md-icon-float md-block" flex-gt-sm="">
+                        <label>Author name</label>
+                        <input ng-model="vm.documentSelected.author" type="text">
+                    </md-input-container>
+                </div>
+                <md-input-container class="md-icon-float md-block">
+                    <label>Content</label>
+                    <textarea ng-model="vm.documentSelected.content" rows="5" md-select-on-focus=""></textarea>
+                </md-input-container>
+
+                <div flex layout="row" layout-align="end end">
+                    <md-button layout-align="center center" class="save-button" ng-click="vm.backToList()">
+                        <i class="fa fa-chevron-left"></i>
+                    </md-button>
+                    <md-button layout-align="center center" class="save-button" ng-click="vm.storeDocument($event)">
+                        <i class="fa fa-save"></i>
+                    </md-button>
+                </div>
+            </form>
         </div>
-    </md-list-item>
-</md-list>
+    </md-content>
+</div>

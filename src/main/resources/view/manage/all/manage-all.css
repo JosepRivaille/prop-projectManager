@@ -1,11 +1,15 @@
 .read-button {
-    background-color: rgba(255, 222, 121, 0.96);
+    background-color: #3e8f3e;
 }
 
 .edit-button {
-    color: #1b6d85;
+    background-color: #1b6d85;
 }
 
 .delete-button {
-    color: darkred;
+    background-color: darkred;
+}
+
+.save-button {
+    background-color: #4f5f84;
 }
