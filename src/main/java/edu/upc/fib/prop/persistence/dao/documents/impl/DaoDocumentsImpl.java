@@ -51,11 +51,13 @@ public class DaoDocumentsImpl implements DaoDocuments {
                 String authorName = rs.getString("author_name");
                 String content = rs.getString("content");
                 String user = rs.getString("user_owner");
+                String cover = rs.getString("cover");
                 String termFrequency = rs.getString("term_frequency");
                 String termPositions = rs.getString("term_positions");
                 Float rating = rs.getFloat("rating");
                 Document document = new Document(title, authorName, content, user);
                 document.setRating(rating);
+                document.setCover(cover);
                 document.setTermFrequency(StringUtils.buildFrequencyMapFromJSON(termFrequency));
                 document.setTermPositions(StringUtils.buildPositionMapFromJSON(termPositions));
                 try {
