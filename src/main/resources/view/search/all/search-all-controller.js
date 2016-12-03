@@ -12,13 +12,12 @@
         .module('project.search')
         .controller('SearchAllCtrl', SearchAllCtrl);
 
-    function SearchAllCtrl() {
+    function SearchAllCtrl($stateParams) {
         var vm = this;
         vm.ctrlName = 'SearchAllCtrl';
 
         vm.title = 'MENU_SEARCH_ALL';
-
-        vm.authorName = '';
+        vm.isDocSelected = false;
 
         /*var response = backend.searchForAllDocuments();
         vm.documents = JSON.parse(response).documents;*/
@@ -31,10 +30,16 @@
                 rating: '5',
                 cover: ''
             }
-        ]
+        ];
 
-        vm.select = function(){
-            alert("hola");
+        vm.select = function(doc){
+            $stateParams.documentSelected = doc;
+            vm.isDocSelected = true;
+
+        };
+        vm.back = function(){
+            vm.isDocSelected = false;
+            alert(vm.isDocSelected);
         }
     }
 }());
