@@ -1,0 +1,26 @@
+<h1 class="title-landing">
+    {{ vm.title | translate}}
+</h1>
+
+<md-list ng-cloak>
+    <md-list-item ng-repeat="document in vm.documents" layout="row" layout-margin>
+        <div flex class="item" layout="row" layout-align="left center">
+            <div>
+                <img class="doc-cover" ng-show="{{document.cover !== ''}}" ng-src="../images/{{document.cover}}">
+                <img class="doc-cover" ng-show="{{document.cover === ''}}" ng-src="../images/sample.png">
+            </div>
+            <div class="item-info">
+                <span class="title">{{document.title}}</span><br>
+                <span class="author">{{document.author}}</span><br>
+                <span class="user">{{document.user}}</span><br>
+                <span class="user">{{document.rating}}</span><br>
+
+                <md-button class="read-button"><i class="read-button fa fa-book"></i></md-button>
+                <md-button class="edit-button"><i class="fa fa-pencil-square-o"></i></md-button>
+                <md-button class="delete-button" ng-click="vm.showAlert($event)">
+                    <i class="fa fa-trash"></i>
+                </md-button>
+            </div>
+        </div>
+    </md-list-item>
+</md-list>

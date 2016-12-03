@@ -22,7 +22,14 @@
 
             .state('project.manage.list', {
                 url: '/list',
-                parent: 'project.manage'
+                parent: 'project.manage',
+                views: {
+                    'manage-content': {
+                        templateUrl: 'manage/all/manage-all.tpl.html',
+                        controller: 'ManageAllCtrl',
+                        controllerAs: 'vm'
+                    }
+                }
             })
             .state('project.manage.create', {
                 url: '/create',
