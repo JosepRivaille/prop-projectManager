@@ -45,7 +45,7 @@
                 views: {
                     'search-content': {
                         templateUrl: 'search/document/search-document.tpl.html',
-                        controller: 'SearchAuthorCtrl',
+                        controller: 'SearchDocumentCtrl',
                         controllerAs: 'vm'
                     }
                 }

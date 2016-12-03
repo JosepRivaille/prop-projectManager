@@ -1,20 +1,26 @@
-<div ng-controller="SearchAuthorCtrl as vm">
-    <h1 class="title-landing">
-        {{vm.title | translate}}
-    </h1>
+<h1 class="title-landing">
+    {{vm.title | translate}}
+</h1>
 
-        <div class="search-input">
-            <md-input-container>
-                <label>Author</label>
-                <input ng-model="vm.authorName">
-            </md-input-container>
-        </div>
-
-        <md-list flex ng-cloak>
-            <md-list-item ng-repeat="author in vm.authors" class="md-clickable">
-                <h5>{{author.name}}</h5>
-                <md-button ng-click="vm.doSecondaryAction()"></md-button>
-            </md-list-item>
-        </md-list>
-
-</div>
+<md-content class="md-padding">
+    <form ng-submit="$event.preventDefault()">
+        <p>Use <code>md-autocomplete</code> to search for matches from local or remote data sources.</p>
+        <md-autocomplete
+                ng-disabled="false"
+                md-no-cache="false"
+                md-selected-item="vm.selectedItem"
+                md-search-text="vm.searchText"
+                md-items="author in vm.querySearch(vm.searchText)"
+                md-item-text="author.name"
+                md-min-length="0"
+                placeholder="Select an author">
+            <md-item-template>
+                <span class="text-black" md-highlight-text="vm.searchText" md-highlight-flags="^i">{{author.name}}</span>
+            </md-item-template>
+            <md-not-found>
+                No authors matching '{{vm.searchText}}' were found.
+            </md-not-found>
+        </md-autocomplete>
+        <br/>
+    </form>
+</md-content>

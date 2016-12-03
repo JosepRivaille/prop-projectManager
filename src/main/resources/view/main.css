@@ -34,16 +34,16 @@ body {
     transition: all 0.5s ease;
 }
 
-#sidebar-wrapper::-webkit-scrollbar {
+#sidebar-wrapper::-webkit-scrollbar, .cool-scroll::-webkit-scrollbar-track {
     width: 12px;
 }
 
-#sidebar-wrapper::-webkit-scrollbar-track {
+#sidebar-wrapper::-webkit-scrollbar-track, .cool-scroll::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
     border-radius: 10px;
 }
 
-#sidebar-wrapper::-webkit-scrollbar-thumb {
+#sidebar-wrapper::-webkit-scrollbar-thumb, .cool-scroll::-webkit-scrollbar-thumb {
     border-radius: 10px;
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
 }
@@ -157,6 +157,10 @@ body {
 
 .text-white {
     color: white;
+}
+
+.text-black {
+    color: black;
 }
 
 .search-input {
