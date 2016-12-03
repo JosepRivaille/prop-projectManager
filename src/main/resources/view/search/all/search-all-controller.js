@@ -20,7 +20,21 @@
 
         vm.authorName = '';
 
-        var response = backend.searchForAllDocuments();
-        vm.documents = JSON.parse(response).documents;
+        /*var response = backend.searchForAllDocuments();
+        vm.documents = JSON.parse(response).documents;*/
+
+        vm.documents = [
+            {
+                title: 'ads',
+                author: 'asd',
+                user: 'ads',
+                rating: '5',
+                cover: ''
+            }
+        ]
+
+        vm.select = function(){
+            alert("hola");
+        }
     }
 }());
