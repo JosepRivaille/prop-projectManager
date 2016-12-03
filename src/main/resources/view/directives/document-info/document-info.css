@@ -1,0 +1,27 @@
+#document-info {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+}
+
+#document-info .doc-cover {
+    width: 100%;
+}
+
+#document-info .left-container{
+    padding: 5%;
+    background-color: #265a88;
+}
+
+#document-info .right-container{
+    padding: 50px;
+    background-color: #2b542c;
+}
+
+#document-info .md-button {
+    margin: 0;
+    background-color: #c0a16b;
+    margin-top: 2px;
+}
+
+

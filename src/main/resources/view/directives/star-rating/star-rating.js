@@ -13,7 +13,7 @@
         .controller('StarRatingCtrl', StarRatingCtrl)
         .directive('starRating', starRating);
 
-    function StarRatingCtrl($stateParams) {
+    function StarRatingCtrl() {
         var vm = this;
         vm.ctrlName = 'StarRatingCtrl';
     }
