@@ -1,6 +1,7 @@
 package edu.upc.fib.prop.utils;
 
 import com.google.gson.*;
+import edu.upc.fib.prop.models.Document;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -63,5 +64,10 @@ public class StringUtils {
             }
         }
         return deserializedObject;
+    }
+
+    public static Document parseJSONToDocument(String documentJSON) {
+        System.out.println(documentJSON);
+        return new Document(null, null, null);
     }
 }

@@ -1,3 +1,4 @@
+/*
 .read-button {
     background-color: #3e8f3e;
 }
@@ -12,4 +13,11 @@
 
 .save-button {
     background-color: #4f5f84;
+}*/
+
+.right-bottom-buttons {
+    position: absolute;
+    z-index: 1;
+    bottom: 2em !important;
+    right: 2em !important;
 }

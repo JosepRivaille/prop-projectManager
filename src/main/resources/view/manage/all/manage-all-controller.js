@@ -21,11 +21,31 @@
 
         vm.authorName = '';
 
-        var response = backend.searchForAllDocuments();
-        vm.documents = JSON.parse(response).documents;
+        /*var response = backend.searchForAllDocuments();
+        vm.documents = JSON.parse(response).documents;*/
+
+        vm.documents = [
+            {
+                title: 'asdasd',
+                author: '123',
+                user: '123123',
+                cover: '',
+                rating: 3
+            }
+        ];
 
         vm.createDocument = function () {
+            vm.documentSelected = undefined;
+            vm.title = 'MENU_MANAGEMENT_CREATE';
             vm.isListSelected = false;
+            vm.isNewDocument = true;
+        };
+
+        vm.editDocument = function (document) {
+            vm.documentSelected = document;
+            vm.title = 'MENU_MANAGEMENT_UPDATE';
+            vm.isListSelected = false;
+            vm.isNewDocument = false;
         };
 
         vm.storeDocument = function (event) {
@@ -47,17 +67,25 @@
 
             $mdDialog.show(confirm).then(function() {
                 //TODO: Store file
+                var data = JSON.stringify(vm.documentSelected);
+                if (vm.isNewDocument) {
+                    //backend.storeNewDocument(data);
+                    var document = buildDocument(vm.documentSelected);
+                    vm.documents.push(document);
+                } else {
+                    //backend.updateDocument(data);
+                }
                 vm.isListSelected = true;
             }, function() {
-                console.log('You clicked NO!');
             });
         };
 
         vm.backToList = function () {
             vm.isListSelected = true;
+            vm.title = 'MENU_MANAGEMENT_ALL';
         };
 
-        vm.showDeleteConfirm = function (event) {
+        vm.showDeleteConfirm = function (event, document) {
             var translations = {
                 title: $filter('translate')('DIALOG_DELETE_TITLE'),
                 textContent: $filter('translate')('DIALOG_DELETE_CONTENT'),
@@ -76,10 +104,19 @@
 
             $mdDialog.show(confirm).then(function() {
                 //TODO: Delete file
-                console.log('You clicked ok!');
+                var data = JSON.stringify(document);
+                //backend.deleteDocument(data);
+                var index = vm.documents.indexOf(document);
+                vm.documents.splice(index, 1);
             }, function() {
-                console.log('You clicked NO!');
             });
         };
+
+        //////////
+
+        function buildDocument(document) {
+            return document;
+        }
+
     }
 }());

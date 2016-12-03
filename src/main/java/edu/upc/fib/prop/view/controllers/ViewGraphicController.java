@@ -81,9 +81,9 @@ public interface ViewGraphicController {
 
     /**
      * Stores a new document in the system.
-     * @param document New document to store.
+     * @param documentJSON New document to store.
      */
-    void storeNewDocument(Document document) throws DocumentNotFoundException, AlreadyExistingDocumentException,
+    void storeNewDocument(String documentJSON) throws DocumentNotFoundException, AlreadyExistingDocumentException,
             InvalidDetailsException, DocumentContentNotFoundException;
 
     /**
@@ -94,9 +94,9 @@ public interface ViewGraphicController {
 
     /**
      * Document to delete from the system.
-     * @param document Document to delete.
+     * @param documentJSON Document to delete.
      */
-    void deleteDocument(Document document);
+    void deleteDocument(String documentJSON);
 
     /**
      * Removes user session.

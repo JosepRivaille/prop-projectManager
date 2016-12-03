@@ -8,9 +8,9 @@
   "MENU_SEARCH_SINGLE_DOCUMENT": "Specific document",
   "MENU_MANAGEMENT": "Management",
   "MENU_MANAGEMENT_ALL": "My documents",
-  "MENU_MANAGEMENT_CREATE": "Create file",
-  "MENU_MANAGEMENT_UPDATE": "Update file",
-  "MENU_MANAGEMENT_DELETE": "Delete file",
+  "MENU_MANAGEMENT_CREATE": "Create document",
+  "MENU_MANAGEMENT_UPDATE": "Update document",
+  "MENU_MANAGEMENT_DELETE": "Delete document",
   "MENU_SETTINGS": "Settings",
   "MENU_ABOUT": "About",
 

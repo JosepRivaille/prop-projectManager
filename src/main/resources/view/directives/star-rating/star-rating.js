@@ -3,7 +3,7 @@
 
     /**
      * @ngdoc component
-     * @name project.components.directive:StarRating
+     * @name project.directives.directive:StarRating
      *
      * @description
      *

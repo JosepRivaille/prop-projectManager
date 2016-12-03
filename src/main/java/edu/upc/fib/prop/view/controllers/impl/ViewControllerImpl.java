@@ -58,12 +58,6 @@ public class ViewControllerImpl implements ViewController {
         return this.businessController.searchDocumentsByQuery(str, k);
     }
 
-
-
-
-
-
-
     /*-------------------- Users */
 
     @Override

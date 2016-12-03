@@ -5,6 +5,7 @@ import edu.upc.fib.prop.business.controllers.BusinessController;
 import edu.upc.fib.prop.business.controllers.impl.BusinessControllerImpl;
 import edu.upc.fib.prop.exceptions.*;
 import edu.upc.fib.prop.models.*;
+import edu.upc.fib.prop.utils.StringUtils;
 import edu.upc.fib.prop.view.controllers.ViewGraphicController;
 import javafx.scene.web.WebEngine;
 import javafx.stage.Stage;
@@ -78,8 +79,10 @@ public class ViewGraphicControllerImpl implements ViewGraphicController {
     }
 
     @Override
-    public void storeNewDocument(Document document) throws DocumentNotFoundException, AlreadyExistingDocumentException, InvalidDetailsException, DocumentContentNotFoundException {
-
+    public void storeNewDocument(String documentJSON) throws DocumentNotFoundException, AlreadyExistingDocumentException,
+            InvalidDetailsException, DocumentContentNotFoundException {
+        Document document = StringUtils.parseJSONToDocument(documentJSON);
+        this.businessController.storeNewDocument(document);
     }
 
     @Override
@@ -88,8 +91,8 @@ public class ViewGraphicControllerImpl implements ViewGraphicController {
     }
 
     @Override
-    public void deleteDocument(Document document) {
-
+    public void deleteDocument(String documentJSON) {
+        System.out.println(documentJSON);
     }
 
     @Override
