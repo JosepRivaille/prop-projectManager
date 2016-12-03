@@ -10,8 +10,16 @@
      */
     angular
         .module('project')
-        .config(['$mdThemingProvider', function ($mdThemingProvider) {
-            $mdThemingProvider.theme('default').dark();
+        .config(['$mdThemingProvider', '$provide', function ($mdThemingProvider, $provide) {
+            $mdThemingProvider.theme('dark')
+                .dark();
+            $mdThemingProvider.theme('light')
+                .primaryPalette('pink')
+                .accentPalette('orange');
+
+            $mdThemingProvider.setDefaultTheme('dark');
+            $mdThemingProvider.alwaysWatchTheme(true);
+            $provide.value('themeProvider', $mdThemingProvider);
         }]);
 }());
 

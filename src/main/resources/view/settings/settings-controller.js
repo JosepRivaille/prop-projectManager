@@ -62,14 +62,8 @@
         };
 
         vm.switchTheme = function () {
-            if (vm.theme.darkTheme) {
-                $mdThemingProvider.theme('default')
-                    .dark();
-            } else {
-                $mdThemingProvider.theme('default')
-                    .primaryPalette('pink')
-                    .accentPalette('orange');
-            }
+            var theme = vm.darkTheme ? 'dark' : 'light';
+            themeProvider.reload(theme);
         }
 
     }
