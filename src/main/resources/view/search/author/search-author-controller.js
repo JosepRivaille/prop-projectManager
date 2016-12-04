@@ -18,15 +18,28 @@
 
         vm.title = "TITLE_SEARCH_AUTHORS";
 
-        var response = backend.getAuthorsWithPrefix("");
-        alert(response);
-        vm.authors = JSON.parse(response).authors;
-        alert(vm.authors);
+        /*var response = backend.getAuthorsWithPrefix("");
+        vm.authors = JSON.parse(response).authors;*/
 
-        vm.querySearch = function (query) {
-            var results = query ? vm.authors.filter( createFilterFor(query) ) : vm.authors, deferred;
+        vm.authors = [
+            {
+                name: 'Josep'
+            },
+            {
+                name: 'Guillermo'
+            },
+            {
+                name: 'Gabriel'
+            },
+            {
+                name: 'Aleix'
+            }
+        ];
+
+        vm.querySearch = function (inputQuery) {
+            var results = inputQuery ? vm.authors.filter( createFilterFor(inputQuery) ) : vm.authors, deferred;
             deferred = $q.defer();
-            $timeout(function () { deferred.resolve( results ); }, Math.random() * 100 * vm.authors.length, false);
+            $timeout(function () { deferred.resolve( results ); }, Math.random() * 1000, false);
             return deferred.promise;
         };
 

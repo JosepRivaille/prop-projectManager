@@ -25,7 +25,7 @@
                     name: 'LANG_ENGLISH',
                     flag: 'flag-eng',
                     locale: 'en_US',
-                    selected: true
+                    selected: false
                 },
                 {
                     name: 'LANG_CATALAN',
@@ -42,13 +42,16 @@
             ]
         };
 
+        angular.forEach(vm.languages.values, function (language) {
+            language.selected = (language.locale === $translate.use());
+        });
+
         vm.theme = {
             title: 'SETTINGS_THEME',
             themeDark: 'SWITCH_THEME_DARK',
             themeLight: 'SWITCH_THEME_LIGHT',
             darkTheme: true
         };
-
 
         vm.disableOtherLanguages = function(value) {
             angular.forEach(vm.languages.values, function (language) {

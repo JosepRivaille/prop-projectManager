@@ -2,7 +2,7 @@
     'use strict';
 
     /**
-     * @ngdoc component
+     * @ngdoc directive
      * @name project.directives.directive:StarRating
      *
      * @description
@@ -24,8 +24,7 @@
             templateUrl: 'directives/star-rating/star-rating.tpl.html',
             scope: {
                 ratingValue: '=ngModel',
-                onRatingSelect: '&?',
-                readonly: '=?'
+                onRatingSelect: '&?'
             },
             link: function (scope) {
                 function updateStars() {
@@ -37,9 +36,7 @@
                     }
                 }
                 scope.toggle = function (index) {
-                    if (scope.readonly == undefined || scope.readonly === false) {
-                        scope.ratingValue = index + 1;
-                    }
+                    scope.ratingValue = index + 1;
                 };
                 scope.$watch('ratingValue', function (oldValue, newValue) {
                     if (newValue) {

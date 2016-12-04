@@ -48,34 +48,7 @@
                 name: 'MENU_MANAGEMENT',
                 state: 'project.manage',
                 icon: 'pie-chart',
-                selected: false,
-                collapsed: true,
-                children: [
-                    {
-                        name: 'MENU_MANAGEMENT_ALL',
-                        state: 'project.manage.list',
-                        icon: 'list-alt',
-                        selected: false
-                    },
-                    {
-                        name: 'MENU_MANAGEMENT_CREATE',
-                        state: 'project.manage.create',
-                        icon: 'plus',
-                        selected: false
-                    },
-                    {
-                        name: 'MENU_MANAGEMENT_UPDATE',
-                        state: 'project.manage.update',
-                        icon: 'refresh',
-                        selected: false
-                    },
-                    {
-                        name: 'MENU_MANAGEMENT_DELETE',
-                        state: 'project.manage.delete',
-                        icon: 'trash',
-                        selected: false
-                    }
-                ]
+                selected: false
             },
             {
                 name: 'MENU_SETTINGS',
