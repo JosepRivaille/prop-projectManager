@@ -115,9 +115,12 @@ public class Node {
                     ++i;
                 }
                 String[] paraules = expressio.substring(inici, i - 1).split(" ");
+                fill = new Node();
+                fill.operator = '&';
                 for (String paraula : paraules) {
-                    this.addFulla(paraula);
+                    fill.addFulla(paraula);
                 }
+                this.addChildren(fill);
             }
             if(i < expressio.length() && (expressio.charAt(i) == '&' || expressio.charAt(i) == '|')){
 
