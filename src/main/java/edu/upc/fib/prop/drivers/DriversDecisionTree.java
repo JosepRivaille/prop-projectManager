@@ -10,8 +10,8 @@ import java.util.ArrayList;
  */
 
 public class DriversDecisionTree {
-    private static void escriu(Node node){
 
+    private static void escriu(Node node){
         ArrayList<Node> fills = node.getChildrens();
         if(node.getOperator() != 'p') System.out.print("fulla" + node.getParaula());
         else System.out.print("operand" + node.getOperator());
@@ -20,6 +20,7 @@ public class DriversDecisionTree {
         }
         System.out.print("//");
     }
+
     public static void main(String[] args) {
         Node arrel = new Node();
         String expressio = IOUtils.askForString("introdueix la expressio");

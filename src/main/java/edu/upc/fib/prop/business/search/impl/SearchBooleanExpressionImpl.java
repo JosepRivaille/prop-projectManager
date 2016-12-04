@@ -9,23 +9,6 @@ import java.util.*;
 
 public class SearchBooleanExpressionImpl implements SearchBooleanExpression {
 
-
-    /*public DocumentsSet SearchDocumentsByBooleanExp(String expressio, TOTS DOCUMENTS) {
-        DecisionTree arbre = new DecisionTree;
-        arbre.OmplenarArbre(expressio);
-        DocumentsSet result = new DocumentsSet();
-        for(Document doc :){
-            String content = doc.getContent();
-            for(String frase : content.split(Constants.WORD_SEPARATION_REGEX)) {
-                if (arbre.ContrastaArbre(frase)) {
-                    result.add(doc);
-                    break;
-                }
-            }
-        }
-    }
-}*/
-
     @Override
     public boolean checkValidBooleanExpression(String booleanExpression) {
         boolean isLiteral = false;
@@ -62,9 +45,11 @@ public class SearchBooleanExpressionImpl implements SearchBooleanExpression {
         if (!checkValidBooleanExpression(booleanExpression)) {
             throw new InvalidQueryException();
         } else {
+            Node node = new Node();
+            node.generarArbre(booleanExpression);
             DocumentsSet matchingDocuments = new DocumentsSet();
             for (Document document : allDocuments.getDocuments()) {
-                boolean documentMatches = checkDocumentMatchesExpression(document.getTermPositions(), booleanExpression);
+                boolean documentMatches = checkDocumentMatchesExpression(document.getTermPositions(), node);
                 if (documentMatches) {
                     matchingDocuments.add(document);
                 }
@@ -74,38 +59,8 @@ public class SearchBooleanExpressionImpl implements SearchBooleanExpression {
     }
 
     //TODO: Apply boolean expression for each document.
-    private boolean checkDocumentMatchesExpression(Map<String, Map<Integer, Set<Integer>>> termPositions,
-                                                   String booleanExpression) {
+    private boolean checkDocumentMatchesExpression(Map<String, Map<Integer, Set<Integer>>> termPositions, Node node) {
         return true;
-    }
-
-
-    private InDocumentPosition checkWordExists(Map<String, Map<Integer, Set<Integer>>> termPositions, String word) {
-        return new InDocumentPosition(false, null, null);
-    }
-
-    private class InDocumentPosition {
-        private boolean found;
-        private Integer sentence;
-        private Integer offset;
-
-        InDocumentPosition(boolean found, Integer sentence, Integer offset) {
-            this.found = found;
-            this.sentence = sentence;
-            this.offset = offset;
-        }
-
-        public boolean isFound() {
-            return found;
-        }
-
-        public Integer getSentence() {
-            return sentence;
-        }
-
-        public Integer getOffset() {
-            return offset;
-        }
     }
 
 }
