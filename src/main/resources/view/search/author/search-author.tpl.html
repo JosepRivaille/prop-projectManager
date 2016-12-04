@@ -4,7 +4,7 @@
 
 <md-content class="md-padding">
     <form ng-submit="$event.preventDefault()">
-        <p>Use <code>md-autocomplete</code> to search for matches from local or remote data sources.</p>
+        <p>{{'DESCRIPTION_AUTHOR_SEARCH' | translate}}</p>
         <md-autocomplete
                 ng-disabled="false"
                 md-no-cache="false"
@@ -13,12 +13,14 @@
                 md-items="author in vm.querySearch(vm.searchText)"
                 md-item-text="author.name"
                 md-min-length="0"
-                placeholder="Select an author">
+                placeholder="{{'PLACEHOLDER_AUTHOR_SEARCH' | translate}}">
             <md-item-template>
-                <span class="text-black" md-highlight-text="vm.searchText" md-highlight-flags="^i">{{author.name}}</span>
+                <span md-highlight-text="vm.searchText" md-highlight-flags="^i">
+                    {{author.name}}
+                </span>
             </md-item-template>
             <md-not-found>
-                No authors matching '{{vm.searchText}}' were found.
+                {{'NO_MATCHING_PREFIX' | translate}}{{'"' + vm.searchText + '"'}}
             </md-not-found>
         </md-autocomplete>
         <br/>

@@ -16,8 +16,9 @@
         var vm = this;
         vm.ctrlName = 'SearchAuthorCtrl';
 
-        vm.title = "TITLE_SEARCH_AUTHORS";
+        vm.title = "MENU_SEARCH_AUTHOR";
 
+        //TODO: Still problems in webView application, working properly in browser.
         /*var response = backend.getAuthorsWithPrefix("");
         vm.authors = JSON.parse(response).authors;*/
 
@@ -37,9 +38,9 @@
         ];
 
         vm.querySearch = function (inputQuery) {
-            var results = inputQuery ? vm.authors.filter( createFilterFor(inputQuery) ) : vm.authors, deferred;
+            var results = inputQuery ? vm.authors.filter(createFilterFor(inputQuery)) : vm.authors, deferred;
             deferred = $q.defer();
-            $timeout(function () { deferred.resolve( results ); }, Math.random() * 1000, false);
+            $timeout(function () { deferred.resolve( results ); }, Math.random() * 500, false);
             return deferred.promise;
         };
 
@@ -49,7 +50,8 @@
             var lowercaseQuery = angular.lowercase(query);
 
             return function filterFn(authorName) {
-                return (authorName.indexOf(lowercaseQuery) === 0);
+                var lowercaseAuthor = angular.lowercase(authorName.name);
+                return lowercaseAuthor.startsWith(lowercaseQuery);
             };
 
         }

@@ -12,17 +12,17 @@
         .module('project.search')
         .controller('SearchAllCtrl', SearchAllCtrl);
 
-    function SearchAllCtrl($stateParams) {
+    function SearchAllCtrl() {
         var vm = this;
         vm.ctrlName = 'SearchAllCtrl';
 
         vm.title = 'MENU_SEARCH_ALL';
         vm.isDocSelected = false;
 
-        /*        var response = backend.searchForAllDocuments();
-         vm.documents = JSON.parse(response).documents;*/
+        var response = backend.searchForAllDocuments();
+        vm.documents = JSON.parse(response).documents;
 
-        vm.documents = [
+        /*vm.documents = [
             {
                 title: 'ads',
                 author: 'asd',
@@ -30,7 +30,7 @@
                 rating: '5',
                 cover: 'sample.png'
             }
-        ];
+        ];*/
 
         vm.select = function(doc){
             vm.documentSelected = doc;
