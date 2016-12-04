@@ -3,7 +3,6 @@ package edu.upc.fib.prop.business.search;
 import edu.upc.fib.prop.exceptions.InvalidQueryException;
 import edu.upc.fib.prop.models.DocumentsCollection;
 import edu.upc.fib.prop.models.DocumentsSet;
-import edu.upc.fib.prop.models.Node;
 
 
 public interface SearchBooleanExpression {
