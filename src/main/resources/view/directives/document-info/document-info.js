@@ -25,7 +25,7 @@
             restrict: 'EA',
             templateUrl: 'directives/document-info/document-info.tpl.html',
             scope: {
-                document: '=ngModel',
+                document: '=ngModel'
             }
         };
     }

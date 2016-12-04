@@ -1,4 +1,4 @@
-<div ng-show="!vm.isDocSelected">
+<div ng-show="!vm.isDocumentSelected">
     <h1 class="title-landing">
         {{ vm.title | translate}}
     </h1>
@@ -7,8 +7,8 @@
         <md-list-item ng-repeat="document in vm.documents" layout="row" layout-margin>
             <div flex class="item" layout="row" layout-align="left center" ng-click="vm.select(document)">
                 <div>
-                    <img class="doc-cover "ng-show="{{document.cover !== ''}}" ng-src="../images/{{document.cover}}">
-                    <img class="doc-cover "ng-show="{{document.cover === ''}}" ng-src="../images/sample.png">
+                    <img class="doc-cover" ng-show="{{document.cover !== ''}}" ng-src="../images/{{document.cover}}">
+                    <img class="doc-cover" ng-show="{{document.cover === ''}}" ng-src="../images/sample.png">
                 </div>
                 <div class="item-info">
                     <span class="title">{{document.title}}</span><br>
@@ -21,4 +21,4 @@
     </md-list>
 </div>
 
-<document-info ng-if="vm.isDocSelected"  ng-model="vm.documentSelected"></document-info>
+<document-info ng-if="vm.isDocumentSelected" ng-model="vm.documentSelected"></document-info>

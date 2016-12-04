@@ -21,3 +21,9 @@
     bottom: 2em !important;
     right: 2em !important;
 }
+
+/* TODO: Avoid fix max-height! */
+.document-content-textarea {
+    overflow-y: auto;
+    max-height: 40vh;
+}
