@@ -15,6 +15,7 @@
     function AppCtrl() {
         var vm = this;
         vm.ctrlName = 'AppCtrl';
+
     }
 
 }());

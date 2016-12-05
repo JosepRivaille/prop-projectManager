@@ -25,7 +25,7 @@
                             <i class="fa fa-pencil-square-o"></i>
                         </md-button>
                         <md-button class="md-raised md-warn" aria-label="Delete document"
-                                   ng-click="vm.showDeleteConfirm($event, document, vm.propBackend)">
+                                   ng-click="vm.showDeleteConfirm($event, document)">
                             <i class="fa fa-trash"></i>
                         </md-button>
                         <md-button class="md-raised md-primary" ng-disabled="true" aria-label="Export document"
@@ -78,7 +78,7 @@
                         <i class="fa fa-chevron-left"></i>
                     </md-button>
                     <md-button layout-align="center center" class="md-raised md-primary"
-                               ng-click="vm.storeDocument($event, vm.propBackend)">
+                               ng-click="vm.storeDocument($event)">
                         <i class="fa fa-save"></i>
                     </md-button>
                 </div>
