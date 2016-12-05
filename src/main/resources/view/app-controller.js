@@ -12,11 +12,9 @@
         .module('project')
         .controller('AppCtrl', AppCtrl);
 
-    function AppCtrl($rootScope) {
+    function AppCtrl() {
         var vm = this;
         vm.ctrlName = 'AppCtrl';
-
-        $rootScope.propBackend = propBackend;
     }
 
 }());
