@@ -92,7 +92,7 @@ public class ViewGraphicControllerImpl implements ViewGraphicController {
 
     @Override
     public void deleteDocument(String documentJSON) {
-        System.out.println(documentJSON);
+        System.out.println("Successfully deleted document");
     }
 
     @Override

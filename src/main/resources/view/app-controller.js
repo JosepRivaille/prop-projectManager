@@ -12,12 +12,11 @@
         .module('project')
         .controller('AppCtrl', AppCtrl);
 
-    function AppCtrl() {
+    function AppCtrl($rootScope) {
         var vm = this;
         vm.ctrlName = 'AppCtrl';
 
-        vm.user = undefined;
-        vm.isLoggedIn = false;
+        $rootScope.propBackend = propBackend;
     }
 
 }());
