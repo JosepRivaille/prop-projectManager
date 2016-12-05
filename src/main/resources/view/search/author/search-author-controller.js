@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    /*
+    /**
      * @ngdoc object
      * @name project.search.author.controller:SearchAuthorCtrl
      *
@@ -49,11 +49,10 @@
         function createFilterFor(query) {
             var lowercaseQuery = angular.lowercase(query);
 
-            return function filterFn(authorName) {
-                var lowercaseAuthor = angular.lowercase(authorName.name);
+            return function filterFn(author) {
+                var lowercaseAuthor = angular.lowercase(author.name);
                 return lowercaseAuthor.startsWith(lowercaseQuery);
             };
-
         }
     }
 
