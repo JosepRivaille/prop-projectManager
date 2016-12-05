@@ -126,4 +126,8 @@ public class ViewGraphicControllerImpl implements ViewGraphicController {
     public void addDocumentToFavourites(Document document) throws DocumentNotFoundException {
         this.businessController.addDocumentToFavourites(document);
     }
+
+    public void test(){
+        System.out.println("ADJHADISDIUGAISUGD");
+    }
 }

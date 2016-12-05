@@ -30,3 +30,9 @@
 .item-info > .user {
     font-size: 1em;
 }
+
+.back-btn {
+    position: absolute;
+    margin-left: 10px;
+    margin-top: 10px;
+}

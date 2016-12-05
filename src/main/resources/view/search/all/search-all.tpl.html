@@ -21,4 +21,9 @@
     </md-list>
 </div>
 
-<document-info ng-if="vm.isDocumentSelected" ng-model="vm.documentSelected"></document-info>
+<div ng-if="vm.isDocumentSelected">
+    <md-button class="md-fab md-primary back-btn" aria-label="Go back" ng-click="vm.back()">
+        <i class="fa fa-arrow-left"></i>
+    </md-button>
+    <document-info ng-model="vm.documentSelected"></document-info>
+</div>
