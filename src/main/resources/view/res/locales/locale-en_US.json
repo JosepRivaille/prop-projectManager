@@ -43,5 +43,9 @@
   "LANG_SPANISH": "Spanish",
   "SETTINGS_THEME": "Change application theme",
   "SWITCH_THEME_DARK": "Dark theme",
-  "SWITCH_THEME_LIGHT": "Light theme"
+  "SWITCH_THEME_LIGHT": "Light theme",
+
+  "BUTTON_READ_DOCUMENT": "Read document",
+  "BUTTON_ADD_FAVOURITES": "Add to favourites",
+  "BUTTON_SEARCH_SIMILARS": "Find similar documents"
 }

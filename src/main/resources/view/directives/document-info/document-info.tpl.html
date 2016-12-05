@@ -1,15 +1,23 @@
-<div id="document-info" layout="row" flex>
-    <div layout="column" class="left-container" layout-align="center center">
-        <img class="doc-cover" ng-show="{{document.cover !== ''}}" ng-src="../images/{{document.cover}}">
-        <img class="doc-cover" ng-show="{{document.cover === ''}}" ng-src="../images/sample.png">
+<div id="document-info">
+    <div class="container" layout="row">
+        <div layout="column" class="left-container" layout-align="center center">
+            <div class="image-container">
+                <img class="doc-cover" ng-show="{{document.cover !== ''}}" ng-src="../images/{{document.cover}}">
+                <img class="doc-cover" ng-show="{{document.cover === ''}}" ng-src="../images/sample.png">
+            </div>
+            <div class="buttons-container" layout-align="space-around stretch" layout="column">
+                <md-button class="md-raised md-primary">{{'BUTTON_READ_DOCUMENT' | translate}}</md-button>
+                <md-button class="md-raised md-accent">{{'BUTTON_ADD_FAVOURITES' | translate}}</md-button>
+                <md-button class="md-raised md-warn">{{'BUTTON_SEARCH_SIMILARS' | translate}}</md-button>
+            </div>
 
-        <md-button class="md-raised md-primary">HOLA</md-button>
-        <md-button class="md-raised md-primary">HOLA</md-button>
+        </div>
+        <div flex layout="column" layout-align="start start" class="right-container">
+            <p class="text-title">{{document.title | uppercase}}</p>
+            <p class="text-author">{{document.author}}</p>
+            <p class="text-user">{{document.user}}</p>
+            <star-rating ng-model="document.rating" ></star-rating>
 
-    </div>
-    <div layout="column" flex layout-align="start start" class="right-container">
-        <h3 class="text-title text-center">{{document.title | uppercase}}</h3>
-        <h4 class="text-author text-center">{{document.author}}</h4>
-        <h5 class="text-user text-center">{{document.user}}</h5>
+        </div>
     </div>
 </div>
