@@ -7,7 +7,7 @@
             <md-subheader class="md-no-sticky">{{vm.languages.title | translate}}</md-subheader>
             <md-list-item ng-repeat="value in vm.languages.values">
                 <p>{{value.name | translate}}</p>
-                <md-checkbox class="md-primary" ng-model="value.selected" aria-label="Language checkbox"
+                <md-checkbox class="md-raised md-primary" ng-model="value.selected" aria-label="Language checkbox"
                              ng-click="vm.disableOtherLanguages(value)"></md-checkbox>
             </md-list-item>
             <md-divider ></md-divider>

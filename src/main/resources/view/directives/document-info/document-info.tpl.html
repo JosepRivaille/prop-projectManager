@@ -1,20 +1,15 @@
 <div id="document-info" layout="row" flex>
-    <div layout="column" flex="25" class="left-container">
-        <md-content layout-align="center center">
-            <img class="doc-cover" flex ng-show="{{document.cover !== ''}}" ng-src="../images/{{document.cover}}">
-            <img class="doc-cover" ng-show="{{document.cover === ''}}" ng-src="../images/sample.png">
-            <md-content layout-padding>
-                <md-button style="width: 100%; background-color: #761c19;">HOLA</md-button>
-                <md-button style="width: 100%;">HOLA</md-button>
-            </md-content>
-        </md-content>
+    <div layout="column" class="left-container" layout-align="center center">
+        <img class="doc-cover" ng-show="{{document.cover !== ''}}" ng-src="../images/{{document.cover}}">
+        <img class="doc-cover" ng-show="{{document.cover === ''}}" ng-src="../images/sample.png">
+
+        <md-button class="md-raised md-primary">HOLA</md-button>
+        <md-button class="md-raised md-primary">HOLA</md-button>
+
     </div>
     <div layout="column" flex layout-align="start start" class="right-container">
         <h3 class="text-title text-center">{{document.title | uppercase}}</h3>
         <h4 class="text-author text-center">{{document.author}}</h4>
         <h5 class="text-user text-center">{{document.user}}</h5>
-        <md-content class="right-container-content">
-            <p>{{document.content}}</p>
-        </md-content>
     </div>
 </div>

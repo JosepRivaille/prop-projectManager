@@ -10,20 +10,23 @@
 
 #document-info .left-container{
     padding: 2.5%;
+    background-color: #761c19;
+    height: 100%;
+    width: 400px;
+}
+
+#document-info .left-container .md-button{
+    width: 100%;
+    margin: 5px 0 0;
 }
 
 #document-info .right-container{
     padding: 2.5%;
     font-family: sans-serif;
-}
+    background-color: #2e6da4;
+    height: 100%;
+    width: auto;
 
-#document-info .right-container-content {
-    padding-right: 10px;
-}
-
-#document-info .md-button {
-    background-color: #c0a16b;
-    margin: 2px 0 0;
 }
 
 #document-info .text-title {
