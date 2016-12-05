@@ -146,6 +146,50 @@ public class BusinessControllerImpl implements BusinessController {
     }
 
     @Override
+    public SortedDocumentsSet getRelevantDocuments(SortedDocumentsSet list, double rv) {
+        return this.searchDocument.getRelevantDocuments(list, rv);
+    }
+
+    @Override
+    public SortedDocumentsSet getNonRelevantDocuments(SortedDocumentsSet list, double rv) {
+        return this.searchDocument.getNonRelevantDocuments(list, rv);
+    }
+
+    @Override
+    public Document getRocchioQuery(String query, SortedDocumentsSet rDocs, SortedDocumentsSet nrDocs, float b, float c) {
+        String relatedDocContents = searchDocument.getAggregatedContent(rDocs);
+        String nonrelatedDocContents = searchDocument.getAggregatedContent(nrDocs);
+
+        this.persistenceController.createContentFile(relatedDocContents, "rDocC.txt");
+        Document docr = new Document("", "", "rDocC.txt");
+        try {
+            docr.updateFrequencies();
+        } catch (DocumentContentNotFoundException e) {
+            e.printStackTrace();
+        }
+        this.persistenceController.deleteContentFile("rDocC.txt");
+
+        this.persistenceController.createContentFile(nonrelatedDocContents, "nrDocC.txt");
+        Document docnr = new Document("", "", "nrDocC.txt");
+        try {
+            docnr.updateFrequencies();
+        } catch (DocumentContentNotFoundException e) {
+            e.printStackTrace();
+        }
+        this.persistenceController.deleteContentFile("nrDocC.txt");
+
+        this.persistenceController.createContentFile(query, "query.txt");
+        Document docquery = new Document("", "", "query.txt");
+        try {
+            docquery.updateFrequencies();
+        } catch (DocumentContentNotFoundException e) {
+            e.printStackTrace();
+        }
+        this.persistenceController.deleteContentFile("query.txt");
+        return searchDocument.getRocchioQuery(docquery,docr,docnr,b,c);
+    }
+
+    @Override
     public DocumentsSet searchDocumentsByBooleanExpression(String booleanExpression) throws InvalidQueryException {
         return searchBooleanExpression.searchDocumentsByBooleanExpression(booleanExpression, documentsCollection);
     }

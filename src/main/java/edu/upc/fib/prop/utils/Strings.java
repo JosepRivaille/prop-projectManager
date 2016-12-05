@@ -79,4 +79,5 @@ public class Strings {
     public static final String SELECT_A_DOCUMENT = "Select a document";
     public static final String TYPE_QUERY = "Type your query";
     public static final String RATE_DOCUMENT = "Rate document";
+    public static final String TYPE_YOUR_METHOD = "Type your method:";
 }

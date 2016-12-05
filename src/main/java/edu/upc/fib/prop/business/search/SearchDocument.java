@@ -43,4 +43,37 @@ public interface SearchDocument {
      */
     SortedDocumentsSet searchForSimilarDocuments(DocumentsCollection col, Document doc, int k);
 
+    /**
+     * Returns a SortedDocumentsSet of the documents on list which have its relevance above rv
+     * @param list
+     * @param rv
+     * @return
+     */
+    SortedDocumentsSet getRelevantDocuments(SortedDocumentsSet list, double rv);
+
+    /**
+     *
+     * @param list
+     * @param rv
+     * @return
+     */
+    SortedDocumentsSet getNonRelevantDocuments(SortedDocumentsSet list, double rv);
+
+    /**
+     *
+     * @param query
+     * @param rDocs
+     * @param nrDocs
+     * @param b
+     * @param c
+     * @return
+     */
+    Document getRocchioQuery(Document query, Document rDocs, Document nrDocs, float b, float c);
+
+    /**
+     *
+     * @param docs
+     * @return
+     */
+    String getAggregatedContent(SortedDocumentsSet docs);
 }

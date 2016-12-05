@@ -8,6 +8,8 @@ import edu.upc.fib.prop.models.DocumentsCollection;
 import edu.upc.fib.prop.models.SortedDocumentsSet;
 import edu.upc.fib.prop.models.WeightsVector;
 
+import java.util.Map;
+
 
 public class SearchDocumentImpl implements SearchDocument {
 
@@ -62,13 +64,64 @@ public class SearchDocumentImpl implements SearchDocument {
         SortedDocumentsSet res = new SortedDocumentsSet(min);
 
         for (Document document : col.getDocuments()) {
-            if(!doc.equals(document)) {
+            if (!doc.equals(document)) {
                 WeightsVector wv2 = col.getWeights(document);
                 Double relevance = getRelevanceFactor(wv1, wv2);
                 res.add(document, relevance);
             }
         }
         return res;
+    }
+
+    @Override
+    public SortedDocumentsSet getRelevantDocuments(SortedDocumentsSet list, double rv) {
+        SortedDocumentsSet res = new SortedDocumentsSet();
+        for (int i = 0; i < list.getSize(); i++) {
+            if (list.getValue(i) >= rv) res.add(list.getDocument(i), list.getValue(i));
+        }
+        return res;
+    }
+
+    @Override
+    public SortedDocumentsSet getNonRelevantDocuments(SortedDocumentsSet list, double rv) {
+        SortedDocumentsSet res = new SortedDocumentsSet();
+        for (int i = 0; i < list.getSize(); i++) {
+            if (list.getValue(i) < rv) res.add(list.getDocument(i), list.getValue(i));
+        }
+        return res;
+    }
+
+    @Override
+    public Document getRocchioQuery(Document query, Document rDocs, Document nrDocs, float b, float c) {
+        Document doc;
+        doc = query;
+        for (String word : rDocs.getContent().split("[.,]\\s|\\s|[.]")) {
+            Float aux = rDocs.getTermFrequency().get(word) * (1f / (float) rDocs.getTermFrequency().size()) * b;
+            if (!doc.getTermFrequency().containsKey(word)) {
+                doc.getTermFrequency().put(word, aux);
+            } else {
+                doc.getTermFrequency().put(word, doc.getTermFrequency().get(word) + aux);
+            }
+        }
+        for (String word : nrDocs.getContent().split("[.,]\\s|\\s|[.]")) {
+            Float aux = nrDocs.getTermFrequency().get(word) * (1f / (float) nrDocs.getTermFrequency().size()) * c;
+            if (doc.getTermFrequency().containsKey(word)) {
+                if (doc.getTermFrequency().get(word) - aux < 0f) {
+                    doc.getTermFrequency().remove(word);
+                } else {
+                    doc.getTermFrequency().put(word, doc.getTermFrequency().get(word) - aux);
+                }
+            }
+        }
+        return doc;
+    }
+
+    public String getAggregatedContent(SortedDocumentsSet docs) {
+        String aggContent = null;
+        for (int i=0;i<docs.getSize()-1;i++) {
+            aggContent = docs.getDocument(i).getContent() + docs.getDocument(i+1).getContent();
+        }
+        return aggContent;
     }
 
     private double getRelevanceFactor(WeightsVector wv1, WeightsVector wv2){

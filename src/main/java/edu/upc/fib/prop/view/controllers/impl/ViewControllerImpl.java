@@ -153,4 +153,21 @@ public class ViewControllerImpl implements ViewController {
     public void deleteDocumentFromFavourites(Document document) throws DocumentNotFoundException {
         this.businessController.deleteDocumentFromFavourites(document);
     }
+
+    @Override
+    public SortedDocumentsSet getRelevantDocuments(SortedDocumentsSet list, double rv) {
+        return businessController.getRelevantDocuments(list,rv);
+    }
+
+    @Override
+    public SortedDocumentsSet getNonRelevantDocuments(SortedDocumentsSet list, double rv) {
+        return businessController.getNonRelevantDocuments(list,rv);
+    }
+
+    @Override
+    public Document getRocchioQuery(String query, SortedDocumentsSet rDocs, SortedDocumentsSet nrDocs, float b, float c) {
+        return businessController.getRocchioQuery(query,rDocs,nrDocs,b,c);
+    }
+
+
 }

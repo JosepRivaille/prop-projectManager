@@ -286,14 +286,38 @@ public class MainMenu {
             case Strings.SEARCH_DOCUMENTS_BY_QUERY:
                 String query = IOUtils.askForString(Strings.TYPE_QUERY);
                 int k2 = IOUtils.askForInt(Strings.TYPE_NUMBER_OF_DOCUMENTS, 1, 10000);
+                System.out.println("Please choose your search method:");
+                System.out.println("- Type '1' for the regular relevance method");
+                System.out.println("- Type '2' for the rocchio relevance method");
+                int SearchMethod = IOUtils.askForInt(Strings.TYPE_YOUR_METHOD, 1, 2);
                 try {
-                    SortedDocumentsSet list = viewController.searchDocumentsByQuery(query, k2);
-                    IOUtils.drawLine(100);
-                    System.out.printf("    %-10s %-45s %-25s %n", "S.Factor", "Title", "Author");
-                    IOUtils.drawLine(100);
-                    for(int kk = 0; kk< list.getSize();++kk){
-                        System.out.printf("%-3d %-10s %-45s %-25s %n",kk+1, String.format("%.2f", list.getValue(kk)),
-                                list.getDocument(kk).getTitle(), list.getDocument(kk).getAuthor());
+                    if (SearchMethod == 1) {
+                        SortedDocumentsSet list = viewController.searchDocumentsByQuery(query, k2);
+                        IOUtils.drawLine(100);
+                        System.out.printf("    %-10s %-45s %-25s %n", "S.Factor", "Title", "Author");
+                        IOUtils.drawLine(100);
+                        for (int kk = 0; kk < list.getSize(); ++kk) {
+                            System.out.printf("%-3d %-10s %-45s %-25s %n", kk + 1, String.format("%.2f", list.getValue(kk)),
+                                    list.getDocument(kk).getTitle(), list.getDocument(kk).getAuthor());
+                        }
+                    }
+                    else {
+                        SortedDocumentsSet list = viewController.searchDocumentsByQuery(query, k2);
+                        double Rv = 0.6;
+                        SortedDocumentsSet RDocs = viewController.getRelevantDocuments(list,Rv);
+                        SortedDocumentsSet NRDocs = viewController.getNonRelevantDocuments(list,Rv);
+                        float b = 0.8f;
+                        float c = 0.1f;
+                        Document rocchioQuery = viewController.getRocchioQuery(query,RDocs,NRDocs,b,c);
+                        SortedDocumentsSet list2 = viewController.getDocumentsByRelevance(rocchioQuery,k2);
+                        IOUtils
+                                .drawLine(100);
+                        System.out.printf("    %-10s %-45s %-25s %n", "S.Factor", "Title", "Author");
+                        IOUtils.drawLine(100);
+                        for (int kk = 0; kk < list2.getSize(); ++kk) {
+                            System.out.printf("%-3d %-10s %-45s %-25s %n", kk + 1, String.format("%.2f", list2.getValue(kk)),
+                                    list2.getDocument(kk).getTitle(), list2.getDocument(kk).getAuthor());
+                        }
                     }
                 } catch (DocumentNotFoundException e) {
                      System.out.println(Strings.NO_DOCUMENTS_FOUND);

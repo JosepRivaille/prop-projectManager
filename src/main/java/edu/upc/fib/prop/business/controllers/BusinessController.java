@@ -182,4 +182,31 @@ public interface BusinessController {
      * @param document
      */
     void deleteDocumentFromFavourites(Document document) throws DocumentNotFoundException;
+
+    /**
+     *
+     * @param list
+     * @param rv
+     * @return
+     */
+    SortedDocumentsSet getRelevantDocuments(SortedDocumentsSet list, double rv);
+
+    /**
+     *
+     * @param list
+     * @param rv
+     * @return
+     */
+    SortedDocumentsSet getNonRelevantDocuments(SortedDocumentsSet list, double rv);
+
+    /**
+     *
+     * @param query
+     * @param rDocs
+     * @param nrDocs
+     * @param b
+     * @param c
+     * @return
+     */
+    Document getRocchioQuery(String query, SortedDocumentsSet rDocs, SortedDocumentsSet nrDocs, float b, float c);
 }
