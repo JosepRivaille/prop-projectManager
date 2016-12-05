@@ -47,5 +47,8 @@
 
   "BUTTON_READ_DOCUMENT": "Read document",
   "BUTTON_ADD_FAVOURITES": "Add to favourites",
-  "BUTTON_SEARCH_SIMILARS": "Find similar documents"
+  "BUTTON_SEARCH_SIMILARS": "Find similar documents",
+
+  "SIGN_REGISTER_ACCOUNT_TEXT": "Have an account? Sign in",
+  "SIGN_LOGIN_ACCOUNT_TEXT": "New to this library? Sign up now"
 }

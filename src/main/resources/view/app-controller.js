@@ -15,6 +15,9 @@
     function AppCtrl() {
         var vm = this;
         vm.ctrlName = 'AppCtrl';
+
+        vm.user = undefined;
+        vm.isLoggedIn = false;
     }
 
 }());

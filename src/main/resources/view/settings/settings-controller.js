@@ -12,7 +12,7 @@
         .module('project.settings')
         .controller('SettingsCtrl', SettingsCtrl);
 
-    function SettingsCtrl($translate) {
+    function SettingsCtrl($rootScope, $translate, $state) {
         var vm = this;
         vm.ctrlName = 'SettingsCtrl';
 
@@ -67,6 +67,10 @@
         vm.switchTheme = function () {
             var theme = vm.darkTheme ? 'dark' : 'light';
             themeProvider.reload(theme);
+        };
+
+        vm.logout = function () {
+            $state.go('project');
         }
 
     }

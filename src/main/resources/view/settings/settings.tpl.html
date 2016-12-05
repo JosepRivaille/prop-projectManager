@@ -18,6 +18,11 @@
                 <md-switch class="md-primary" ng-model="vm.theme.darkTheme" aria-label="Switch theme"
                            ng-click="vm.switchTheme()"></md-switch>
             </md-list-item>
+            <md-subheader class="md-no-sticky">Logout account</md-subheader>
+            <md-list-item>
+                <!--TODO: Move to function.-->
+                <md-button ng-click="vm.logout(); $rootScope.isLoggedIn = false">Logout</md-button>
+            </md-list-item>
         </md-list>
     </md-content>
 </div>

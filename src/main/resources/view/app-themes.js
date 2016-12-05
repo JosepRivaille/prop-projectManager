@@ -11,7 +11,7 @@
     angular
         .module('project')
         .config(['$mdThemingProvider', '$provide', function ($mdThemingProvider, $provide) {
-            $mdThemingProvider.theme('dark').dark();
+            $mdThemingProvider.theme('dark');
 
             $mdThemingProvider.setDefaultTheme('dark');
             $mdThemingProvider.alwaysWatchTheme(true);

@@ -1,8 +1,6 @@
 (function () {
     'use strict';
 
-    //TODO: Convert into Directive
-
     /**
      * @ngdoc component
      * @name project.components.component:SideNav
