@@ -12,20 +12,31 @@
         .module('project.search')
         .controller('ManageCtrl', ManageCtrl);
 
-    function ManageCtrl($rootScope, $mdDialog, $filter) {
+    function ManageCtrl($rootScope, $mdDialog, $filter, $timeout, $scope) {
         var vm = this;
         vm.ctrlName = 'ManageCtrl';
 
         vm.title = 'MENU_MANAGEMENT_ALL';
         vm.isListSelected = true;
-
+        vm.isButtonOpened = false;
+        vm.tooltipVisible = false;
         vm.authorName = '';
+
+        $scope.$watch('vm.isButtonOpened', function(isOpen) {
+            if (isOpen) {
+                $timeout(function() {
+                    vm.tooltipVisible = vm.isButtonOpened;
+                }, 600);
+            } else {
+                    vm.tooltipVisible = vm.isButtonOpened;
+            }
+        });
 
 
 
         //TODO: Get user documents
-        var response = $rootScope.backendService.searchForAllDocuments();
-        vm.documents = JSON.parse(response);
+        //var response = $rootScope.backendService.searchForAllDocuments();
+        //vm.documents = JSON.parse(response).documents;
 
         /*vm.documents = [
             {

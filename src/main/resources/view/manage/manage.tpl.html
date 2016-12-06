@@ -39,13 +39,32 @@
     </md-list>
 
     <div class="right-bottom-buttons" layout="column" layout-align="center center" flex>
-        <md-button layout="row" layout-align="center center" class="md-fab md-primary" aria-label="Create document"
-                   ng-click="vm.createDocument()">
-            <i class="fa fa-plus"></i>
-        </md-button>
-        <md-button layout="row" layout-align="center center" class="md-fab md-primary" aria-label="Import document">
-            <i class="fa fa-upload"></i>
-        </md-button>
+
+        <md-fab-speed-dial md-open="vm.isButtonOpened" md-direction="up"
+                           ng-class="'md-scale'" ng-mouseenter="vm.isButtonOpened=true" ng-mouseleave="vm.isButtonOpened=false">
+            <md-fab-trigger>
+                <md-button aria-label="menu" class="md-fab md-primary">
+                    <i class="fa fa-bars"></i>
+                </md-button>
+            </md-fab-trigger>
+
+            <md-fab-actions>
+                <md-button aria-label="Create document" class="md-fab md-raised md-mini">
+                    <md-tooltip md-direction="left" md-visible="vm.tooltipVisible"
+                                md-autohide="true">
+                        Create document
+                    </md-tooltip>
+                    <i class="fa fa-plus"></i>
+                </md-button>
+                <md-button aria-label="Import document" class="md-fab md-raised md-mini">
+                    <md-tooltip md-direction="left" md-visible="vm.tooltipVisible"
+                                md-autohide="true">
+                        Import document
+                    </md-tooltip>
+                    <i class="fa fa-download"></i>
+                </md-button>
+            </md-fab-actions>
+        </md-fab-speed-dial>
     </div>
 
 </div>
