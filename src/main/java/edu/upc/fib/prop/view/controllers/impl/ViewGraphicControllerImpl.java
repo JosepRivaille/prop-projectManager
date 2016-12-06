@@ -81,15 +81,18 @@ public class ViewGraphicControllerImpl implements ViewGraphicController {
     }
 
     @Override
-    public void storeNewDocument(String documentJSON) throws DocumentNotFoundException, AlreadyExistingDocumentException,
-            InvalidDetailsException, DocumentContentNotFoundException {
+    public void storeNewDocument(String documentJSON)
+            throws AlreadyExistingDocumentException, InvalidDetailsException, DocumentContentNotFoundException {
         Document document = StringUtils.parseJSONToDocument(documentJSON);
         this.businessController.storeNewDocument(document);
     }
 
     @Override
-    public void updateDocument(Pair<Document, Document> updatedDocument) throws InvalidDetailsException, AlreadyExistingDocumentException, DocumentContentNotFoundException {
-
+    public void updateDocument(String oldDocumentJSON, String editedDocumentJSON)
+            throws InvalidDetailsException, AlreadyExistingDocumentException, DocumentContentNotFoundException {
+        Document oldDocument = StringUtils.parseJSONToDocument(oldDocumentJSON);
+        Document editedDocument = StringUtils.parseJSONToDocument(editedDocumentJSON);
+        businessController.updateDocument(oldDocument, editedDocument);
     }
 
     @Override

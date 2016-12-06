@@ -82,14 +82,14 @@ public interface ViewGraphicController {
      * Stores a new document in the system.
      * @param documentJSON New document to store.
      */
-    void storeNewDocument(String documentJSON) throws DocumentNotFoundException, AlreadyExistingDocumentException,
+    void storeNewDocument(String documentJSON) throws AlreadyExistingDocumentException,
             InvalidDetailsException, DocumentContentNotFoundException;
 
     /**
      * Updates an existing document in the system.
      * @param updatedDocument Pair with current document and document to update.
      */
-    void updateDocument(Pair<Document, Document> updatedDocument) throws InvalidDetailsException, AlreadyExistingDocumentException, DocumentContentNotFoundException;
+    void updateDocument(String oldDocumentJSON, String editedDocumentJSON) throws InvalidDetailsException, AlreadyExistingDocumentException, DocumentContentNotFoundException;
 
     /**
      * Document to delete from the system.
