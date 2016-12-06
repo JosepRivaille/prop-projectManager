@@ -69,7 +69,7 @@ public class Strings {
     public static final String DOCUMENT_TO_IMPORT_PATH = "Type the path of the document";
     public static final String ERROR_IMPORTING_THE_DOCUMENT = "An error occurred importing the document, check the path.";
     public static final String TYPE_THE_BOOLEAN_EXPRESSION = "Type the boolean expression";
-    public static final String INVALID_BOOLEAN_EXPRESSION = "The boolean expression must be [noSeComExpressar-ho.txt]";
+    public static final String INVALID_BOOLEAN_EXPRESSION = "The boolean expression is invalid";
 
     public static final String DOCUMENT_IMPORTED_SUCCESSFULLY = "The document has been imported successfully.";
     public static final String TYPE_PATH_TO_EXPORT = "Type the path to export the document";

@@ -1,26 +1,43 @@
 <div ng-if="!isLoggedIn" id="login-container" layout="row" layout-align="center center">
-    <form name="clientLogin">
-        <md-input-container ng-if="isRegister" class="md-block" flex-gt-sm="">
-            <label>User name</label>
-            <input ng-model="user.userName" name="userPassword" type="text" ng-required="true">
-        </md-input-container>
+
+    <form ng-if="!isRegister" name="clientLogin">
         <md-input-container class="md-block" flex-gt-sm="">
             <label>Email</label>
-            <input ng-model="user.email" name="userName" type="email" ng-required="true">
+            <input ng-model="user.email" name="userEmail" type="email" ng-required="true">
+            <p class="md-raised md-warn" ng-show="clientLogin.userEmail.$invalid && !clientLogin.userEmail.$pristine">
+                Enter a valid email.</p>
         </md-input-container>
         <md-input-container class="md-block" flex-gt-sm="">
             <label>Password</label>
             <input ng-model="user.password" name="userPassword" type="password" ng-required="true">
         </md-input-container>
+
+        <md-button class="md-raised md-primary" ng-click="login()">Login</md-button>
+        <a ng-click="changeFormMode()">{{'SIGN_LOGIN_ACCOUNT_TEXT' | translate}}</a>
+    </form>
+
+    <form ng-if="isRegister" name="clientRegister">
         <md-input-container ng-if="isRegister" class="md-block" flex-gt-sm="">
+            <label>User name</label>
+            <input ng-model="user.userName" name="userName" type="text" ng-required="true">
+        </md-input-container>
+        <md-input-container class="md-block" flex-gt-sm="">
+            <label>Email</label>
+            <input ng-model="user.email" name="userEmail" type="email" ng-required="true">
+            <p class="md-raised md-warn" ng-show="clientLogin.userEmail.$invalid && !clientLogin.userEmail.$pristine">
+                Enter a valid email.</p>
+        </md-input-container>
+        <md-input-container class="md-block" flex-gt-sm="">
+            <label>Password</label>
+            <input ng-model="user.password" name="userPassword" type="password" ng-required="true">
+        </md-input-container>
+        <md-input-container class="md-block" flex-gt-sm="">
             <label>Repeat password</label>
             <input ng-model="user.password2" name="userPassword2" type="password" ng-required="true">
         </md-input-container>
 
-        <md-button ng-if="!isRegister" class="md-raised md-primary" ng-click="login()">Login</md-button>
-        <md-button ng-if="isRegister" class="md-raised md-warn" ng-click="register()">Register</md-button>
-
-        <a ng-if="isRegister" ng-click="changeFormMode()">{{'SIGN_REGISTER_ACCOUNT_TEXT' | translate}}</a>
-        <a ng-if="!isRegister" ng-click="changeFormMode()">{{'SIGN_LOGIN_ACCOUNT_TEXT' | translate}}</a>
+        <md-button class="md-raised md-warn" ng-click="register()">Register</md-button>
+        <a ng-click="changeFormMode()">{{'SIGN_REGISTER_ACCOUNT_TEXT' | translate}}</a>
     </form>
+
 </div>

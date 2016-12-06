@@ -42,5 +42,28 @@ public class SearchBooleanExpressionTest {
         assertTrue(searchBooleanExpression.checkValidBooleanExpression(booleanExpression));
     }
 
+    @Test
+    public void test_whenCheckSimpleExpression3_withValidString_thenIsCorrect() {
+        String booleanExpression = "{a b c} | !(\"Mira mira\")";
+
+        SearchBooleanExpression searchBooleanExpression = new SearchBooleanExpressionImpl();
+        assertTrue(searchBooleanExpression.checkValidBooleanExpression(booleanExpression));
+    }
+
+    @Test
+    public void test_whenCheckComplexExpression_withInvalidString_thenIsIncorrect() {
+        String booleanExpression = "{a b c} | (a & b & !c & \"Foo)";
+
+        SearchBooleanExpression searchBooleanExpression = new SearchBooleanExpressionImpl();
+        assertFalse(searchBooleanExpression.checkValidBooleanExpression(booleanExpression));
+    }
+
+    @Test
+    public void test_whenCheckComplexExpression_withValidString_thenIsCorrect() {
+        String booleanExpression = "{a b c} | (a & b & !c & \"Bon dia i bona hora\")";
+
+        SearchBooleanExpression searchBooleanExpression = new SearchBooleanExpressionImpl();
+        assertTrue(searchBooleanExpression.checkValidBooleanExpression(booleanExpression));
+    }
 
 }

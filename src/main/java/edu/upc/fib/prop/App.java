@@ -49,7 +49,7 @@ class Browser extends Region {
                     if (newValue == Worker.State.SUCCEEDED) {
 
                         JSObject jsobj = (JSObject) webEngine.executeScript("window");
-                        jsobj.setMember("propBackend", new ViewGraphicControllerImpl(webEngine, stage));
+                        jsobj.setMember("backend", new ViewGraphicControllerImpl(webEngine, stage));
                     }
                 });
 
