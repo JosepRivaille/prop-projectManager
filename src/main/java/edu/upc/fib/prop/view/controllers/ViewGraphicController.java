@@ -94,9 +94,10 @@ public interface ViewGraphicController {
 
     /**
      * Document to delete from the system.
-     * @param documentJSON Document to delete.
+     * @param title Document to delete title.
+     * @param author Document to delete author.
      */
-    void deleteDocument(String documentJSON);
+    void deleteDocument(String title, String author);
 
     /**
      * Removes user session.

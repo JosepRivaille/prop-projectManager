@@ -87,8 +87,12 @@ public class ViewGraphicControllerImpl implements ViewGraphicController {
     }
 
     @Override
-    public void deleteDocument(String documentJSON) {
-        System.out.println("Successfully deleted document");
+    public void deleteDocument(String title, String authorName) {
+        try {
+            this.businessController.deleteDocument(title, authorName);
+        } catch (DocumentNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

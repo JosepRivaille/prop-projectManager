@@ -109,7 +109,11 @@ public class ViewControllerImpl implements ViewController {
 
     @Override
     public void deleteDocument(Document document) {
-        this.businessController.deleteDocument(document);
+        try {
+            this.businessController.deleteDocument(document.getTitle(), document.getAuthor());
+        } catch (DocumentNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

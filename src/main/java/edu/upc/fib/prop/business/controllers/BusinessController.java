@@ -119,9 +119,10 @@ public interface BusinessController {
     /**
      * Deletes a document in persistence.
      *
-     * @param document Document to delete.
+     * @param title Document to delete title.
+     * @param authorName Document to delete author.
      */
-    void deleteDocument(Document document);
+    void deleteDocument(String title, String authorName) throws DocumentNotFoundException;
 
     /**
      * Imports a document.

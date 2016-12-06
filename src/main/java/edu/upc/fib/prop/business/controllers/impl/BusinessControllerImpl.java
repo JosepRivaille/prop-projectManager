@@ -260,7 +260,8 @@ public class BusinessControllerImpl implements BusinessController {
     }
 
     @Override
-    public void deleteDocument(Document document) {
+    public void deleteDocument(String title, String authorName) throws DocumentNotFoundException {
+        Document document = searchDocumentsByTitleAndAuthor(title, authorName);
         documentsCollection.deleteDocument(document);
         persistenceController.deleteDocument(document);
         persistenceController.deleteAllFavouritesOfDocument(document);
