@@ -12,9 +12,10 @@
         .module('project')
         .controller('AppCtrl', AppCtrl);
 
-    function AppCtrl() {
+    function AppCtrl($rootScope) {
         var vm = this;
         vm.ctrlName = 'AppCtrl';
+        $rootScope.backendService = backendService;
 
     }
 

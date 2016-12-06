@@ -12,12 +12,13 @@
         .module('project.search')
         .controller('SearchAllCtrl', SearchAllCtrl);
 
-    function SearchAllCtrl() {
+    function SearchAllCtrl($rootScope) {
         var vm = this;
         vm.ctrlName = 'SearchAllCtrl';
 
         vm.title = 'MENU_SEARCH_ALL';
         vm.isDocumentSelected = false;
+
 
         /*var response = backend.searchForAllDocuments();
         vm.documents = JSON.parse(response).documents;*/

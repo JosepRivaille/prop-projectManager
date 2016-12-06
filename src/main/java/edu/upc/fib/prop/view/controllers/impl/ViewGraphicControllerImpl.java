@@ -14,13 +14,9 @@ import javafx.util.Pair;
 public class ViewGraphicControllerImpl implements ViewGraphicController {
 
     private BusinessController businessController;
-    private WebEngine webEngine;
-    private Stage stage;
 
-    public ViewGraphicControllerImpl(WebEngine we, Stage st) {
+    public ViewGraphicControllerImpl() {
         System.out.println("Initializating view controller (GRAPHICAL MODE)");
-        this.webEngine = we;
-        this.stage = st;
         businessController = new BusinessControllerImpl();
     }
 

@@ -21,6 +21,8 @@
 
         vm.authorName = '';
 
+
+
         //TODO: Get user documents
         /*var response = backend.searchForAllDocuments();
         vm.documents = JSON.parse(response).documents;*/
@@ -107,7 +109,7 @@
 
             $mdDialog.show(confirm).then(function() {
                 var data = JSON.stringify(document);
-
+                $rootScope.backendService.test();
                 var index = vm.documents.indexOf(document);
                 vm.documents.splice(index, 1);
             }, function() {
