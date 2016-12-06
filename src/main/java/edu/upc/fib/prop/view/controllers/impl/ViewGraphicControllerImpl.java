@@ -7,9 +7,10 @@ import edu.upc.fib.prop.exceptions.*;
 import edu.upc.fib.prop.models.*;
 import edu.upc.fib.prop.utils.StringUtils;
 import edu.upc.fib.prop.view.controllers.ViewGraphicController;
-import javafx.scene.web.WebEngine;
-import javafx.stage.Stage;
 import javafx.util.Pair;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ViewGraphicControllerImpl implements ViewGraphicController {
 
@@ -103,8 +104,11 @@ public class ViewGraphicControllerImpl implements ViewGraphicController {
     @Override
     public String searchForAllDocuments() {
         DocumentsSet documents = this.businessController.searchForAllDocuments();
-        //TODO: Return only basic info
-        return new Gson().toJson(documents);
+        List<DocumentBasicInfo> documentsBasicInfo = new ArrayList<>();
+        for (Document document : documents) {
+            documentsBasicInfo.add(new DocumentBasicInfo(document));
+        }
+        return new Gson().toJson(documentsBasicInfo);
     }
 
     @Override

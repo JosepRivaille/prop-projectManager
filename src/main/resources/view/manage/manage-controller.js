@@ -25,7 +25,7 @@
 
         //TODO: Get user documents
         var response = $rootScope.backendService.searchForAllDocuments();
-        vm.documents = JSON.parse(response).documents;
+        vm.documents = JSON.parse(response);
 
         /*vm.documents = [
             {
