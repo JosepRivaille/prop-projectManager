@@ -58,7 +58,8 @@
         };
 
         vm.editDocument = function (document) {
-            vm.documentSelected = document;
+            var backUpDocument = angular.copy(document);
+            vm.documentSelected = backUpDocument;
             vm.title = 'MENU_MANAGEMENT_UPDATE';
             vm.isListSelected = false;
             vm.isNewDocument = false;
