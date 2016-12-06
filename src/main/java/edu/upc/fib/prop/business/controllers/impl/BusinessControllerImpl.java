@@ -11,6 +11,7 @@ import edu.upc.fib.prop.exceptions.*;
 import edu.upc.fib.prop.models.*;
 import edu.upc.fib.prop.persistence.controllers.PersistenceController;
 import edu.upc.fib.prop.persistence.controllers.impl.PersistenceControllerImpl;
+import edu.upc.fib.prop.utils.FileUtils;
 import edu.upc.fib.prop.utils.ImportExport;
 
 import javax.print.Doc;
@@ -157,8 +158,13 @@ public class BusinessControllerImpl implements BusinessController {
 
     @Override
     public Document getRocchioQuery(String query, SortedDocumentsSet rDocs, SortedDocumentsSet nrDocs, float b, float c) {
-        String relatedDocContents = searchDocument.getAggregatedContent(rDocs);
-        String nonrelatedDocContents = searchDocument.getAggregatedContent(nrDocs);
+        String relatedDocContents = "", nonrelatedDocContents = "";
+        try {
+            relatedDocContents = searchDocument.getAggregatedContent(rDocs);
+            nonrelatedDocContents = searchDocument.getAggregatedContent(nrDocs);
+        } catch (DocumentContentNotFoundException e) {
+            e.printStackTrace();
+        }
 
         this.persistenceController.createContentFile(relatedDocContents, "rDocC.txt");
         Document docr = new Document("", "", "rDocC.txt");
@@ -167,7 +173,7 @@ public class BusinessControllerImpl implements BusinessController {
         } catch (DocumentContentNotFoundException e) {
             e.printStackTrace();
         }
-        this.persistenceController.deleteContentFile("rDocC.txt");
+
 
         this.persistenceController.createContentFile(nonrelatedDocContents, "nrDocC.txt");
         Document docnr = new Document("", "", "nrDocC.txt");
@@ -176,7 +182,7 @@ public class BusinessControllerImpl implements BusinessController {
         } catch (DocumentContentNotFoundException e) {
             e.printStackTrace();
         }
-        this.persistenceController.deleteContentFile("nrDocC.txt");
+
 
         this.persistenceController.createContentFile(query, "query.txt");
         Document docquery = new Document("", "", "query.txt");
@@ -185,8 +191,16 @@ public class BusinessControllerImpl implements BusinessController {
         } catch (DocumentContentNotFoundException e) {
             e.printStackTrace();
         }
+
+        try {
+            docquery = searchDocument.getRocchioQuery(docquery,docr,docnr,b,c);
+        } catch (DocumentContentNotFoundException e) {
+            e.printStackTrace();
+        }
+        this.persistenceController.deleteContentFile("rDocC.txt");
+        this.persistenceController.deleteContentFile("nrDocC.txt");
         this.persistenceController.deleteContentFile("query.txt");
-        return searchDocument.getRocchioQuery(docquery,docr,docnr,b,c);
+        return docquery;
     }
 
     @Override

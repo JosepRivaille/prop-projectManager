@@ -1,5 +1,6 @@
 package edu.upc.fib.prop.business.search;
 
+import edu.upc.fib.prop.exceptions.DocumentContentNotFoundException;
 import edu.upc.fib.prop.exceptions.DocumentNotFoundException;
 import edu.upc.fib.prop.models.Document;
 import edu.upc.fib.prop.models.DocumentsCollection;
@@ -68,12 +69,12 @@ public interface SearchDocument {
      * @param c
      * @return
      */
-    Document getRocchioQuery(Document query, Document rDocs, Document nrDocs, float b, float c);
+    Document getRocchioQuery(Document query, Document rDocs, Document nrDocs, float b, float c) throws DocumentContentNotFoundException;
 
     /**
      *
      * @param docs
      * @return
      */
-    String getAggregatedContent(SortedDocumentsSet docs);
+    String getAggregatedContent(SortedDocumentsSet docs) throws DocumentContentNotFoundException;
 }

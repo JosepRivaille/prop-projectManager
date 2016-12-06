@@ -1,12 +1,14 @@
 package edu.upc.fib.prop.business.search.impl;
 
 import edu.upc.fib.prop.business.search.SearchDocument;
+import edu.upc.fib.prop.exceptions.DocumentContentNotFoundException;
 import edu.upc.fib.prop.exceptions.DocumentNotFoundException;
 import edu.upc.fib.prop.exceptions.InvalidDetailsException;
 import edu.upc.fib.prop.models.Document;
 import edu.upc.fib.prop.models.DocumentsCollection;
 import edu.upc.fib.prop.models.SortedDocumentsSet;
 import edu.upc.fib.prop.models.WeightsVector;
+import edu.upc.fib.prop.utils.FileUtils;
 
 import java.util.Map;
 
@@ -92,34 +94,41 @@ public class SearchDocumentImpl implements SearchDocument {
     }
 
     @Override
-    public Document getRocchioQuery(Document query, Document rDocs, Document nrDocs, float b, float c) {
+    public Document getRocchioQuery(Document query, Document rDocs, Document nrDocs, float b, float c)
+            throws DocumentContentNotFoundException {
         Document doc;
         doc = query;
-        for (String word : rDocs.getContent().split("[.,]\\s|\\s|[.]")) {
-            Float aux = rDocs.getTermFrequency().get(word) * (1f / (float) rDocs.getTermFrequency().size()) * b;
-            if (!doc.getTermFrequency().containsKey(word)) {
-                doc.getTermFrequency().put(word, aux);
-            } else {
-                doc.getTermFrequency().put(word, doc.getTermFrequency().get(word) + aux);
+        for (String word : FileUtils.readDocument(rDocs.getContent()).split("[.,]\\s|\\s|[.]")) {
+            if (rDocs.getTermFrequency().get(word) != null) {
+                Float aux = rDocs.getTermFrequency().get(word) * (1f / (float) rDocs.getTermFrequency().size()) * b;
+                if (!doc.getTermFrequency().containsKey(word)) {
+                    doc.getTermFrequency().put(word, aux);
+                } else {
+                    doc.getTermFrequency().put(word, doc.getTermFrequency().get(word) + aux);
+                }
             }
         }
         for (String word : nrDocs.getContent().split("[.,]\\s|\\s|[.]")) {
-            Float aux = nrDocs.getTermFrequency().get(word) * (1f / (float) nrDocs.getTermFrequency().size()) * c;
-            if (doc.getTermFrequency().containsKey(word)) {
-                if (doc.getTermFrequency().get(word) - aux < 0f) {
-                    doc.getTermFrequency().remove(word);
-                } else {
-                    doc.getTermFrequency().put(word, doc.getTermFrequency().get(word) - aux);
+            if (rDocs.getTermFrequency().get(word) != null) {
+                Float aux = nrDocs.getTermFrequency().get(word) * (1f / (float) nrDocs.getTermFrequency().size()) * c;
+                if (doc.getTermFrequency().containsKey(word)) {
+                    if (doc.getTermFrequency().get(word) - aux < 0f) {
+                        doc.getTermFrequency().remove(word);
+                    } else {
+                        doc.getTermFrequency().put(word, doc.getTermFrequency().get(word) - aux);
+                    }
                 }
             }
         }
         return doc;
     }
 
-    public String getAggregatedContent(SortedDocumentsSet docs) {
+    public String getAggregatedContent(SortedDocumentsSet docs) throws DocumentContentNotFoundException {
         String aggContent = null;
         for (int i=0;i<docs.getSize()-1;i++) {
-            aggContent = docs.getDocument(i).getContent() + docs.getDocument(i+1).getContent();
+
+            aggContent = FileUtils.readDocument(docs.getDocument(i).getContent()) +
+                    FileUtils.readDocument(docs.getDocument(i+1).getContent());
         }
         return aggContent;
     }

@@ -303,7 +303,7 @@ public class MainMenu {
                     }
                     else {
                         SortedDocumentsSet list = viewController.searchDocumentsByQuery(query, k2);
-                        double Rv = 0.6;
+                        double Rv = 0.2;
                         SortedDocumentsSet RDocs = viewController.getRelevantDocuments(list,Rv);
                         SortedDocumentsSet NRDocs = viewController.getNonRelevantDocuments(list,Rv);
                         float b = 0.8f;
