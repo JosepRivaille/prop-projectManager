@@ -35,23 +35,26 @@
                     password2: ''
                 };
 
+                scope.isInvalidData = undefined;
+
                 scope.changeFormMode = function () {
                     scope.isRegister ^= true;
+                    scope.isInvalidData = undefined;
                 };
 
                 scope.login = function () {
                     var email = scope.user.email;
                     var password = scope.user.password;
 
-                    var isValidLogin = $rootScope.backendService.userLogin(email, password);
-                    if (isValidLogin) {
+                    try {
+                        $rootScope.backendService.userLogin(email, password);
                         scope.isLoggedIn = true;
                         $rootScope.currentUser = {
                             email: email
                         };
                         resetFormData();
-                    } else {
-                        //TODO: Confirmation message
+                    } catch (e) {
+                        scope.isInvalidData = treatException(e);
                     }
                 };
 
@@ -61,16 +64,16 @@
                     var password = scope.user.password;
                     var password2 = scope.user.password2;
 
-                    var isValidRegister = $rootScope.backendService.userRegister(email, userName, password, password2);
-                    if (isValidRegister) {
+                    try {
+                        $rootScope.backendService.userRegister(email, userName, password, password2);
                         scope.isLoggedIn = true;
                         $rootScope.currentUser = {
                             email: email
                         };
                         scope.isRegister = false;
                         resetFormData();
-                    } else {
-                        //TODO: Confirmation message
+                    } catch (e) {
+                        scope.isInvalidData = treatException(e);
                     }
                 };
                 
@@ -81,6 +84,17 @@
                         password: '',
                         password2: ''
                     };
+                    scope.isInvalidData = undefined;
+                }
+
+                function treatException(e) {
+                    if (e.toString().indexOf('UserNotFoundException') !== -1) {
+                        return 'EXCEPTION_USER_NOT_FOUND';
+                    } else if (e.toString().indexOf('InvalidDetailsException') !== -1) {
+                        return 'EXCEPTION_INVALID_DETAILS';
+                    } else if (e.toString().indexOf('AlreadyExistingUserException') !== -1) {
+                        return 'EXCEPTION_ALREADY_EXISTING_USER';
+                    }
                 }
 
             }
