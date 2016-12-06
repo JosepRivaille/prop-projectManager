@@ -11,6 +11,7 @@ import javafx.util.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ViewGraphicControllerImpl implements ViewGraphicController {
 
@@ -73,7 +74,10 @@ public class ViewGraphicControllerImpl implements ViewGraphicController {
 
     @Override
     public String getCurrentUserDocuments() {
-        return null;
+        DocumentsCollection documents = this.businessController.getCurrentUserDocuments();
+        List<DocumentBasicInfo> documentsBasicInfo = documents.getDocuments().stream().map(DocumentBasicInfo::new)
+                .collect(Collectors.toList());
+        return new Gson().toJson(documentsBasicInfo);
     }
 
     @Override

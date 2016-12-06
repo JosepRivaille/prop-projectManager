@@ -52,7 +52,7 @@ public class App extends Application {
                 getClass().getResource(page).
                         toExternalForm());
 
-        primaryStage.setScene(new Scene(webView));
+        primaryStage.setScene(new Scene(webView, 1080, 608));
         primaryStage.setTitle("PROP Library");
         primaryStage.show();
     }

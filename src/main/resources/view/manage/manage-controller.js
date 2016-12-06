@@ -36,7 +36,7 @@
 
 
         //TODO: Get user documents
-        var response = $rootScope.backendService.searchForAllDocuments();
+        var response = $rootScope.backendService.getCurrentUserDocuments();
         vm.documents = JSON.parse(response);
 
         /*vm.documents = [
@@ -86,7 +86,7 @@
                 //TODO: Store file
                 var data = JSON.stringify(vm.documentSelected);
                 if (vm.isNewDocument) {
-                    //backend.storeNewDocument(data);
+                    $rootScope.backendService.storeNewDocument(data);
                     var document = buildDocument(vm.documentSelected);
                     vm.documents.push(document);
                 } else {
