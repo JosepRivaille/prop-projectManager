@@ -1,8 +1,5 @@
 package edu.upc.fib.prop.utils;
 
-import edu.upc.fib.prop.exceptions.DocumentContentNotFoundException;
-import edu.upc.fib.prop.exceptions.DocumentNotFoundException;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -43,33 +40,6 @@ public class FileUtils {
         Set<String> excludedWords = new TreeSet<>();
         FileUtils.readFile("src/main/resources/words/" + lang + ".txt");
         return excludedWords;
-    }
-
-    public static String readDocument(String documentTitle) throws DocumentContentNotFoundException {
-        BufferedReader bufferedReader = null;
-        try {
-            bufferedReader = new BufferedReader(new FileReader("src/main/resources/documents/" + documentTitle));
-            StringBuilder sb = new StringBuilder();
-            String line = bufferedReader.readLine();
-
-            while (line != null) {
-                sb.append(line);
-                sb.append(System.lineSeparator());
-                line = bufferedReader.readLine();
-            }
-            return sb.toString();
-
-        } catch (IOException e) {
-            throw new DocumentContentNotFoundException();
-        } finally {
-            try {
-                if (bufferedReader != null) {
-                    bufferedReader.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
     }
 
 }

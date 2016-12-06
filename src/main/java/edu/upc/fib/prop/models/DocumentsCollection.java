@@ -1,7 +1,6 @@
 package edu.upc.fib.prop.models;
 
 import edu.upc.fib.prop.exceptions.AlreadyExistingDocumentException;
-import edu.upc.fib.prop.exceptions.DocumentContentNotFoundException;
 import edu.upc.fib.prop.exceptions.InvalidDetailsException;
 
 import java.util.ArrayList;
@@ -43,7 +42,8 @@ public class DocumentsCollection {
         return (this.getDocument(title,author) != null);
     }
 
-    public Document updateDocument(Document oldDoc, Document newDoc) throws InvalidDetailsException, AlreadyExistingDocumentException, DocumentContentNotFoundException {
+    public Document updateDocument(Document oldDoc, Document newDoc)
+            throws InvalidDetailsException, AlreadyExistingDocumentException {
         Document updatedDoc = oldDoc.merge(newDoc);
         //if(containsTitleAndAuthor(updatedDoc.getTitle(), updatedDoc.getAuthor())) throw new AlreadyExistingDocumentException();
         if(!updatedDoc.isCorrect()) throw new InvalidDetailsException();
@@ -70,24 +70,24 @@ public class DocumentsCollection {
 
     }
 
-    public void addWord(String word){
+    private void addWord(String word){
         if(wordsFrequencies.containsKey(word)) wordsFrequencies.put(word, wordsFrequencies.get(word)+1);
         else wordsFrequencies.put(word, 1);
     }
 
-    public void removeWord(String word){
+    private void removeWord(String word){
         if(wordsFrequencies.containsKey(word)) wordsFrequencies.put(word, wordsFrequencies.get(word)-1);
-       if(wordsFrequencies.get(word)<=0) wordsFrequencies.remove(word);
+        if(wordsFrequencies.get(word)<=0) wordsFrequencies.remove(word);
     }
 
-    public Float getIdf(String word){
+    private Float getIdf(String word){
         if(!wordsFrequencies.containsKey(word)) return 0f;
         return (float)Math.log((float)documents.size()/(float)wordsFrequencies.get(word));
     }
 
     public int size(){ return documents.size();}
 
-    public Document getDocument(String title, String author){
+    private Document getDocument(String title, String author){
         for(Document d : documents){
             if(d.getTitle().toLowerCase().equals(title.toLowerCase()) && d.getAuthor().toLowerCase().equals(author.toLowerCase())) return d;
         }

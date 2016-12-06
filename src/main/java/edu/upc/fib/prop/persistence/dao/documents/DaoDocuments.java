@@ -1,7 +1,6 @@
 package edu.upc.fib.prop.persistence.dao.documents;
 
 import edu.upc.fib.prop.exceptions.AlreadyExistingDocumentException;
-import edu.upc.fib.prop.exceptions.DocumentContentNotFoundException;
 import edu.upc.fib.prop.exceptions.DocumentNotFoundException;
 import edu.upc.fib.prop.models.Document;
 import edu.upc.fib.prop.models.DocumentsCollection;

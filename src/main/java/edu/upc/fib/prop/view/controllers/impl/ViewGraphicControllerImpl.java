@@ -84,20 +84,20 @@ public class ViewGraphicControllerImpl implements ViewGraphicController {
 
     @Override
     public void storeNewDocument(String documentJSON)
-            throws AlreadyExistingDocumentException, InvalidDetailsException, DocumentContentNotFoundException {
+            throws AlreadyExistingDocumentException, InvalidDetailsException {
         Document document = StringUtils.parseJSONToDocument(documentJSON);
         this.businessController.storeNewDocument(document);
     }
 
     @Override
     public void updateDocument(String oldDocumentJSON, String editedDocumentJSON)
-            throws InvalidDetailsException, AlreadyExistingDocumentException, DocumentContentNotFoundException {
+            throws InvalidDetailsException, AlreadyExistingDocumentException {
         Document oldDocument = StringUtils.parseJSONToDocument(oldDocumentJSON);
         Document editedDocument = StringUtils.parseJSONToDocument(editedDocumentJSON);
         JsonParser parser = new JsonParser();
         JsonObject jsonObject = parser.parse(oldDocumentJSON).getAsJsonObject();
         String filename = jsonObject.get("fileName").getAsString();
-        businessController.updateDocument(oldDocument, editedDocument, filename);
+        businessController.updateDocument(oldDocument, editedDocument);
     }
 
     @Override
@@ -125,12 +125,13 @@ public class ViewGraphicControllerImpl implements ViewGraphicController {
     }
 
     @Override
-    public String importDocument(String path) throws ImportExportException, AlreadyExistingDocumentException, InvalidDetailsException, DocumentContentNotFoundException {
+    public String importDocument(String path)
+            throws ImportExportException, AlreadyExistingDocumentException, InvalidDetailsException {
         return null;
     }
 
     @Override
-    public void exportDocument(String pathToExport, Document document, String os) throws ImportExportException, DocumentContentNotFoundException {
+    public void exportDocument(String pathToExport, Document document, String os) throws ImportExportException {
 
     }
 

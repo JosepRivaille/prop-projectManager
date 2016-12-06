@@ -93,14 +93,15 @@ public class BusinessControllerImpl implements BusinessController {
     }
 
     @Override
-    public Document importDocument(String path) throws ImportExportException, AlreadyExistingDocumentException, InvalidDetailsException, DocumentContentNotFoundException {
+    public Document importDocument(String path)
+            throws ImportExportException, AlreadyExistingDocumentException, InvalidDetailsException {
         Document doc = ImportExport.importDocument(path);
         this.storeNewDocument(doc);
         return doc;
     }
 
     @Override
-    public void exportDocument(String pathToExport, Document document, String os) throws ImportExportException, DocumentContentNotFoundException {
+    public void exportDocument(String pathToExport, Document document, String os) throws ImportExportException {
         ImportExport.exportDocument(pathToExport, document, os);
     }
 
@@ -111,16 +112,9 @@ public class BusinessControllerImpl implements BusinessController {
     }
 
     @Override
-    public SortedDocumentsSet searchDocumentsByQuery(String str, int k)
-            throws DocumentNotFoundException {
-        this.persistenceController.createContentFile(str, "query.txt");
-         Document document = new Document("", "", "query.txt");
-        try {
-            document.updateFrequencies();
-        } catch (DocumentContentNotFoundException e) {
-            e.printStackTrace();
-        }
-        this.persistenceController.deleteContentFile("query.txt");
+    public SortedDocumentsSet searchDocumentsByQuery(String str, int k) {
+        Document document = new Document("", "", "str");
+        document.updateFrequencies();
         return this.searchDocument.searchForSimilarDocuments(this.documentsCollection, document, k);
     }
 
@@ -129,11 +123,7 @@ public class BusinessControllerImpl implements BusinessController {
         persistenceController.rateDocument(document, rating, this.usersManager.getCurrentUser().getEmail());
         try {
             documentsCollection.updateDocument(document, persistenceController.getDocument(document.getTitle(), document.getAuthor()));
-        } catch (InvalidDetailsException e) {
-            e.printStackTrace();
-        } catch (AlreadyExistingDocumentException e) {
-            e.printStackTrace();
-        } catch (DocumentContentNotFoundException e) {
+        } catch (InvalidDetailsException | AlreadyExistingDocumentException e) {
             e.printStackTrace();
         }
     }
@@ -149,19 +139,19 @@ public class BusinessControllerImpl implements BusinessController {
     }
 
     @Override
-    public Document getRocchioQuery(String query, SortedDocumentsSet list, double rv, float b, float c)
-            throws DocumentContentNotFoundException, DocumentNotFoundException {
-        this.persistenceController.createContentFile(query, "query.txt");
-        Document docquery = new Document("", "", "query.txt");
+    public Document getRocchioQuery(String query, SortedDocumentsSet list, double rv, float b, float c) {
+       /*     throws DocumentNotFoundException {
+        Document docquery = new Document("", "", "query");
         docquery.updateFrequencies();
-        this.persistenceController.deleteContentFile("query.txt");
-        return searchDocument.getRocchioQuery(docquery,list,rv,b,c);
+        return searchDocument.getRocchioQuery(docquery,list,rv,b,c);*/
+        return null;
     }
 
     @Override
-    public void updateDocument(Document oldDocument, Document editedDocument, String filename) throws AlreadyExistingDocumentException, InvalidDetailsException, DocumentContentNotFoundException {
-        if(!(editedDocument.getAuthor().equals("") && editedDocument.getTitle().equals("") && editedDocument.getContent().equals(""))){
-            if(documentsCollection.containsTitleAndAuthor(editedDocument.getTitle(), editedDocument.getAuthor())) throw  new AlreadyExistingDocumentException();
+    public void updateDocument(Document oldDocument, Document editedDocument) throws AlreadyExistingDocumentException, InvalidDetailsException {
+        if(!(editedDocument.getAuthor().equals("") && editedDocument.getTitle().equals("") && editedDocument.getContent().equals(""))) {
+            if(documentsCollection.containsTitleAndAuthor(editedDocument.getTitle(), editedDocument.getAuthor()))
+                throw new AlreadyExistingDocumentException();
             Document updatedDoc = documentsCollection.updateDocument(oldDocument, editedDocument);
             persistenceController.updateDocument(oldDocument, updatedDoc);
             if(!oldDocument.getTitle().equals(updatedDoc.getTitle()) || !oldDocument.getAuthor().equals(updatedDoc.getAuthor())){
@@ -201,19 +191,13 @@ public class BusinessControllerImpl implements BusinessController {
     }
 
     @Override
-    public void storeNewDocument(Document document)
-            throws AlreadyExistingDocumentException, InvalidDetailsException, DocumentContentNotFoundException {
+    public void storeNewDocument(Document document) throws AlreadyExistingDocumentException, InvalidDetailsException {
         document.setUser(usersManager.getCurrentUser().getEmail());
         if (!document.isCorrect()) {
             throw new InvalidDetailsException();
         } else if (documentsCollection.containsTitleAndAuthor(document.getTitle(), document.getAuthor())) {
             throw new AlreadyExistingDocumentException();
         } else {
-
-            String contentFileName = generateContentFilename();
-
-            persistenceController.createContentFile(document.getContent(),contentFileName);
-            document.setContent(contentFileName);
             document.updateFrequencies();
             document.updatePositions();
             try {
@@ -228,23 +212,6 @@ public class BusinessControllerImpl implements BusinessController {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-        }
-    }
-
-    private String generateContentFilename() {
-        return new BigInteger(130, new SecureRandom()).toString(32) + ".txt";
-    }
-
-    @Override
-    public void updateDocument(Document oldDoc, Document newDoc) throws InvalidDetailsException, AlreadyExistingDocumentException, DocumentContentNotFoundException {
-        if(!(newDoc.getAuthor().equals("") && newDoc.getTitle().equals("") && newDoc.getContent().equals(""))){
-            if(documentsCollection.containsTitleAndAuthor(newDoc.getTitle(), newDoc.getAuthor())) throw  new AlreadyExistingDocumentException();
-            Document updatedDoc = documentsCollection.updateDocument(oldDoc, newDoc);
-            persistenceController.updateDocument(oldDoc, updatedDoc);
-            if(!oldDoc.getTitle().equals(updatedDoc.getTitle()) || !oldDoc.getAuthor().equals(updatedDoc.getAuthor())){
-                persistenceController.deleteAllFavouritesOfDocument(oldDoc);
-            }
-            reloadDBData();
         }
     }
 

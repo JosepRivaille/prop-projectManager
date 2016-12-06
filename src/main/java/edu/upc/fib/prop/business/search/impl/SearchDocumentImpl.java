@@ -1,18 +1,12 @@
 package edu.upc.fib.prop.business.search.impl;
 
 import edu.upc.fib.prop.business.search.SearchDocument;
-import edu.upc.fib.prop.exceptions.DocumentContentNotFoundException;
 import edu.upc.fib.prop.exceptions.DocumentNotFoundException;
 import edu.upc.fib.prop.exceptions.InvalidDetailsException;
 import edu.upc.fib.prop.models.Document;
 import edu.upc.fib.prop.models.DocumentsCollection;
 import edu.upc.fib.prop.models.SortedDocumentsSet;
 import edu.upc.fib.prop.models.WeightsVector;
-import edu.upc.fib.prop.utils.FileUtils;
-import sun.reflect.generics.tree.Tree;
-
-import java.util.Map;
-import java.util.TreeMap;
 
 
 public class SearchDocumentImpl implements SearchDocument {
@@ -79,25 +73,31 @@ public class SearchDocumentImpl implements SearchDocument {
 
     @Override
     public SortedDocumentsSet getRelevantDocuments(SortedDocumentsSet list, double rv) {
-        SortedDocumentsSet res = new SortedDocumentsSet();
+        /*SortedDocumentsSet res = new SortedDocumentsSet();
         for (int i = 0; i < list.getSize(); i++) {
             if (list.getValue(i) >= rv) res.add(list.getDocument(i), list.getValue(i));
         }
         return res;
+        *
+        */
+        return null;
     }
 
     @Override
     public SortedDocumentsSet getNonRelevantDocuments(SortedDocumentsSet list, double rv) {
+        /*
         SortedDocumentsSet res = new SortedDocumentsSet();
         for (int i = 0; i < list.getSize(); i++) {
             if (list.getValue(i) < rv) res.add(list.getDocument(i), list.getValue(i));
         }
         return res;
+        */
+        return null;
     }
 
     @Override
-    public Document getRocchioQuery(Document query, SortedDocumentsSet list, double rv, float b, float c)
-            throws DocumentContentNotFoundException, DocumentNotFoundException {
+    public Document getRocchioQuery(Document query, SortedDocumentsSet list, double rv, float b, float c) {
+            /*throws DocumentContentNotFoundException, DocumentNotFoundException {
             SortedDocumentsSet rDocs = getRelevantDocuments(list, rv);
             SortedDocumentsSet nrDocs = getNonRelevantDocuments(list, rv);
             Document rDoc = rDocs.getDocument(0);
@@ -149,7 +149,8 @@ public class SearchDocumentImpl implements SearchDocument {
                 }
             return query;
         }
-        throw new DocumentNotFoundException();
+        throw new DocumentNotFoundException();*/
+        return null;
     }
 
     private double getRelevanceFactor(WeightsVector wv1, WeightsVector wv2){

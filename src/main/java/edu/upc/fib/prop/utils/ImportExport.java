@@ -3,12 +3,10 @@ package edu.upc.fib.prop.utils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
-import edu.upc.fib.prop.exceptions.DocumentContentNotFoundException;
 import edu.upc.fib.prop.exceptions.ImportExportException;
 import edu.upc.fib.prop.models.Document;
 
 import java.io.*;
-import java.util.Iterator;
 
 /**
  * Created by Guillermo on 10/11/2016.
@@ -16,7 +14,7 @@ import java.util.Iterator;
 public class ImportExport {
 
     public static Document importDocument(String path) throws ImportExportException{
-        Gson gson = new Gson();
+        /*Gson gson = new Gson();
         JsonReader reader = null;
         try {
             reader = new JsonReader(new FileReader(path));
@@ -42,11 +40,12 @@ public class ImportExport {
 
         doc.setContent(fileName);
 
-        return doc;
+        return doc;*/
+        return null;
     }
 
-    public static void exportDocument(String pathToExport, Document document, String os) throws ImportExportException, DocumentContentNotFoundException {
-        String fileName = document.getTitle().replace(" ", "") + ".json";
+    public static void exportDocument(String pathToExport, Document document, String os) throws ImportExportException {
+        /*String fileName = document.getTitle().replace(" ", "") + ".json";
         Document d = document.clone();
         d.setTermFrequency(null);
         d.setUser(null);
@@ -66,6 +65,6 @@ public class ImportExport {
             outputStreamWriter.close();
         } catch (Exception e) {
             throw new ImportExportException();
-        }
+        }*/
     }
 }

@@ -171,25 +171,6 @@ public class PersistenceControllerImpl implements PersistenceController {
         closeConnection();
     }
 
-    public void createContentFile(String content, String name){
-        PrintWriter writer = null;
-        try {
-            writer = new PrintWriter("src/main/resources/documents/" + name, "UTF-8");
-            writer.print(content);
-            writer.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    public void deleteContentFile(String name){
-        File f = new File("src/main/resources/documents/" + name);
-        f.delete();
-    }
-
     @Override
     public void rateDocument(Document document, int rating, String user) throws DocumentNotFoundException {
             openConnection();

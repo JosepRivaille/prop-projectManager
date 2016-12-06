@@ -1,9 +1,6 @@
 package edu.upc.fib.prop.models;
 
 
-import edu.upc.fib.prop.exceptions.DocumentContentNotFoundException;
-import edu.upc.fib.prop.utils.FileUtils;
-
 public class DocumentBasicInfo {
 
     private String title;
@@ -11,7 +8,6 @@ public class DocumentBasicInfo {
     private String user;
     private String cover;
     private Float rating;
-    private String fileName;
     private String content;
 
     public DocumentBasicInfo(Document document) {
@@ -20,12 +16,7 @@ public class DocumentBasicInfo {
         this.user = document.getUser();
         this.cover = document.getCover();
         this.rating = document.getRating();
-        this.fileName = document.getContent();
-        try {
-            this.content = FileUtils.readDocument(document.getContent());
-        } catch (DocumentContentNotFoundException e) {
-            e.printStackTrace();
-        }
+        this.content = document.getContent();
     }
 
     public String getTitle() {
@@ -50,9 +41,5 @@ public class DocumentBasicInfo {
 
     public String getContent() {
         return content;
-    }
-
-    public String getFileName() {
-        return fileName;
     }
 }

@@ -68,19 +68,6 @@ public interface PersistenceController {
     void updateDocument(Document oldDocument, Document newDocument);
 
     /**
-     * Creates a file in the documents content directory with a given name
-     * @param content Content of the file
-     * @param name Name of the file
-     */
-    void createContentFile(String content, String name);
-
-    /**
-     * Deletes a file with a given name in the documents content directory
-     * @param name Name of the file to delete
-     */
-    void deleteContentFile(String name);
-
-    /**
      * Updates a document ratings
      * @param document document to rate
      * @param rating points given to the document

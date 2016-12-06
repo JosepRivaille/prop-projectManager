@@ -83,14 +83,15 @@ public interface ViewController {
      * Stores a new document in the system.
      * @param document New document to store.
      */
-    void storeNewDocument(Document document) throws DocumentNotFoundException, AlreadyExistingDocumentException,
-            InvalidDetailsException, DocumentContentNotFoundException;
+    void storeNewDocument(Document document)
+            throws DocumentNotFoundException, AlreadyExistingDocumentException, InvalidDetailsException;
 
     /**
      * Updates an existing document in the system.
      * @param updatedDocument Pair with current document and document to update.
      */
-    void updateDocument(Pair<Document, Document> updatedDocument) throws InvalidDetailsException, AlreadyExistingDocumentException, DocumentContentNotFoundException;
+    void updateDocument(Pair<Document, Document> updatedDocument)
+            throws InvalidDetailsException, AlreadyExistingDocumentException;
 
     /**
      * Document to delete from the system.
@@ -124,14 +125,15 @@ public interface ViewController {
      * @param path The path where the document will be imported.
      * @return The document imported.
      */
-    Document importDocument(String path) throws ImportExportException, AlreadyExistingDocumentException, InvalidDetailsException, DocumentContentNotFoundException;
+    Document importDocument(String path)
+            throws ImportExportException, AlreadyExistingDocumentException, InvalidDetailsException;
 
     /**
      * Exports an existing document.
      * @param pathToExport The path where the doccument will be exported.
      * @param document  The document to export.
      */
-    void exportDocument(String pathToExport, Document document, String os) throws ImportExportException, DocumentContentNotFoundException;
+    void exportDocument(String pathToExport, Document document, String os) throws ImportExportException;
 
     /**
      * Rates a document.
@@ -164,6 +166,6 @@ public interface ViewController {
      * @throws DocumentContentNotFoundException
      */
     Document getRocchioQuery(String query, SortedDocumentsSet list, double rv, float b, float c)
-            throws DocumentContentNotFoundException, DocumentNotFoundException;
+            throws DocumentNotFoundException;
 }
 

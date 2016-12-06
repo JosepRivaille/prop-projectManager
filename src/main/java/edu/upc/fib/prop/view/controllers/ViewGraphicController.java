@@ -82,14 +82,14 @@ public interface ViewGraphicController {
      * Stores a new document in the system.
      * @param documentJSON New document to store.
      */
-    void storeNewDocument(String documentJSON) throws AlreadyExistingDocumentException,
-            InvalidDetailsException, DocumentContentNotFoundException;
+    void storeNewDocument(String documentJSON) throws AlreadyExistingDocumentException, InvalidDetailsException;
 
     /**
      * Updates an existing document in the system.
      * @param updatedDocument Pair with current document and document to update.
      */
-    void updateDocument(String oldDocumentJSON, String editedDocumentJSON) throws InvalidDetailsException, AlreadyExistingDocumentException, DocumentContentNotFoundException;
+    void updateDocument(String oldDocumentJSON, String editedDocumentJSON)
+            throws InvalidDetailsException, AlreadyExistingDocumentException;
 
     /**
      * Document to delete from the system.
@@ -114,14 +114,15 @@ public interface ViewGraphicController {
      * @param path The path where the document will be imported.
      * @return The document imported.
      */
-    String importDocument(String path) throws ImportExportException, AlreadyExistingDocumentException, InvalidDetailsException, DocumentContentNotFoundException;
+    String importDocument(String path)
+            throws ImportExportException, AlreadyExistingDocumentException, InvalidDetailsException;
 
     /**
      * Exports an existing document.
      * @param pathToExport The path where the doccument will be exported.
      * @param document  The document to export.
      */
-    void exportDocument(String pathToExport, Document document, String os) throws ImportExportException, DocumentContentNotFoundException;
+    void exportDocument(String pathToExport, Document document, String os) throws ImportExportException;
 
     /**
      * Rates a document.

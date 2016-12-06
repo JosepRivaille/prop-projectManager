@@ -105,7 +105,7 @@ public interface BusinessController {
      * @param document Document to store.
      */
     void storeNewDocument(Document document)
-            throws AlreadyExistingDocumentException, InvalidDetailsException, DocumentContentNotFoundException;
+            throws AlreadyExistingDocumentException, InvalidDetailsException;
 
     /**
      * Updates a document in persistence.
@@ -114,7 +114,7 @@ public interface BusinessController {
      * @param newDoc New document
      */
     void updateDocument(Document oldDoc, Document newDoc)
-            throws InvalidDetailsException, AlreadyExistingDocumentException, DocumentContentNotFoundException;
+            throws InvalidDetailsException, AlreadyExistingDocumentException;
 
     /**
      * Deletes a document in persistence.
@@ -129,8 +129,8 @@ public interface BusinessController {
      *
      * @param path Path of the document to import.
      */
-    Document importDocument(String path) throws ImportExportException, AlreadyExistingDocumentException,
-            InvalidDetailsException, DocumentContentNotFoundException;
+    Document importDocument(String path)
+            throws ImportExportException, AlreadyExistingDocumentException, InvalidDetailsException;
 
     /**
      * Exports an existing document.
@@ -139,8 +139,7 @@ public interface BusinessController {
      * @param document     Document to export.
      * @param os           OS used by the user.
      */
-    void exportDocument(String pathToExport, Document document, String os)
-            throws ImportExportException, DocumentContentNotFoundException;
+    void exportDocument(String pathToExport, Document document, String os) throws ImportExportException;
 
     /**
      * Search for matching documents by a boolean expression.
@@ -192,9 +191,9 @@ public interface BusinessController {
      * @param b
      * @param c
      * @return
-     * @throws DocumentContentNotFoundException
+     * @throws
      */
-    Document getRocchioQuery(String query, SortedDocumentsSet list, double rv, float b, float c) throws DocumentContentNotFoundException, DocumentNotFoundException;
+    Document getRocchioQuery(String query, SortedDocumentsSet list, double rv, float b, float c)
+            throws DocumentNotFoundException;
 
-    void updateDocument(Document oldDocument, Document editedDocument, String filename) throws AlreadyExistingDocumentException, InvalidDetailsException, DocumentContentNotFoundException;
 }
