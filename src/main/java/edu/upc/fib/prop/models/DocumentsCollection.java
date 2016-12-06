@@ -47,7 +47,6 @@ public class DocumentsCollection {
         Document updatedDoc = oldDoc.merge(newDoc);
         //if(containsTitleAndAuthor(updatedDoc.getTitle(), updatedDoc.getAuthor())) throw new AlreadyExistingDocumentException();
         if(!updatedDoc.isCorrect()) throw new InvalidDetailsException();
-        if (!updatedDoc.isContentPathCorrect()) throw new DocumentContentNotFoundException();
         if(!oldDoc.getContent().equals(newDoc.getContent())) updatedDoc.updateFrequencies();
         if(oldDoc.getRating() != newDoc.getRating()) updatedDoc.setRating(newDoc.getRating());
         if(oldDoc.getCover() != newDoc.getCover()) updatedDoc.setCover(newDoc.getCover());

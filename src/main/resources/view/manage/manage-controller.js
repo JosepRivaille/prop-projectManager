@@ -43,8 +43,9 @@
         };
 
         vm.editDocument = function (document) {
+            alert("DOCUMENT AL PRIMCIPIO: " + JSON.stringify(document));
             vm.documentBackUp = angular.copy(document);
-            vm.documentSelected = vm.documentBackUp;
+            vm.documentSelected = document;
             vm.title = 'MENU_MANAGEMENT_UPDATE';
             vm.isListSelected = false;
             vm.isNewDocument = false;
@@ -100,6 +101,8 @@
                         vm.isInvalidData = treatException(e);
                     }
                 } else {
+                    alert("DOC SELECTED: " + JSON.stringify(vm.documentSelected));
+                    alert("DOC BACKUP: " + JSON.stringify(vm.documentBackUp));
                     var newData = JSON.stringify(vm.documentSelected);
                     var oldData = JSON.stringify(vm.documentBackUp);
                     try {

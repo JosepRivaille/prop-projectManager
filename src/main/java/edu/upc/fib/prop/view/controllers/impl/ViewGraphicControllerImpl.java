@@ -1,6 +1,8 @@
 package edu.upc.fib.prop.view.controllers.impl;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import edu.upc.fib.prop.business.controllers.BusinessController;
 import edu.upc.fib.prop.business.controllers.impl.BusinessControllerImpl;
 import edu.upc.fib.prop.exceptions.*;
@@ -92,7 +94,10 @@ public class ViewGraphicControllerImpl implements ViewGraphicController {
             throws InvalidDetailsException, AlreadyExistingDocumentException, DocumentContentNotFoundException {
         Document oldDocument = StringUtils.parseJSONToDocument(oldDocumentJSON);
         Document editedDocument = StringUtils.parseJSONToDocument(editedDocumentJSON);
-        businessController.updateDocument(oldDocument, editedDocument);
+        JsonParser parser = new JsonParser();
+        JsonObject jsonObject = parser.parse(oldDocumentJSON).getAsJsonObject();
+        String filename = jsonObject.get("fileName").getAsString();
+        businessController.updateDocument(oldDocument, editedDocument, filename);
     }
 
     @Override

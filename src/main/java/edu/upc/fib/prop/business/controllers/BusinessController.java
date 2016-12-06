@@ -194,6 +194,7 @@ public interface BusinessController {
      * @return
      * @throws DocumentContentNotFoundException
      */
-    Document getRocchioQuery(String query, SortedDocumentsSet list, double rv, float b, float c)
-            throws DocumentContentNotFoundException, DocumentNotFoundException;
+    Document getRocchioQuery(String query, SortedDocumentsSet rDocs, SortedDocumentsSet nrDocs, float b, float c);
+
+    void updateDocument(Document oldDocument, Document editedDocument, String filename) throws AlreadyExistingDocumentException, InvalidDetailsException, DocumentContentNotFoundException;
 }

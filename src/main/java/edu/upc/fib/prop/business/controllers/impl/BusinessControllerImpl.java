@@ -15,6 +15,8 @@ import edu.upc.fib.prop.utils.FileUtils;
 import edu.upc.fib.prop.utils.ImportExport;
 
 import javax.print.Doc;
+import java.math.BigInteger;
+import java.security.SecureRandom;
 import java.sql.SQLException;
 
 public class BusinessControllerImpl implements BusinessController {
@@ -157,6 +159,19 @@ public class BusinessControllerImpl implements BusinessController {
     }
 
     @Override
+    public void updateDocument(Document oldDocument, Document editedDocument, String filename) throws AlreadyExistingDocumentException, InvalidDetailsException, DocumentContentNotFoundException {
+        if(!(editedDocument.getAuthor().equals("") && editedDocument.getTitle().equals("") && editedDocument.getContent().equals(""))){
+            if(documentsCollection.containsTitleAndAuthor(editedDocument.getTitle(), editedDocument.getAuthor())) throw  new AlreadyExistingDocumentException();
+            Document updatedDoc = documentsCollection.updateDocument(oldDocument, editedDocument);
+            persistenceController.updateDocument(oldDocument, updatedDoc);
+            if(!oldDocument.getTitle().equals(updatedDoc.getTitle()) || !oldDocument.getAuthor().equals(updatedDoc.getAuthor())){
+                persistenceController.deleteAllFavouritesOfDocument(oldDocument);
+            }
+            reloadDBData();
+        }
+    }
+
+    @Override
     public DocumentsSet searchDocumentsByBooleanExpression(String booleanExpression) throws InvalidQueryException {
         return searchBooleanExpression.searchDocumentsByBooleanExpression(booleanExpression, documentsCollection);
     }
@@ -191,11 +206,14 @@ public class BusinessControllerImpl implements BusinessController {
         document.setUser(usersManager.getCurrentUser().getEmail());
         if (!document.isCorrect()) {
             throw new InvalidDetailsException();
-        } else if (!document.isContentPathCorrect()) {
-            throw new DocumentContentNotFoundException();
         } else if (documentsCollection.containsTitleAndAuthor(document.getTitle(), document.getAuthor())) {
             throw new AlreadyExistingDocumentException();
         } else {
+
+            String contentFileName = generateContentFilename();
+
+            persistenceController.createContentFile(document.getContent(),contentFileName);
+            document.setContent(contentFileName);
             document.updateFrequencies();
             document.updatePositions();
             try {
@@ -211,6 +229,10 @@ public class BusinessControllerImpl implements BusinessController {
                 e.printStackTrace();
             }
         }
+    }
+
+    private String generateContentFilename() {
+        return new BigInteger(130, new SecureRandom()).toString(32) + ".txt";
     }
 
     @Override

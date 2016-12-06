@@ -11,6 +11,7 @@ public class DocumentBasicInfo {
     private String user;
     private String cover;
     private Float rating;
+    private String fileName;
     private String content;
 
     public DocumentBasicInfo(Document document) {
@@ -19,6 +20,7 @@ public class DocumentBasicInfo {
         this.user = document.getUser();
         this.cover = document.getCover();
         this.rating = document.getRating();
+        this.fileName = document.getContent();
         try {
             this.content = FileUtils.readDocument(document.getContent());
         } catch (DocumentContentNotFoundException e) {
@@ -48,5 +50,9 @@ public class DocumentBasicInfo {
 
     public String getContent() {
         return content;
+    }
+
+    public String getFileName() {
+        return fileName;
     }
 }
