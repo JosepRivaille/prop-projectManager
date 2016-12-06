@@ -147,60 +147,13 @@ public class BusinessControllerImpl implements BusinessController {
     }
 
     @Override
-    public SortedDocumentsSet getRelevantDocuments(SortedDocumentsSet list, double rv) {
-        return this.searchDocument.getRelevantDocuments(list, rv);
-    }
-
-    @Override
-    public SortedDocumentsSet getNonRelevantDocuments(SortedDocumentsSet list, double rv) {
-        return this.searchDocument.getNonRelevantDocuments(list, rv);
-    }
-
-    @Override
-    public Document getRocchioQuery(String query, SortedDocumentsSet rDocs, SortedDocumentsSet nrDocs, float b, float c) {
-        String relatedDocContents = "", nonrelatedDocContents = "";
-        try {
-            relatedDocContents = searchDocument.getAggregatedContent(rDocs);
-            nonrelatedDocContents = searchDocument.getAggregatedContent(nrDocs);
-        } catch (DocumentContentNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        this.persistenceController.createContentFile(relatedDocContents, "rDocC.txt");
-        Document docr = new Document("", "", "rDocC.txt");
-        try {
-            docr.updateFrequencies();
-        } catch (DocumentContentNotFoundException e) {
-            e.printStackTrace();
-        }
-
-
-        this.persistenceController.createContentFile(nonrelatedDocContents, "nrDocC.txt");
-        Document docnr = new Document("", "", "nrDocC.txt");
-        try {
-            docnr.updateFrequencies();
-        } catch (DocumentContentNotFoundException e) {
-            e.printStackTrace();
-        }
-
-
+    public Document getRocchioQuery(String query, SortedDocumentsSet list, double rv, float b, float c)
+            throws DocumentContentNotFoundException, DocumentNotFoundException {
         this.persistenceController.createContentFile(query, "query.txt");
         Document docquery = new Document("", "", "query.txt");
-        try {
-            docquery.updateFrequencies();
-        } catch (DocumentContentNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            docquery = searchDocument.getRocchioQuery(docquery,docr,docnr,b,c);
-        } catch (DocumentContentNotFoundException e) {
-            e.printStackTrace();
-        }
-        this.persistenceController.deleteContentFile("rDocC.txt");
-        this.persistenceController.deleteContentFile("nrDocC.txt");
+        docquery.updateFrequencies();
         this.persistenceController.deleteContentFile("query.txt");
-        return docquery;
+        return searchDocument.getRocchioQuery(docquery,list,rv,b,c);
     }
 
     @Override

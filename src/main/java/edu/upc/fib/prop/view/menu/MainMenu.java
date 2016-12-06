@@ -303,12 +303,7 @@ public class MainMenu {
                     }
                     else {
                         SortedDocumentsSet list = viewController.searchDocumentsByQuery(query, k2);
-                        double Rv = 0.2;
-                        SortedDocumentsSet RDocs = viewController.getRelevantDocuments(list,Rv);
-                        SortedDocumentsSet NRDocs = viewController.getNonRelevantDocuments(list,Rv);
-                        float b = 0.8f;
-                        float c = 0.1f;
-                        Document rocchioQuery = viewController.getRocchioQuery(query,RDocs,NRDocs,b,c);
+                        Document rocchioQuery = viewController.getRocchioQuery(query,list,0.2,0.8f,0.1f);
                         SortedDocumentsSet list2 = viewController.getDocumentsByRelevance(rocchioQuery,k2);
                         IOUtils
                                 .drawLine(100);
@@ -321,6 +316,8 @@ public class MainMenu {
                     }
                 } catch (DocumentNotFoundException e) {
                      System.out.println(Strings.NO_DOCUMENTS_FOUND);
+                } catch (DocumentContentNotFoundException e) {
+                    System.out.println(Strings.DOCUMENT_CONTENT_NOT_FOUND);
                 }
                 IOUtils.enterToContinue();
                 break;

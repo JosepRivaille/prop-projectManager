@@ -159,18 +159,9 @@ public class ViewControllerImpl implements ViewController {
     }
 
     @Override
-    public SortedDocumentsSet getRelevantDocuments(SortedDocumentsSet list, double rv) {
-        return businessController.getRelevantDocuments(list,rv);
-    }
-
-    @Override
-    public SortedDocumentsSet getNonRelevantDocuments(SortedDocumentsSet list, double rv) {
-        return businessController.getNonRelevantDocuments(list,rv);
-    }
-
-    @Override
-    public Document getRocchioQuery(String query, SortedDocumentsSet rDocs, SortedDocumentsSet nrDocs, float b, float c) {
-        return businessController.getRocchioQuery(query,rDocs,nrDocs,b,c);
+    public Document getRocchioQuery(String query, SortedDocumentsSet list, double rv, float b, float c)
+            throws DocumentContentNotFoundException, DocumentNotFoundException{
+        return businessController.getRocchioQuery(query,list,rv,b,c);
     }
 
 

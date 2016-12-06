@@ -186,28 +186,14 @@ public interface BusinessController {
 
     /**
      *
-     * @param list
-     * @param rv
-     * @return
-     */
-    SortedDocumentsSet getRelevantDocuments(SortedDocumentsSet list, double rv);
-
-    /**
-     *
-     * @param list
-     * @param rv
-     * @return
-     */
-    SortedDocumentsSet getNonRelevantDocuments(SortedDocumentsSet list, double rv);
-
-    /**
-     *
      * @param query
-     * @param rDocs
-     * @param nrDocs
+     * @param list
+     * @param rv
      * @param b
      * @param c
      * @return
+     * @throws DocumentContentNotFoundException
      */
-    Document getRocchioQuery(String query, SortedDocumentsSet rDocs, SortedDocumentsSet nrDocs, float b, float c);
+    Document getRocchioQuery(String query, SortedDocumentsSet list, double rv, float b, float c)
+            throws DocumentContentNotFoundException, DocumentNotFoundException;
 }
