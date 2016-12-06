@@ -70,6 +70,7 @@
         };
 
         vm.logout = function () {
+            //TODO: LOGOUT backend
             $state.go('project');
         }
 
