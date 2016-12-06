@@ -67,7 +67,12 @@ public class StringUtils {
     }
 
     public static Document parseJSONToDocument(String documentJSON) {
-        System.out.println(documentJSON);
+        JsonObject  jobject = new JsonParser().parse(documentJSON).getAsJsonObject();
+        String title = jobject.get("title").toString();
+        String author = jobject.get("author").toString();
+        String content = jobject.get("content").toString();
+        Document doc = new Document(title, author, content);
+        //TODO falta meter tambien cover (ruta)... vamos todo lo que tenga un documento
         return new Document(null, null, null);
     }
 }
