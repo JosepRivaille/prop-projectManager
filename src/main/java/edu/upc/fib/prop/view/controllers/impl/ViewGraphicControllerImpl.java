@@ -51,23 +51,14 @@ public class ViewGraphicControllerImpl implements ViewGraphicController {
     }
 
     @Override
-    public boolean userLogin(String email, String password) {
-        try {
-            businessController.checkLoginDetails(email, password);
-            return true;
-        } catch (InvalidDetailsException | UserNotFoundException e) {
-            return false;
-        }
+    public void userLogin(String email, String password) throws UserNotFoundException, InvalidDetailsException {
+        businessController.checkLoginDetails(email, password);
     }
 
     @Override
-    public boolean userRegister(String email, String userName, String password, String password2) {
-        try {
-            businessController.registerNewUser(email, userName, password, password2);
-            return true;
-        } catch (AlreadyExistingUserException | InvalidDetailsException e) {
-            return false;
-        }
+    public void userRegister(String email, String userName, String password, String password2)
+            throws InvalidDetailsException, AlreadyExistingUserException {
+        businessController.registerNewUser(email, userName, password, password2);
     }
 
     @Override
