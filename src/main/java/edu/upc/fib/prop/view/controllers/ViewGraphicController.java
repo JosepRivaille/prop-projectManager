@@ -48,7 +48,7 @@ public interface ViewGraphicController {
      * @param email Email to try the login..
      * @param password Password to try the login.
      */
-    void userLogin(String email, String password) throws UserNotFoundException, InvalidDetailsException;
+    boolean userLogin(String email, String password);
 
     /**
      * Tries to register a new user in the system.
@@ -57,8 +57,7 @@ public interface ViewGraphicController {
      * @param password Password to try the register.
      * @param password2 Repeat password to try the register.
      */
-    void userRegister(String email, String userName, String password, String password2)
-            throws InvalidDetailsException, AlreadyExistingUserException;
+    boolean userRegister(String email, String userName, String password, String password2);
 
     /**
      * Tries to update an user with new details.
