@@ -46,8 +46,8 @@
 
         //////////
 
-        function createFilterFor(query) {
-            var lowercaseQuery = angular.lowercase(query);
+        function createFilterFor(inputQuery) {
+            var lowercaseQuery = angular.lowercase(inputQuery);
 
             return function filterFn(author) {
                 var lowercaseAuthor = angular.lowercase(author.name);

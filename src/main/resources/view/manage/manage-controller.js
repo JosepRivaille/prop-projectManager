@@ -65,6 +65,14 @@
             vm.isDocumentSelected = false;
         };
 
+        //TODO: Not working yet
+        vm.export = function (document) {
+            var downloader = angular.element('#file-downloader');
+            downloader.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(document.content));
+            element.setAttribute('download', document.title + ' - ' + document.author + '.txt');
+            downloader.triggerHandler('click');
+        };
+
         vm.storeDocument = function (event) {
             var translations = {
                 title: $filter('translate')('DIALOG_CREATE_TITLE'),

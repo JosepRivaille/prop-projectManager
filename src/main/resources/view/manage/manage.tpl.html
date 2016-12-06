@@ -21,12 +21,12 @@
                                        ng-click="vm.editDocument(document)">
                                 <i class="fa fa-pencil-square-o"></i>
                             </md-button>
-                            <md-button class="md-raised md-accent" aria-label="Delete document"
+                            <md-button class="md-raised md-warn" aria-label="Delete document"
                                        ng-click="vm.showDeleteConfirm($event, document)">
                                 <i class="fa fa-trash"></i>
                             </md-button>
-                            <md-button class="md-raised md-primary" ng-disabled="true" aria-label="Export document"
-                                       ng-click="vm.showDeleteConfirm($event, document)">
+                            <md-button class="md-raised md-accent" aria-label="Export document"
+                                       ng-click="vm.export(document)">
                                 <i class="fa fa-download"></i>
                             </md-button>
                         </div>
@@ -34,6 +34,8 @@
                 </div>
             </md-list-item>
         </md-list>
+
+        <a id="file-downloader" ng-show="false"></a>
 
         <div class="right-bottom-buttons" layout="column" layout-align="center center" flex>
 
