@@ -175,6 +175,8 @@ public class Document {
         if(!newDoc.getTitle().equals("")) mergedDoc.setTitle(newDoc.getTitle());
         if(!newDoc.getAuthor().equals("")) mergedDoc.setAuthor(newDoc.getAuthor());
         if(!newDoc.getContent().equals("")) mergedDoc.setContent(newDoc.getContent());
+        if(!newDoc.getCover().equals("")) mergedDoc.setCover(newDoc.getCover());
+        if(newDoc.getRating() != this.rating) mergedDoc.setRating(newDoc.getRating());
         return mergedDoc;
     }
 

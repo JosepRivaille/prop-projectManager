@@ -95,6 +95,7 @@
                 if (vm.isNewDocument) {
                     var data = JSON.stringify(vm.documentSelected);
                     try {
+                        alert("LLEGO: " + data);
                         $rootScope.backendService.storeNewDocument(data);
                         vm.documents.push(vm.documentSelected);
                     } catch (e) {
@@ -149,7 +150,8 @@
                 title: '',
                 author: '',
                 cover: '',
-                content: ''
+                content: '',
+                rating: '0'
             }
         }
 

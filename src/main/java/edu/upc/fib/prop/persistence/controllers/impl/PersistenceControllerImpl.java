@@ -200,6 +200,13 @@ public class PersistenceControllerImpl implements PersistenceController {
     }
 
     @Override
+    public void deleteAllRatingsOfDocument(Document document) {
+        openConnection();
+        daoDocuments.deleteAllRatingsOfDocument(c, document);
+        closeConnection();
+    }
+
+    @Override
     public Document getDocument(String title, String author) {
         openConnection();
         Document res = daoDocuments.getDocument(c, title, author);

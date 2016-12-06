@@ -91,8 +91,8 @@ public class ViewControllerImpl implements ViewController {
 
     @Override
     public void updateDocument(Pair<Document, Document> updatedDocument)
-            throws InvalidDetailsException, AlreadyExistingDocumentException {
-        this.businessController.updateDocument(updatedDocument.getKey(), updatedDocument.getValue());
+            throws InvalidDetailsException, AlreadyExistingDocumentException, DocumentNotFoundException {
+        this.businessController.updateDocument(updatedDocument.getKey().getTitle(), updatedDocument.getKey().getAuthor(), updatedDocument.getValue());
     }
 
     @Override

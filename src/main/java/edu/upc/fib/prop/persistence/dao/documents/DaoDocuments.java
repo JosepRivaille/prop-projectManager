@@ -86,6 +86,13 @@ public interface DaoDocuments {
     void deleteAllFavouritesOfDocument(Connection c, Document document);
 
     /**
+     * Removes all ratings of a given document from all users
+     * @param c DB Connection
+     * @param document All ratings related with this book will be deleted
+     */
+    void deleteAllRatingsOfDocument(Connection c, Document document);
+
+    /**
      * Update all documents ratings
      * @param c DB Connection
      * @param document Dcument to update its rating

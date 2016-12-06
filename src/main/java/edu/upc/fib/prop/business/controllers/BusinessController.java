@@ -110,11 +110,12 @@ public interface BusinessController {
     /**
      * Updates a document in persistence.
      *
-     * @param oldDoc Old document
+     * @param title title of the document to update
+     * @param title author of the document to update
      * @param newDoc New document
      */
-    void updateDocument(Document oldDoc, Document newDoc)
-            throws InvalidDetailsException, AlreadyExistingDocumentException;
+    void updateDocument(String title, String author, Document newDoc)
+            throws InvalidDetailsException, AlreadyExistingDocumentException, DocumentNotFoundException;
 
     /**
      * Deletes a document in persistence.

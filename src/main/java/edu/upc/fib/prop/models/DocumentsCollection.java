@@ -45,11 +45,11 @@ public class DocumentsCollection {
     public Document updateDocument(Document oldDoc, Document newDoc)
             throws InvalidDetailsException, AlreadyExistingDocumentException {
         Document updatedDoc = oldDoc.merge(newDoc);
-        //if(containsTitleAndAuthor(updatedDoc.getTitle(), updatedDoc.getAuthor())) throw new AlreadyExistingDocumentException();
         if(!updatedDoc.isCorrect()) throw new InvalidDetailsException();
-        if(!oldDoc.getContent().equals(newDoc.getContent())) updatedDoc.updateFrequencies();
-        if(oldDoc.getRating() != newDoc.getRating()) updatedDoc.setRating(newDoc.getRating());
-        if(oldDoc.getCover() != newDoc.getCover()) updatedDoc.setCover(newDoc.getCover());
+        if(!oldDoc.getContent().equals(newDoc.getContent())){
+            updatedDoc.updateFrequencies();
+            updatedDoc.updatePositions();
+        }
         this.documents.remove(oldDoc);
         for(Map.Entry<String,Float> entry : oldDoc.getTermFrequency().entrySet()) {
             removeWord(entry.getKey());

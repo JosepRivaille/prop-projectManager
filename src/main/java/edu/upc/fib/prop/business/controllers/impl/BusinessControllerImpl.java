@@ -148,15 +148,22 @@ public class BusinessControllerImpl implements BusinessController {
     }
 
     @Override
-    public void updateDocument(Document oldDocument, Document editedDocument) throws AlreadyExistingDocumentException, InvalidDetailsException {
-        if(!(editedDocument.getAuthor().equals("") && editedDocument.getTitle().equals("") && editedDocument.getContent().equals(""))) {
-            if(documentsCollection.containsTitleAndAuthor(editedDocument.getTitle(), editedDocument.getAuthor()))
-                throw new AlreadyExistingDocumentException();
-            Document updatedDoc = documentsCollection.updateDocument(oldDocument, editedDocument);
-            persistenceController.updateDocument(oldDocument, updatedDoc);
-            if(!oldDocument.getTitle().equals(updatedDoc.getTitle()) || !oldDocument.getAuthor().equals(updatedDoc.getAuthor())){
-                persistenceController.deleteAllFavouritesOfDocument(oldDocument);
+    public void updateDocument(String title, String author, Document newDoc) throws AlreadyExistingDocumentException, InvalidDetailsException, DocumentNotFoundException {
+        Document oldDoc = searchDocumentsByTitleAndAuthor(title, author);
+        if(!(newDoc.getAuthor().equals("") && newDoc.getTitle().equals("") && newDoc.getContent().equals(""))) {
+            if(!(oldDoc.getAuthor().toLowerCase().equals(newDoc.getAuthor().toLowerCase()) &&
+                    oldDoc.getAuthor().toLowerCase().equals(newDoc.getAuthor().toLowerCase()))) {
+                if (documentsCollection.containsTitleAndAuthor(newDoc.getTitle(), newDoc.getAuthor()))
+                    throw new AlreadyExistingDocumentException();
             }
+            if(!oldDoc.getTitle().equals(newDoc.getTitle()) || !oldDoc.getAuthor().equals(newDoc.getAuthor())){
+                persistenceController.deleteAllFavouritesOfDocument(oldDoc);
+                persistenceController.deleteAllRatingsOfDocument(oldDoc);
+                newDoc.setRating(0f);
+            }
+            Document updatedDoc = documentsCollection.updateDocument(oldDoc, newDoc);
+            persistenceController.updateDocument(oldDoc, updatedDoc);
+
             reloadDBData();
         }
     }
@@ -204,7 +211,7 @@ public class BusinessControllerImpl implements BusinessController {
                 documentsCollection.addDocument(document);
                 persistenceController.writeNewDocument(document);
                 try {
-                    this.addDocumentToFavourites(document);
+                    rateDocument(document, 4);
                 } catch (DocumentNotFoundException e) {
                     e.printStackTrace();
                 }
@@ -221,6 +228,7 @@ public class BusinessControllerImpl implements BusinessController {
         documentsCollection.deleteDocument(document);
         persistenceController.deleteDocument(document);
         persistenceController.deleteAllFavouritesOfDocument(document);
+        persistenceController.deleteAllRatingsOfDocument(document);
         reloadDBData();
     }
 

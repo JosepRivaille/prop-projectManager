@@ -91,7 +91,7 @@ public interface ViewController {
      * @param updatedDocument Pair with current document and document to update.
      */
     void updateDocument(Pair<Document, Document> updatedDocument)
-            throws InvalidDetailsException, AlreadyExistingDocumentException;
+            throws InvalidDetailsException, AlreadyExistingDocumentException, DocumentNotFoundException;
 
     /**
      * Document to delete from the system.

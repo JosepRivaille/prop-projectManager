@@ -89,7 +89,7 @@ public interface ViewGraphicController {
      * @param updatedDocument Pair with current document and document to update.
      */
     void updateDocument(String oldDocumentJSON, String editedDocumentJSON)
-            throws InvalidDetailsException, AlreadyExistingDocumentException;
+            throws InvalidDetailsException, AlreadyExistingDocumentException, DocumentNotFoundException;
 
     /**
      * Document to delete from the system.

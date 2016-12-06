@@ -79,11 +79,12 @@ public class DaoDocumentsImpl implements DaoDocuments {
         try {
             Statement statement = c.createStatement();
             String query = String.format("UPDATE documents " +
-                            "SET title='%s', author_name='%s', term_frequency='%s', content='%s'" +
+                            "SET title='%s', author_name='%s', term_frequency='%s',term_positions='%s', content='%s', rating='%f'" +
                             "WHERE title='%s' AND author_name='%s';",
                     newDocument.getTitle(), newDocument.getAuthor(),
                     StringUtils.buildJSONFromFrequencyMap(newDocument.getTermFrequency()),
-                    newDocument.getContent(), oldTitle, oldAuthor);
+                    StringUtils.buildJSONFromPositionsMap(newDocument.getTermPositions()),
+                    newDocument.getContent(), newDocument.getRating(), oldTitle, oldAuthor);
             statement.executeUpdate(query);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -184,6 +185,19 @@ public class DaoDocumentsImpl implements DaoDocuments {
         try {
             statement = c.createStatement();
             String query = String.format("DELETE FROM favourites WHERE title LIKE '%s' AND author_name like '%s'", document.getTitle(), document.getAuthor());
+            statement.executeUpdate(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    public void deleteAllRatingsOfDocument(Connection c, Document document) {
+        Statement statement = null;
+        try {
+            statement = c.createStatement();
+            String query = String.format("DELETE FROM ratings WHERE title LIKE '%s' AND author_name like '%s'", document.getTitle(), document.getAuthor());
             statement.executeUpdate(query);
         } catch (SQLException e) {
             e.printStackTrace();

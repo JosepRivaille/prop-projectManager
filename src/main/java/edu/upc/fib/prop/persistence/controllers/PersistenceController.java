@@ -96,6 +96,12 @@ public interface PersistenceController {
     void deleteAllFavouritesOfDocument(Document document);
 
     /**
+     * Removes all ratings from all users of a given document
+     * @param document The ratings related to this document will be deleted
+     */
+    void deleteAllRatingsOfDocument(Document document);
+
+    /**
      * It returns, if exists, the document with a given title and author.
      * @param title
      * @param author
