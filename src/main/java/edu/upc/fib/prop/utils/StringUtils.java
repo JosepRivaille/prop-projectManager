@@ -67,7 +67,17 @@ public class StringUtils {
     }
 
     public static Document parseJSONToDocument(String documentJSON) {
-        System.out.println(documentJSON);
-        return new Document(null, null, null);
+        JsonParser parser = new JsonParser();
+        JsonObject jsonObject = parser.parse(documentJSON).getAsJsonObject();
+
+        String title = jsonObject.get("title").getAsString();
+        String authorName = jsonObject.get("author").getAsString();
+        String content = jsonObject.get("content").getAsString();
+        String cover = jsonObject.get("cover").getAsString();
+
+        Document document = new Document(title, authorName, content);
+        document.setCover(cover);
+
+        return document;
     }
 }

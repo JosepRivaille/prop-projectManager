@@ -48,7 +48,7 @@ public interface ViewGraphicController {
      * @param email Email to try the login..
      * @param password Password to try the login.
      */
-    boolean userLogin(String email, String password);
+    void userLogin(String email, String password) throws UserNotFoundException, InvalidDetailsException;
 
     /**
      * Tries to register a new user in the system.
@@ -57,7 +57,7 @@ public interface ViewGraphicController {
      * @param password Password to try the register.
      * @param password2 Repeat password to try the register.
      */
-    boolean userRegister(String email, String userName, String password, String password2);
+    void userRegister(String email, String userName, String password, String password2) throws InvalidDetailsException, AlreadyExistingUserException;
 
     /**
      * Tries to update an user with new details.
@@ -82,14 +82,14 @@ public interface ViewGraphicController {
      * Stores a new document in the system.
      * @param documentJSON New document to store.
      */
-    void storeNewDocument(String documentJSON) throws DocumentNotFoundException, AlreadyExistingDocumentException,
+    void storeNewDocument(String documentJSON) throws AlreadyExistingDocumentException,
             InvalidDetailsException, DocumentContentNotFoundException;
 
     /**
      * Updates an existing document in the system.
      * @param updatedDocument Pair with current document and document to update.
      */
-    void updateDocument(Pair<Document, Document> updatedDocument) throws InvalidDetailsException, AlreadyExistingDocumentException, DocumentContentNotFoundException;
+    void updateDocument(String oldDocumentJSON, String editedDocumentJSON) throws InvalidDetailsException, AlreadyExistingDocumentException, DocumentContentNotFoundException;
 
     /**
      * Document to delete from the system.

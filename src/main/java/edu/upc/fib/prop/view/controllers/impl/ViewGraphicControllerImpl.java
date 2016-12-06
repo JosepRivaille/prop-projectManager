@@ -11,6 +11,7 @@ import javafx.util.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ViewGraphicControllerImpl implements ViewGraphicController {
 
@@ -51,23 +52,14 @@ public class ViewGraphicControllerImpl implements ViewGraphicController {
     }
 
     @Override
-    public boolean userLogin(String email, String password) {
-        try {
-            businessController.checkLoginDetails(email, password);
-            return true;
-        } catch (InvalidDetailsException | UserNotFoundException e) {
-            return false;
-        }
+    public void userLogin(String email, String password) throws UserNotFoundException, InvalidDetailsException {
+        businessController.checkLoginDetails(email, password);
     }
 
     @Override
-    public boolean userRegister(String email, String userName, String password, String password2) {
-        try {
-            businessController.registerNewUser(email, userName, password, password2);
-            return true;
-        } catch (AlreadyExistingUserException | InvalidDetailsException e) {
-            return false;
-        }
+    public void userRegister(String email, String userName, String password, String password2)
+            throws InvalidDetailsException, AlreadyExistingUserException {
+        businessController.registerNewUser(email, userName, password, password2);
     }
 
     @Override
@@ -82,19 +74,25 @@ public class ViewGraphicControllerImpl implements ViewGraphicController {
 
     @Override
     public String getCurrentUserDocuments() {
-        return null;
+        DocumentsCollection documents = this.businessController.getCurrentUserDocuments();
+        List<DocumentBasicInfo> documentsBasicInfo = documents.getDocuments().stream().map(DocumentBasicInfo::new)
+                .collect(Collectors.toList());
+        return new Gson().toJson(documentsBasicInfo);
     }
 
     @Override
-    public void storeNewDocument(String documentJSON) throws DocumentNotFoundException, AlreadyExistingDocumentException,
-            InvalidDetailsException, DocumentContentNotFoundException {
+    public void storeNewDocument(String documentJSON)
+            throws AlreadyExistingDocumentException, InvalidDetailsException, DocumentContentNotFoundException {
         Document document = StringUtils.parseJSONToDocument(documentJSON);
         this.businessController.storeNewDocument(document);
     }
 
     @Override
-    public void updateDocument(Pair<Document, Document> updatedDocument) throws InvalidDetailsException, AlreadyExistingDocumentException, DocumentContentNotFoundException {
-
+    public void updateDocument(String oldDocumentJSON, String editedDocumentJSON)
+            throws InvalidDetailsException, AlreadyExistingDocumentException, DocumentContentNotFoundException {
+        Document oldDocument = StringUtils.parseJSONToDocument(oldDocumentJSON);
+        Document editedDocument = StringUtils.parseJSONToDocument(editedDocumentJSON);
+        businessController.updateDocument(oldDocument, editedDocument);
     }
 
     @Override
