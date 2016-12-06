@@ -15,7 +15,7 @@
     function AppCtrl($rootScope) {
         var vm = this;
         vm.ctrlName = 'AppCtrl';
-       // $rootScope.backendService = backendService;
+        $rootScope.backendService = backendService;
 
     }
 

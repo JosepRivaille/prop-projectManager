@@ -20,6 +20,7 @@
         vm.isListSelected = true;
         vm.isButtonOpened = false;
         vm.tooltipVisible = false;
+        vm.isDocumentSelected = false;
         vm.authorName = '';
 
         $scope.$watch('vm.isButtonOpened', function(isOpen) {
@@ -35,8 +36,8 @@
 
 
         //TODO: Get user documents
-        //var response = $rootScope.backendService.searchForAllDocuments();
-        //vm.documents = JSON.parse(response).documents;
+        var response = $rootScope.backendService.searchForAllDocuments();
+        vm.documents = JSON.parse(response);
 
         /*vm.documents = [
             {
@@ -132,5 +133,13 @@
             return document;
         }
 
+        vm.select = function(document){
+            vm.documentSelected = document;
+            vm.isDocumentSelected = true;
+        };
+
+        vm.back = function(){
+            vm.isDocumentSelected = false;
+        }
     }
 }());
