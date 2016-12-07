@@ -33,7 +33,11 @@ public class ViewGraphicControllerImpl implements ViewGraphicController {
     @Override
     public String getDocumentsByAuthorId(String authorName) throws DocumentNotFoundException {
         DocumentsCollection documentsCollection = this.businessController.searchDocumentsByAuthor(authorName);
-        return new Gson().toJson(documentsCollection);
+        List<DocumentBasicInfo> documentsBasicInfo = new ArrayList<>();
+        for (Document document : documentsCollection.getAllDocuments()) {
+            documentsBasicInfo.add(new DocumentBasicInfo(document));
+        }
+        return new Gson().toJson(documentsBasicInfo);
     }
 
     @Override
