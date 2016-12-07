@@ -40,12 +40,13 @@
         function DialogAuthorsController($rootScope, $scope, $mdDialog) {
             $scope.searchAuthors = function (prefix) {
                 try {
+                    $scope.isInvalidData = undefined;
                     var response = $rootScope.backendService.getAuthorsWithPrefix(prefix);
                     $scope.authors = JSON.parse(response).authors;
                     $scope.isPrefixSearch = true;
                 } catch (e) {
                     if (e.toString().indexOf('AuthorNotFoundException') !== -1) {
-                        //TODO
+                        $scope.isInvalidData = 'EXCEPTION_AUTHOR_NOT_FOUND';
                     }
                 }
             };
@@ -57,7 +58,7 @@
                     $mdDialog.hide();
                 } catch (e) {
                     if (e.toString().indexOf('AuthorNotFoundException') !== -1) {
-                        //TODO
+                        $scope.isInvalidData = 'EXCEPTION_DOCUMENT_NOT_FOUND';
                     }
                 }
             };

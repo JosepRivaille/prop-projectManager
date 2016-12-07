@@ -94,15 +94,12 @@
                 if (vm.isNewDocument) {
                     var data = JSON.stringify(vm.documentSelected);
                     try {
-                        alert("LLEGO: " + data);
                         $rootScope.backendService.storeNewDocument(data);
                         vm.documents.push(vm.documentSelected);
                     } catch (e) {
                         vm.isInvalidData = treatException(e);
                     }
                 } else {
-                    alert("DOC SELECTED: " + JSON.stringify(vm.documentSelected));
-                    alert("DOC BACKUP: " + JSON.stringify(vm.documentBackUp));
                     var newData = JSON.stringify(vm.documentSelected);
                     var oldData = JSON.stringify(vm.documentBackUp);
                     try {

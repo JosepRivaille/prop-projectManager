@@ -63,5 +63,7 @@
 
   "EXCEPTION_USER_NOT_FOUND": "User not found in the system",
   "EXCEPTION_INVALID_DETAILS": "Invalid email and password combination",
-  "EXCEPTION_ALREADY_EXISTING_USER": "Already existing user with this email"
+  "EXCEPTION_ALREADY_EXISTING_USER": "Already existing user with this email",
+  "EXCEPTION_AUTHOR_NOT_FOUND": "No matching authors found in the system",
+  "EXCEPTION_DOCUMENT_NOT_FOUND": "No matching document found"
 }

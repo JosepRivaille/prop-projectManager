@@ -25,15 +25,15 @@
                 controller: function ($scope) {
                     $scope.searchDocument = function (title, author) {
                         try {
+                            vm.isInvalidData = undefined;
                             var response = $rootScope.backendService.getDocumentByTitleAndAuthor(title, author);
                             vm.documentSelected = JSON.parse(response);
                             vm.isDocumentSelected = true;
                             $mdDialog.hide();
                         } catch (e) {
                             if (e.toString().indexOf('DocumentNotFoundException') !== -1) {
-                                vm.isInvalidData = 'DocumentNotFoundException';
+                                $scope.isInvalidData = 'EXCEPTION_DOCUMENT_NOT_FOUND';
                             }
-                            //TODO: treat not found
                         }
                     }
                 },
