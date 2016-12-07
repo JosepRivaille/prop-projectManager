@@ -1,0 +1,60 @@
+<md-list ng-cloak>
+    <md-list-item ng-repeat="document in documents" layout="row" layout-margin>
+        <div flex class="item" layout="row" layout-align="left center" ng-click="vm.select(document)">
+            <div style="background-color: #d58512;">
+                <img class="doc-cover" ng-show="{{document.cover !== ''}}" ng-src="../images/{{document.cover}}">
+                <img class="doc-cover" ng-show="{{document.cover === ''}}" ng-src="../images/sample.png">
+            </div>
+            <div class="item-info">
+                <span class="title">{{document.title}}</span><br>
+                <span class="author">{{document.author}}</span><br>
+                <star-rating ng-model="document.rating" read-only="true"></star-rating><br>
+
+                <div ng-if="isEditMode" flex layout="row" layout-align="end end" >
+                    <md-button layout="row" onclick="location.href = event.stopPropagation();" class="md-raised md-primary" aria-label="Edit document"
+                               ng-click="vm.editDocument(document)">
+                        <i class="fa fa-pencil-square-o"></i>
+                    </md-button>
+                    <md-button onclick="location.href = event.stopPropagation();" class="md-raised md-warn" aria-label="Delete document"
+                               ng-click="vm.showDeleteConfirm($event, document)">
+                        <i class="fa fa-trash"></i>
+                    </md-button>
+                    <md-button onclick="location.href = event.stopPropagation();" class="md-raised md-accent" aria-label="Export document"
+                               ng-click="vm.export(document)">
+                        <i class="fa fa-download"></i>
+                    </md-button>
+                </div>
+            </div>
+        </div>
+    </md-list-item>
+</md-list>
+
+<div ng-if="isEditMode" class="right-bottom-buttons" layout="column" layout-align="center center" flex>
+
+    <md-fab-speed-dial md-open="vm.isButtonOpened" md-direction="up" ng-class="'md-scale'"
+                       ng-mouseenter="vm.isButtonOpened = true" ng-mouseleave="vm.isButtonOpened=false">
+        <md-fab-trigger>
+            <md-button aria-label="menu" class="md-fab md-primary">
+                <i class="fa fa-bars"></i>
+            </md-button>
+        </md-fab-trigger>
+
+        <md-fab-actions>
+            <md-button aria-label="Create document" class="md-fab md-raised md-mini md-accent"
+                       ng-click="vm.createDocument()">
+                <md-tooltip md-direction="left" md-visible="vm.tooltipVisible"
+                            md-autohide="true">
+                    Create document
+                </md-tooltip>
+                <i class="fa fa-plus"></i>
+            </md-button>
+            <md-button aria-label="Import document" class="md-fab md-raised md-mini md-accent">
+                <md-tooltip md-direction="left" md-visible="vm.tooltipVisible"
+                            md-autohide="true">
+                    Import document
+                </md-tooltip>
+                <i class="fa fa-download"></i>
+            </md-button>
+        </md-fab-actions>
+    </md-fab-speed-dial>
+</div>
