@@ -39,14 +39,9 @@
                 },
                 templateUrl: 'search/document/search-document-dialog.tpl.html',
                 targetEvent: event,
-                clickOutsideToClose: true
-            })
-                .then(function (answer) {
-                    $scope.status = 'You said the information was "' + answer + '".';
-                }, function () {
-                    $scope.status = 'You cancelled the dialog.';
-                });
-        }($rootScope, undefined));
+                clickOutsideToClose: false,
+                escapeToClose: false
+            })}($rootScope, undefined));
 
     }
 }());

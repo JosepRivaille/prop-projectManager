@@ -12,13 +12,47 @@
         .module('project.search')
         .controller('SearchAuthorCtrl', SearchAuthorCtrl);
 
-    function SearchAuthorCtrl($rootScope) {
+    function SearchAuthorCtrl($rootScope, $mdDialog) {
         var vm = this;
         vm.ctrlName = 'SearchAuthorCtrl';
 
         vm.title = 'MENU_SEARCH_AUTHOR';
 
-        vm.prefix = '';
+        (function showDialog($rootScope, event) {
+            $mdDialog.show({
+                controller: function ($scope, $mdDialog) {
+                    $scope.prefix = '';
+                    $scope.isPrefixSearch = false;
+                    $scope.searchDocument = function (prefix) {
+                        try {
+                            var response = $rootScope.backendService.getAuthorsWithPrefix(prefix);
+                            $scope.authors = JSON.parse(response).authors;
+                            $scope.isPrefixSearch = true;
+                            alert(response);
+                        } catch (e) {
+                            if (e.toString().indexOf('AuthorNotFoundException') !== -1) {
+                                //TODO
+                            }
+                        }
+                    };
+                    $scope.selectAuthor = function (author) {
+                        try {
+                            var response = $rootScope.backendService.getDocumentsByAuthorId(author.name);
+                            $scope.authors = JSON.parse(response).authors;
+                            $scope.isDocumentSelected = true;
+                            $mdDialog.hide();
+                        } catch (e) {
+                            if (e.toString().indexOf('AuthorNotFoundException') !== -1) {
+                                //TODO
+                            }
+                        }
+                    };
+                },
+                templateUrl: 'search/author/search-author-dialog.tpl.html',
+                targetEvent: event,
+                clickOutsideToClose: false,
+                escapeToClose: false
+            })}($rootScope, undefined));
 
         vm.searchPrefix = function () {
             vm.documents = undefined;
@@ -57,27 +91,6 @@
           vm.isDocumentSelected = false;
         };
 
-        /* TODO: Fix if autocomplete works */
-        /*var response = $rootScope.backendService.getAuthorsWithPrefix("");
-        vm.authors = JSON.parse(response).authors;
-
-        vm.querySearch = function (inputQuery) {
-            var results = inputQuery ? vm.authors.filter(createFilterFor(inputQuery)) : vm.authors, deferred;
-            deferred = $q.defer();
-            $timeout(function () { deferred.resolve( results ); }, Math.random() * 500, false);
-            return deferred.promise;
-        };
-
-        //////////
-
-        function createFilterFor(inputQuery) {
-            var lowercaseQuery = angular.lowercase(inputQuery);
-
-            return function filterFn(author) {
-                var lowercaseAuthor = angular.lowercase(author.name);
-                return lowercaseAuthor.startsWith(lowercaseQuery);
-            };
-        }*/
     }
 
 }());

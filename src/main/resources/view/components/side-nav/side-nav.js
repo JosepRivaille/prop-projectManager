@@ -16,7 +16,7 @@
             controller: SideNavController
         });
 
-    function SideNavController($rootScope, menuItems) {
+    function SideNavController($rootScope, $mdDialog, menuItems) {
         var vm = this;
 
         vm.title = 'TITLE_PPP';
@@ -32,6 +32,9 @@
         vm.menuItems = menuItems;
 
         $rootScope.$on('$stateChangeStart', function(event, toState) {
+
+            $mdDialog.hide();
+
             angular.forEach(menuItems, function (item) {
                 item.selected = item.state === toState.name;
                 item.collapsed = true;
