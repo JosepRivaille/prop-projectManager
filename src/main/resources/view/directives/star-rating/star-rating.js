@@ -24,8 +24,7 @@
             templateUrl: 'directives/star-rating/star-rating.tpl.html',
             scope: {
                 ratingValue: '=ngModel',
-                readOnly: '=?',
-                onRatingSelect: '&?'
+                readOnly: '=?'
             },
             link: function (scope) {
                 function updateStars() {
@@ -39,9 +38,6 @@
                 scope.toggle = function (index) {
                     if (angular.isUndefined(scope.readOnly) || scope.readOnly === false) {
                         scope.ratingValue = index + 1;
-                        scope.onRatingSelect({
-                            rating: index + 1
-                        });
                     }
                 };
                 scope.$watch('ratingValue', function (oldValue, newValue) {
