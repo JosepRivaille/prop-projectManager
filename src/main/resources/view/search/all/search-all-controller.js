@@ -34,7 +34,7 @@
             }
         ];*/
 
-        vm.select = function(document){
+        vm.selectDocument = function(document){
             vm.documentSelected = document;
             vm.isDocumentSelected = true;
         };

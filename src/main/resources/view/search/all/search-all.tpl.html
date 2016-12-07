@@ -5,7 +5,7 @@
 
     <md-list ng-cloak>
         <md-list-item ng-repeat="document in vm.documents" layout="row" layout-margin>
-            <div flex class="item" layout="row" layout-align="left center" ng-click="vm.select(document)">
+            <div flex class="item" layout="row" layout-align="left center" ng-click="vm.selectDocument(document)">
                 <div>
                     <img class="doc-cover" ng-show="{{document.cover !== ''}}" ng-src="../images/{{document.cover}}">
                     <img class="doc-cover" ng-show="{{document.cover === ''}}" ng-src="../images/sample.png">
@@ -19,6 +19,7 @@
             </div>
         </md-list-item>
     </md-list>
+
 </div>
 
 <div ng-if="vm.isDocumentSelected">

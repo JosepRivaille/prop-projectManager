@@ -48,6 +48,7 @@
   "BUTTON_READ_DOCUMENT": "Read document",
   "BUTTON_ADD_FAVOURITES": "Add to favourites",
   "BUTTON_SEARCH_SIMILARS": "Find similar documents",
+  "BUTTON_SEARCH": "Search",
 
   "FORM_LOGIN": "Login",
   "FORM_REGISTER": "Register",
