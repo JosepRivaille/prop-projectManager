@@ -158,10 +158,11 @@ public class DaoDocumentsImpl implements DaoDocuments {
     }
 
     @Override
-    public void addDocumentToFavourites(Connection c, Document document, String user) throws DocumentNotFoundException{
+    public void addDocumentToFavourites(Connection c, String title, String author, String user) throws DocumentNotFoundException{
         try {
             Statement statement = c.createStatement();
-            String query = String.format("INSERT OR REPLACE INTO favourites(title,author_name,user_email) VALUES ('%s','%s','%s')", document.getTitle(), document.getAuthor(), user);
+            String query = String.format("INSERT OR REPLACE INTO favourites(title,author_name,user_email) " +
+                    "VALUES ('%s','%s','%s')", title, author, user);
             statement.executeUpdate(query);
         } catch (SQLException e) {
             throw new DocumentNotFoundException();
@@ -169,10 +170,11 @@ public class DaoDocumentsImpl implements DaoDocuments {
     }
 
     @Override
-    public void deleteDocumentFromFavourites(Connection c, Document document, String user) throws DocumentNotFoundException{
+    public void deleteDocumentFromFavourites(Connection c, String title, String author, String user) throws DocumentNotFoundException{
         try {
             Statement statement = c.createStatement();
-            String query = String.format("DELETE FROM favourites WHERE title LIKE '%s' AND author_name LIKE '%s' AND user_email LIKE '%s'", document.getTitle(), document.getAuthor(), user);
+            String query = String.format("DELETE FROM favourites WHERE title LIKE '%s' AND" +
+                    " author_name LIKE '%s' AND user_email LIKE '%s'", title, author, user);
             statement.executeUpdate(query);
         } catch (SQLException e) {
             throw new DocumentNotFoundException();
@@ -241,6 +243,24 @@ public class DaoDocumentsImpl implements DaoDocuments {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public boolean isDocumentFavourite(Connection c, String title, String author, String email) {
+        try {
+            Statement statement = c.createStatement();
+            String query = String.format("SELECT * FROM favourites WHERE title LIKE '%s' AND" +
+                    " author_name LIKE '%s' AND user_email LIKE '%s'", title, author, email);
+            ResultSet rs = null;
+
+            rs = statement.executeQuery(query);
+            if (rs.next()) {
+                return true;
+            } else return false;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
 }

@@ -129,13 +129,13 @@ public class BusinessControllerImpl implements BusinessController {
     }
 
     @Override
-    public void addDocumentToFavourites(Document document) throws DocumentNotFoundException {
-        persistenceController.addDocumentToFavourites(document, this.usersManager.getCurrentUser().getEmail());
+    public void addDocumentToFavourites(String title, String author) throws DocumentNotFoundException {
+        persistenceController.addDocumentToFavourites(title, author, this.usersManager.getCurrentUser().getEmail());
     }
 
     @Override
-    public void deleteDocumentFromFavourites(Document document) throws DocumentNotFoundException {
-        persistenceController.deleteDocumentFromFavourites(document, this.usersManager.getCurrentUser().getEmail());
+    public void deleteDocumentFromFavourites(String title, String author) throws DocumentNotFoundException {
+        persistenceController.deleteDocumentFromFavourites(title, author, this.usersManager.getCurrentUser().getEmail());
     }
 
     @Override
@@ -145,6 +145,11 @@ public class BusinessControllerImpl implements BusinessController {
         docquery.updateFrequencies();
         return searchDocument.getRocchioQuery(docquery,list,rv,b,c);*/
         return null;
+    }
+
+    @Override
+    public boolean isDocumentFavourite(String title, String author) {
+        return persistenceController.isDocumentFavourite(title, author, usersManager.getCurrentUser().getEmail());
     }
 
     @Override
@@ -210,11 +215,6 @@ public class BusinessControllerImpl implements BusinessController {
             try {
                 documentsCollection.addDocument(document);
                 persistenceController.writeNewDocument(document);
-                try {
-                    rateDocument(document, 4);
-                } catch (DocumentNotFoundException e) {
-                    e.printStackTrace();
-                }
                 reloadDBData();
             } catch (SQLException e) {
                 e.printStackTrace();

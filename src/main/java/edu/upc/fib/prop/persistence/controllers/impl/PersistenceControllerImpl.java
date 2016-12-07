@@ -179,16 +179,16 @@ public class PersistenceControllerImpl implements PersistenceController {
     }
 
     @Override
-    public void addDocumentToFavourites(Document document, String user) throws DocumentNotFoundException {
+    public void addDocumentToFavourites(String title, String author, String user) throws DocumentNotFoundException {
         openConnection();
-        daoDocuments.addDocumentToFavourites(c, document, user);
+        daoDocuments.addDocumentToFavourites(c, title, author, user);
         closeConnection();
     }
 
     @Override
-    public void deleteDocumentFromFavourites(Document document, String user) throws DocumentNotFoundException {
+    public void deleteDocumentFromFavourites(String title, String author, String user) throws DocumentNotFoundException {
         openConnection();
-        daoDocuments.deleteDocumentFromFavourites(c, document, user);
+        daoDocuments.deleteDocumentFromFavourites(c, title, author, user);
         closeConnection();
     }
 
@@ -212,6 +212,14 @@ public class PersistenceControllerImpl implements PersistenceController {
         Document res = daoDocuments.getDocument(c, title, author);
         closeConnection();
         return res;
+    }
+
+    @Override
+    public boolean isDocumentFavourite(String title, String author, String email) {
+        openConnection();
+        boolean b = daoDocuments.isDocumentFavourite(c,title, author, email);
+        closeConnection();
+        return b;
     }
 
 

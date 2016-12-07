@@ -1,8 +1,4 @@
 <div ng-show="!vm.isDocumentSelected">
-    <h1 class="title-landing" layout-align="start center" flex>
-        {{vm.title | translate}}
-    </h1>
-
     <div ng-show="vm.isListSelected">
         <md-list ng-cloak>
             <md-list-item ng-repeat="document in vm.documents" layout="row" layout-margin>
@@ -70,38 +66,44 @@
 
 
 
-    <div ng-if="!vm.isListSelected">
-        <md-content class="md-no-momentum" layout-padding>
-            <div>
-                <form name="documentForm">
-                    <div layout-gt-sm="row">
-                        <md-input-container class="md-block" flex-gt-sm="">
-                            <label>Document title</label>
-                            <input ng-model="vm.documentSelected.title" type="text" ng-required="true">
-                        </md-input-container>
-                        <md-input-container class="md-block" flex-gt-sm="">
-                            <label>Author name</label>
-                            <input ng-model="vm.documentSelected.author" type="text" ng-required="true">
-                        </md-input-container>
-                    </div>
-                    <md-input-container class="md-block">
-                        <label>Content</label>
-                        <textarea class="document-content-textarea" ng-model="vm.documentSelected.content" rows="5"
-                                  md-select-on-focus=""></textarea>
-                    </md-input-container>
-                    <md-input-container class="md-block">
-                        <form-file-upload ng-model="vm.documentSelected.cover">Document cover</form-file-upload>
-                    </md-input-container>
+    <div ng-if="!vm.isListSelected" style="width: 100%; height: 100vh;">
+        <md-content class="md-no-momentum" layout-padding style="height: 100%; width: 100%;">
+            <h1 class="title-landing" layout-align="start center" flex>
+                {{vm.title | translate}}
+            </h1>
+            <div layout="column" layout-align="space-between stretch" style="width: 100%; height: 100%;">
 
-                    <div flex layout="row" layout-align="end end">
-                        <md-button layout-align="center center" class="md-raised md-primary" ng-click="vm.backToList()">
-                            <i class="fa fa-chevron-left"></i>
-                        </md-button>
-                        <md-button layout-align="center center" class="md-raised md-primary"
-                                   ng-click="vm.storeDocument($event)">
-                            <i class="fa fa-save"></i>
-                        </md-button>
-                    </div>
+                <form name="documentForm">
+                        <div layout-gt-sm="row">
+                            <md-input-container class="md-block" flex-gt-sm="">
+                                <label>Document title</label>
+                                <input ng-model="vm.documentSelected.title" type="text" ng-required="true">
+                            </md-input-container>
+                            <md-input-container class="md-block" flex-gt-sm="">
+                                <label>Author name</label>
+                                <input ng-model="vm.documentSelected.author" type="text" ng-required="true">
+                            </md-input-container>
+                        </div>
+
+                        <md-input-container class="md-block">
+                            <label>Content</label>
+                            <textarea class="document-content-textarea" ng-model="vm.documentSelected.content" rows="5"
+                                      md-select-on-focus=""></textarea>
+                        </md-input-container>
+
+                        <md-input-container class="md-block">
+                            <form-file-upload ng-model="vm.documentSelected.cover">Document cover</form-file-upload>
+                        </md-input-container>
+
+                        <div flex layout="row" layout-align="end end">
+                            <md-button layout-align="center center" class="md-raised md-primary" ng-click="vm.backToList()">
+                                <i class="fa fa-chevron-left"></i>
+                            </md-button>
+                            <md-button layout-align="center center" class="md-raised md-primary"
+                                       ng-click="vm.storeDocument($event)">
+                                <i class="fa fa-save"></i>
+                            </md-button>
+                        </div>
                 </form>
             </div>
         </md-content>

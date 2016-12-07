@@ -62,21 +62,10 @@ public interface DaoDocuments {
      */
     void rateDocument(Connection c, Document doc, int rating, String user) throws DocumentNotFoundException;
 
-    /**
-     * Adds a document as a favourite of a given user
-     * @param c
-     * @param document
-     * @param user
-     */
-    void addDocumentToFavourites(Connection c, Document document, String user) throws DocumentNotFoundException;
+    void addDocumentToFavourites(Connection c, String title, String author, String user) throws DocumentNotFoundException;
 
-    /**
-     * Removes a document from an user's favourite documents list
-     * @param c DB Connection
-     * @param document Document to be unmarked as a favourite
-     * @param user User that wants to remove the document as a favourite
-     */
-    void deleteDocumentFromFavourites(Connection c, Document document, String user) throws DocumentNotFoundException;
+
+    void deleteDocumentFromFavourites(Connection c, String title, String author, String user) throws DocumentNotFoundException;
 
     /**
      * Removes all favourites of a given document from all users
@@ -107,4 +96,13 @@ public interface DaoDocuments {
      * @return
      */
     Document getDocument(Connection c, String title, String author);
+
+    /**
+     *
+     * @param title
+     * @param author
+     * @param email
+     * @return
+     */
+    boolean isDocumentFavourite(Connection c,String title, String author, String email);
 }

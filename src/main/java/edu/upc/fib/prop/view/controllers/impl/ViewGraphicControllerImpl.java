@@ -138,11 +138,17 @@ public class ViewGraphicControllerImpl implements ViewGraphicController {
         this.businessController.rateDocument(document, rating);
     }
 
-    @Override
-    public void addDocumentToFavourites(Document document) throws DocumentNotFoundException {
-        this.businessController.addDocumentToFavourites(document);
+    public boolean isDocumentFavourite(String title, String author){
+        return this.businessController.isDocumentFavourite(title, author);
     }
 
+    public void addFavourite(String title, String author) throws DocumentNotFoundException {
+        this.businessController.addDocumentToFavourites(title, author);
+    }
+
+    public void removeFavourite(String title, String author) throws DocumentNotFoundException {
+        this.businessController.deleteDocumentFromFavourites(title, author);
+    }
     public void test(){
         System.out.println("ADJHADISDIUGAISUGD");
     }

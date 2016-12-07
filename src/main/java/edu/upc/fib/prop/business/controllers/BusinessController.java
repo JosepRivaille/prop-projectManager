@@ -171,30 +171,20 @@ public interface BusinessController {
      */
     void rateDocument(Document document, int rating) throws DocumentNotFoundException;
 
-    /**
-     * Add document to favourites.
-     *
-     * @param document
-     */
-    void addDocumentToFavourites(Document document) throws DocumentNotFoundException;
 
-    /**
-     * Removes a document from an user's favourites documents list
-     * @param document
-     */
-    void deleteDocumentFromFavourites(Document document) throws DocumentNotFoundException;
+    void deleteDocumentFromFavourites(String title, String author) throws DocumentNotFoundException;
 
-    /**
-     *
-     * @param query
-     * @param list
-     * @param rv
-     * @param b
-     * @param c
-     * @return
-     * @throws
-     */
+    void addDocumentToFavourites(String title, String author) throws DocumentNotFoundException;
+
+
     Document getRocchioQuery(String query, SortedDocumentsSet list, double rv, float b, float c)
             throws DocumentNotFoundException;
 
+    /**
+     * Returns true if the document with the given title and author is marked as a favourite by the logged user
+     * @param title title of the document
+     * @param author author of the document
+     * @return
+     */
+    boolean isDocumentFavourite(String title, String author);
 }

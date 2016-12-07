@@ -80,14 +80,14 @@ public interface PersistenceController {
      * @param document document to add as a favourite
      * @param user User that added the document as a favourite
      */
-    void addDocumentToFavourites(Document document, String user) throws DocumentNotFoundException;
+    void addDocumentToFavourites(String title, String author, String user) throws DocumentNotFoundException;
 
     /**
      * Removes a document from an user's favourite documents list
      * @param document Document that will be removed from favourites list
      * @param user User that deleted the document as a favourite
      */
-    void deleteDocumentFromFavourites(Document document, String user) throws DocumentNotFoundException;
+    void deleteDocumentFromFavourites(String title, String author, String user) throws DocumentNotFoundException;
 
     /**
      * Removes all favourites from all users of a given document
@@ -108,4 +108,13 @@ public interface PersistenceController {
      * @return
      */
     Document getDocument(String title, String author);
+
+    /**
+     * Returns true if the document with the given title and authors is marked as a favourite by the user with the given email
+     * @param title
+     * @param author
+     * @param email
+     * @return
+     */
+    boolean isDocumentFavourite(String title, String author, String email);
 }

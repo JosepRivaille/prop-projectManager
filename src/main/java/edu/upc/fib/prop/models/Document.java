@@ -24,7 +24,7 @@ public class Document {
         this.user = user;
         this.content = content;
         this.termFrequency = new TreeMap<>();
-        this.rating = 0f;
+        this.rating = 1f;
         this.cover = "";
     }
 
@@ -33,7 +33,7 @@ public class Document {
         this.author = author;
         termFrequency = new TreeMap<>();
         this.content = content;
-        this.rating = 0f;
+        this.rating = 1f;
         this.cover = "";
     }
 

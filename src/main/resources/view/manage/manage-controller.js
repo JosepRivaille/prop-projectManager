@@ -151,7 +151,7 @@
                 author: '',
                 cover: '',
                 content: '',
-                rating: '0'
+                rating: '1'
             }
         }
 

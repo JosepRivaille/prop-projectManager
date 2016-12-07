@@ -24,6 +24,6 @@
 
 /* TODO: Avoid fix max-height! */
 .document-content-textarea {
-    overflow-y: auto;
-    max-height: 40vh;
+    resize: none;
+    max-height: 30vh;
 }
