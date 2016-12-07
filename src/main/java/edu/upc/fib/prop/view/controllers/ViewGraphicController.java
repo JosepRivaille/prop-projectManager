@@ -134,12 +134,6 @@ public interface ViewGraphicController {
      */
     void exportDocument(String pathToExport, Document document, String os) throws ImportExportException;
 
-    /**
-     * Rates a document.
-     *
-     * @param document
-     * @param rating
-     */
-    void rateDocument(Document document, int rating) throws DocumentNotFoundException;
+    Float rateDocument(String title, String author, int rating) throws DocumentNotFoundException;
 }
 

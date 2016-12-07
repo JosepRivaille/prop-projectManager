@@ -162,14 +162,7 @@ public interface BusinessController {
             throws DocumentNotFoundException;
 
 
-    /**
-     * Rates a document.
-     *
-     * @param document
-     * @param rating
-     * @throws DocumentNotFoundException
-     */
-    void rateDocument(Document document, int rating) throws DocumentNotFoundException;
+    Float rateDocument(String title, String author, int rating) throws DocumentNotFoundException;
 
 
     void deleteDocumentFromFavourites(String title, String author) throws DocumentNotFoundException;

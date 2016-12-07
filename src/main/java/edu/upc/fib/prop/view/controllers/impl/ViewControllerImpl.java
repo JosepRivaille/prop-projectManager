@@ -131,7 +131,7 @@ public class ViewControllerImpl implements ViewController {
 
     @Override
     public void rateDocument(Document document, int rating) throws DocumentNotFoundException {
-        this.businessController.rateDocument(document, rating);
+        this.businessController.rateDocument(document.getTitle(), document.getAuthor(), rating);
     }
 
     @Override

@@ -134,8 +134,8 @@ public class ViewGraphicControllerImpl implements ViewGraphicController {
     }
 
     @Override
-    public void rateDocument(Document document, int rating) throws DocumentNotFoundException {
-        this.businessController.rateDocument(document, rating);
+    public Float rateDocument(String title, String author, int rating) throws DocumentNotFoundException {
+        return this.businessController.rateDocument(title, author, rating);
     }
 
     public boolean isDocumentFavourite(String title, String author){
