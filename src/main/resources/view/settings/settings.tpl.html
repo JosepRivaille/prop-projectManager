@@ -1,8 +1,9 @@
 <div ng-controller="SettingsCtrl as vm">
-    <h1 class="title-landing">
-        {{ vm.title | translate}}
-    </h1>
-    <md-content>
+
+    <md-content style="height: 100vh; width: 100%;">
+        <h1 class="title-landing">
+            {{ vm.title | translate}}
+        </h1>
         <md-list>
             <md-subheader class="md-no-sticky">{{vm.languages.title | translate}}</md-subheader>
             <md-list-item ng-repeat="value in vm.languages.values">
