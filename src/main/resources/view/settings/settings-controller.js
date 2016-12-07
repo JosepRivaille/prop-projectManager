@@ -70,7 +70,7 @@
         };
 
         vm.logout = function () {
-            //TODO: LOGOUT backend
+            $rootScope.backendService.userLogout();
             $state.go('project');
         }
 

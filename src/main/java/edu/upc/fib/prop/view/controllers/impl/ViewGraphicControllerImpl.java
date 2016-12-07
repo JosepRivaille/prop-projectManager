@@ -113,7 +113,7 @@ public class ViewGraphicControllerImpl implements ViewGraphicController {
 
     @Override
     public void userLogout() {
-
+        businessController.logout();
     }
 
     @Override

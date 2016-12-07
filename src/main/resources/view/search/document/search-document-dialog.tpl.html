@@ -10,7 +10,7 @@
         </md-input-container>
 
         <p class="error-text" ng-show="isInvalidData !== undefined">{{isInvalidData | translate}}</p>
-        <md-button ng-disabled="clientLogin.$invalid" class="md-raised md-primary"
+        <md-button ng-disabled="documentSearch.$invalid" class="md-raised md-primary"
                    ng-click="searchDocument(documentTitle, authorName)">
             {{'BUTTON_SEARCH' | translate}}
         </md-button>

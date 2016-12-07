@@ -39,6 +39,9 @@
 
         function DialogAuthorsController($rootScope, $scope, $mdDialog) {
             $scope.searchAuthors = function (prefix) {
+                if (prefix === undefined) {
+                    prefix = '';
+                }
                 try {
                     $scope.isInvalidData = undefined;
                     var response = $rootScope.backendService.getAuthorsWithPrefix(prefix);
