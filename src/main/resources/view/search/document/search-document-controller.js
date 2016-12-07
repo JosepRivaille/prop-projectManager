@@ -41,7 +41,7 @@
                 targetEvent: event,
                 clickOutsideToClose: false,
                 escapeToClose: false
-            })}($rootScope, undefined));
+            })}($rootScope));
 
     }
 }());

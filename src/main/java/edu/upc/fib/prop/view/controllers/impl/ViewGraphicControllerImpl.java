@@ -20,7 +20,7 @@ public class ViewGraphicControllerImpl implements ViewGraphicController {
     private BusinessController businessController;
 
     public ViewGraphicControllerImpl() {
-        System.out.println("Initializating view controller (GRAPHICAL MODE)");
+        System.out.println("Initializing view controller (GRAPHICAL MODE)");
         businessController = new BusinessControllerImpl();
     }
 

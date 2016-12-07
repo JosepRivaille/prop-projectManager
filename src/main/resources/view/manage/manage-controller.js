@@ -43,7 +43,6 @@
         };
 
         vm.editDocument = function (document) {
-            alert("DOCUMENT AL PRIMCIPIO: " + JSON.stringify(document));
             vm.documentBackUp = angular.copy(document);
             vm.documentSelected = document;
             vm.title = 'MENU_MANAGEMENT_UPDATE';
