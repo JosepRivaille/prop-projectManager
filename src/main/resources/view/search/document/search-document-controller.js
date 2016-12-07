@@ -12,58 +12,41 @@
         .module('project.search')
         .controller('SearchDocumentCtrl', SearchDocumentCtrl);
 
-    function SearchDocumentCtrl($q, $timeout) {
+    function SearchDocumentCtrl($rootScope, $mdDialog) {
         var vm = this;
         vm.ctrlName = 'SearchDocumentCtrl';
 
         vm.title = "MENU_SEARCH_SINGLE_DOCUMENT";
 
-        vm.authors = [
-            {
-                name: 'Josep'
-            },
-            {
-                name: 'Guillermo'
-            },
-            {
-                name: 'Gabriel'
-            },
-            {
-                name: 'Aleix'
-            }
-        ];
-
-        vm.isAuthorSelected = false;
-
-        vm.querySearch = function (inputQuery) {
-            var results = inputQuery ? vm.authors.filter(createFilterFor(inputQuery)) : vm.authors, deferred;
-            deferred = $q.defer();
-            $timeout(function () { deferred.resolve( results ); }, Math.random() * 500, false);
-            return deferred.promise;
-        };
-
-        vm.selectedItemChange = function (item) {
-            vm.documentFound = {
-                title: 'asd',
-                author: 'asd',
-                user: 'asd',
-                rating: 5,
-                cover: ''
-            };
-            vm.isAuthorSelected = true;
-        };
-
-
-        //////////
-
-        function createFilterFor(query) {
-            var lowercaseQuery = angular.lowercase(query);
-
-            return function filterFn(authorName) {
-                var lowercaseAuthor = angular.lowercase(authorName.name);
-                return lowercaseAuthor.startsWith(lowercaseQuery);
-            };
-        }
+        vm.isDocumentSelected = false;
+        
+        (function showDialog($rootScope, event) {
+            $mdDialog.show({
+                controller: function ($scope) {
+                    $scope.searchDocument = function (title, author) {
+                        try {
+                            var response = $rootScope.backendService.getDocumentByTitleAndAuthor(title, author);
+                            vm.documentSelected = JSON.parse(response);
+                            vm.isDocumentSelected = true;
+                            $mdDialog.hide();
+                        } catch (e) {
+                            if (e.toString().indexOf('DocumentNotFoundException') !== -1) {
+                                vm.isInvalidData = 'DocumentNotFoundException';
+                            }
+                            //TODO: treat not found
+                        }
+                    }
+                },
+                templateUrl: 'search/document/search-document-dialog.tpl.html',
+                targetEvent: event,
+                clickOutsideToClose: true
+            })
+                .then(function (answer) {
+                    $scope.status = 'You said the information was "' + answer + '".';
+                }, function () {
+                    $scope.status = 'You cancelled the dialog.';
+                });
+        }($rootScope, undefined));
 
     }
 }());

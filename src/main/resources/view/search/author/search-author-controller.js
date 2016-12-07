@@ -12,7 +12,7 @@
         .module('project.search')
         .controller('SearchAuthorCtrl', SearchAuthorCtrl);
 
-    function SearchAuthorCtrl($rootScope, $q, $timeout) {
+    function SearchAuthorCtrl($rootScope) {
         var vm = this;
         vm.ctrlName = 'SearchAuthorCtrl';
 
@@ -21,23 +21,26 @@
         vm.prefix = '';
 
         vm.searchPrefix = function () {
+            vm.documents = undefined;
+            vm.authors = undefined;
             try {
                 var response = $rootScope.backendService.getAuthorsWithPrefix(vm.prefix);
                 vm.authors = JSON.parse(response).authors;
             } catch (e) {
                 if (e.toString().indexOf('AuthorNotFoundException') !== -1) {
-                    vm.authors = undefined;
+                    //TODO
                 }
             }
         };
 
         vm.selectAuthor = function(author){
+            vm.documents = undefined;
             try {
                 var response = $rootScope.backendService.getDocumentsByAuthorId(author.name);
                 vm.documents = JSON.parse(response).documents;
             } catch (e) {
                 if (e.toString().indexOf('DocumentNotFoundException') !== -1) {
-                    vm.documents = undefined;
+                    //TODO
                 }
             }
             vm.isAuthorSelected = true;
