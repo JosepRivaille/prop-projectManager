@@ -23,6 +23,16 @@
         </md-list>
     </md-content>
 
-    <document-info ng-if="vm.isDocumentSelected" ng-model="vm.documentSelected"></document-info>
+    <div ng-if="vm.isDocumentSelected">
+        <div class="navigation-buttons-container">
+            <md-button class="md-fab md-primary" aria-label="Go back" ng-click="vm.back()">
+                <i class="fa fa-arrow-left"></i>
+            </md-button>
+            <md-button class="md-fab md-primary" aria-label="Restart search" ng-click="$state.reload()">
+                <i class="fa fa-search"></i>
+            </md-button>
+        </div>
+        <document-info ng-model="vm.documentSelected"></document-info>
+    </div>
 
 </md-content>

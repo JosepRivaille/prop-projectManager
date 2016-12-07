@@ -41,7 +41,6 @@
 
         vm.back = function(){
             vm.isDocumentSelected = false;
-            alert(vm.isDocumentSelected);
         }
     }
 }());

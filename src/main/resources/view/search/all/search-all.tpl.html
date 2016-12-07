@@ -1,4 +1,4 @@
-<md-content style="width: 100%; height: 100vh;" ng-show="!vm.isDocumentSelected">
+<md-content ng-show="!vm.isDocumentSelected" class="fill-all">
     <h1 class="title-landing">
         {{ vm.title | translate}}
     </h1>
@@ -23,8 +23,10 @@
 </md-content>
 
 <div ng-if="vm.isDocumentSelected">
-    <md-button class="md-fab md-primary back-btn" aria-label="Go back" ng-click="vm.back()">
-        <i class="fa fa-arrow-left"></i>
-    </md-button>
+    <div class="navigation-buttons-container">
+        <md-button class="md-fab md-primary" aria-label="Go back" ng-click="vm.back()">
+            <i class="fa fa-arrow-left"></i>
+        </md-button>
+    </div>
     <document-info ng-model="vm.documentSelected"></document-info>
 </div>

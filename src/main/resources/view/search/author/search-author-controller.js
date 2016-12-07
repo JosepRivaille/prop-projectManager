@@ -24,6 +24,11 @@
             vm.isDocumentSelected = true;
         };
 
+        vm.back = function(){
+            vm.isDocumentSelected = false;
+            vm.isAuthorSelected = true;
+        };
+
         (function showDialog() {
             $mdDialog.show({
                 controller: DialogAuthorsController,
