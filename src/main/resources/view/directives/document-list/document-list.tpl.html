@@ -51,8 +51,8 @@
                     {{title | translate}}
                 </h1>
             </div>
-            <div style="position: relative; padding: 0; background-color: #a94442;" flex>
-                <form name="documentForm" layout="column" style="position: absolute;" class="fill-all-parent" layout-align="space-between none" style="background-color: #4cae4c;">
+            <div style="position: relative; background-color: #a94442; padding: 40px;" layout="row" layout-align="center none" flex>
+                <form name="documentForm" layout="column" layout-align="space-between none" style="width:100%; background-color: #4cae4c;">
                     <div layout-gt-sm="row" style="background-color: #c1e2b3;">
                         <md-input-container class="md-block" flex-gt-sm="">
                             <label>Document title</label>
@@ -70,7 +70,7 @@
                                       md-select-on-focus=""></textarea>
                         </md-input-container>
                     </div>
-                    <div style="background-color: cornflowerblue" >
+                    <div style="background-color: cornflowerblue">
                         <md-input-container class="md-block">
                             <form-file-upload ng-model="documentSelected.cover">Document cover</form-file-upload>
                         </md-input-container>
