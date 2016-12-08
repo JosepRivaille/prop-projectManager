@@ -13,6 +13,8 @@
   "MENU_MANAGEMENT_FAVOURITES": "My favourites",
   "MENU_SETTINGS": "Settings",
   "MENU_ABOUT": "About",
+  "MENU_MANAGEMENT_UPDATE": "Update Document",
+  "MENU_MANAGEMENT_CREATE": "Create document",
 
   "AUTHORS_FOUND": "Authors found",
   "AUTHOR_BOOKS_TITLE": "Books writen by",
