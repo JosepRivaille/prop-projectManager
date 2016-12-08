@@ -55,13 +55,9 @@
 
         vm.disableOtherLanguages = function(value) {
             angular.forEach(vm.languages.values, function (language) {
-                if (language.name !== value.name) {
-                    language.selected = false;
-                } else {
-                    language.selected = true;
-                    $translate.use(language.locale);
-                }
+                language.selected = (language.name === value.name);
             });
+            $translate.use(value.locale);
         };
 
         vm.switchTheme = function () {

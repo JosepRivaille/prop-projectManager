@@ -18,7 +18,9 @@
                 url: '/project',
                 views: {
                     'body': {
-                        templateUrl: 'project.tpl.html'
+                        templateUrl: 'project.tpl.html',
+                        controller: 'AppCtrl',
+                        controllerAs: 'vm'
                     }
                 }
             });
