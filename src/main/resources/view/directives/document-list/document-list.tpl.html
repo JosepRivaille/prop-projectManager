@@ -1,86 +1,64 @@
+<md-content id="document-list" class="no-scrollable fill-all-parent">
 
-<!--LISTA DOCUMENTOS-->
+    <!--LISTA DOCUMENTOS-->
 
-<div ng-show="isListSelected">
-    <h1 class="title-landing" layout-align="start center" flex>
-        {{parentTitle | translate}}
-    </h1>
-    <md-list ng-cloak>
-        <md-list-item ng-repeat="document in documents" layout="row" layout-margin>
-            <div flex class="item" layout="row" layout-align="left center" ng-click="select(document)">
-                <div style="background-color: #d58512;">
-                    <img class="doc-cover" ng-show="{{document.cover !== ''}}" ng-src="../images/{{document.cover}}">
-                    <img class="doc-cover" ng-show="{{document.cover === ''}}" ng-src="../images/sample.png">
-                </div>
-                <div class="item-info">
-                    <span class="title">{{document.title}}</span><br>
-                    <span class="author">{{document.author}}</span><br>
-                    <star-rating ng-model="document.rating" read-only="true"></star-rating><br>
-
-                    <div ng-if="isEditMode" flex layout="row" layout-align="end end" >
-                        <md-button layout="row" onclick="location.href = event.stopPropagation();" class="md-raised md-primary" aria-label="Edit document"
-                                   ng-click="editDocument(document)">
-                            <i class="fa fa-pencil-square-o"></i>
-                        </md-button>
-                        <md-button onclick="location.href = event.stopPropagation();" class="md-raised md-warn" aria-label="Delete document"
-                                   ng-click="showDeleteConfirm($event, document)">
-                            <i class="fa fa-trash"></i>
-                        </md-button>
-                        <md-button onclick="location.href = event.stopPropagation();" class="md-raised md-accent" aria-label="Export document"
-                                   ng-click="export(document)">
-                            <i class="fa fa-download"></i>
-                        </md-button>
-                    </div>
-                </div>
-            </div>
-        </md-list-item>
-    </md-list>
-</div>
-
-<!-- FORMULARIO CREACION/EDICION DOCS -->
-
-<div ng-if="!isListSelected && isEditMode && isCreateOrUpdate">
-    <md-content class="md-no-momentum" layout-padding style="height: 100%; width: 100%;">
-        <h1 class="title-landing" layout-align="start center" flex>
-            {{title | translate}}
+    <div ng-show="isListSelected">
+        <h1 class="title-landing" layout-align="space-between center" flex>
+            {{parentTitle | translate}}
         </h1>
-        <div layout="column" layout-align="space-between stretch" style="width: 100%; height: 100%;">
+        <md-list style="padding-bottom: 130px;">
+            <md-divider></md-divider>
+            <md-list-item ng-repeat="document in documents">
+                <md-button class="docs-list-item" ng-click="select(document)">
+                    <div layout="row"  layout-align="space-between center" style="height: 100%;">
+                        <div class="item-image-container">
+                            <img class="item-image" ng-show="{{document.cover !== ''}}" ng-src="../images/{{document.cover}}">
+                            <img class="item-image" ng-show="{{document.cover === ''}}" ng-src="../images/sample.png">
+                        </div>
+                        <div flex class="item-info-container" layout="column" layout-align="space-between start">
+                            <h1>{{document.title}}</h1>
+                            <h2>{{document.author}}</h2>
+                            <star-rating ng-model="document.rating" read-only="true"></star-rating>
+                        </div>
+                        <div ng-if="isEditMode"class="item-buttons-container" layout="row" layout-align="center center">
+                            <md-button onclick="location.href = event.stopPropagation();" class="md-raised md-primary" aria-label="Edit document"
+                                       ng-click="editDocument(document)">
+                                <i class="fa fa-pencil-square-o"></i>
+                            </md-button>
+                            <md-button onclick="location.href = event.stopPropagation();" class="md-raised md-warn" aria-label="Delete document"
+                                       ng-click="showDeleteConfirm($event, document)">
+                                <i class="fa fa-trash"></i>
+                            </md-button>
+                            <md-button onclick="location.href = event.stopPropagation();" class="md-raised md-accent" aria-label="Export document"
+                                       ng-click="export(document)">
+                                <i class="fa fa-download"></i>
+                            </md-button>
 
-            <form name="documentForm">
-                <div layout-gt-sm="row">
-                    <md-input-container class="md-block" flex-gt-sm="">
-                        <label>Document title</label>
-                        <input ng-model="documentSelected.title" type="text" ng-required="true">
-                    </md-input-container>
-                    <md-input-container class="md-block" flex-gt-sm="">
-                        <label>Author name</label>
-                        <input ng-model="documentSelected.author" type="text" ng-required="true">
-                    </md-input-container>
-                </div>
+                        </div>
+                    </div>
+                </md-button>
+                <md-divider></md-divider>
+            </md-list-item>
+        </md-list>
+    </div>
 
-                <md-input-container class="md-block">
-                    <label>Content</label>
-                    <textarea class="document-content-textarea" ng-model="documentSelected.content" rows="5"
-                              md-select-on-focus=""></textarea>
-                </md-input-container>
+    <!-- FORMULARIO CREACION/EDICION DOCS -->
 
-                <md-input-container class="md-block">
-                    <form-file-upload ng-model="documentSelected.cover">Document cover</form-file-upload>
-                </md-input-container>
+    <div ng-if="!isListSelected && isEditMode && isCreateOrUpdate" class="no-scrollable fill-all-window">
+        <md-content class="md-no-momentum fill-all-parent" layout="column" layout-padding>
+            <div style="height: auto;">
+                <h1 class="title-landing" layout-align="start center">
+                    {{title | translate}}
+                </h1>
+            </div>
+            <div style="background-color: #1b6d85;" flex>
+               <div style="background-color: #985f0d;">
+                    kjbvkjlvkvlñv
+               </div>
+            </div>
+        </md-content>
+    </div>
 
-                <div flex layout="row" layout-align="end end">
-                    <md-button layout-align="center center" class="md-raised md-primary" ng-click="backToList()">
-                        <i class="fa fa-chevron-left"></i>
-                    </md-button>
-                    <md-button layout-align="center center" class="md-raised md-primary"
-                               ng-click="storeDocument($event)">
-                        <i class="fa fa-save"></i>
-                    </md-button>
-                </div>
-            </form>
-        </div>
-    </md-content>
-</div>
 
 <!-- BOTONES FLOTANTES ADD/IMPORT -->
 
@@ -124,3 +102,6 @@
     </div>
     <document-info ng-model="documentSelected"></document-info>
 </div>
+
+
+</md-content>
