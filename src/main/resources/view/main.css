@@ -166,12 +166,3 @@ body {
     padding: 10px;
     background: white;
 }
-
-.testtest.ng-enter,.testtest.ng-leave {
-    transition: 1s;
-}
-
-.box-one {
-    -webkit-transition:all linear 0.5s;
-    transition:all linear 0.5s;
-}

@@ -25,10 +25,22 @@
             templateUrl: 'directives/document-list/document-list.tpl.html',
             scope: {
                 documents: '=ngModel',
-                isEditMode: '=?'
+                isEditMode: '=?',
+                parentTitle: '=?'
             },
             link: function (scope) {
-               if(angular.isUndefined(scope.isEditMode)) scope.isEditMode = false;
+
+                scope.isListSelected = true;
+                scope.isButtonOpened = false;
+                scope.tooltipVisible = false;
+                scope.isDocumentSelected = false;
+                scope.isCreateOrUpdate = false;
+
+                if(angular.isUndefined(scope.isEditMode)) scope.isEditMode = false;
+
+                function hola(){
+                    alert("HOLA!");
+                }
 
                 function buildDocument() {
                     return {
@@ -50,12 +62,9 @@
                     }
                 }
 
-                scope.isListSelected = true;
-                scope.isButtonOpened = false;
-                scope.tooltipVisible = false;
-                scope.isDocumentSelected = false;
 
-                $scope.$watch('scope.isButtonOpened', function(isOpen) {
+
+                scope.$watch('scope.isButtonOpened', function(isOpen) {
                     if (isOpen) {
                         $timeout(function() {
                             scope.tooltipVisible = scope.isButtonOpened;
@@ -73,6 +82,7 @@
                     scope.title = 'MENU_MANAGEMENT_CREATE';
                     scope.isListSelected = false;
                     scope.isNewDocument = true;
+                    scope.isCreateOrUpdate = true;
                 };
 
                 scope.editDocument = function (document) {
@@ -81,21 +91,26 @@
                     scope.title = 'MENU_MANAGEMENT_UPDATE';
                     scope.isListSelected = false;
                     scope.isNewDocument = false;
+                    scope.isCreateOrUpdate = true;
                 };
 
                 scope.backToList = function () {
+                    scope.isCreateOrUpdate = false;
                     scope.documentBackUp = undefined;
                     scope.isListSelected = true;
                     scope.title = 'MENU_MANAGEMENT_ALL';
                 };
 
                 scope.select = function(document){
+                    scope.isListSelected = false;
                     scope.documentSelected = document;
                     scope.isDocumentSelected = true;
+
                 };
 
                 scope.back = function(){
                     scope.isDocumentSelected = false;
+                    scope.isListSelected = true;
                 };
 
                 //TODO: Not working yet
@@ -141,6 +156,7 @@
                                 scope.isInvalidData = treatException(e);
                             }
                         }
+                        scope.isCreateOrUpdate = false;
                         scope.isListSelected = true;
                     }, function() {
                     });
