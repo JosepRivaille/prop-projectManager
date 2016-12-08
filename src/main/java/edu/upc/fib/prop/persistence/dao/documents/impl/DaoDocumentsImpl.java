@@ -246,6 +246,41 @@ public class DaoDocumentsImpl implements DaoDocuments {
     }
 
     @Override
+    public DocumentsCollection getFavourites(Connection c, String user) {
+        DocumentsCollection favouriteDocuments = new DocumentsCollection();
+        try {
+            Statement statement = c.createStatement();
+            String query = String.format
+                    ("SELECT * FROM documents d, favourites f " +
+                            "WHERE f.user_email = '%s' AND f.title = d.title AND f.author_name = d.author_name " +
+                            "ORDER BY d.title, d.author_name;", user);
+            ResultSet rs = statement.executeQuery(query);
+            while (rs.next()) {
+                String title = rs.getString("title");
+                String authorName = rs.getString("author_name");
+                String content = rs.getString("content");
+                String cover = rs.getString("cover");
+                String termFrequency = rs.getString("term_frequency");
+                String termPositions = rs.getString("term_positions");
+                Float rating = rs.getFloat("rating");
+                Document document = new Document(title, authorName, content, user);
+                document.setRating(rating);
+                document.setCover(cover);
+                document.setTermFrequency(StringUtils.buildFrequencyMapFromJSON(termFrequency));
+                document.setTermPositions(StringUtils.buildPositionMapFromJSON(termPositions));
+                try {
+                    favouriteDocuments.addDocument(document);
+                } catch (InvalidDetailsException e) {
+                    e.printStackTrace();
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return favouriteDocuments;
+    }
+
+    @Override
     public boolean isDocumentFavourite(Connection c, String title, String author, String email) {
         try {
             Statement statement = c.createStatement();
@@ -254,9 +289,7 @@ public class DaoDocumentsImpl implements DaoDocuments {
             ResultSet rs = null;
 
             rs = statement.executeQuery(query);
-            if (rs.next()) {
-                return true;
-            } else return false;
+            return rs.next();
         } catch (SQLException e) {
             e.printStackTrace();
         }

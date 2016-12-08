@@ -100,6 +100,12 @@ public interface BusinessController {
     DocumentsCollection getCurrentUserDocuments();
 
     /**
+     *
+     * @return
+     */
+    DocumentsCollection getCurrentUserFavourites();
+
+    /**
      * Stores in persistence a new document.
      *
      * @param document Document to store.

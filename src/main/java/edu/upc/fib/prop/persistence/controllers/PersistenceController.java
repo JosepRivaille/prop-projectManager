@@ -110,6 +110,13 @@ public interface PersistenceController {
     Document getDocument(String title, String author);
 
     /**
+     *
+     * @return
+     * @param user
+     */
+    DocumentsCollection getFavouriteDocuments(String user);
+
+    /**
      * Returns true if the document with the given title and authors is marked as a favourite by the user with the given email
      * @param title
      * @param author

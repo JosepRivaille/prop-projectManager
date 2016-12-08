@@ -99,6 +99,14 @@ public interface DaoDocuments {
 
     /**
      *
+     * @param c
+     * @param user
+     * @return
+     */
+    DocumentsCollection getFavourites(Connection c, String user);
+
+    /**
+     *
      * @param title
      * @param author
      * @param email

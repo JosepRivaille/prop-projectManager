@@ -88,6 +88,14 @@ public class ViewGraphicControllerImpl implements ViewGraphicController {
     }
 
     @Override
+    public String getCurrentUserFavourites() {
+        DocumentsCollection documents = this.businessController.getCurrentUserFavourites();
+        List<DocumentBasicInfo> documentsBasicInfo = documents.getDocuments().stream().map(DocumentBasicInfo::new)
+                .collect(Collectors.toList());
+        return new Gson().toJson(documentsBasicInfo);
+    }
+
+    @Override
     public void storeNewDocument(String documentJSON)
             throws AlreadyExistingDocumentException, InvalidDetailsException {
         Document document = StringUtils.parseJSONToDocument(documentJSON);

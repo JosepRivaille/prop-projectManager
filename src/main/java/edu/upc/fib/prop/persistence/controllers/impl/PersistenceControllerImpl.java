@@ -15,10 +15,6 @@ import edu.upc.fib.prop.persistence.dao.users.impl.DaoUsersImpl;
 import edu.upc.fib.prop.utils.Constants;
 import edu.upc.fib.prop.utils.FileUtils;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -209,9 +205,17 @@ public class PersistenceControllerImpl implements PersistenceController {
     @Override
     public Document getDocument(String title, String author) {
         openConnection();
-        Document res = daoDocuments.getDocument(c, title, author);
+        Document document = daoDocuments.getDocument(c, title, author);
         closeConnection();
-        return res;
+        return document;
+    }
+
+    @Override
+    public DocumentsCollection getFavouriteDocuments(String user) {
+        openConnection();
+        DocumentsCollection documents = daoDocuments.getFavourites(c, user);
+        closeConnection();
+        return documents;
     }
 
     @Override

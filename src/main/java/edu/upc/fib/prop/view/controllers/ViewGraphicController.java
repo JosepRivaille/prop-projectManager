@@ -86,6 +86,8 @@ public interface ViewGraphicController {
      */
     String getCurrentUserDocuments();
 
+    String getCurrentUserFavourites();
+
     /**
      * Stores a new document in the system.
      *

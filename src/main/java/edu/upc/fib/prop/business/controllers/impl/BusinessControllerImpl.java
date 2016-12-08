@@ -208,6 +208,12 @@ public class BusinessControllerImpl implements BusinessController {
     }
 
     @Override
+    public DocumentsCollection getCurrentUserFavourites() {
+        String user = this.usersManager.getCurrentUser().getEmail();
+        return this.persistenceController.getFavouriteDocuments(user);
+    }
+
+    @Override
     public void storeNewDocument(Document document) throws AlreadyExistingDocumentException, InvalidDetailsException {
         document.setUser(usersManager.getCurrentUser().getEmail());
         if (!document.isCorrect()) {
