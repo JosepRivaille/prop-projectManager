@@ -40,10 +40,6 @@
 
                 if(angular.isUndefined(scope.isEditMode)) scope.isEditMode = false;
 
-                function hola(){
-                    alert("HOLA!");
-                }
-
                 function buildDocument() {
                     return {
                         title: '',
@@ -74,13 +70,6 @@
                         scope.tooltipVisible = scope.isButtonOpened;
                     }
                 });
-
-                scope.clickInput = function() {
-                    alert("FUNCTION: clickInput");
-                    var input = angular.element('#inputFile');
-                    alert(input);
-                    input.triggerHandler('click');
-                };
 
                 scope.createDocument = function () {
                     scope.title = 'MENU_MANAGEMENT_CREATE';
@@ -130,6 +119,8 @@
                 };
 
                 scope.storeDocument = function (event) {
+                    if(angular.isDefined(scope.coverImagePath)) alert(scope.coverImagePath);
+                    else alert("no definido");
                     var translations = {
                         title: $filter('translate')('DIALOG_CREATE_TITLE'),
                         textContent: $filter('translate')('DIALOG_CREATE_CONTENT'),

@@ -91,10 +91,21 @@
 
                         -->
 
-                        <input id="fileInput" name="file" type="file" class="ng-hide">
-                        <md-button id="uploadButton" class="md-raised md-primary" ng-click="clickInput()">
-                            <i class="fa fa-picture-o"></i>
+                        <!--<md-button>
+                            <label for="file-input">Select</label>
                         </md-button>
+                        <input id="file-input" type="file">-->
+
+                        <div layout="row" layout-align="start center">
+                            <md-button class="md-raised md-primary">
+                                <label for="fileInput" class="fill-all-parent">
+                                    <i class="fa fa-picture-o"></i>
+                                </label>
+                            </md-button>
+                            <p id="selectedImageLabel">{{fileName}}</p>
+                            <input id="fileInput" type="file" class="ng-hide" name="coverImagePath" fd-input file-name="fileName">
+                        </div>
+
 
                         <div flex layout="row" layout-align="end end">
                             <md-button layout-align="center center" class="md-raised md-primary" ng-click="backToList()">
