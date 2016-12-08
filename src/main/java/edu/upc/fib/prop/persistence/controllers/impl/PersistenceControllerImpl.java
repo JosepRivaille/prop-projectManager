@@ -56,7 +56,7 @@ public class PersistenceControllerImpl implements PersistenceController {
     public void writeNewDocument(Document document) throws AlreadyExistingDocumentException, SQLException {
         openConnection();
 
-        daoDocuments.addNewDocument(c, document);
+        daoDocuments.createNewDocument(c, document);
         try {
             daoAuthors.getAuthorByName(c, document.getAuthor());
         } catch (AuthorNotFoundException e) {
@@ -120,58 +120,25 @@ public class PersistenceControllerImpl implements PersistenceController {
     }
 
     @Override
-    public void updateDocument(Document oldDocument, Document newDocument) {
+    public void updateDocument(Document oldDocument, Document newDocument) throws AlreadyExistingDocumentException {
         openConnection();
-        daoDocuments.updateExistingDocument(c, oldDocument, newDocument);
+        daoDocuments.editExistingDocument(c, oldDocument, newDocument);
         daoAuthors.deleteIfNoDocuments(c, oldDocument.getAuthor());
-        if(!daoAuthors.existsAuthor(c, newDocument.getAuthor())) try {
-            daoAuthors.createAuthor(c, newDocument.getAuthor());
-        } catch (SQLException e) {
-            e.printStackTrace();
+        if (!daoAuthors.existsAuthor(c, newDocument.getAuthor())) {
+            try {
+                daoAuthors.createAuthor(c, newDocument.getAuthor());
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
-        closeConnection();
-    }
-
-    //////////
-
-    private void openConnection() {
-        try {
-            Class.forName(Constants.JDBC_DRIVER);
-            this.c = DriverManager.getConnection(Constants.DB_DEVELOPMENT);
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void closeConnection() {
-        try {
-            this.c.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void initializeDB() {
-        openConnection();
-
-        try {
-            Statement statement = c.createStatement();
-            String sql = FileUtils.readFile("src/main/resources/sql/dbInitializer.sql");
-            statement.executeUpdate(sql);
-            statement.close();
-            System.out.println(Constants.DB_DEVELOPMENT + " initialized successfully");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
         closeConnection();
     }
 
     @Override
     public void rateDocument(Document document, int rating, String user) throws DocumentNotFoundException {
-            openConnection();
-            daoDocuments.rateDocument(c, document, rating, user);
-            closeConnection();
+        openConnection();
+        daoDocuments.rateDocument(c, document, rating, user);
+        closeConnection();
     }
 
     @Override
@@ -226,5 +193,39 @@ public class PersistenceControllerImpl implements PersistenceController {
         return b;
     }
 
+    //////////
+
+    private void openConnection() {
+        try {
+            Class.forName(Constants.JDBC_DRIVER);
+            this.c = DriverManager.getConnection(Constants.DB_DEVELOPMENT);
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void closeConnection() {
+        try {
+            this.c.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void initializeDB() {
+        openConnection();
+
+        try {
+            Statement statement = c.createStatement();
+            String sql = FileUtils.readFile("src/main/resources/sql/dbInitializer.sql");
+            statement.executeUpdate(sql);
+            statement.close();
+            System.out.println(Constants.DB_DEVELOPMENT + " initialized successfully");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        closeConnection();
+    }
 
 }

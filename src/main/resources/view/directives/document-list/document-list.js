@@ -62,8 +62,6 @@
                     }
                 }
 
-
-
                 scope.$watch('scope.isButtonOpened', function(isOpen) {
                     if (isOpen) {
                         $timeout(function() {
@@ -75,37 +73,36 @@
                 });
 
                 scope.createDocument = function () {
-                    scope.documentSelected = buildDocument();
                     scope.title = 'MENU_MANAGEMENT_CREATE';
+                    scope.documentSelected = buildDocument();
                     scope.isListSelected = false;
                     scope.isNewDocument = true;
                     scope.isCreateOrUpdate = true;
                 };
 
                 scope.editDocument = function (document) {
+                    scope.title = 'MENU_MANAGEMENT_UPDATE';
                     scope.documentBackUp = angular.copy(document);
                     scope.documentSelected = document;
-                    scope.title = 'MENU_MANAGEMENT_UPDATE';
                     scope.isListSelected = false;
                     scope.isNewDocument = false;
                     scope.isCreateOrUpdate = true;
                 };
 
                 scope.backToList = function () {
-                    scope.isCreateOrUpdate = false;
-                    scope.documentBackUp = undefined;
-                    scope.isListSelected = true;
                     scope.title = 'MENU_MANAGEMENT_ALL';
+                    scope.documentBackUp = undefined;
+                    scope.isCreateOrUpdate = false;
+                    scope.isListSelected = true;
                 };
 
-                scope.select = function(document){
-                    scope.isListSelected = false;
+                scope.selectDocument = function (document) {
                     scope.documentSelected = document;
+                    scope.isListSelected = false;
                     scope.isDocumentSelected = true;
-
                 };
 
-                scope.back = function(){
+                scope.back = function () {
                     scope.isDocumentSelected = false;
                     scope.isListSelected = true;
                 };
@@ -160,7 +157,6 @@
                 };
 
                 scope.showDeleteConfirm = function (event, document) {
-
                     var translations = {
                         title: $filter('translate')('DIALOG_DELETE_TITLE'),
                         textContent: $filter('translate')('DIALOG_DELETE_CONTENT'),
@@ -184,8 +180,6 @@
                     }, function() {
                     });
                 };
-
-
 
             }
         };

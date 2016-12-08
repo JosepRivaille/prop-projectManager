@@ -65,7 +65,7 @@ public interface PersistenceController {
      * @param oldDocument Modified document.
      * @param newDocument Modifying document.
      */
-    void updateDocument(Document oldDocument, Document newDocument);
+    void updateDocument(Document oldDocument, Document newDocument) throws AlreadyExistingDocumentException;
 
     /**
      * Updates a document ratings

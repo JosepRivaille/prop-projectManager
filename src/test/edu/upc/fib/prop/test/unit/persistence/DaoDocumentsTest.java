@@ -70,7 +70,7 @@ public class DaoDocumentsTest {
         Document document = new Document(title, author, user, content);
         document.setTermFrequency(termFrequency);
 
-        daoDocuments.addNewDocument(c, document);
+        daoDocuments.createNewDocument(c, document);
     }
 
     @Test
@@ -85,7 +85,7 @@ public class DaoDocumentsTest {
         Document document = new Document(title, author, user, content);
         document.setTermFrequency(termFrequency);
 
-        daoDocuments.addNewDocument(c, document);
+        daoDocuments.createNewDocument(c, document);
         assertTrue(daoDocuments.getAllDocuments(c).getDocuments().size() == 11);
     }
 
@@ -113,7 +113,11 @@ public class DaoDocumentsTest {
         String newContent = "This is a new content";
         Document newDocument = new Document(newTitle, newAuthor, newContent, user);
 
-        daoDocuments.updateExistingDocument(c, oldDocument, newDocument);
+        try {
+            daoDocuments.editExistingDocument(c, oldDocument, newDocument);
+        } catch (AlreadyExistingDocumentException e) {
+            e.printStackTrace();
+        }
         DocumentsCollection documentsCollection = daoDocuments.getAllDocuments(c);
         Document expectedUpdatedDocument = documentsCollection.getDocuments().get(0);
         assertTrue(newDocument.equals(expectedUpdatedDocument));

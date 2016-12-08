@@ -46,7 +46,7 @@ public class DaoDocumentsDriver {
         String owner = IOUtils.askForString("Owner");
         Document document = new Document(title, author, "fake", owner);
         try {
-            daoDocuments.addNewDocument(c, document);
+            daoDocuments.createNewDocument(c, document);
             printResult("Author created in the DB");
         } catch (AlreadyExistingDocumentException e) {
             printResult("Document already exists in the system");
@@ -80,7 +80,11 @@ public class DaoDocumentsDriver {
         String newAuthor = IOUtils.askForString("New author");
         Document newDocument = new Document(newTitle, newAuthor, "fake");
 
-        daoDocuments.updateExistingDocument(c, oldDocument, newDocument);
+        try {
+            daoDocuments.editExistingDocument(c, oldDocument, newDocument);
+        } catch (AlreadyExistingDocumentException e) {
+            e.printStackTrace();
+        }
         printResult("Document updated successfully");
     }
 

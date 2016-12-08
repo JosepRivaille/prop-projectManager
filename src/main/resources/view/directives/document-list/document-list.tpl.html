@@ -9,7 +9,7 @@
         <md-list style="padding-bottom: 130px;">
             <md-divider></md-divider>
             <md-list-item ng-repeat="document in documents">
-                <md-button class="docs-list-item" ng-click="select(document)">
+                <md-button class="docs-list-item" ng-click="selectDocument(document)">
                     <div layout="row"  layout-align="space-between center" style="height: 100%;">
                         <div class="item-image-container">
                             <img class="item-image" ng-show="{{document.cover !== ''}}" ng-src="../images/{{document.cover}}">

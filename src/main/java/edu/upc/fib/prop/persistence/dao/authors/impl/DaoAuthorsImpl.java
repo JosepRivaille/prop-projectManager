@@ -69,10 +69,9 @@ public class DaoAuthorsImpl implements DaoAuthors {
     public void deleteIfNoDocuments(Connection c, String author) {
         try {
             Statement statement = c.createStatement();
-            String query = String.format("DELETE FROM authors WHERE author_name LIKE '%s' \n" +
-                    "AND NOT EXISTS (SELECT * FROM documents WHERE documents.author_name = authors.author_name);", author);
+            String query = String.format("DELETE FROM authors WHERE author_name='%s' AND " +
+                    "NOT EXISTS (SELECT * FROM documents WHERE documents.author_name = authors.author_name);", author);
             statement.executeUpdate(query);
-
         } catch (SQLException e) {
             e.printStackTrace();
         }

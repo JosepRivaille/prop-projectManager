@@ -50,12 +50,12 @@
             title: 'SETTINGS_THEME',
             themeDark: 'SWITCH_THEME_DARK',
             themeLight: 'SWITCH_THEME_LIGHT',
-            darkTheme: true
+            darkTheme: false
         };
 
         vm.disableOtherLanguages = function(value) {
             angular.forEach(vm.languages.values, function (language) {
-                language.selected = (language.name === value.name);
+                language.selected = false;
             });
             $translate.use(value.locale);
         };
