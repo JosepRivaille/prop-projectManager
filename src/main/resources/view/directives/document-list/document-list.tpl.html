@@ -51,9 +51,9 @@
                     {{title | translate}}
                 </h1>
             </div>
-            <div style="position: relative; background-color: #a94442; padding: 40px;" layout="row" layout-align="center none" flex>
-                <form name="documentForm" layout="column" layout-align="space-between none" style="width:100%; background-color: #4cae4c;">
-                    <div layout-gt-sm="row" style="background-color: #c1e2b3;">
+            <div style="position: relative; padding: 40px;" layout="row" layout-align="center none" flex>
+                <form name="documentForm" layout="column" layout-align="space-between none" style="width:100%;">
+                    <div layout-gt-sm="row">
                         <md-input-container class="md-block" flex-gt-sm="">
                             <label>Document title</label>
                             <input ng-model="documentSelected.title" type="text" ng-required="true">
@@ -63,14 +63,15 @@
                             <input ng-model="documentSelected.author" type="text" ng-required="true">
                         </md-input-container>
                     </div>
-                    <div style="background-color: #f5e79e; height: 200px;" flex>
-                        <md-input-container class="md-block">
+                    <div layout="row" layout-align="start none" flex>
+                        <md-input-container class="md-block" style="width: 100%; overflow-y: auto;">
                             <label>Content</label>
-                            <textarea class="document-content-textarea" ng-model="documentSelected.content" rows="5"
-                                      md-select-on-focus=""></textarea>
+                            <textarea class="document-content-textarea" ng-model="documentSelected.content" rows="7">
+
+                            </textarea>
                         </md-input-container>
                     </div>
-                    <div style="background-color: cornflowerblue">
+                    <div layout="row" layout-align="space-between none">
                         <md-input-container class="md-block">
                             <form-file-upload ng-model="documentSelected.cover">Document cover</form-file-upload>
                         </md-input-container>
