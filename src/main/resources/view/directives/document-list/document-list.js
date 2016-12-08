@@ -74,9 +74,6 @@
                     }
                 });
 
-                var response = $rootScope.backendService.getCurrentUserDocuments();
-                scope.documents = JSON.parse(response);
-
                 scope.createDocument = function () {
                     scope.documentSelected = buildDocument();
                     scope.title = 'MENU_MANAGEMENT_CREATE';

@@ -3,27 +3,6 @@ package edu.upc.fib.prop.models;
 import java.util.ArrayList;
 import java.util.Set;
 
-/*public class DecisionTree {
-    private Node root;
-
-    private ArrayList<Node> fulles = new ArrayList<Node>();
-
-    public Node getRoot() {
-        return root;
-    }
-
-    public void setRoot(Node node) {
-        this.root = node;
-    }
-
-    public DecisionTree() {
-        root = new Node();
-    }
-
-    public boolean ContrastaArbre(String frase){
-        return Boolean.FALSE;
-    }*/
-
 public class Node {
     private Set<Integer> compleixen;
     private char operator;

@@ -41,14 +41,41 @@
                         state: 'project.search.document',
                         icon: 'file-text',
                         selected: false
+                    },
+                    {
+                        name: 'MENU_SEARCH_BOOLEAN',
+                        state: 'project.search-boolean',
+                        icon: 'sitemap',
+                        selected: false
+                    },
+                    {
+                        name: 'MENU_SEARCH_QUERY',
+                        state: 'project.search-query',
+                        icon: 'question',
+                        selected: false
                     }
                 ]
             },
             {
                 name: 'MENU_MANAGEMENT',
-                state: 'project.manage',
+                state: 'project.manage.all',
                 icon: 'pie-chart',
-                selected: false
+                selected: false,
+                collapsed: true,
+                children: [
+                    {
+                        name: 'MENU_MANAGEMENT_ALL',
+                        state: 'project.manage.all',
+                        icon: 'list-alt',
+                        selected: false
+                    },
+                    {
+                        name: 'MENU_MANAGEMENT_FAVOURITES',
+                        state: 'project.manage.favourites',
+                        icon: 'heart',
+                        selected: false
+                    }
+                ]
             },
             {
                 name: 'MENU_SETTINGS',
