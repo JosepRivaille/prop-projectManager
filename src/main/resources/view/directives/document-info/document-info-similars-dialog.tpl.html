@@ -1,0 +1,16 @@
+<md-dialog-content class="md-dialog-content dialog-forms" layout="column" layout-align="center center">
+    <form name="similarSearch">
+        <p class="text-info text-bold-dialog">{{'DIALOG_SEARCH_SIMILAR_CONTENT' | translate}}</p>
+        <md-input-container class="md-block">
+            <label>{{'DIALOG_SEARCH_SIMILAR_PLACEHOLDER' | translate}}</label>
+            <input ng-model="desiredNumber" name="desiredNumber" type="number" ng-required="true">
+        </md-input-container>
+
+        <p class="error-text" ng-show="isInvalidData !== undefined">{{isInvalidData | translate}}</p>
+        <md-button ng-disabled="authorSearch.$invalid" class="md-raised md-primary"
+                   ng-click="searchSimilarDocuments(desiredNumber)">
+            {{'BUTTON_SEARCH' | translate}}
+        </md-button>
+    </form>
+
+</md-dialog-content>

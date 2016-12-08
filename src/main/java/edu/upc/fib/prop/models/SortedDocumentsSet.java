@@ -89,6 +89,7 @@ public class SortedDocumentsSet{
         Collections.sort(docs.get(weight), comp);
     }
 
-
-
+    public TreeMap<Double, List<Document>> getDocs() {
+        return docs;
+    }
 }

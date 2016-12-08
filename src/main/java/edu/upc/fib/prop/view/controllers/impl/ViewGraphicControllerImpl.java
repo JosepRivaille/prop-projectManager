@@ -13,6 +13,7 @@ import javafx.util.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class ViewGraphicControllerImpl implements ViewGraphicController {
@@ -58,8 +59,16 @@ public class ViewGraphicControllerImpl implements ViewGraphicController {
     }
 
     @Override
-    public String getDocumentsByRelevance(Document document, int k) throws DocumentNotFoundException {
-        SortedDocumentsSet sortedDocumentsSet = this.businessController.searchDocumentsByRelevance(document, k);
+    public String getDocumentsByRelevance(String documentTitle, String authorName, int k)
+            throws DocumentNotFoundException {
+        Document originalDocument = businessController.searchDocumentsByTitleAndAuthor(documentTitle, authorName);
+        SortedDocumentsSet sortedDocumentsSet = this.businessController.searchDocumentsByRelevance(originalDocument, k);
+        List<DocumentBasicInfo> documentsBasicInfo = new ArrayList<>();
+        for (Map.Entry<Double, List<Document>> documents : sortedDocumentsSet.getDocs().entrySet()) {
+            for (Document document : documents.getValue()) {
+                documentsBasicInfo.add(new DocumentBasicInfo(document));
+            }
+        }
         return new Gson().toJson(sortedDocumentsSet);
     }
 
