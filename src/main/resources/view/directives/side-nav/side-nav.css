@@ -113,3 +113,29 @@
         margin-right: 0;
     }
 }
+
+#side-nav .user-space{
+    height: 25vh;
+    width:100%;
+
+    padding: 20px;
+}
+#side-nav .user-space-inner{
+    width:100%;
+
+}
+
+#side-nav .user-space-inner .user-image{
+
+}
+#side-nav .user-space-inner .user-image > img{
+    border-radius: 100px;
+    height: 50px;
+    width: 50px;
+}
+
+#side-nav .user-space-inner .user-info{
+    padding-left: 10px;
+
+}
+
