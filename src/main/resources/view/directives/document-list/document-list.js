@@ -30,6 +30,7 @@
             },
             link: function (scope) {
 
+
                 scope.isListSelected = true;
                 scope.isButtonOpened = false;
                 scope.tooltipVisible = false;
@@ -62,6 +63,7 @@
                     }
                 }
 
+
                 scope.$watch('scope.isButtonOpened', function(isOpen) {
                     if (isOpen) {
                         $timeout(function() {
@@ -71,6 +73,13 @@
                         scope.tooltipVisible = scope.isButtonOpened;
                     }
                 });
+
+                scope.clickInput = function() {
+                    alert("FUNCTION: clickInput");
+                    var input = angular.element('#inputFile');
+                    alert(input);
+                    input.triggerHandler('click');
+                };
 
                 scope.createDocument = function () {
                     scope.title = 'MENU_MANAGEMENT_CREATE';
