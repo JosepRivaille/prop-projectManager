@@ -16,7 +16,7 @@
         var vm = this;
         vm.ctrlName = 'SearchQueryCtrl';
 
-        vm.title = 'MENU_SEARCH_BOOLEAN';
+        vm.title = 'MENU_SEARCH_QUERY';
 
         vm.isDocumentSelected = false;
 

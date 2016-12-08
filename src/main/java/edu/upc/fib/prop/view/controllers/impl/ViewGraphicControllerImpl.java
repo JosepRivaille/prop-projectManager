@@ -81,7 +81,7 @@ public class ViewGraphicControllerImpl implements ViewGraphicController {
 
     @Override
     public void userDelete() throws UserNotFoundException {
-
+        businessController.deleteUser();
     }
 
     @Override

@@ -76,7 +76,7 @@
                         scope.isInvalidData = treatException(e);
                     }
                 };
-                
+
                 function resetFormData() {
                     scope.user = {
                         userName: '',

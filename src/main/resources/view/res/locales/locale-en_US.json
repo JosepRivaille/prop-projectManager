@@ -44,13 +44,17 @@
   "DIALOG_DELETE_OK": "OK",
   "DIALOG_DELETE_CANCEL": "Cancel",
 
-  "SETTINGS_LANGUAGES": "Change the language of the system",
+  "SETTINGS_LANGUAGES": "Change system language",
   "LANG_ENGLISH": "English",
   "LANG_CATALAN": "Catalan",
   "LANG_SPANISH": "Spanish",
   "SETTINGS_THEME": "Change application theme",
   "SWITCH_THEME_DARK": "Dark theme",
   "SWITCH_THEME_LIGHT": "Light theme",
+  "SETTINGS_ACCOUNT": "Account settings",
+  "ACCOUNT_LOGOUT": "Logout",
+  "ACCOUNT_EDIT": "Edit account",
+  "ACCOUNT_DELETE": "Delete account",
 
   "BUTTON_READ_DOCUMENT": "Read document",
   "BUTTON_ADD_FAVOURITES": "Add to favourites",

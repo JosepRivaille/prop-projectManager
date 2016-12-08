@@ -19,13 +19,14 @@
         vm.title = "TITLE_DOCUMENT_LIST";
     }
 
-    function documentList($rootScope, $timeout, $mdDialog, $filter) {
+    function documentList($rootScope, $timeout, $mdDialog, $filter, $state) {
         return {
             restrict: 'EA',
             templateUrl: 'directives/document-list/document-list.tpl.html',
             scope: {
                 documents: '=ngModel',
                 isEditMode: '=?',
+                isSearchMode : '=?',
                 parentTitle: '=?'
             },
             link: function (scope) {
@@ -114,6 +115,10 @@
                 scope.back = function () {
                     scope.isDocumentSelected = false;
                     scope.isListSelected = true;
+                };
+
+                scope.search = function () {
+                    $state.reload();
                 };
 
                 //TODO: Not working yet
