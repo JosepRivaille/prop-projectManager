@@ -1,8 +1,6 @@
 package edu.upc.fib.prop.models;
 
-import edu.upc.fib.prop.exceptions.DocumentContentNotFoundException;
 import edu.upc.fib.prop.utils.Constants;
-import edu.upc.fib.prop.utils.FileUtils;
 
 import java.util.Map;
 import java.util.Set;
@@ -26,7 +24,7 @@ public class Document {
         this.user = user;
         this.content = content;
         this.termFrequency = new TreeMap<>();
-        this.rating = 0f;
+        this.rating = 1f;
         this.cover = "";
     }
 
@@ -35,7 +33,7 @@ public class Document {
         this.author = author;
         termFrequency = new TreeMap<>();
         this.content = content;
-        this.rating = 0f;
+        this.rating = 1f;
         this.cover = "";
     }
 
@@ -108,10 +106,10 @@ public class Document {
     /* Utils */
 
     //TODO: Extract into a logic class
-    public void updateFrequencies() throws DocumentContentNotFoundException {
+    public void updateFrequencies() {
         Float max = 1f;
         termFrequency = new TreeMap<>();
-        for (String word : FileUtils.readDocument(content).split(Constants.WORD_SEPARATION_REGEX)) {
+        for (String word : content.split(Constants.WORD_SEPARATION_REGEX)) {
             word = word.toLowerCase();
             if (!termFrequency.containsKey(word)) {
                 termFrequency.put(word, 1f);
@@ -130,10 +128,10 @@ public class Document {
     }
 
     //TODO: Extract into a logic class
-    public void updatePositions() throws DocumentContentNotFoundException {
+    public void updatePositions() {
         termPositions = new TreeMap<>();
         Integer sentenceCounter = 0;
-        for (String sentence : FileUtils.readDocument(content).split(Constants.SENTENCE_SEPARATION_REGEX)) {
+        for (String sentence : content.split(Constants.SENTENCE_SEPARATION_REGEX)) {
             Integer offsetCounter = 0;
             for (String word : sentence.split(Constants.WORD_SEPARATION_REGEX)) {
                 if (termPositions.containsKey(word)) {
@@ -177,16 +175,9 @@ public class Document {
         if(!newDoc.getTitle().equals("")) mergedDoc.setTitle(newDoc.getTitle());
         if(!newDoc.getAuthor().equals("")) mergedDoc.setAuthor(newDoc.getAuthor());
         if(!newDoc.getContent().equals("")) mergedDoc.setContent(newDoc.getContent());
+        if(!newDoc.getCover().equals("")) mergedDoc.setCover(newDoc.getCover());
+        if(newDoc.getRating() != this.rating) mergedDoc.setRating(newDoc.getRating());
         return mergedDoc;
-    }
-
-    public boolean isContentPathCorrect() {
-        try {
-            FileUtils.readDocument(this.getContent());
-            return true;
-        } catch (DocumentContentNotFoundException e) {
-            return false;
-        }
     }
 
     @Override

@@ -12,7 +12,7 @@
         .module('project.settings')
         .controller('SettingsCtrl', SettingsCtrl);
 
-    function SettingsCtrl($translate) {
+    function SettingsCtrl($rootScope, $translate, $state) {
         var vm = this;
         vm.ctrlName = 'SettingsCtrl';
 
@@ -55,18 +55,19 @@
 
         vm.disableOtherLanguages = function(value) {
             angular.forEach(vm.languages.values, function (language) {
-                if (language.name !== value.name) {
-                    language.selected = false;
-                } else {
-                    language.selected = true;
-                    $translate.use(language.locale);
-                }
+                language.selected = (language.name === value.name);
             });
+            $translate.use(value.locale);
         };
 
         vm.switchTheme = function () {
             var theme = vm.darkTheme ? 'dark' : 'light';
             themeProvider.reload(theme);
+        };
+
+        vm.logout = function () {
+            $rootScope.backendService.userLogout();
+            $state.go('project');
         }
 
     }

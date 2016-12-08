@@ -1,26 +1,26 @@
 package edu.upc.fib.prop.view.controllers.impl;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import edu.upc.fib.prop.business.controllers.BusinessController;
 import edu.upc.fib.prop.business.controllers.impl.BusinessControllerImpl;
 import edu.upc.fib.prop.exceptions.*;
 import edu.upc.fib.prop.models.*;
 import edu.upc.fib.prop.utils.StringUtils;
 import edu.upc.fib.prop.view.controllers.ViewGraphicController;
-import javafx.scene.web.WebEngine;
-import javafx.stage.Stage;
 import javafx.util.Pair;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class ViewGraphicControllerImpl implements ViewGraphicController {
 
     private BusinessController businessController;
-    private WebEngine webEngine;
-    private Stage stage;
 
-    public ViewGraphicControllerImpl(WebEngine we, Stage st) {
-        System.out.println("Initializating view controller (GRAPHICAL MODE)");
-        this.webEngine = we;
-        this.stage = st;
+    public ViewGraphicControllerImpl() {
+        System.out.println("Initializing view controller (GRAPHICAL MODE)");
         businessController = new BusinessControllerImpl();
     }
 
@@ -33,13 +33,18 @@ public class ViewGraphicControllerImpl implements ViewGraphicController {
     @Override
     public String getDocumentsByAuthorId(String authorName) throws DocumentNotFoundException {
         DocumentsCollection documentsCollection = this.businessController.searchDocumentsByAuthor(authorName);
-        return new Gson().toJson(documentsCollection);
+        List<DocumentBasicInfo> documentsBasicInfo = new ArrayList<>();
+        for (Document document : documentsCollection.getAllDocuments()) {
+            documentsBasicInfo.add(new DocumentBasicInfo(document));
+        }
+        return new Gson().toJson(documentsBasicInfo);
     }
 
     @Override
     public String getDocumentByTitleAndAuthor(String title, String author) throws DocumentNotFoundException {
         Document document = this.businessController.searchDocumentsByTitleAndAuthor(title, author);
-        return new Gson().toJson(document);
+        DocumentBasicInfo documentBasicInfo = new DocumentBasicInfo(document);
+        return new Gson().toJson(documentBasicInfo);
     }
 
     @Override
@@ -55,12 +60,13 @@ public class ViewGraphicControllerImpl implements ViewGraphicController {
 
     @Override
     public void userLogin(String email, String password) throws UserNotFoundException, InvalidDetailsException {
-
+        businessController.checkLoginDetails(email, password);
     }
 
     @Override
-    public void userRegister(String email, String userName, String password, String password2) throws InvalidDetailsException, AlreadyExistingUserException {
-
+    public void userRegister(String email, String userName, String password, String password2)
+            throws InvalidDetailsException, AlreadyExistingUserException {
+        businessController.registerNewUser(email, userName, password, password2);
     }
 
     @Override
@@ -75,55 +81,87 @@ public class ViewGraphicControllerImpl implements ViewGraphicController {
 
     @Override
     public String getCurrentUserDocuments() {
-        return null;
+        DocumentsCollection documents = this.businessController.getCurrentUserDocuments();
+        List<DocumentBasicInfo> documentsBasicInfo = documents.getDocuments().stream().map(DocumentBasicInfo::new)
+                .collect(Collectors.toList());
+        return new Gson().toJson(documentsBasicInfo);
     }
 
     @Override
-    public void storeNewDocument(String documentJSON) throws DocumentNotFoundException, AlreadyExistingDocumentException,
-            InvalidDetailsException, DocumentContentNotFoundException {
+    public String getCurrentUserFavourites() {
+        DocumentsCollection documents = this.businessController.getCurrentUserFavourites();
+        List<DocumentBasicInfo> documentsBasicInfo = documents.getDocuments().stream().map(DocumentBasicInfo::new)
+                .collect(Collectors.toList());
+        return new Gson().toJson(documentsBasicInfo);
+    }
+
+    @Override
+    public void storeNewDocument(String documentJSON)
+            throws AlreadyExistingDocumentException, InvalidDetailsException {
         Document document = StringUtils.parseJSONToDocument(documentJSON);
         this.businessController.storeNewDocument(document);
     }
 
     @Override
-    public void updateDocument(Pair<Document, Document> updatedDocument) throws InvalidDetailsException, AlreadyExistingDocumentException, DocumentContentNotFoundException {
+    public void updateDocument(String oldDocumentJSON, String editedDocumentJSON)
+            throws InvalidDetailsException, AlreadyExistingDocumentException, DocumentNotFoundException {
+        Document oldDocument = StringUtils.parseJSONToDocument(oldDocumentJSON);
+            Document editedDocument = StringUtils.parseJSONToDocument(editedDocumentJSON);
+            businessController.updateDocument(oldDocument.getTitle(), oldDocument.getAuthor(), editedDocument);
+        }
 
-    }
-
-    @Override
-    public void deleteDocument(String documentJSON) {
-        System.out.println(documentJSON);
+        @Override
+        public void deleteDocument(String title, String authorName) {
+            try {
+                this.businessController.deleteDocument(title, authorName);
+        } catch (DocumentNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void userLogout() {
-
+        businessController.logout();
     }
 
     @Override
     public String searchForAllDocuments() {
         DocumentsSet documents = this.businessController.searchForAllDocuments();
-        //TODO: Return only basic info
-        return new Gson().toJson(documents);
+        List<DocumentBasicInfo> documentsBasicInfo = new ArrayList<>();
+        for (Document document : documents) {
+            documentsBasicInfo.add(new DocumentBasicInfo(document));
+        }
+        return new Gson().toJson(documentsBasicInfo);
     }
 
     @Override
-    public String importDocument(String path) throws ImportExportException, AlreadyExistingDocumentException, InvalidDetailsException, DocumentContentNotFoundException {
+    public String importDocument(String path)
+            throws ImportExportException, AlreadyExistingDocumentException, InvalidDetailsException {
         return null;
     }
 
     @Override
-    public void exportDocument(String pathToExport, Document document, String os) throws ImportExportException, DocumentContentNotFoundException {
+    public void exportDocument(String pathToExport, Document document, String os) throws ImportExportException {
 
     }
 
     @Override
-    public void rateDocument(Document document, int rating) throws DocumentNotFoundException {
-        this.businessController.rateDocument(document, rating);
+    public Float rateDocument(String title, String author, int rating) throws DocumentNotFoundException {
+        return this.businessController.rateDocument(title, author, rating);
     }
 
-    @Override
-    public void addDocumentToFavourites(Document document) throws DocumentNotFoundException {
-        this.businessController.addDocumentToFavourites(document);
+    public boolean isDocumentFavourite(String title, String author){
+        return this.businessController.isDocumentFavourite(title, author);
+    }
+
+    public void addFavourite(String title, String author) throws DocumentNotFoundException {
+        this.businessController.addDocumentToFavourites(title, author);
+    }
+
+    public void removeFavourite(String title, String author) throws DocumentNotFoundException {
+        this.businessController.deleteDocumentFromFavourites(title, author);
+    }
+    public void test(){
+        System.out.println("ADJHADISDIUGAISUGD");
     }
 }

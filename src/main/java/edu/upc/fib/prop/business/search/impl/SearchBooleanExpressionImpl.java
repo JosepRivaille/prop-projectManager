@@ -11,32 +11,30 @@ public class SearchBooleanExpressionImpl implements SearchBooleanExpression {
 
     @Override
     public boolean checkValidBooleanExpression(String booleanExpression) {
-        boolean isLiteral = false;
         Stack<Character> correctness = new Stack<>();
+        boolean isLiteral = false;
+        boolean expectsLogicalOperator = false;
         for (char c : booleanExpression.toCharArray()) {
             if (!isLiteral && (c == '{' || c == '(' || c == '[')) {
                 correctness.push(c);
             } else if (!isLiteral && (c == '}' || c == ')' || c == ']')) {
-                if (correctness.firstElement() == c) {
+                if (c == '}' && correctness.firstElement() == '{'
+                        || c == ')' && correctness.firstElement() == '('
+                        || c == ']' && correctness.firstElement() == '[') {
                     correctness.pop();
                 } else {
                     return false;
                 }
+            } else if (c == '&' || c == '|') {
+                if (expectsLogicalOperator) expectsLogicalOperator = false;
+                else return false;
             } else if (c == '"') {
-                if (!isLiteral) {
-                    correctness.push(c);
-                    isLiteral = true;
-                } else {
-                    if (correctness.firstElement() == '"') {
-                        correctness.pop();
-                        isLiteral = false;
-                    } else {
-                        return false;
-                    }
-                }
+                isLiteral ^= true;
+            } else {
+                expectsLogicalOperator = true;
             }
         }
-        return correctness.isEmpty();
+        return correctness.isEmpty() && expectsLogicalOperator && !isLiteral;
     }
 
     @Override

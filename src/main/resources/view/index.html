@@ -13,13 +13,19 @@
     <link rel="stylesheet" type="text/css" href="./res/css/material-icons.css">
     <link rel="stylesheet" type="text/css" href="./res/css/angular-material.min.css">
     <link rel="stylesheet" type="text/css" href="./main.css">
-    <link rel="stylesheet" type="text/css" href="./search/search.css">
-    <link rel="stylesheet" type="text/css" href="./settings/settings.css">
-    <link rel="stylesheet" type="text/css" href="./manage/manage.css">
+    <link rel="stylesheet" type="text/css" href="./directives/side-nav/side-nav.css">
+    <link rel="stylesheet" type="text/css" href="./directives/login-form/login-form.css">
+    <link rel="stylesheet" type="text/css" href="./directives/loading-circular/loading-circular.css">
     <link rel="stylesheet" type="text/css" href="./directives/document-info/document-info.css">
+    <link rel="stylesheet" type="text/css" href="./directives/document-list/document-list.css">
     <link rel="stylesheet" type="text/css" href="./directives/star-rating/star-rating.css">
+    <link rel="stylesheet" type="text/css" href="./search/search.css">
+    <link rel="stylesheet" type="text/css" href="./manage/manage.css">
+    <link rel="stylesheet" type="text/css" href="./settings/settings.css">
 
     <!-- JS -->
+    <script src="backendService.js" type="text/javascript"></script>
+
     <script src="./res/js/angular.min.js"></script>
     <script src="./res/js/angular-animate.min.js"></script>
     <script src="./res/js/angular-aria.min.js"></script>
@@ -48,7 +54,8 @@
 
     <!-- Manage -->
     <script src="manage/manage-module.js"></script>
-    <script src="manage/manage-controller.js"></script>
+    <script src="manage/all/manage-all-controller.js"></script>
+    <script src="manage/favourites/manage-favourites-controller.js"></script>
     <script src="manage/manage-routes.js"></script>
 
     <!-- Settings -->
@@ -61,17 +68,21 @@
     <script src="about/about-controller.js"></script>
     <script src="about/about-routes.js"></script>
 
-    <!-- Components -->
-    <script src="components/side-nav/side-nav.js"></script>
-
     <!-- Directives -->
+    <script src="directives/side-nav/side-nav.js"></script>
+    <script src="directives/login-form/login-form.js"></script>
+    <script src="directives/loading-circular/loading-circular.js"></script>
     <script src="directives/star-rating/star-rating.js"></script>
     <script src="directives/document-info/document-info.js"></script>
+    <script src="directives/document-list/document-list.js"></script>
     <script src="directives/form-file-upload/form-file-upload.js"></script>
-
 </head>
 
 <body>
+
+<!-- TODO: Fix loading circular -->
+<loading-circular ng-model="$rootScope.isRequesting"></loading-circular>
+<login-form is-logged-in="$rootScope.isLoggedIn"></login-form>
 
 <div ui-view="body"></div>
 

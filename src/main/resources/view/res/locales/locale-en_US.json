@@ -5,12 +5,12 @@
   "MENU_SEARCH": "Searcher",
   "MENU_SEARCH_ALL": "All documents",
   "MENU_SEARCH_AUTHOR": "Filter by author",
-  "MENU_SEARCH_SINGLE_DOCUMENT": "Specific document",
+  "MENU_SEARCH_SINGLE_DOCUMENT": "Get specific document",
+  "MENU_SEARCH_BOOLEAN": "Boolean expression",
+  "MENU_SEARCH_QUERY": "Query search",
   "MENU_MANAGEMENT": "Management",
   "MENU_MANAGEMENT_ALL": "My documents",
-  "MENU_MANAGEMENT_CREATE": "Create document",
-  "MENU_MANAGEMENT_UPDATE": "Update document",
-  "MENU_MANAGEMENT_DELETE": "Delete document",
+  "MENU_MANAGEMENT_FAVOURITES": "My favourites",
   "MENU_SETTINGS": "Settings",
   "MENU_ABOUT": "About",
 
@@ -18,9 +18,12 @@
   "AUTHOR_BOOKS_TITLE": "Books writen by",
   "AUTHOR_BOOKS_TEXT": "Following books found related with selected author",
 
-  "DESCRIPTION_AUTHOR_SEARCH": "Search for an author to see his books",
+  "DESCRIPTION_AUTHOR_SEARCH": "Search for an author to see his books.",
   "PLACEHOLDER_AUTHOR_SEARCH": "Author prefix",
-  "NO_MATCHING_PREFIX": "No authors found in the system starting with",
+  "NO_MATCHING_PREFIX": "No authors found in the system starting with ",
+  "DESCRIPTION_DOCUMENT_SEARCH": "Select an author's document.",
+  "PLACEHOLDER_DOCUMENT_SEARCH": "Document title",
+  "NO_MATCHING_DOCUMENT": "No documents found in the system with this title.",
 
   "DIALOG_CREATE_TITLE": "Create document",
   "DIALOG_CREATE_CONTENT": "You are about to create a new document and everyone will be able to see it. Are you sure you want to proceed?",
@@ -40,5 +43,27 @@
   "LANG_SPANISH": "Spanish",
   "SETTINGS_THEME": "Change application theme",
   "SWITCH_THEME_DARK": "Dark theme",
-  "SWITCH_THEME_LIGHT": "Light theme"
+  "SWITCH_THEME_LIGHT": "Light theme",
+
+  "BUTTON_READ_DOCUMENT": "Read document",
+  "BUTTON_ADD_FAVOURITES": "Add to favourites",
+  "BUTTON_REMOVE_FROM_FAVOURITES": "Remove from favourites",
+  "BUTTON_SEARCH_SIMILARS": "Find similar documents",
+  "BUTTON_SEARCH": "Search",
+
+  "FORM_LOGIN": "Login",
+  "FORM_REGISTER": "Register",
+  "FORM_REGISTER_ACCOUNT_TEXT": "Have an account? Sign in",
+  "FORM_LOGIN_ACCOUNT_TEXT": "New to this library? Sign up now",
+  "FORM_USER_NAME": "User name",
+  "FORM_EMAIL": "Email",
+  "FORM_INVALID_EMAIL": "Invalid email!",
+  "FORM_PASSWORD": "Password",
+  "FORM_REPEAT_PASSWORD": "Repeat password",
+
+  "EXCEPTION_USER_NOT_FOUND": "User not found in the system",
+  "EXCEPTION_INVALID_DETAILS": "Invalid email and password combination",
+  "EXCEPTION_ALREADY_EXISTING_USER": "Already existing user with this email",
+  "EXCEPTION_AUTHOR_NOT_FOUND": "No matching authors found in the system",
+  "EXCEPTION_DOCUMENT_NOT_FOUND": "No matching document found"
 }

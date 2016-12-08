@@ -53,40 +53,6 @@ public class SortedDocumentsSet{
     }
 
     /**
-     * Devuelve el documento en la posicion indicada
-     * @param index posicion a la que se accede
-     * @return
-     */
-    public Document getDocument(int index){
-        if(index>=size) return null;
-        int cont = 0;
-        for(Double weight : docs.keySet()){
-            for(Document doc : docs.get(weight)){
-                if(cont == index) return doc;
-                cont++;
-            }
-        }
-        return null;
-    }
-
-    /**
-     * Devuelve el valor que acompaña al documento en la posicion indicada
-     * @param index posicion a la que se accede
-     * @return
-     */
-    public Double getValue(int index){
-        if(index>=size) return null;
-        int cont = 0;
-        for(Double weight : docs.keySet()){
-            for(Document doc : docs.get(weight)){
-                if(cont == index) return weight;
-                cont++;
-            }
-        }
-        return null;
-    }
-
-    /**
      * Elimina el ultimo documento
      */
     private void removeLessWeighted() {

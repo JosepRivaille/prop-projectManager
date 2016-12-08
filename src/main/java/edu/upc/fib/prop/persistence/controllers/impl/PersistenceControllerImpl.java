@@ -15,10 +15,6 @@ import edu.upc.fib.prop.persistence.dao.users.impl.DaoUsersImpl;
 import edu.upc.fib.prop.utils.Constants;
 import edu.upc.fib.prop.utils.FileUtils;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -171,25 +167,6 @@ public class PersistenceControllerImpl implements PersistenceController {
         closeConnection();
     }
 
-    public void createContentFile(String content, String name){
-        PrintWriter writer = null;
-        try {
-            writer = new PrintWriter("src/main/resources/documents/" + name, "UTF-8");
-            writer.print(content);
-            writer.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    public void deleteContentFile(String name){
-        File f = new File("src/main/resources/documents/" + name);
-        f.delete();
-    }
-
     @Override
     public void rateDocument(Document document, int rating, String user) throws DocumentNotFoundException {
             openConnection();
@@ -198,16 +175,16 @@ public class PersistenceControllerImpl implements PersistenceController {
     }
 
     @Override
-    public void addDocumentToFavourites(Document document, String user) throws DocumentNotFoundException {
+    public void addDocumentToFavourites(String title, String author, String user) throws DocumentNotFoundException {
         openConnection();
-        daoDocuments.addDocumentToFavourites(c, document, user);
+        daoDocuments.addDocumentToFavourites(c, title, author, user);
         closeConnection();
     }
 
     @Override
-    public void deleteDocumentFromFavourites(Document document, String user) throws DocumentNotFoundException {
+    public void deleteDocumentFromFavourites(String title, String author, String user) throws DocumentNotFoundException {
         openConnection();
-        daoDocuments.deleteDocumentFromFavourites(c, document, user);
+        daoDocuments.deleteDocumentFromFavourites(c, title, author, user);
         closeConnection();
     }
 
@@ -219,11 +196,34 @@ public class PersistenceControllerImpl implements PersistenceController {
     }
 
     @Override
+    public void deleteAllRatingsOfDocument(Document document) {
+        openConnection();
+        daoDocuments.deleteAllRatingsOfDocument(c, document);
+        closeConnection();
+    }
+
+    @Override
     public Document getDocument(String title, String author) {
         openConnection();
-        Document res = daoDocuments.getDocument(c, title, author);
+        Document document = daoDocuments.getDocument(c, title, author);
         closeConnection();
-        return res;
+        return document;
+    }
+
+    @Override
+    public DocumentsCollection getFavouriteDocuments(String user) {
+        openConnection();
+        DocumentsCollection documents = daoDocuments.getFavourites(c, user);
+        closeConnection();
+        return documents;
+    }
+
+    @Override
+    public boolean isDocumentFavourite(String title, String author, String email) {
+        openConnection();
+        boolean b = daoDocuments.isDocumentFavourite(c,title, author, email);
+        closeConnection();
+        return b;
     }
 
 

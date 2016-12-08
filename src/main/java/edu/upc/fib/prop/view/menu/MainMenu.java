@@ -220,13 +220,7 @@ public class MainMenu {
                                 System.out.println();
                                 Document document = documentsCollection.getDocuments().get(i - 1);
                                 documentTitle = document.getTitle();
-                                String documentFile = document.getContent();
-                                String documentContent = null;
-                                try {
-                                    documentContent = FileUtils.readDocument(documentFile);
-                                } catch (DocumentContentNotFoundException e) {
-                                    System.out.println(Strings.DOCUMENT_CONTENT_NOT_FOUND);
-                                }
+                                String documentContent = document.getContent();
                                 System.out.println("\n" + documentTitle.toUpperCase() + " | " + document.getAuthor());
                                 int space = documentTitle.length() + document.getAuthor().length() + 3;
                                 for (i = 0; i < space; i++) {
@@ -257,11 +251,9 @@ public class MainMenu {
                         System.out.print("-");
                     }
                     System.out.println();
-                    IOUtils.printContent(FileUtils.readDocument(matchingDocument.getContent()));
+                    IOUtils.printContent(matchingDocument.getContent());
                 } catch (DocumentNotFoundException e) {
                     System.out.println(Strings.NO_DOCUMENTS_FOUND);
-                } catch (DocumentContentNotFoundException e) {
-                    System.out.println(Strings.DOCUMENT_CONTENT_NOT_FOUND);
                 }
                 IOUtils.enterToContinue();
                 break;
@@ -284,25 +276,48 @@ public class MainMenu {
                 break;
 
             case Strings.SEARCH_DOCUMENTS_BY_QUERY:
+                /*
                 String query = IOUtils.askForString(Strings.TYPE_QUERY);
                 int k2 = IOUtils.askForInt(Strings.TYPE_NUMBER_OF_DOCUMENTS, 1, 10000);
+                System.out.println("Please choose your search method:");
+                System.out.println("- Type '1' for the regular relevance method");
+                System.out.println("- Type '2' for the rocchio relevance method");
+                int SearchMethod = IOUtils.askForInt(Strings.TYPE_YOUR_METHOD, 1, 2);
                 try {
-                    SortedDocumentsSet list = viewController.searchDocumentsByQuery(query, k2);
-                    IOUtils.drawLine(100);
-                    System.out.printf("    %-10s %-45s %-25s %n", "S.Factor", "Title", "Author");
-                    IOUtils.drawLine(100);
-                    for(int kk = 0; kk< list.getSize();++kk){
-                        System.out.printf("%-3d %-10s %-45s %-25s %n",kk+1, String.format("%.2f", list.getValue(kk)),
-                                list.getDocument(kk).getTitle(), list.getDocument(kk).getAuthor());
+                    if (SearchMethod == 1) {
+                        SortedDocumentsSet list = viewController.searchDocumentsByQuery(query, k2);
+                        IOUtils.drawLine(100);
+                        System.out.printf("    %-10s %-45s %-25s %n", "S.Factor", "Title", "Author");
+                        IOUtils.drawLine(100);
+                        for (int kk = 0; kk < list.getSize(); ++kk) {
+                            System.out.printf("%-3d %-10s %-45s %-25s %n", kk + 1, String.format("%.2f", list.getValue(kk)),
+                                    list.getDocument(kk).getTitle(), list.getDocument(kk).getAuthor());
+                        }
+                    }
+                    else {
+                        SortedDocumentsSet list = viewController.searchDocumentsByQuery(query, k2);
+                        Document rocchioQuery = viewController.getRocchioQuery(query,list,0.2,0.8f,0.1f);
+                        SortedDocumentsSet list2 = viewController.getDocumentsByRelevance(rocchioQuery,k2);
+                        IOUtils
+                                .drawLine(100);
+                        System.out.printf("    %-10s %-45s %-25s %n", "S.Factor", "Title", "Author");
+                        IOUtils.drawLine(100);
+                        for (int kk = 0; kk < list2.getSize(); ++kk) {
+                            System.out.printf("%-3d %-10s %-45s %-25s %n", kk + 1, String.format("%.2f", list2.getValue(kk)),
+                                    list2.getDocument(kk).getTitle(), list2.getDocument(kk).getAuthor());
+                        }
                     }
                 } catch (DocumentNotFoundException e) {
                      System.out.println(Strings.NO_DOCUMENTS_FOUND);
+                } catch (DocumentContentNotFoundException e) {
+                    System.out.println(Strings.DOCUMENT_CONTENT_NOT_FOUND);
                 }
                 IOUtils.enterToContinue();
+                */
                 break;
 
             case Strings.SEARCH_DOCUMENTS_BY_RELEVANCE:
-
+                /*
                 DocumentsSet allDocuments = viewController.searchForAllDocuments();
                 IOUtils.drawLine(120);
                 System.out.printf("    %-48s %-30s %-25s %n", "Title", "Author", "Created by");
@@ -334,6 +349,7 @@ public class MainMenu {
                     System.out.println(Strings.NO_DOCUMENTS_FOUND);
                 }
                 IOUtils.enterToContinue();
+                */
                 break;
 
             case Strings.SEARCH_ALL_DOCUMENTS:
@@ -363,9 +379,6 @@ public class MainMenu {
                 } catch (DocumentNotFoundException e){
                     System.out.println();
                     System.out.println(Strings.DOCUMENT_NOT_CREATED);
-                } catch (DocumentContentNotFoundException e) {
-                    System.out.println();
-                    System.out.println(Strings.CREATE_FAILED_DOCUMENT_CONTENT_NOT_FOUND);
                 }
                 DocumentsCollection myDocuments = this.viewController.getCurrentUserDocuments();
                 documentManager.setDocumentsCollection(myDocuments);
@@ -390,8 +403,6 @@ public class MainMenu {
                     System.out.println(Strings.UPDATE_FAILED_INVALID_DETAILS);
                 } catch (AlreadyExistingDocumentException e) {
                     System.out.println(Strings.UPDATE_FAILED_DOCUMENT_ALREADY_EXISTS);
-                } catch (DocumentContentNotFoundException e) {
-                    System.out.println(Strings.UPDATE_FAILED_DOCUMENT_CONTENT_NOT_FOUND);
                 }
                 IOUtils.enterToContinue();
                 break;
@@ -479,9 +490,6 @@ public class MainMenu {
                 } catch (InvalidDetailsException e){
                     System.out.println();
                     System.out.println(Strings.DOCUMENT_NOT_CREATED_INVALID_DETAILS);
-                } catch (DocumentContentNotFoundException e) {
-                    System.out.println();
-                    System.out.println(Strings.CREATE_FAILED_DOCUMENT_CONTENT_NOT_FOUND);
                 }
                 break;
             case Strings.EXPORT_DOCUMENT:
@@ -505,8 +513,6 @@ public class MainMenu {
                 } catch (ImportExportException e) {
                     System.out.println();
                     System.out.println(Strings.ERROR_EXPORTING_THE_DOCUMENT);
-                } catch (DocumentContentNotFoundException e) {
-                    System.out.println(Strings.DOCUMENT_CONTENT_NOT_FOUND);
                 }
                 IOUtils.enterToContinue();
                 break;

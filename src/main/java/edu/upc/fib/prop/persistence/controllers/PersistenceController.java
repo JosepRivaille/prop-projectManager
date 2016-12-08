@@ -68,19 +68,6 @@ public interface PersistenceController {
     void updateDocument(Document oldDocument, Document newDocument);
 
     /**
-     * Creates a file in the documents content directory with a given name
-     * @param content Content of the file
-     * @param name Name of the file
-     */
-    void createContentFile(String content, String name);
-
-    /**
-     * Deletes a file with a given name in the documents content directory
-     * @param name Name of the file to delete
-     */
-    void deleteContentFile(String name);
-
-    /**
      * Updates a document ratings
      * @param document document to rate
      * @param rating points given to the document
@@ -93,14 +80,14 @@ public interface PersistenceController {
      * @param document document to add as a favourite
      * @param user User that added the document as a favourite
      */
-    void addDocumentToFavourites(Document document, String user) throws DocumentNotFoundException;
+    void addDocumentToFavourites(String title, String author, String user) throws DocumentNotFoundException;
 
     /**
      * Removes a document from an user's favourite documents list
      * @param document Document that will be removed from favourites list
      * @param user User that deleted the document as a favourite
      */
-    void deleteDocumentFromFavourites(Document document, String user) throws DocumentNotFoundException;
+    void deleteDocumentFromFavourites(String title, String author, String user) throws DocumentNotFoundException;
 
     /**
      * Removes all favourites from all users of a given document
@@ -109,10 +96,32 @@ public interface PersistenceController {
     void deleteAllFavouritesOfDocument(Document document);
 
     /**
+     * Removes all ratings from all users of a given document
+     * @param document The ratings related to this document will be deleted
+     */
+    void deleteAllRatingsOfDocument(Document document);
+
+    /**
      * It returns, if exists, the document with a given title and author.
      * @param title
      * @param author
      * @return
      */
     Document getDocument(String title, String author);
+
+    /**
+     *
+     * @return
+     * @param user
+     */
+    DocumentsCollection getFavouriteDocuments(String user);
+
+    /**
+     * Returns true if the document with the given title and authors is marked as a favourite by the user with the given email
+     * @param title
+     * @param author
+     * @param email
+     * @return
+     */
+    boolean isDocumentFavourite(String title, String author, String email);
 }

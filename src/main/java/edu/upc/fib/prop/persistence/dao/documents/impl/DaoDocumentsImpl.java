@@ -1,7 +1,6 @@
 package edu.upc.fib.prop.persistence.dao.documents.impl;
 
 import edu.upc.fib.prop.exceptions.AlreadyExistingDocumentException;
-import edu.upc.fib.prop.exceptions.DocumentContentNotFoundException;
 import edu.upc.fib.prop.exceptions.DocumentNotFoundException;
 import edu.upc.fib.prop.exceptions.InvalidDetailsException;
 import edu.upc.fib.prop.models.Document;
@@ -80,11 +79,12 @@ public class DaoDocumentsImpl implements DaoDocuments {
         try {
             Statement statement = c.createStatement();
             String query = String.format("UPDATE documents " +
-                            "SET title='%s', author_name='%s', term_frequency='%s', content='%s'" +
+                            "SET title='%s', author_name='%s', term_frequency='%s',term_positions='%s', content='%s', rating='%f'" +
                             "WHERE title='%s' AND author_name='%s';",
                     newDocument.getTitle(), newDocument.getAuthor(),
                     StringUtils.buildJSONFromFrequencyMap(newDocument.getTermFrequency()),
-                    newDocument.getContent(), oldTitle, oldAuthor);
+                    StringUtils.buildJSONFromPositionsMap(newDocument.getTermPositions()),
+                    newDocument.getContent(), newDocument.getRating(), oldTitle, oldAuthor);
             statement.executeUpdate(query);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -158,10 +158,11 @@ public class DaoDocumentsImpl implements DaoDocuments {
     }
 
     @Override
-    public void addDocumentToFavourites(Connection c, Document document, String user) throws DocumentNotFoundException{
+    public void addDocumentToFavourites(Connection c, String title, String author, String user) throws DocumentNotFoundException{
         try {
             Statement statement = c.createStatement();
-            String query = String.format("INSERT OR REPLACE INTO favourites(title,author_name,user_email) VALUES ('%s','%s','%s')", document.getTitle(), document.getAuthor(), user);
+            String query = String.format("INSERT OR REPLACE INTO favourites(title,author_name,user_email) " +
+                    "VALUES ('%s','%s','%s')", title, author, user);
             statement.executeUpdate(query);
         } catch (SQLException e) {
             throw new DocumentNotFoundException();
@@ -169,10 +170,11 @@ public class DaoDocumentsImpl implements DaoDocuments {
     }
 
     @Override
-    public void deleteDocumentFromFavourites(Connection c, Document document, String user) throws DocumentNotFoundException{
+    public void deleteDocumentFromFavourites(Connection c, String title, String author, String user) throws DocumentNotFoundException{
         try {
             Statement statement = c.createStatement();
-            String query = String.format("DELETE FROM favourites WHERE title LIKE '%s' AND author_name LIKE '%s' AND user_email LIKE '%s'", document.getTitle(), document.getAuthor(), user);
+            String query = String.format("DELETE FROM favourites WHERE title LIKE '%s' AND" +
+                    " author_name LIKE '%s' AND user_email LIKE '%s'", title, author, user);
             statement.executeUpdate(query);
         } catch (SQLException e) {
             throw new DocumentNotFoundException();
@@ -185,6 +187,19 @@ public class DaoDocumentsImpl implements DaoDocuments {
         try {
             statement = c.createStatement();
             String query = String.format("DELETE FROM favourites WHERE title LIKE '%s' AND author_name like '%s'", document.getTitle(), document.getAuthor());
+            statement.executeUpdate(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    public void deleteAllRatingsOfDocument(Connection c, Document document) {
+        Statement statement = null;
+        try {
+            statement = c.createStatement();
+            String query = String.format("DELETE FROM ratings WHERE title LIKE '%s' AND author_name like '%s'", document.getTitle(), document.getAuthor());
             statement.executeUpdate(query);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -228,6 +243,57 @@ public class DaoDocumentsImpl implements DaoDocuments {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public DocumentsCollection getFavourites(Connection c, String user) {
+        DocumentsCollection favouriteDocuments = new DocumentsCollection();
+        try {
+            Statement statement = c.createStatement();
+            String query = String.format
+                    ("SELECT * FROM documents d, favourites f " +
+                            "WHERE f.user_email = '%s' AND f.title = d.title AND f.author_name = d.author_name " +
+                            "ORDER BY d.title, d.author_name;", user);
+            ResultSet rs = statement.executeQuery(query);
+            while (rs.next()) {
+                String title = rs.getString("title");
+                String authorName = rs.getString("author_name");
+                String content = rs.getString("content");
+                String cover = rs.getString("cover");
+                String termFrequency = rs.getString("term_frequency");
+                String termPositions = rs.getString("term_positions");
+                Float rating = rs.getFloat("rating");
+                Document document = new Document(title, authorName, content, user);
+                document.setRating(rating);
+                document.setCover(cover);
+                document.setTermFrequency(StringUtils.buildFrequencyMapFromJSON(termFrequency));
+                document.setTermPositions(StringUtils.buildPositionMapFromJSON(termPositions));
+                try {
+                    favouriteDocuments.addDocument(document);
+                } catch (InvalidDetailsException e) {
+                    e.printStackTrace();
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return favouriteDocuments;
+    }
+
+    @Override
+    public boolean isDocumentFavourite(Connection c, String title, String author, String email) {
+        try {
+            Statement statement = c.createStatement();
+            String query = String.format("SELECT * FROM favourites WHERE title LIKE '%s' AND" +
+                    " author_name LIKE '%s' AND user_email LIKE '%s'", title, author, email);
+            ResultSet rs = null;
+
+            rs = statement.executeQuery(query);
+            return rs.next();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
 }

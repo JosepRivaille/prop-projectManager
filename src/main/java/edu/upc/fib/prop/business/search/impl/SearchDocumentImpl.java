@@ -62,13 +62,95 @@ public class SearchDocumentImpl implements SearchDocument {
         SortedDocumentsSet res = new SortedDocumentsSet(min);
 
         for (Document document : col.getDocuments()) {
-            if(!doc.equals(document)) {
+            if (!doc.equals(document)) {
                 WeightsVector wv2 = col.getWeights(document);
                 Double relevance = getRelevanceFactor(wv1, wv2);
                 res.add(document, relevance);
             }
         }
         return res;
+    }
+
+    @Override
+    public SortedDocumentsSet getRelevantDocuments(SortedDocumentsSet list, double rv) {
+        /*SortedDocumentsSet res = new SortedDocumentsSet();
+        for (int i = 0; i < list.getSize(); i++) {
+            if (list.getValue(i) >= rv) res.add(list.getDocument(i), list.getValue(i));
+        }
+        return res;
+        *
+        */
+        return null;
+    }
+
+    @Override
+    public SortedDocumentsSet getNonRelevantDocuments(SortedDocumentsSet list, double rv) {
+        /*
+        SortedDocumentsSet res = new SortedDocumentsSet();
+        for (int i = 0; i < list.getSize(); i++) {
+            if (list.getValue(i) < rv) res.add(list.getDocument(i), list.getValue(i));
+        }
+        return res;
+        */
+        return null;
+    }
+
+    @Override
+    public Document getRocchioQuery(Document query, SortedDocumentsSet list, double rv, float b, float c) {
+            /*throws DocumentContentNotFoundException, DocumentNotFoundException {
+            SortedDocumentsSet rDocs = getRelevantDocuments(list, rv);
+            SortedDocumentsSet nrDocs = getNonRelevantDocuments(list, rv);
+            Document rDoc = rDocs.getDocument(0);
+            Document nrDoc = nrDocs.getDocument(0);
+            if (rDoc != null && nrDoc != null) {
+                for (int i = 0; i < rDocs.getSize(); i++) {
+                    for (Map.Entry<String, Float> entry : rDocs.getDocument(i).getTermFrequency().entrySet()) {
+                        if (!rDoc.getTermFrequency().containsKey(entry.getKey())) {
+                            rDoc.getTermFrequency().put(entry.getKey(), 1f);
+                        } else {
+                            rDoc.getTermFrequency().replace(entry.getKey(), rDoc.getTermFrequency().get(entry.getKey()) + 1f);
+                        }
+                    }
+                }
+                for (Map.Entry<String, Float> entry : rDoc.getTermFrequency().entrySet()) {
+                    rDoc.getTermFrequency().replace(entry.getKey(), rDoc.getTermFrequency().get(entry.getKey()) *
+                            (1f / (float) rDoc.getTermFrequency().size()) * b);
+                }
+                for (int i = 0; i < nrDocs.getSize(); i++) {
+                    for (Map.Entry<String, Float> entry : nrDocs.getDocument(i).getTermFrequency().entrySet()) {
+                        if (nrDoc.getTermFrequency().containsKey(entry.getKey())) {
+                            if (!nrDoc.getTermFrequency().containsKey(entry.getKey())) {
+                                nrDoc.getTermFrequency().put(entry.getKey(), 1f);
+                            } else {
+                                nrDoc.getTermFrequency().replace(entry.getKey(), nrDoc.getTermFrequency().get(entry.getKey()) + 1f);
+                            }
+                        }
+                    }
+                }
+                for (Map.Entry<String, Float> entry : nrDoc.getTermFrequency().entrySet()) {
+                    nrDoc.getTermFrequency().replace(entry.getKey(), nrDoc.getTermFrequency().get(entry.getKey()) *
+                            (1f / (float) nrDoc.getTermFrequency().size()) * c);
+                }
+                for (Map.Entry<String, Float> entry : rDoc.getTermFrequency().entrySet()) {
+                    if (!query.getTermFrequency().containsKey(entry.getKey())) {
+                        query.getTermFrequency().put(entry.getKey(), entry.getValue());
+                    } else {
+                        query.getTermFrequency().replace(entry.getKey(), query.getTermFrequency().get(entry.getKey()) + entry.getValue());
+                    }
+                }
+                for (Map.Entry<String, Float> entry : nrDoc.getTermFrequency().entrySet()) {
+                    if (query.getTermFrequency().containsKey(entry.getKey())) {
+                        if (query.getTermFrequency().get(entry.getKey()) - entry.getValue() < 0f) {
+                            query.getTermFrequency().remove(entry.getKey());
+                        } else {
+                            query.getTermFrequency().replace(entry.getKey(), query.getTermFrequency().get(entry.getKey()) - entry.getValue());
+                        }
+                    }
+                }
+            return query;
+        }
+        throw new DocumentNotFoundException();*/
+        return null;
     }
 
     private double getRelevanceFactor(WeightsVector wv1, WeightsVector wv2){

@@ -100,36 +100,44 @@ public interface BusinessController {
     DocumentsCollection getCurrentUserDocuments();
 
     /**
+     *
+     * @return
+     */
+    DocumentsCollection getCurrentUserFavourites();
+
+    /**
      * Stores in persistence a new document.
      *
      * @param document Document to store.
      */
     void storeNewDocument(Document document)
-            throws AlreadyExistingDocumentException, InvalidDetailsException, DocumentContentNotFoundException;
+            throws AlreadyExistingDocumentException, InvalidDetailsException;
 
     /**
      * Updates a document in persistence.
      *
-     * @param oldDoc Old document
+     * @param title title of the document to update
+     * @param title author of the document to update
      * @param newDoc New document
      */
-    void updateDocument(Document oldDoc, Document newDoc)
-            throws InvalidDetailsException, AlreadyExistingDocumentException, DocumentContentNotFoundException;
+    void updateDocument(String title, String author, Document newDoc)
+            throws InvalidDetailsException, AlreadyExistingDocumentException, DocumentNotFoundException;
 
     /**
      * Deletes a document in persistence.
      *
-     * @param document Document to delete.
+     * @param title Document to delete title.
+     * @param authorName Document to delete author.
      */
-    void deleteDocument(Document document);
+    void deleteDocument(String title, String authorName) throws DocumentNotFoundException;
 
     /**
      * Imports a document.
      *
      * @param path Path of the document to import.
      */
-    Document importDocument(String path) throws ImportExportException, AlreadyExistingDocumentException,
-            InvalidDetailsException, DocumentContentNotFoundException;
+    Document importDocument(String path)
+            throws ImportExportException, AlreadyExistingDocumentException, InvalidDetailsException;
 
     /**
      * Exports an existing document.
@@ -138,8 +146,7 @@ public interface BusinessController {
      * @param document     Document to export.
      * @param os           OS used by the user.
      */
-    void exportDocument(String pathToExport, Document document, String os)
-            throws ImportExportException, DocumentContentNotFoundException;
+    void exportDocument(String pathToExport, Document document, String os) throws ImportExportException;
 
     /**
      * Search for matching documents by a boolean expression.
@@ -161,25 +168,22 @@ public interface BusinessController {
             throws DocumentNotFoundException;
 
 
-    /**
-     * Rates a document.
-     *
-     * @param document
-     * @param rating
-     * @throws DocumentNotFoundException
-     */
-    void rateDocument(Document document, int rating) throws DocumentNotFoundException;
+    Float rateDocument(String title, String author, int rating) throws DocumentNotFoundException;
+
+
+    void deleteDocumentFromFavourites(String title, String author) throws DocumentNotFoundException;
+
+    void addDocumentToFavourites(String title, String author) throws DocumentNotFoundException;
+
+
+    Document getRocchioQuery(String query, SortedDocumentsSet list, double rv, float b, float c)
+            throws DocumentNotFoundException;
 
     /**
-     * Add document to favourites.
-     *
-     * @param document
+     * Returns true if the document with the given title and author is marked as a favourite by the logged user
+     * @param title title of the document
+     * @param author author of the document
+     * @return
      */
-    void addDocumentToFavourites(Document document) throws DocumentNotFoundException;
-
-    /**
-     * Removes a document from an user's favourites documents list
-     * @param document
-     */
-    void deleteDocumentFromFavourites(Document document) throws DocumentNotFoundException;
+    boolean isDocumentFavourite(String title, String author);
 }

@@ -1,17 +1,16 @@
-<div id="sidebar-wrapper">
+<md-content id="sidebar-wrapper">
     <ul class="sidebar-nav">
         <li class="sidebar-brand">
-            {{$ctrl.title | translate}}
+            {{title | translate}}
         </li>
-        <li ng-repeat="item in $ctrl.menuItems"
+        <li ng-repeat="item in menuItems"
             ng-class="{'active-option-menu': item.selected}">
             <a ui-sref="{{item.children === undefined ? item.state : item.children[0].state}}">
                 <span><i class="fa {{item.icon}}"></i></span>
                 {{item.name | translate}}
             </a>
             <ul>
-                <li ng-if="item.collapsed === false"
-                    ng-repeat="childItem in item.children"
+                <li ng-if="!item.collapsed" ng-repeat="childItem in item.children"
                     ng-class="{'active-option-menu': childItem.selected}">
                     <a ui-sref="{{childItem.state}}">
                         <span><i class="menu-item-child fa {{childItem.icon}}"></i></span>
@@ -21,4 +20,4 @@
             </ul>
         </li>
     </ul>
-</div>
+</md-content>

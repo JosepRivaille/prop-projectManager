@@ -1,23 +1,25 @@
-<div ng-controller="SettingsCtrl as vm">
+<md-content class="fill-all">
     <h1 class="title-landing">
         {{ vm.title | translate}}
     </h1>
-    <md-content>
-        <md-list>
-            <md-subheader class="md-no-sticky">{{vm.languages.title | translate}}</md-subheader>
-            <md-list-item ng-repeat="value in vm.languages.values">
-                <p>{{value.name | translate}}</p>
-                <md-checkbox class="md-primary" ng-model="value.selected" aria-label="Language checkbox"
-                             ng-click="vm.disableOtherLanguages(value)"></md-checkbox>
-            </md-list-item>
-            <md-divider ></md-divider>
-            <md-subheader class="md-no-sticky">{{vm.theme.title | translate}}</md-subheader>
-            <md-list-item>
-                <p ng-if="vm.theme.darkTheme">{{vm.theme.themeDark | translate}}</p>
-                <p ng-if="!vm.theme.darkTheme">{{vm.theme.themeLight | translate}}</p>
-                <md-switch class="md-primary" ng-model="vm.theme.darkTheme" aria-label="Switch theme"
-                           ng-click="vm.switchTheme()"></md-switch>
-            </md-list-item>
-        </md-list>
-    </md-content>
-</div>
+    <md-list>
+        <md-subheader class="md-no-sticky">{{vm.languages.title | translate}}</md-subheader>
+        <md-list-item ng-repeat="value in vm.languages.values">
+            <p>{{value.name | translate}}</p>
+            <md-checkbox class="md-raised md-primary" ng-model="value.selected" aria-label="Language checkbox"
+                         ng-click="vm.disableOtherLanguages(value)"></md-checkbox>
+        </md-list-item>
+        <md-divider ></md-divider>
+        <md-subheader class="md-no-sticky">{{vm.theme.title | translate}}</md-subheader>
+        <md-list-item>
+            <p ng-if="vm.theme.darkTheme">{{vm.theme.themeDark | translate}}</p>
+            <p ng-if="!vm.theme.darkTheme">{{vm.theme.themeLight | translate}}</p>
+            <md-switch class="md-primary" ng-model="vm.theme.darkTheme" aria-label="Switch theme"
+                       ng-click="vm.switchTheme()"></md-switch>
+        </md-list-item>
+        <md-subheader class="md-no-sticky">Logout account</md-subheader>
+        <md-list-item>
+            <md-button ng-click="vm.logout(); $rootScope.isLoggedIn = false">Logout</md-button>
+        </md-list-item>
+    </md-list>
+</md-content>

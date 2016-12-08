@@ -6,25 +6,14 @@ import edu.upc.fib.prop.business.controllers.impl.BusinessControllerImpl;
 import edu.upc.fib.prop.exceptions.*;
 import edu.upc.fib.prop.models.*;
 import edu.upc.fib.prop.view.controllers.ViewController;
-import javafx.scene.web.WebEngine;
-import javafx.stage.Stage;
 import javafx.util.Pair;
 
 public class ViewControllerImpl implements ViewController {
 
     private BusinessController businessController;
-    private WebEngine webEngine;
-    private Stage stage;
 
     public ViewControllerImpl() {
         System.out.println("Initializating view controller (CONSOLE MODE)");
-        businessController = new BusinessControllerImpl();
-    }
-
-    public ViewControllerImpl(WebEngine we, Stage st) {
-        System.out.println("Initializating view controller (GRAPHICAL MODE)");
-        this.webEngine = we;
-        this.stage = st;
         businessController = new BusinessControllerImpl();
     }
 
@@ -96,32 +85,33 @@ public class ViewControllerImpl implements ViewController {
 
     @Override
     public void storeNewDocument(Document document)
-            throws DocumentNotFoundException, AlreadyExistingDocumentException,
-            InvalidDetailsException, DocumentContentNotFoundException {
+            throws DocumentNotFoundException, AlreadyExistingDocumentException, InvalidDetailsException {
         this.businessController.storeNewDocument(document);
     }
 
     @Override
     public void updateDocument(Pair<Document, Document> updatedDocument)
-            throws InvalidDetailsException, AlreadyExistingDocumentException, DocumentContentNotFoundException {
-        this.businessController.updateDocument(updatedDocument.getKey(), updatedDocument.getValue());
+            throws InvalidDetailsException, AlreadyExistingDocumentException, DocumentNotFoundException {
+        this.businessController.updateDocument(updatedDocument.getKey().getTitle(), updatedDocument.getKey().getAuthor(), updatedDocument.getValue());
     }
 
     @Override
     public void deleteDocument(Document document) {
-        this.businessController.deleteDocument(document);
+        try {
+            this.businessController.deleteDocument(document.getTitle(), document.getAuthor());
+        } catch (DocumentNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public Document importDocument(String path)
-            throws ImportExportException, AlreadyExistingDocumentException,
-            InvalidDetailsException, DocumentContentNotFoundException {
+            throws ImportExportException, AlreadyExistingDocumentException, InvalidDetailsException {
         return this.businessController.importDocument(path);
     }
 
     @Override
-    public void exportDocument(String pathToExport, Document document, String os)
-            throws ImportExportException, DocumentContentNotFoundException {
+    public void exportDocument(String pathToExport, Document document, String os) throws ImportExportException {
         this.businessController.exportDocument(pathToExport, document, os);
     }
 
@@ -141,16 +131,24 @@ public class ViewControllerImpl implements ViewController {
 
     @Override
     public void rateDocument(Document document, int rating) throws DocumentNotFoundException {
-        this.businessController.rateDocument(document, rating);
+        this.businessController.rateDocument(document.getTitle(), document.getAuthor(), rating);
     }
 
     @Override
     public void addDocumentToFavourites(Document document) throws DocumentNotFoundException {
-        this.businessController.addDocumentToFavourites(document);
+        this.businessController.addDocumentToFavourites(document.getTitle(), document.getAuthor());
     }
 
     @Override
     public void deleteDocumentFromFavourites(Document document) throws DocumentNotFoundException {
-        this.businessController.deleteDocumentFromFavourites(document);
+        this.businessController.deleteDocumentFromFavourites(document.getTitle(), document.getAuthor());
     }
+
+    @Override
+    public Document getRocchioQuery(String query, SortedDocumentsSet list, double rv, float b, float c)
+            throws DocumentNotFoundException{
+        return businessController.getRocchioQuery(query,list,rv,b,c);
+    }
+
+
 }

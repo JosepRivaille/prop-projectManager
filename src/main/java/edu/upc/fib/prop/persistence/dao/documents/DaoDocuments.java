@@ -1,7 +1,6 @@
 package edu.upc.fib.prop.persistence.dao.documents;
 
 import edu.upc.fib.prop.exceptions.AlreadyExistingDocumentException;
-import edu.upc.fib.prop.exceptions.DocumentContentNotFoundException;
 import edu.upc.fib.prop.exceptions.DocumentNotFoundException;
 import edu.upc.fib.prop.models.Document;
 import edu.upc.fib.prop.models.DocumentsCollection;
@@ -63,21 +62,10 @@ public interface DaoDocuments {
      */
     void rateDocument(Connection c, Document doc, int rating, String user) throws DocumentNotFoundException;
 
-    /**
-     * Adds a document as a favourite of a given user
-     * @param c
-     * @param document
-     * @param user
-     */
-    void addDocumentToFavourites(Connection c, Document document, String user) throws DocumentNotFoundException;
+    void addDocumentToFavourites(Connection c, String title, String author, String user) throws DocumentNotFoundException;
 
-    /**
-     * Removes a document from an user's favourite documents list
-     * @param c DB Connection
-     * @param document Document to be unmarked as a favourite
-     * @param user User that wants to remove the document as a favourite
-     */
-    void deleteDocumentFromFavourites(Connection c, Document document, String user) throws DocumentNotFoundException;
+
+    void deleteDocumentFromFavourites(Connection c, String title, String author, String user) throws DocumentNotFoundException;
 
     /**
      * Removes all favourites of a given document from all users
@@ -85,6 +73,13 @@ public interface DaoDocuments {
      * @param document All favourites related with this book will be deleted
      */
     void deleteAllFavouritesOfDocument(Connection c, Document document);
+
+    /**
+     * Removes all ratings of a given document from all users
+     * @param c DB Connection
+     * @param document All ratings related with this book will be deleted
+     */
+    void deleteAllRatingsOfDocument(Connection c, Document document);
 
     /**
      * Update all documents ratings
@@ -101,4 +96,21 @@ public interface DaoDocuments {
      * @return
      */
     Document getDocument(Connection c, String title, String author);
+
+    /**
+     *
+     * @param c
+     * @param user
+     * @return
+     */
+    DocumentsCollection getFavourites(Connection c, String user);
+
+    /**
+     *
+     * @param title
+     * @param author
+     * @param email
+     * @return
+     */
+    boolean isDocumentFavourite(Connection c,String title, String author, String email);
 }

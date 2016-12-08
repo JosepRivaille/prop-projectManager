@@ -1,13 +1,10 @@
 package edu.upc.fib.prop.view.document;
 
-import edu.upc.fib.prop.exceptions.DocumentContentNotFoundException;
 import edu.upc.fib.prop.exceptions.DocumentNotFoundException;
 import edu.upc.fib.prop.exceptions.InvalidDetailsException;
 import edu.upc.fib.prop.models.Document;
 import edu.upc.fib.prop.models.DocumentsCollection;
-import edu.upc.fib.prop.utils.FileUtils;
 import edu.upc.fib.prop.utils.IOUtils;
-import edu.upc.fib.prop.utils.Strings;
 import javafx.util.Pair;
 
 public class DocumentManager {
@@ -46,13 +43,7 @@ public class DocumentManager {
                 System.out.print("-");
             }
             System.out.println();
-            String documentFileName = document.getContent();
-            try {
-                String documentContent = FileUtils.readDocument(documentFileName);
-                IOUtils.printContent(documentContent);
-            } catch (DocumentContentNotFoundException e) {
-                System.out.println(Strings.DOCUMENT_CONTENT_NOT_FOUND);
-            }
+            System.out.println(document.getContent());
         } else {
             System.out.println("No documents found!");
         }

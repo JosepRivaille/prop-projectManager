@@ -11,9 +11,12 @@ import edu.upc.fib.prop.exceptions.*;
 import edu.upc.fib.prop.models.*;
 import edu.upc.fib.prop.persistence.controllers.PersistenceController;
 import edu.upc.fib.prop.persistence.controllers.impl.PersistenceControllerImpl;
+import edu.upc.fib.prop.utils.FileUtils;
 import edu.upc.fib.prop.utils.ImportExport;
 
 import javax.print.Doc;
+import java.math.BigInteger;
+import java.security.SecureRandom;
 import java.sql.SQLException;
 
 public class BusinessControllerImpl implements BusinessController {
@@ -90,14 +93,15 @@ public class BusinessControllerImpl implements BusinessController {
     }
 
     @Override
-    public Document importDocument(String path) throws ImportExportException, AlreadyExistingDocumentException, InvalidDetailsException, DocumentContentNotFoundException {
+    public Document importDocument(String path)
+            throws ImportExportException, AlreadyExistingDocumentException, InvalidDetailsException {
         Document doc = ImportExport.importDocument(path);
         this.storeNewDocument(doc);
         return doc;
     }
 
     @Override
-    public void exportDocument(String pathToExport, Document document, String os) throws ImportExportException, DocumentContentNotFoundException {
+    public void exportDocument(String pathToExport, Document document, String os) throws ImportExportException {
         ImportExport.exportDocument(pathToExport, document, os);
     }
 
@@ -108,41 +112,70 @@ public class BusinessControllerImpl implements BusinessController {
     }
 
     @Override
-    public SortedDocumentsSet searchDocumentsByQuery(String str, int k)
-            throws DocumentNotFoundException {
-        this.persistenceController.createContentFile(str, "query.txt");
-         Document document = new Document("", "", "query.txt");
-        try {
-            document.updateFrequencies();
-        } catch (DocumentContentNotFoundException e) {
-            e.printStackTrace();
-        }
-        this.persistenceController.deleteContentFile("query.txt");
+    public SortedDocumentsSet searchDocumentsByQuery(String str, int k) {
+        Document document = new Document("", "", "str");
+        document.updateFrequencies();
         return this.searchDocument.searchForSimilarDocuments(this.documentsCollection, document, k);
     }
 
     @Override
-    public void rateDocument(Document document, int rating) throws DocumentNotFoundException {
-        persistenceController.rateDocument(document, rating, this.usersManager.getCurrentUser().getEmail());
+    public Float rateDocument(String title, String author, int rating) throws DocumentNotFoundException {
+
         try {
-            documentsCollection.updateDocument(document, persistenceController.getDocument(document.getTitle(), document.getAuthor()));
-        } catch (InvalidDetailsException e) {
+            Document document = persistenceController.getDocument(title, author);
+            persistenceController.rateDocument(document, rating, this.usersManager.getCurrentUser().getEmail());
+            Document updatedDoc = persistenceController.getDocument(document.getTitle(), document.getAuthor());
+            documentsCollection.updateDocument(document, updatedDoc);
+            return updatedDoc.getRating();
+        } catch (InvalidDetailsException | AlreadyExistingDocumentException e) {
             e.printStackTrace();
-        } catch (AlreadyExistingDocumentException e) {
-            e.printStackTrace();
-        } catch (DocumentContentNotFoundException e) {
-            e.printStackTrace();
+            return null;
         }
     }
 
     @Override
-    public void addDocumentToFavourites(Document document) throws DocumentNotFoundException {
-        persistenceController.addDocumentToFavourites(document, this.usersManager.getCurrentUser().getEmail());
+    public void addDocumentToFavourites(String title, String author) throws DocumentNotFoundException {
+        persistenceController.addDocumentToFavourites(title, author, this.usersManager.getCurrentUser().getEmail());
     }
 
     @Override
-    public void deleteDocumentFromFavourites(Document document) throws DocumentNotFoundException {
-        persistenceController.deleteDocumentFromFavourites(document, this.usersManager.getCurrentUser().getEmail());
+    public void deleteDocumentFromFavourites(String title, String author) throws DocumentNotFoundException {
+        persistenceController.deleteDocumentFromFavourites(title, author, this.usersManager.getCurrentUser().getEmail());
+    }
+
+    @Override
+    public Document getRocchioQuery(String query, SortedDocumentsSet list, double rv, float b, float c) {
+       /*     throws DocumentNotFoundException {
+        Document docquery = new Document("", "", "query");
+        docquery.updateFrequencies();
+        return searchDocument.getRocchioQuery(docquery,list,rv,b,c);*/
+        return null;
+    }
+
+    @Override
+    public boolean isDocumentFavourite(String title, String author) {
+        return persistenceController.isDocumentFavourite(title, author, usersManager.getCurrentUser().getEmail());
+    }
+
+    @Override
+    public void updateDocument(String title, String author, Document newDoc) throws AlreadyExistingDocumentException, InvalidDetailsException, DocumentNotFoundException {
+        Document oldDoc = searchDocumentsByTitleAndAuthor(title, author);
+        if(!(newDoc.getAuthor().equals("") && newDoc.getTitle().equals("") && newDoc.getContent().equals(""))) {
+            if(!(oldDoc.getAuthor().toLowerCase().equals(newDoc.getAuthor().toLowerCase()) &&
+                    oldDoc.getAuthor().toLowerCase().equals(newDoc.getAuthor().toLowerCase()))) {
+                if (documentsCollection.containsTitleAndAuthor(newDoc.getTitle(), newDoc.getAuthor()))
+                    throw new AlreadyExistingDocumentException();
+            }
+            if(!oldDoc.getTitle().equals(newDoc.getTitle()) || !oldDoc.getAuthor().equals(newDoc.getAuthor())){
+                persistenceController.deleteAllFavouritesOfDocument(oldDoc);
+                persistenceController.deleteAllRatingsOfDocument(oldDoc);
+                newDoc.setRating(1f);
+            }
+            Document updatedDoc = documentsCollection.updateDocument(oldDoc, newDoc);
+            persistenceController.updateDocument(oldDoc, updatedDoc);
+
+            reloadDBData();
+        }
     }
 
     @Override
@@ -175,13 +208,16 @@ public class BusinessControllerImpl implements BusinessController {
     }
 
     @Override
-    public void storeNewDocument(Document document)
-            throws AlreadyExistingDocumentException, InvalidDetailsException, DocumentContentNotFoundException {
+    public DocumentsCollection getCurrentUserFavourites() {
+        String user = this.usersManager.getCurrentUser().getEmail();
+        return this.persistenceController.getFavouriteDocuments(user);
+    }
+
+    @Override
+    public void storeNewDocument(Document document) throws AlreadyExistingDocumentException, InvalidDetailsException {
         document.setUser(usersManager.getCurrentUser().getEmail());
         if (!document.isCorrect()) {
             throw new InvalidDetailsException();
-        } else if (!document.isContentPathCorrect()) {
-            throw new DocumentContentNotFoundException();
         } else if (documentsCollection.containsTitleAndAuthor(document.getTitle(), document.getAuthor())) {
             throw new AlreadyExistingDocumentException();
         } else {
@@ -190,11 +226,6 @@ public class BusinessControllerImpl implements BusinessController {
             try {
                 documentsCollection.addDocument(document);
                 persistenceController.writeNewDocument(document);
-                try {
-                    this.addDocumentToFavourites(document);
-                } catch (DocumentNotFoundException e) {
-                    e.printStackTrace();
-                }
                 reloadDBData();
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -203,23 +234,12 @@ public class BusinessControllerImpl implements BusinessController {
     }
 
     @Override
-    public void updateDocument(Document oldDoc, Document newDoc) throws InvalidDetailsException, AlreadyExistingDocumentException, DocumentContentNotFoundException {
-        if(!(newDoc.getAuthor().equals("") && newDoc.getTitle().equals("") && newDoc.getContent().equals(""))){
-            if(documentsCollection.containsTitleAndAuthor(newDoc.getTitle(), newDoc.getAuthor())) throw  new AlreadyExistingDocumentException();
-            Document updatedDoc = documentsCollection.updateDocument(oldDoc, newDoc);
-            persistenceController.updateDocument(oldDoc, updatedDoc);
-            if(!oldDoc.getTitle().equals(updatedDoc.getTitle()) || !oldDoc.getAuthor().equals(updatedDoc.getAuthor())){
-                persistenceController.deleteAllFavouritesOfDocument(oldDoc);
-            }
-            reloadDBData();
-        }
-    }
-
-    @Override
-    public void deleteDocument(Document document) {
+    public void deleteDocument(String title, String authorName) throws DocumentNotFoundException {
+        Document document = searchDocumentsByTitleAndAuthor(title, authorName);
         documentsCollection.deleteDocument(document);
         persistenceController.deleteDocument(document);
         persistenceController.deleteAllFavouritesOfDocument(document);
+        persistenceController.deleteAllRatingsOfDocument(document);
         reloadDBData();
     }
 
