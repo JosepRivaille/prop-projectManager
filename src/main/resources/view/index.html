@@ -82,6 +82,9 @@
 
 <body>
 
+<loading-circular ng-model="$rootScope.isRequesting"></loading-circular>
+<login-form is-logged-in="$rootScope.isLoggedIn"></login-form>
+
 <div ui-view="body"></div>
 
 </body>

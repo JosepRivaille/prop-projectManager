@@ -17,11 +17,6 @@
         vm.ctrlName = 'AppCtrl';
 
         $rootScope.backendService = backendService;
-
-        vm.userStatus = $rootScope.userStatus = {
-            isLoggedIn: false
-        }
-
     }
 
 }());

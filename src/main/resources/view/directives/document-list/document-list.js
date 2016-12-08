@@ -117,7 +117,7 @@
                     scope.isListSelected = true;
                 };
 
-                scope.search = function () {
+                scope.searchAgain = function () {
                     $state.reload();
                 };
 
