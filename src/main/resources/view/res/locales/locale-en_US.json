@@ -20,12 +20,17 @@
   "AUTHOR_BOOKS_TITLE": "Books writen by",
   "AUTHOR_BOOKS_TEXT": "Following books found related with selected author",
 
-  "DESCRIPTION_AUTHOR_SEARCH": "Search for an author to see his books.",
+  "DESCRIPTION_AUTHOR_SEARCH": "Search for an author using prefixes to see his books.",
   "PLACEHOLDER_AUTHOR_SEARCH": "Author prefix",
   "NO_MATCHING_PREFIX": "No authors found in the system starting with ",
   "DESCRIPTION_DOCUMENT_SEARCH": "Select an author's document.",
-  "PLACEHOLDER_DOCUMENT_SEARCH": "Document title",
+  "PLACEHOLDER_AUTHOR_DOCUMENT_SEARCH": "Author name",
+  "PLACEHOLDER_DOCUMENT_DOCUMENT_SEARCH": "Document title",
   "NO_MATCHING_DOCUMENT": "No documents found in the system with this title.",
+  "DESCRIPTION_BOOLEAN_SEARCH": "Search documents using a boolean expression with operators '&', '|' or '!'. You can also use parenthesization to set priorities.",
+  "PLACEHOLDER_BOOLEAN_SEARCH": "Boolean expression",
+  "DESCRIPTION_QUERY_SEARCH": "Type a query to search documents in the system",
+  "PLACEHOLDER_QUERY_SEARCH": "Query",
 
   "DIALOG_CREATE_TITLE": "Create document",
   "DIALOG_CREATE_CONTENT": "You are about to create a new document and everyone will be able to see it. Are you sure you want to proceed?",
@@ -67,5 +72,6 @@
   "EXCEPTION_INVALID_DETAILS": "Invalid email and password combination",
   "EXCEPTION_ALREADY_EXISTING_USER": "Already existing user with this email",
   "EXCEPTION_AUTHOR_NOT_FOUND": "No matching authors found in the system",
-  "EXCEPTION_DOCUMENT_NOT_FOUND": "No matching document found"
+  "EXCEPTION_DOCUMENT_NOT_FOUND": "No matching document found",
+  "EXCEPTION_INVALID_QUERY": "Invalid query format, solve it and try again."
 }

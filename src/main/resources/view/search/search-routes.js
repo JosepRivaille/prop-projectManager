@@ -49,7 +49,29 @@
                         controllerAs: 'vm'
                     }
                 }
-            });
+            })
+            .state('project.search.boolean', {
+                url: '/boolean',
+                parent: 'project.search',
+                views: {
+                    'search-content': {
+                        templateUrl: 'search/boolean/search-boolean.tpl.html',
+                        controller: 'SearchBooleanCtrl',
+                        controllerAs: 'vm'
+                    }
+                }
+            })
+            .state('project.search.query', {
+                url: '/query',
+                parent: 'project.search',
+                views: {
+                    'search-content': {
+                        templateUrl: 'search/query/search-query.tpl.html',
+                        controller: 'SearchQueryCtrl',
+                        controllerAs: 'vm'
+                    }
+                }
+            })
     }
 }());
 

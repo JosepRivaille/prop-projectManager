@@ -1,8 +1,9 @@
 <md-dialog-content class="md-dialog-content dialog-forms" layout="column" layout-align="center center"
                    id="search-author-wrapper">
-    <form ng-if="!isRegister" name="authorSearch">
+    <form name="authorSearch">
+        <p class="text-info text-bold-dialog">{{'DESCRIPTION_AUTHOR_SEARCH' | translate}}</p>
         <md-input-container class="md-block">
-            <label>Author</label>
+            <label>{{'PLACEHOLDER_AUTHOR_SEARCH' | translate}}</label>
             <input ng-model="prefix" name="authorPrefix" type="text">
         </md-input-container>
 

@@ -49,7 +49,12 @@ public class ViewGraphicControllerImpl implements ViewGraphicController {
 
     @Override
     public String getDocumentsByBooleanExpression(String booleanExpression) throws InvalidQueryException {
-        return null;
+        throw new InvalidQueryException();
+    }
+
+    @Override
+    public String getDocumentsByQuery(String query) throws InvalidQueryException {
+        throw new InvalidQueryException();
     }
 
     @Override

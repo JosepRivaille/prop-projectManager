@@ -44,13 +44,13 @@
                     },
                     {
                         name: 'MENU_SEARCH_BOOLEAN',
-                        state: 'project.search-boolean',
+                        state: 'project.search.boolean',
                         icon: 'sitemap',
                         selected: false
                     },
                     {
                         name: 'MENU_SEARCH_QUERY',
-                        state: 'project.search-query',
+                        state: 'project.search.query',
                         icon: 'question',
                         selected: false
                     }

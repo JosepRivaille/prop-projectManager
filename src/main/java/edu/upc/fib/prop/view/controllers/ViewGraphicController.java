@@ -39,6 +39,8 @@ public interface ViewGraphicController {
      */
     String getDocumentsByBooleanExpression(String booleanExpression) throws InvalidQueryException;
 
+    String getDocumentsByQuery(String query) throws InvalidQueryException;
+
     /**
      * Gets the k most similar document to a given document
      *
