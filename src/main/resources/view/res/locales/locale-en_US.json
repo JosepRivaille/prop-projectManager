@@ -77,5 +77,7 @@
   "EXCEPTION_ALREADY_EXISTING_USER": "Already existing user with this email",
   "EXCEPTION_AUTHOR_NOT_FOUND": "No matching authors found in the system",
   "EXCEPTION_DOCUMENT_NOT_FOUND": "No matching document found",
-  "EXCEPTION_INVALID_QUERY": "Invalid query format, solve it and try again."
+  "EXCEPTION_INVALID_QUERY": "Invalid query format, solve it and try again.",
+
+  "AUTHORS_FOUND_LABEL": " authors found"
 }

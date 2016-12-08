@@ -2,37 +2,6 @@
     margin: 1px;
 }
 
-.item {
-    height: 80px;
-    width: 100%;
-    padding: 5px;
-    border-radius: 2px;
-    /*background-color: rgba(200, 200, 200, 0.05);*/
-    background-color: #761c19;
-}
-
-.item img {
-    width: 70px;
-}
-
-.item > .item-info {
-    margin-left: 15px;
-}
-
-.item-info > .title {
-    font-weight: bolder;
-    font-size: 1.2em;
-}
-
-.item-info > .author {
-    font-style: italic;
-    font-size: 1em;
-}
-
-.item-info > .user {
-    font-size: 1em;
-}
-
 .navigation-buttons-container {
     position: absolute;
     margin-left: 10px;
@@ -56,14 +25,25 @@
     color: darkred;
 }
 
+#search-authors-dialog .authors-list .md-button {
+    margin: 0;
+    border-radius: 0;
+    width: 100%;
+}
 
-.testtest.ng-enter {
-    transition: 2s;
-    opacity: 0; }
-.testtest.ng-enter-active {
-    opacity: 1; }
-.testtest.ng-leave {
-    transition: 2s;
-    opacity: 1; }
-.testtest.ng-leave-active {
-    opacity: 0; }
+#search-authors-dialog .authors-list {
+    max-height: 35vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100%;
+}
+
+#search-authors-dialog .authors-list-item {
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100%;
+}
+
+
