@@ -53,8 +53,8 @@
                     var password = scope.user.password;
 
                     try {
-                        var userName = $rootScope.backendService.userLogin(email, password);
-                        setSession(email, userName);
+                        var userdata = $rootScope.backendService.userLogin(email, password);
+                        setSession(userdata);
                         resetFormData();
                     } catch (e) {
                         scope.isInvalidData = treatException(e);
@@ -68,20 +68,22 @@
                     var password2 = scope.user.password2;
 
                     try {
-                        $rootScope.backendService.userRegister(email, userName, password, password2);
+                        var userdata = $rootScope.backendService.userRegister(email, userName, password, password2);
                         scope.isRegister = false;
-                        setSession(email, userName);
+                        setSession(userdata);
                         resetFormData();
                     } catch (e) {
                         scope.isInvalidData = treatException(e);
                     }
                 };
 
-                function setSession(email, userName) {
+                function setSession(userdata) {
+                    var usr = JSON.parse(userdata);
                     $rootScope.isLoggedIn = true;
                     $rootScope.currentUser = {
-                        email: email,
-                        userName: userName
+                        email: usr.email,
+                        userName: usr.name,
+                        avatar: usr.avatar + ".png"
                     };
                 }
 

@@ -80,13 +80,15 @@ public class ViewGraphicControllerImpl implements ViewGraphicController {
 
     @Override
     public String userLogin(String email, String password) throws UserNotFoundException, InvalidDetailsException {
-        return businessController.checkLoginDetails(email, password);
+        User user = businessController.checkLoginDetails(email, password);
+        return new Gson().toJson(user);
     }
 
     @Override
-    public void userRegister(String email, String userName, String password, String password2)
+    public String userRegister(String email, String userName, String password, String password2)
             throws InvalidDetailsException, AlreadyExistingUserException {
-        businessController.registerNewUser(email, userName, password, password2);
+        User user = businessController.registerNewUser(email, userName, password, password2);
+        return new Gson().toJson(user);
     }
 
     @Override

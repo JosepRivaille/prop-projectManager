@@ -12,7 +12,7 @@ public interface BusinessController {
      *  @param email    Account email.
      * @param password Account password.
      */
-    String checkLoginDetails(String email, String password) throws InvalidDetailsException, UserNotFoundException;
+    User checkLoginDetails(String email, String password) throws InvalidDetailsException, UserNotFoundException;
 
     /**
      * Check if input details can be used to create a new user.
@@ -22,7 +22,7 @@ public interface BusinessController {
      * @param password  New password.
      * @param password2 New password repeated.
      */
-    void registerNewUser(String email, String userName, String password, String password2)
+    User registerNewUser(String email, String userName, String password, String password2)
             throws InvalidDetailsException, AlreadyExistingUserException;
 
     /**

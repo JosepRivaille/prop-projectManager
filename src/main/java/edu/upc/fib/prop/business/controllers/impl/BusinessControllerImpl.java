@@ -47,20 +47,21 @@ public class BusinessControllerImpl implements BusinessController {
 
 
     @Override
-    public String checkLoginDetails(String email, String password)
+    public User checkLoginDetails(String email, String password)
             throws InvalidDetailsException, UserNotFoundException {
         password = usersManager.login(email, password);
         User user = persistenceController.loginUser(email, password);
         usersManager.setCurrentUser(user);
-        return user.getName();
+        return user;
     }
 
     @Override
-    public void registerNewUser(String email, String userName, String password, String password2)
+    public User registerNewUser(String email, String userName, String password, String password2)
             throws InvalidDetailsException, AlreadyExistingUserException {
         User user = usersManager.register(email, userName, password, password2);
         persistenceController.createUser(user);
         usersManager.setCurrentUser(user);
+        return user;
     }
 
     @Override

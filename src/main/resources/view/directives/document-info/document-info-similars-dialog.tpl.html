@@ -1,28 +1,42 @@
-<md-dialog-content class="md-dialog-content dialog-forms" layout="column" layout-align="center center">
+<div id="search-similar-documents-dialog" class="fill-all-parent">
+    <md-dialog-content class="md-dialog-content dialog-forms" layout="column" layout-align="center center">
 
-    <form ng-if="similarDocuments === undefined" name="similarSearch">
-        <p class="text-info text-bold-dialog">{{'DIALOG_SEARCH_SIMILAR_CONTENT' | translate}}</p>
-        <md-input-container class="md-block">
-            <label>{{'DIALOG_SEARCH_SIMILAR_PLACEHOLDER' | translate}}</label>
-            <input ng-model="desiredNumber" name="desiredNumber" type="number" ng-required="true">
-        </md-input-container>
+        <form ng-if="similarDocuments === undefined" name="similarSearch">
+            <p class="text-info text-bold-dialog">{{'DIALOG_SEARCH_SIMILAR_CONTENT' | translate}}</p>
+            <md-input-container class="md-block">
+                <label>{{'DIALOG_SEARCH_SIMILAR_PLACEHOLDER' | translate}}</label>
+                <input ng-model="desiredNumber" name="desiredNumber" type="number" ng-required="true">
+            </md-input-container>
 
-        <p class="error-text" ng-show="isInvalidData !== undefined">{{isInvalidData | translate}}</p>
-        <md-button ng-disabled="similarDocuments.$invalid" class="md-raised md-primary"
-                   ng-click="searchSimilarDocuments(desiredNumber)">
-            {{'BUTTON_SEARCH' | translate}}
-        </md-button>
-    </form>
-
-    <md-list ng-if="similarDocuments !== undefined" ng-cloak class="authors-list"
-             layout="column" layout-align="start center">
-        <md-list-item ng-repeat="document in similarDocuments" class="authors-list-item">
-            <md-button ng-click="selectNewDocument(document)" class="authors-list-item">
-                <span class="title">{{document.title}}</span><br>
-                <span class="title">{{document.author}}</span><br>
-                <span class="title">{{document.relevance}}</span>
+            <p class="error-text" ng-show="isInvalidData !== undefined">{{isInvalidData | translate}}</p>
+            <md-button ng-disabled="similarDocuments.$invalid" class="md-raised md-primary"
+                       ng-click="searchSimilarDocuments(desiredNumber)">
+                {{'BUTTON_SEARCH' | translate}}
             </md-button>
-        </md-list-item>
-    </md-list>
+        </form>
 
-</md-dialog-content>
+        <md-list ng-if="similarDocuments !== undefined" ng-cloak class="similars-list"
+                 layout="column" layout-align="start center">
+            <md-list-item ng-repeat="document in similarDocuments" class="similars-list-item">
+                <md-button ng-click="selectNewDocument(document)">
+                    <div class="fill-all-parent" layout="row" layout-align="space-between stretch">
+                        <div>
+                            <img ng-src="../images/sample.png" class="list-item-image">
+                        </div>
+                        <div layout="column" layout-align="center start"
+                             class="item-info" flex>
+                            <span class="title">{{document.title}}</span>
+                            <span class="author">{{document.author}}</span>
+                        </div>
+                        <div class="percentage-space" layout="column" layout-align="center center">
+                            <span class="percentage">{{(document.relevance*100).toFixed(2)}}%</span>
+                        </div>
+                    </div>
+                </md-button>
+                <md-divider></md-divider>
+            </md-list-item>
+        </md-list>
+
+    </md-dialog-content>
+
+</div>

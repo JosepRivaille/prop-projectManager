@@ -16,8 +16,8 @@ public class DaoUsersImpl implements DaoUsers {
     @Override
     public void registerNewUser(Connection c, User user) throws SQLException {
         Statement statement = c.createStatement();
-        String query = String.format("INSERT INTO users VALUES('%s', '%s', '%s', '%d');",
-                user.getEmail(), user.getName(), user.getPassword(), 0);
+        String query = String.format("INSERT INTO users VALUES('%s', '%s', '%s', '%s', '%d');",
+                user.getEmail(), user.getName(), user.getPassword(), user.getAvatar(), 0);
         int inserted = statement.executeUpdate(query);
         if (inserted != 1)
             throw new SQLException();
@@ -34,8 +34,11 @@ public class DaoUsersImpl implements DaoUsers {
             String authEmail = rs.getString("email");
             String authName = rs.getString("user_name");
             String authPassword = rs.getString("password");
+            String avatar = rs.getString("avatar");
             if (authEmail.equals(email) && authPassword.equals(password)) {
-                return new User(authEmail, authName, authPassword);
+                User u = new User(authEmail, authName, authPassword);
+                u.setAvatar(avatar);
+                return u;
             } else {
                 throw new InvalidDetailsException();
             }

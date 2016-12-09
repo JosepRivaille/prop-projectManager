@@ -31,6 +31,15 @@
                     alert(files[0]);
 
                     scope.fileName = files[0].name;
+
+                /*
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        scope.file =  e.target.result;
+                    }
+                    reader.readAsDataURL(input.files[0]);
+                */
+
                     scope.$apply();
                 });
             }

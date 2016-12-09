@@ -62,3 +62,7 @@ body {
 .scrollable { overflow: auto !important; }
 .scrollable-x { overflow-x: auto !important; }
 .scrollable-y { overflow-y: auto !important; }
+
+.md-dialog {
+    z-index: 1600 !important;
+}

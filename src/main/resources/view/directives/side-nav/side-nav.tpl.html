@@ -4,11 +4,11 @@
         <div ng-if="isLoggedIn" class="user-space">
             <div class="user-space-inner" layout="row" layout-align="start center">
                 <div class="user-image">
-                    <img ng-src="../images/sample.png">
+                    <img ng-click="userEdit()" ng-src="../images/avatars/{{currentUser.avatar}}">
                 </div>
-                <div class="user-info" flex>
-                        <p>{{currentUser.userName}}</p>
-                        <a>{{'ACCOUNT_LOGOUT' | translate}}</a>
+                <div class="user-info" layout="column" layout-align="center start" flex>
+                        <span class="user-info-name">{{currentUser.userName}}</span>
+                        <a ng-click="logout()">{{'ACCOUNT_LOGOUT' | translate}}</a>
 
                 </div>
             </div>

@@ -66,7 +66,7 @@ public interface ViewGraphicController {
      * @param password  Password to try the register.
      * @param password2 Repeat password to try the register.
      */
-    void userRegister(String email, String userName, String password, String password2) throws InvalidDetailsException, AlreadyExistingUserException;
+    String userRegister(String email, String userName, String password, String password2) throws InvalidDetailsException, AlreadyExistingUserException;
 
     /**
      * Tries to update an user with new details.

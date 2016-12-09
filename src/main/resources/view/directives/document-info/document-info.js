@@ -28,7 +28,6 @@
             },
             link: function (scope) {
 
-
                 function DialogSimilarDocumentsCtrl($rootScope, $scope) {
                     $scope.searchSimilarDocuments = function (desiredNumber) {
                         try {
@@ -71,6 +70,12 @@
                     alert(document);
                     scope.document = document;
                     $mdDialog.hide();
+                }
+
+                scope.getPercentage = function(relevance){
+                    alert(((relevance.toFixed(2))*100).toString() + "%");
+                    //return (relevance.toFixed(2))*100 + "%";
+                    return "100%";
                 }
             }
         };

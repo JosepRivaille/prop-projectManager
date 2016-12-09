@@ -19,12 +19,23 @@
         vm.title = 'TITLE_PPP';
     }
 
-    function sideNav($rootScope, $mdDialog, menuItems) {
+    function sideNav($rootScope, $mdDialog, menuItems, $state) {
         return {
             restrict: 'EA',
             templateUrl: 'directives/side-nav/side-nav.tpl.html',
             scope: {},
             link: function (scope) {
+
+                scope.userEdit = function(){
+                    alert("User edit!");
+                }
+
+                scope.logout = function () {
+                    alert("LOGOUT");
+                    $rootScope.backendService.userLogout();
+                    $rootScope.isLoggedIn = false;
+                    $state.go('project');
+                };
 
                 scope.$watch(function() {
                     return $rootScope.isLoggedIn;
