@@ -9,11 +9,10 @@ public interface BusinessController {
 
     /**
      * Check if input details match with a user.
-     *
-     * @param email    Account email.
+     *  @param email    Account email.
      * @param password Account password.
      */
-    void checkLoginDetails(String email, String password) throws InvalidDetailsException, UserNotFoundException;
+    String checkLoginDetails(String email, String password) throws InvalidDetailsException, UserNotFoundException;
 
     /**
      * Check if input details can be used to create a new user.

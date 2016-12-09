@@ -67,6 +67,7 @@
 
         vm.logout = function () {
             $rootScope.backendService.userLogout();
+            $rootScope.isLoggedIn = false;
             $state.go('project');
         };
 

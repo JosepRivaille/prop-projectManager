@@ -2,7 +2,6 @@ package edu.upc.fib.prop.view.controllers;
 
 import edu.upc.fib.prop.exceptions.*;
 import edu.upc.fib.prop.models.*;
-import javafx.util.Pair;
 
 public interface ViewGraphicController {
 
@@ -54,11 +53,10 @@ public interface ViewGraphicController {
 
     /**
      * Tries to log a user in the system.
-     *
-     * @param email    Email to try the login..
+     *  @param email    Email to try the login..
      * @param password Password to try the login.
      */
-    void userLogin(String email, String password) throws UserNotFoundException, InvalidDetailsException;
+    String userLogin(String email, String password) throws UserNotFoundException, InvalidDetailsException;
 
     /**
      * Tries to register a new user in the system.

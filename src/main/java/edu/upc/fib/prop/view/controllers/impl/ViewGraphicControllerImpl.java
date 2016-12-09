@@ -1,15 +1,12 @@
 package edu.upc.fib.prop.view.controllers.impl;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import edu.upc.fib.prop.business.controllers.BusinessController;
 import edu.upc.fib.prop.business.controllers.impl.BusinessControllerImpl;
 import edu.upc.fib.prop.exceptions.*;
 import edu.upc.fib.prop.models.*;
 import edu.upc.fib.prop.utils.StringUtils;
 import edu.upc.fib.prop.view.controllers.ViewGraphicController;
-import javafx.util.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,8 +79,8 @@ public class ViewGraphicControllerImpl implements ViewGraphicController {
     }
 
     @Override
-    public void userLogin(String email, String password) throws UserNotFoundException, InvalidDetailsException {
-        businessController.checkLoginDetails(email, password);
+    public String userLogin(String email, String password) throws UserNotFoundException, InvalidDetailsException {
+        return businessController.checkLoginDetails(email, password);
     }
 
     @Override

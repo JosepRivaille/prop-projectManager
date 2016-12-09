@@ -34,7 +34,7 @@
 
                 scope.isDocFavourite = function(doc){
                     return $rootScope.backendService.isDocumentFavourite(doc.title,doc.author);
-                }
+                };
 
                 scope.removeFavourite = function (doc) {
                     $rootScope.backendService.removeFavourite(doc.title, doc.author);
