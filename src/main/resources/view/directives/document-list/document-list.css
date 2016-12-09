@@ -11,14 +11,11 @@
 #document-list .docs-list-item {
     height: 85px;
     width: 100%;
-    /*background-color: #1b6d85;*/
-    padding: 5px;
-    padding-left: 20px;
+    padding: 5px 5px 5px 20px;
 }
 
 #document-list .docs-list-item .item-image-container{
     height: 100%;
-    /*background-color: #761c19;*/
     width: auto;
 }
 
@@ -28,7 +25,6 @@
 
 #document-list .docs-list-item .item-info-container{
     height: 100%;
-    /*background-color: #3e8f3e;*/
     width: auto;
     padding: 5px 5px 5px 15px;
 }
@@ -38,19 +34,17 @@
     font-size: 1.3em;
     margin: 0 0 5px;
     text-transform: none !important;
-    /*background-color: #e7c3c3;*/
 }
 #document-list .docs-list-item .item-info-container > h2{
     font-weight: normal;
     font-size: 0.9em;
     margin: 0;
     text-transform: none !important;
-    /*background-color: #bce8f1;*/
 }
 
 #document-list .docs-list-item .item-buttons-container{
     height: 100%;
-    /*background-color: #ffdd00;*/
+    padding-right: 10px;
     width: auto;
 }
 

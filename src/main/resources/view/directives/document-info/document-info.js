@@ -65,6 +65,12 @@
                         clickOutsideToClose: true,
                         escapeToClose: true
                     });
+                };
+
+                scope.selectNewDocument = function (document) {
+                    alert(document);
+                    scope.document = document;
+                    $mdDialog.hide();
                 }
             }
         };

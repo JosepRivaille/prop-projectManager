@@ -1,11 +1,10 @@
 <md-content id="document-list" class="no-scrollable fill-all-parent">
 
-    <div ng-show="isListSelected">
-        <h1 class="title-landing" layout-align="space-between center" flex>
+    <div ng-show="isListSelected" class="fill-all-parent">
+        <h1 class="title-landing" layout-align="space-between center">
             {{parentTitle | translate}}
         </h1>
-        <md-list style="padding-bottom: 130px;">
-            <md-divider></md-divider>
+        <md-list style="padding-bottom: 130px;" class="scrollable-y" flex>
             <md-list-item ng-repeat="document in documents">
                 <md-button class="docs-list-item" ng-click="selectDocument(document)">
                     <div layout="row"  layout-align="space-between center" style="height: 100%;">
@@ -35,6 +34,12 @@
                             <md-button onclick="location.href = event.stopPropagation();" class="md-raised md-accent" aria-label="Export document"
                                        ng-click="export(document)">
                                 <i class="fa fa-download"></i>
+                            </md-button>
+                        </div>
+
+                        <div ng-if="parent=='favorites'" class="item-buttons-container" layout="row" layout-align="center center">
+                            <md-button onclick="location.href = event.stopPropagation();" ng-click="removeFavourite(document)" class="md-raised md-warn" aria-label="Remove favourite">
+                                    <i class="fa fa-heartbeat"></i>
                             </md-button>
                         </div>
 

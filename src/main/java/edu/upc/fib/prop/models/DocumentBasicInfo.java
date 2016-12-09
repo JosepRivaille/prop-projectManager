@@ -8,6 +8,7 @@ public class DocumentBasicInfo {
     private String user;
     private String cover;
     private Float rating;
+    private Double relevance;
     private String content;
 
     public DocumentBasicInfo(Document document) {
@@ -17,6 +18,16 @@ public class DocumentBasicInfo {
         this.cover = document.getCover();
         this.rating = document.getRating();
         this.content = document.getContent();
+    }
+
+    public DocumentBasicInfo(Document document, Double relevanceFactor) {
+        this.title = document.getTitle();
+        this.author = document.getAuthor();
+        this.user = document.getUser();
+        this.cover = document.getCover();
+        this.rating = document.getRating();
+        this.content = document.getContent();
+        this.relevance = relevanceFactor;
     }
 
     public String getTitle() {
@@ -41,5 +52,9 @@ public class DocumentBasicInfo {
 
     public String getContent() {
         return content;
+    }
+
+    public Double getRelevance() {
+        return relevance;
     }
 }

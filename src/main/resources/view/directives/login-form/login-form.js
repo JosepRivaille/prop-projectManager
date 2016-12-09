@@ -22,10 +22,10 @@
         return {
             restrict: 'EA',
             templateUrl: 'directives/login-form/login-form.tpl.html',
-            scope: {
-                isLoggedIn: '=?'
-            },
+            scope: {},
             link: function (scope) {
+
+                scope.isLoggedIn = false;
                 scope.isRegister = false;
 
                 scope.user = {
@@ -37,6 +37,12 @@
 
                 scope.isInvalidData = undefined;
 
+                scope.$watch(function() {
+                    return $rootScope.isLoggedIn;
+                }, function() {
+                    scope.isLoggedIn = $rootScope.isLoggedIn;
+                }, true);
+
                 scope.changeFormMode = function () {
                     scope.isRegister ^= true;
                     scope.isInvalidData = undefined;
@@ -47,11 +53,8 @@
                     var password = scope.user.password;
 
                     try {
-                        $rootScope.backendService.userLogin(email, password);
-                        scope.isLoggedIn = true;
-                        $rootScope.currentUser = {
-                            email: email
-                        };
+                        var userName = $rootScope.backendService.userLogin(email, password);
+                        setSession(email, userName);
                         resetFormData();
                     } catch (e) {
                         scope.isInvalidData = treatException(e);
@@ -66,16 +69,21 @@
 
                     try {
                         $rootScope.backendService.userRegister(email, userName, password, password2);
-                        scope.isLoggedIn = true;
-                        $rootScope.currentUser = {
-                            email: email
-                        };
                         scope.isRegister = false;
+                        setSession(email, userName);
                         resetFormData();
                     } catch (e) {
                         scope.isInvalidData = treatException(e);
                     }
                 };
+
+                function setSession(email, userName) {
+                    $rootScope.isLoggedIn = true;
+                    $rootScope.currentUser = {
+                        email: email,
+                        userName: userName
+                    };
+                }
 
                 function resetFormData() {
                     scope.user = {

@@ -26,10 +26,12 @@
             scope: {},
             link: function (scope) {
 
-                if (angular.isDefined($rootScope.currentUser)) {
+                scope.$watch(function() {
+                    return $rootScope.isLoggedIn;
+                }, function() {
                     scope.isLoggedIn = $rootScope.isLoggedIn;
-                    scope.username = $rootScope.currentUser.username;
-                }
+                    scope.currentUser = $rootScope.currentUser;
+                }, true);
 
                 angular.forEach(menuItems, function (item) {
                     item.icon = 'fa-' + item.icon;

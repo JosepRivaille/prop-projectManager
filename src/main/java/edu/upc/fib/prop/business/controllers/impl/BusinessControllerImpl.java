@@ -11,12 +11,8 @@ import edu.upc.fib.prop.exceptions.*;
 import edu.upc.fib.prop.models.*;
 import edu.upc.fib.prop.persistence.controllers.PersistenceController;
 import edu.upc.fib.prop.persistence.controllers.impl.PersistenceControllerImpl;
-import edu.upc.fib.prop.utils.FileUtils;
 import edu.upc.fib.prop.utils.ImportExport;
 
-import javax.print.Doc;
-import java.math.BigInteger;
-import java.security.SecureRandom;
 import java.sql.SQLException;
 
 public class BusinessControllerImpl implements BusinessController {
@@ -51,11 +47,12 @@ public class BusinessControllerImpl implements BusinessController {
 
 
     @Override
-    public void checkLoginDetails(String email, String password)
+    public String checkLoginDetails(String email, String password)
             throws InvalidDetailsException, UserNotFoundException {
         password = usersManager.login(email, password);
         User user = persistenceController.loginUser(email, password);
         usersManager.setCurrentUser(user);
+        return user.getName();
     }
 
     @Override
@@ -114,7 +111,7 @@ public class BusinessControllerImpl implements BusinessController {
 
     @Override
     public SortedDocumentsSet searchDocumentsByQuery(String str, int k) {
-        Document document = new Document("", "", "str");
+        Document document = new Document("", "", str);
         document.updateFrequencies();
         return this.searchDocument.searchForSimilarDocuments(this.documentsCollection, document, k);
     }

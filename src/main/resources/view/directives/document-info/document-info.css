@@ -17,7 +17,6 @@
 #document-info .left-container{
     height: 70%;
     padding: 0;
-
 }
 
 #document-info .left-container .md-button{
@@ -35,28 +34,14 @@
 #document-info .right-container{
     padding-left: 50px;
     padding-top: 5px;
-
     font-family: sans-serif;
     height: 100%;
     text-align: left;
-
 }
 
 #document-info .text-title {
     font-weight: bolder;
     font-size: 2em;
-}
-
-#document-info .text-author {
-
-}
-
-#document-info .text-user {
-
-}
-
-#document-info .md-content {
-    background-color: rgba(255,0,0,0.2);
 }
 
 #document-info .info-container {

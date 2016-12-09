@@ -1,15 +1,12 @@
 package edu.upc.fib.prop.view.controllers.impl;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import edu.upc.fib.prop.business.controllers.BusinessController;
 import edu.upc.fib.prop.business.controllers.impl.BusinessControllerImpl;
 import edu.upc.fib.prop.exceptions.*;
 import edu.upc.fib.prop.models.*;
 import edu.upc.fib.prop.utils.StringUtils;
 import edu.upc.fib.prop.view.controllers.ViewGraphicController;
-import javafx.util.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,8 +51,17 @@ public class ViewGraphicControllerImpl implements ViewGraphicController {
     }
 
     @Override
-    public String getDocumentsByQuery(String query) throws InvalidQueryException {
-        throw new InvalidQueryException();
+    public String getDocumentsByQuery(String query) throws InvalidQueryException, DocumentNotFoundException {
+        //TODO estamos hardcodeando el numero de docs a buscar, ponerlo como dialog y que el usuario elija
+        //TODO ademas no va, hay que revisar
+        SortedDocumentsSet dss = this.businessController.searchDocumentsByQuery(query, 10);
+        List<DocumentBasicInfo> documentsBasicInfo = new ArrayList<>();
+        for (Map.Entry<Double, List<Document>> documents : dss.getDocs().entrySet()) {
+            for (Document document : documents.getValue()) {
+                documentsBasicInfo.add(new DocumentBasicInfo(document));
+            }
+        }
+        return new Gson().toJson(documentsBasicInfo);
     }
 
     @Override
@@ -66,15 +72,15 @@ public class ViewGraphicControllerImpl implements ViewGraphicController {
         List<DocumentBasicInfo> documentsBasicInfo = new ArrayList<>();
         for (Map.Entry<Double, List<Document>> documents : sortedDocumentsSet.getDocs().entrySet()) {
             for (Document document : documents.getValue()) {
-                documentsBasicInfo.add(new DocumentBasicInfo(document));
+                documentsBasicInfo.add(new DocumentBasicInfo(document, documents.getKey()));
             }
         }
         return new Gson().toJson(documentsBasicInfo);
     }
 
     @Override
-    public void userLogin(String email, String password) throws UserNotFoundException, InvalidDetailsException {
-        businessController.checkLoginDetails(email, password);
+    public String userLogin(String email, String password) throws UserNotFoundException, InvalidDetailsException {
+        return businessController.checkLoginDetails(email, password);
     }
 
     @Override
