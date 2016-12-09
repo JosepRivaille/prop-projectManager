@@ -5,7 +5,7 @@
             <p class="text-info text-bold-dialog">{{'DESCRIPTION_AUTHOR_SEARCH' | translate}}</p>
             <md-input-container class="md-block">
                 <label>{{'PLACEHOLDER_AUTHOR_SEARCH' | translate}}</label>
-                <input ng-model="prefix" name="authorPrefix" nodeType="text">
+                <input ng-model="prefix" name="authorPrefix" type="text">
             </md-input-container>
 
             <p class="error-text text-center" ng-show="isInvalidData !== undefined">{{isInvalidData | translate}}</p>

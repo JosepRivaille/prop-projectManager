@@ -33,7 +33,7 @@
                 try {
                     vm.isInvalidData = undefined;
                     var response = $rootScope.backendService.getDocumentsByBooleanExpression(booleanExpression);
-                    vm.documentSelected = JSON.parse(response);
+                    vm.documents = JSON.parse(response);
                     $mdDialog.hide();
                 } catch (e) {
                     if (e.toString().indexOf('InvalidQueryException') !== -1) {

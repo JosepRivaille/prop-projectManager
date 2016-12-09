@@ -47,7 +47,12 @@ public class ViewGraphicControllerImpl implements ViewGraphicController {
 
     @Override
     public String getDocumentsByBooleanExpression(String booleanExpression) throws InvalidQueryException {
-        throw new InvalidQueryException();
+        DocumentsSet documentSet = businessController.searchDocumentsByBooleanExpression(booleanExpression);
+        List<DocumentBasicInfo> documentsBasicInfo = new ArrayList<>();
+        for (Document document : documentSet) {
+            documentsBasicInfo.add(new DocumentBasicInfo(document));
+        }
+        return new Gson().toJson(documentsBasicInfo);
     }
 
     @Override
