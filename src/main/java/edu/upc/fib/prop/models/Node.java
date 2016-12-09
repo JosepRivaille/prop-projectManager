@@ -4,18 +4,9 @@ import java.util.ArrayList;
 import java.util.Set;
 
 public class Node {
-    private Set<Integer> compleixen;
     private char operator;
     private String paraula;
     private ArrayList<Node> childrens;
-
-    public void setCompleixen(Set<Integer> compleixen) {
-        this.compleixen = compleixen;
-    }
-
-    public Set<Integer> getCompleixen() {
-        return compleixen;
-    }
 
     public Node(){
         this.childrens = new ArrayList<>();
@@ -65,12 +56,9 @@ public class Node {
     public void generarArbre(String expressio) {
         Node fill;
         int oberts, inici;
-        System.out.println("me pasan " + expressio);
         for(int i = 0; i < expressio.length(); ++i) {
-            System.out.println("leo "+ expressio.charAt(i));
             if (i < expressio.length() && expressio.charAt(i) == '(') {
                 fill = new Node();
-                System.out.println("entro en caso ()");
                 ++i;
                 inici = i;
                 oberts = 1;
@@ -85,15 +73,13 @@ public class Node {
                 fill.generarArbre(expressio.substring(inici, i - 1));
                 this.addChildren(fill);
             }
-            if (i < expressio.length() && expressio.charAt(i) == '{') {
-
-                System.out.println("entro en caso {}");
+            else if (i < expressio.length() && expressio.charAt(i) == '{') {
                 ++i;
                 inici = i;
                 while (i < expressio.length() && expressio.charAt(i) != '}') {
                     ++i;
                 }
-                String[] paraules = expressio.substring(inici, i - 1).split(" ");
+                String[] paraules = expressio.substring(inici, i).split(" ");
                 fill = new Node();
                 fill.operator = '&';
                 for (String paraula : paraules) {
@@ -101,12 +87,10 @@ public class Node {
                 }
                 this.addChildren(fill);
             }
-            if(i < expressio.length() && (expressio.charAt(i) == '&' || expressio.charAt(i) == '|')){
-
-                System.out.println("entro en caso operator");
+            else if(i < expressio.length() && (expressio.charAt(i) == '&' || expressio.charAt(i) == '|')){
                 this.setOperator(expressio.charAt(i));
             }
-            if (i < expressio.length() && expressio.charAt(i) == '"') {
+            else if (i < expressio.length() && expressio.charAt(i) == '"') {
                 ++i;
                 inici = i;
                 while (i < expressio.length() && expressio.charAt(i) != '"') {
@@ -114,7 +98,7 @@ public class Node {
                 }
                 this.addFrase(expressio.substring(inici, i));
             }
-            if (i < expressio.length() && expressio.charAt(i) == '!'){
+            else if (i < expressio.length() && expressio.charAt(i) == '!'){
                 fill = new Node();
                 Node net = new Node();
                 fill.operator = '!';
@@ -129,16 +113,17 @@ public class Node {
                         tancament = ' ';
                         break;
                 }
+                ++i;
                 while(i < expressio.length() && expressio.charAt(i) != tancament) {
                     ++i;
                 }
                 if(tancament == ' ' && i >= expressio.length()) --i;
                 net.generarArbre(expressio.substring(inici,i+1));
+                if(tancament == ' ' && i >= expressio.length()) ++i;
                 fill.addChildren(net);
                 this.addChildren(fill);
             }
-            if (i < expressio.length() && expressio.charAt(i) > 'A' & expressio.charAt(i) < 'z') {
-                System.out.println("entro en caso palabra");
+            else if (i < expressio.length() && expressio.charAt(i) > 'A' & expressio.charAt(i) < 'z') {
                 inici = i;
                 ++i;
                 while (i < expressio.length() && expressio.charAt(i) != ' ') {
@@ -148,7 +133,6 @@ public class Node {
             }
 
         }
-        if(this.childrens.size() == 0) System.out.println("quelcom ha anat malament");
         if(this.childrens.size() == 1 && this.operator != '!') {
             this.operator  = this.childrens.get(0).operator;
             this.paraula = this.childrens.get(0).paraula;
