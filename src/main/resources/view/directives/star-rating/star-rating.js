@@ -24,16 +24,24 @@
             templateUrl: 'directives/star-rating/star-rating.tpl.html',
             scope: {
                 ratingValue: '=ngModel',
-                readOnly: '=?'
+                readOnly: '=?',
+                documentTitle: '=?',
+                documentAuthor: '=?',
+
             },
-            link: function (scope) {
+            link: function (scope, $rootScope) {
                 function updateStars() {
                     scope.stars = [];
+                   /* alert("STAR RATING: " + scope.ratingValue);
+                    alert("STAR RATING: " + scope.documentTitle);
+                    alert("STAR RATING: " + scope.documentAuthor);*/
+                   alert(scope.documentTitle + " ==> " + scope.ratingValue);
                     for (var i = 0; i < 5; i++) {
                         scope.stars.push({
                             filled: i < scope.ratingValue
                         });
                     }
+                    alert(JSON.stringify(scope.stars));
                 }
                 scope.toggle = function (index) {
                     if (angular.isUndefined(scope.readOnly) || scope.readOnly === false) {
@@ -42,6 +50,7 @@
                 };
                 scope.$watch('ratingValue', function (oldValue, newValue) {
                     if (newValue) {
+                        //$rootScope.backendService.rateDocument(documentTitle, documentAuthor);
                         updateStars();
                     }
                 });

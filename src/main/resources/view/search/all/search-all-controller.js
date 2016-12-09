@@ -22,6 +22,7 @@
 
         var response = $rootScope.backendService.searchForAllDocuments();
         vm.documents = JSON.parse(response);
+        alert(JSON.stringify(vm.documents, undefined, 4));
 
         vm.selectDocument = function(document){
             vm.documentSelected = document;

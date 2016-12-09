@@ -72,11 +72,6 @@
                     $mdDialog.hide();
                 }
 
-                scope.getPercentage = function(relevance){
-                    alert(((relevance.toFixed(2))*100).toString() + "%");
-                    //return (relevance.toFixed(2))*100 + "%";
-                    return "100%";
-                }
             }
         };
     }

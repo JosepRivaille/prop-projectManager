@@ -57,7 +57,7 @@
                         cover: '',
                         content: '',
                         relevance: '',
-                        rating: '1'
+                        rating: 0
                     }
                 }
 
