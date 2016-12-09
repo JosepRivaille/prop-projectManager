@@ -1,3 +1,10 @@
 <md-content class="fill-all-window">
-    <document-list ng-model="vm.documents" is-search-mode="true" parent-title="vm.title"></document-list>
+    <div ng-if="vm.isDocumentSelected">
+        <div class="navigation-buttons-container">
+            <md-button class="md-fab md-primary" aria-label="Restart search" ng-click="$state.reload()">
+                <i class="fa fa-search"></i>
+            </md-button>
+        </div>
+        <document-info ng-model="vm.documentSelected"></document-info>
+    </div>
 </md-content>

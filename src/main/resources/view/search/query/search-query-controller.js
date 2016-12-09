@@ -32,20 +32,24 @@
             $scope.similarDocuments = undefined;
 
             $scope.searchQuery = function (query) {
-                alert("entramos en busqueda query");
                 try {
                     $scope.isInvalidData = undefined;
                     var response = $rootScope.backendService.getDocumentsByQuery(query);
-                    //vm.documentSelected = JSON.parse(response);
                     $scope.similarDocuments = JSON.parse(response);
-                    //$mdDialog.hide();
                 } catch (e) {
                     alert(e);
                     if (e.toString().indexOf('InvalidQueryException') !== -1) {
                         $scope.isInvalidData = 'EXCEPTION_INVALID_QUERY';
                     }
                 }
-            }
+            };
+
+            $scope.selectNewDocument = function (document) {
+                vm.documentSelected = document;
+                vm.isDocumentSelected = true;
+                $mdDialog.hide();
+            };
+
         }
 
     }

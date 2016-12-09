@@ -27,11 +27,20 @@
             link: function (scope) {
 
                 scope.userEdit = function(){
-                    alert("User edit!");
-                }
+                    (function showDialog() {
+                        $mdDialog.show({
+                            controller: DialogUserImageController,
+                            templateUrl: 'directives/side-nav/user-image-dialog.tpl.html',
+                            clickOutsideToClose: true,
+                            escapeToClose: true
+                        })}());
+
+                    function DialogUserImageController($rootScope, $scope) {
+                        $scope.avatars = new Array(13);
+                    }
+                };
 
                 scope.logout = function () {
-                    alert("LOGOUT");
                     $rootScope.backendService.userLogout();
                     $rootScope.isLoggedIn = false;
                     $state.go('project');

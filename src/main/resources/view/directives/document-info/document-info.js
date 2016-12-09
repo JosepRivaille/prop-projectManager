@@ -28,7 +28,7 @@
             },
             link: function (scope) {
 
-                function DialogSimilarDocumentsCtrl($rootScope, $scope) {
+                function DialogSimilarDocumentsCtrl($rootScope, $scope, $mdDialog) {
                     $scope.searchSimilarDocuments = function (desiredNumber) {
                         try {
                             $scope.isInvalidData = undefined;
@@ -43,6 +43,10 @@
                             }
                         }
                     };
+                    $scope.selectNewDocument = function (document) {
+                        scope.documentSelected = document;
+                        $mdDialog.hide();
+                    }
                 }
 
                 scope.isFavourite = $rootScope.backendService.isDocumentFavourite(scope.document.title, scope.document.author);
@@ -65,11 +69,6 @@
                         escapeToClose: true
                     });
                 };
-
-                scope.selectNewDocument = function (document) {
-                    scope.document = document;
-                    $mdDialog.hide();
-                }
 
             }
         };
