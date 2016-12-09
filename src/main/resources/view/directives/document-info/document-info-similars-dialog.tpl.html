@@ -8,13 +8,21 @@
         </md-input-container>
 
         <p class="error-text" ng-show="isInvalidData !== undefined">{{isInvalidData | translate}}</p>
-        <md-button ng-disabled="authorSearch.$invalid" class="md-raised md-primary"
+        <md-button ng-disabled="similarDocuments.$invalid" class="md-raised md-primary"
                    ng-click="searchSimilarDocuments(desiredNumber)">
             {{'BUTTON_SEARCH' | translate}}
         </md-button>
     </form>
 
-    <document-list ng-if="similarDocuments !== undefined"
-                   ng-model="similarDocuments" parent-title="title"></document-list>
+    <md-list ng-if="similarDocuments !== undefined" ng-cloak class="authors-list"
+             layout="column" layout-align="start center">
+        <md-list-item ng-repeat="document in similarDocuments" class="authors-list-item">
+            <md-button ng-click="selectNewDocument(document)" class="authors-list-item">
+                <span class="title">{{document.title}}</span><br>
+                <span class="title">{{document.author}}</span><br>
+                <span class="title">{{document.relevance}}</span>
+            </md-button>
+        </md-list-item>
+    </md-list>
 
 </md-dialog-content>

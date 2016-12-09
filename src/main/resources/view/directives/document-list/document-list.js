@@ -56,7 +56,8 @@
                         author: '',
                         cover: '',
                         content: '',
-                        rating: '1',
+                        relevance: '',
+                        rating: '1'
                     }
                 }
 
