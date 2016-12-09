@@ -124,11 +124,6 @@ public class ViewControllerImpl implements ViewController {
         System.out.println("Your text is: " + text);
     }
 
-    public String testAuthorsJSON() throws AuthorNotFoundException {
-        AuthorsCollection authorsCollection = businessController.searchMatchingAuthors("");
-        return new Gson().toJson(authorsCollection);
-    }
-
     @Override
     public void rateDocument(Document document, int rating) throws DocumentNotFoundException {
         this.businessController.rateDocument(document.getTitle(), document.getAuthor(), rating);

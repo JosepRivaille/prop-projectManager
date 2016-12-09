@@ -1,0 +1,17 @@
+<md-dialog-content class="md-dialog-content dialog-forms" layout="column" layout-align="center center"
+                   id="search-author-wrapper">
+    <form name="querySearch">
+        <p class="text-info text-bold-dialog">{{'DESCRIPTION_QUERY_SEARCH' | translate}}</p>
+        <md-input-container class="md-block">
+            <label>{{'PLACEHOLDER_QUERY_SEARCH' | translate}}</label>
+            <input ng-model="query" name="query" type="text" ng-required="true">
+        </md-input-container>
+
+        <p class="error-text text-center" ng-show="isInvalidData !== undefined">{{isInvalidData | translate}}</p>
+        <md-button ng-disabled="querySearch.$invalid" class="md-raised md-primary"
+                   ng-click="searchQuery(query)">
+            {{'BUTTON_SEARCH' | translate}}
+        </md-button>
+    </form>
+
+</md-dialog-content>

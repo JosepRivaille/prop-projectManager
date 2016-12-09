@@ -1,77 +1,65 @@
-#document-info {
-    width: 100%;
-    height: 100vh;
-    padding: 45px;
+#document-list .list-image {
+    height: 100%;
 }
 
-#document-info .container {
-    width: 100%;
-    height: 100%;
+#document-list .docs-list-item {
+    border-radius: 0;
+    margin: 0;
     padding: 0;
 }
-#document-info .doc-cover {
-    height: 100%;
-    border-radius: 3px;
-}
 
-#document-info .left-container{
-    height: 70%;
-    padding: 0;
-
-}
-
-#document-info .left-container .md-button{
-    margin: 5px 0 0;
-    height: 50px;
-}
-#document-info .left-container .image-container{
-    height: 75%;
-}
-#document-info .left-container .buttons-container{
-    height: 25%;
+#document-list .docs-list-item {
+    height: 85px;
     width: 100%;
+    /*background-color: #1b6d85;*/
+    padding: 5px;
+    padding-left: 20px;
 }
 
-#document-info .right-container{
-    padding-left: 50px;
-    padding-top: 5px;
-
-    font-family: sans-serif;
+#document-list .docs-list-item .item-image-container{
     height: 100%;
-    text-align: left;
-
+    /*background-color: #761c19;*/
+    width: auto;
 }
 
-#document-info .text-title {
+#document-list .docs-list-item .item-image-container > .item-image{
+    height: 100%;
+}
+
+#document-list .docs-list-item .item-info-container{
+    height: 100%;
+    /*background-color: #3e8f3e;*/
+    width: auto;
+    padding: 5px 5px 5px 15px;
+}
+
+#document-list .docs-list-item .item-info-container > h1{
     font-weight: bolder;
-    font-size: 2em;
+    font-size: 1.3em;
+    margin: 0 0 5px;
+    text-transform: none !important;
+    /*background-color: #e7c3c3;*/
+}
+#document-list .docs-list-item .item-info-container > h2{
+    font-weight: normal;
+    font-size: 0.9em;
+    margin: 0;
+    text-transform: none !important;
+    /*background-color: #bce8f1;*/
 }
 
-#document-info .text-author {
-
-}
-
-#document-info .text-user {
-
-}
-
-#document-info .md-content {
-    background-color: rgba(255,0,0,0.2);
-}
-
-#document-info .info-container {
-    width: 100%;
+#document-list .docs-list-item .item-buttons-container{
     height: 100%;
-    display: inline-block;
-    overflow:hidden;
+    /*background-color: #ffdd00;*/
+    width: auto;
 }
 
-#document-info .info-container .info-header {
-    width: 100%;
+#document-list .docs-list-item .item-buttons-container > .md-button{
+    margin: 6px;
 }
 
-#document-info .info-container .info-header p {
-    margin-top:0;
-    margin-bottom:0;
+#document-list .right-bottom-buttons {
+    float: right;
+    position: fixed;
+    margin-bottom: 0;
 }
-

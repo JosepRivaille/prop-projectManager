@@ -78,6 +78,7 @@ public class BusinessControllerImpl implements BusinessController {
     public void deleteUser() throws UserNotFoundException {
         User user = usersManager.getCurrentUser();
         persistenceController.deleteUser(user);
+        usersManager.logout();
     }
 
     @Override

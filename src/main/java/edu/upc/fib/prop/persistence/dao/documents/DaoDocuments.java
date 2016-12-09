@@ -10,26 +10,34 @@ import java.sql.Connection;
 public interface DaoDocuments {
 
     /**
-     * Adds a new document in persistence.
+     * Creates a new document in persistence.
      * @param c DB connection.
      * @param document Document to add in persistence.
      */
-    void addNewDocument(Connection c, Document document) throws AlreadyExistingDocumentException;
+    void createNewDocument(Connection c, Document document) throws AlreadyExistingDocumentException;
 
     /**
      * Gets all documents stored in persistence.
      * @param c DB connection.
-     * @return Set of all documents.
+     * @return Collection of all documents will all data.
      */
     DocumentsCollection getAllDocuments(Connection c);
 
     /**
-     * Updates an existing document with new Data.
+     * Edits an existing document updating it with new data.
      * @param c DB connection.
      * @param oldDocument Old document to be replaced.
      * @param newDocument New document to store.
      */
-    void updateExistingDocument(Connection c, Document oldDocument, Document newDocument);
+    void editExistingDocument(Connection c, Document oldDocument, Document newDocument)
+            throws AlreadyExistingDocumentException;
+
+    /**
+     * Deletes an existing document in the system.
+     * @param c DB connection.
+     * @param document Document to delete.
+     */
+    void deleteExistingDocument(Connection c, Document document);
 
     /**
      * Updates documents owned by a user when changes account details
@@ -38,13 +46,6 @@ public interface DaoDocuments {
      * @param newEmail New email to set.
      */
     void updateDocumentOwner(Connection c, String oldEmail, String newEmail);
-
-    /**
-     * Deletes an existing document in the system.
-     * @param c DB connection.
-     * @param document Document to delete.
-     */
-    void deleteExistingDocument(Connection c, Document document);
 
     /**
      * Deletes documents owned by a user.
@@ -106,9 +107,10 @@ public interface DaoDocuments {
     DocumentsCollection getFavourites(Connection c, String user);
 
     /**
-     *
-     * @param title
-     * @param author
+     * Checks if a document is or not favourited by the user.
+     * @param c DB connection.
+     * @param title Document title.
+     * @param author Document author
      * @param email
      * @return
      */

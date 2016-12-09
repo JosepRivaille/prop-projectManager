@@ -1,15 +1,16 @@
 <md-dialog-content class="md-dialog-content dialog-forms" layout="row" layout-align="center center">
-    <form ng-if="!isRegister" name="documentSearch">
+    <form name="documentSearch">
+        <p class="text-info text-bold-dialog">{{'DESCRIPTION_DOCUMENT_SEARCH' | translate}}</p>
         <md-input-container class="md-block">
-            <label>Author</label>
+            <label>{{'PLACEHOLDER_AUTHOR_DOCUMENT_SEARCH' | translate}}</label>
             <input ng-model="authorName" name="authorName" type="text" ng-required="true">
         </md-input-container>
         <md-input-container class="md-block">
-            <label>Document</label>
+            <label>{{'PLACEHOLDER_DOCUMENT_DOCUMENT_SEARCH' | translate}}</label>
             <input ng-model="documentTitle" name="documentTitle" type="text" ng-required="true">
         </md-input-container>
 
-        <p class="error-text" ng-show="isInvalidData !== undefined">{{isInvalidData | translate}}</p>
+        <p class="error-text text-center" ng-show="isInvalidData !== undefined">{{isInvalidData | translate}}</p>
         <md-button ng-disabled="documentSearch.$invalid" class="md-raised md-primary"
                    ng-click="searchDocument(documentTitle, authorName)">
             {{'BUTTON_SEARCH' | translate}}

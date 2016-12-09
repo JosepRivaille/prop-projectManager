@@ -39,14 +39,18 @@ public interface ViewGraphicController {
      */
     String getDocumentsByBooleanExpression(String booleanExpression) throws InvalidQueryException;
 
+    String getDocumentsByQuery(String query) throws InvalidQueryException;
+
     /**
-     * Gets the k most similar document to a given document
      *
-     * @param document Document to compare with.
-     * @param k        Number of similar documents to look for.
-     * @return K more similar documents.
+     * @param documentTitle
+     * @param authorName
+     * @param k
+     * @return
+     * @throws DocumentNotFoundException
      */
-    String getDocumentsByRelevance(Document document, int k) throws DocumentNotFoundException;
+    String getDocumentsByRelevance(String documentTitle, String authorName, int k)
+            throws DocumentNotFoundException;
 
     /**
      * Tries to log a user in the system.

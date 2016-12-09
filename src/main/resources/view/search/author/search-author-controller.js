@@ -39,11 +39,11 @@
 
         function DialogAuthorsController($rootScope, $scope, $mdDialog) {
             $scope.searchAuthors = function (prefix) {
-                if (prefix === undefined) {
-                    prefix = '';
-                }
+                $scope.authors = undefined;
+                $scope.isInvalidData = undefined;
+                prefix = prefix || '';
+
                 try {
-                    $scope.isInvalidData = undefined;
                     var response = $rootScope.backendService.getAuthorsWithPrefix(prefix);
                     $scope.authors = JSON.parse(response).authors;
                     $scope.isPrefixSearch = true;

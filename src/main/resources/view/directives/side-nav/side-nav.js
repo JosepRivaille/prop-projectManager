@@ -25,6 +25,12 @@
             templateUrl: 'directives/side-nav/side-nav.tpl.html',
             scope: {},
             link: function (scope) {
+
+                if (angular.isDefined($rootScope.currentUser)) {
+                    scope.isLoggedIn = $rootScope.isLoggedIn;
+                    scope.username = $rootScope.currentUser.username;
+                }
+
                 angular.forEach(menuItems, function (item) {
                     item.icon = 'fa-' + item.icon;
                     if (angular.isDefined(item.children)) {

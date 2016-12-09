@@ -1,8 +1,18 @@
+<div id="side-nav" class="fill-all-parent">
 <md-content id="sidebar-wrapper">
     <ul class="sidebar-nav">
-        <li class="sidebar-brand">
-            {{title | translate}}
-        </li>
+        <div ng-if="isLoggedIn" class="user-space">
+            <div class="user-space-inner" layout="row" layout-align="start center">
+                <div class="user-image">
+                    <img ng-src="../images/sample.png">
+                </div>
+                <div class="user-info" flex>
+                        <p>{{username}}</p>
+                        <a>{{'ACCOUNT_LOGOUT' | translate}}</a>
+
+                </div>
+            </div>
+        </div>
         <li ng-repeat="item in menuItems"
             ng-class="{'active-option-menu': item.selected}">
             <a ui-sref="{{item.children === undefined ? item.state : item.children[0].state}}">
@@ -21,3 +31,4 @@
         </li>
     </ul>
 </md-content>
+</div>

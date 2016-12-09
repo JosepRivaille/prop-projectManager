@@ -19,16 +19,21 @@
         vm.title = "TITLE_DOCUMENT_LIST";
     }
 
-    function documentList($rootScope, $timeout, $mdDialog, $filter) {
+    function documentList($rootScope, $timeout, $mdDialog, $filter, $state) {
         return {
             restrict: 'EA',
             templateUrl: 'directives/document-list/document-list.tpl.html',
             scope: {
                 documents: '=ngModel',
                 isEditMode: '=?',
+                isSearchMode : '=?',
                 parentTitle: '=?'
             },
             link: function (scope) {
+
+                scope.isDocFavourite = function(doc){
+                    return $rootScope.backendService.isDocumentFavourite(doc.title,doc.author);
+                }
 
                 scope.isListSelected = true;
                 scope.isButtonOpened = false;
@@ -38,17 +43,13 @@
 
                 if(angular.isUndefined(scope.isEditMode)) scope.isEditMode = false;
 
-                function hola(){
-                    alert("HOLA!");
-                }
-
                 function buildDocument() {
                     return {
                         title: '',
                         author: '',
                         cover: '',
                         content: '',
-                        rating: '1'
+                        rating: '1',
                     }
                 }
 
@@ -63,7 +64,6 @@
                 }
 
 
-
                 scope.$watch('scope.isButtonOpened', function(isOpen) {
                     if (isOpen) {
                         $timeout(function() {
@@ -75,39 +75,42 @@
                 });
 
                 scope.createDocument = function () {
-                    scope.documentSelected = buildDocument();
                     scope.title = 'MENU_MANAGEMENT_CREATE';
+                    scope.documentSelected = buildDocument();
                     scope.isListSelected = false;
                     scope.isNewDocument = true;
                     scope.isCreateOrUpdate = true;
                 };
 
                 scope.editDocument = function (document) {
+                    scope.title = 'MENU_MANAGEMENT_UPDATE';
                     scope.documentBackUp = angular.copy(document);
                     scope.documentSelected = document;
-                    scope.title = 'MENU_MANAGEMENT_UPDATE';
                     scope.isListSelected = false;
                     scope.isNewDocument = false;
                     scope.isCreateOrUpdate = true;
                 };
 
                 scope.backToList = function () {
-                    scope.isCreateOrUpdate = false;
-                    scope.documentBackUp = undefined;
-                    scope.isListSelected = true;
                     scope.title = 'MENU_MANAGEMENT_ALL';
+                    scope.documentBackUp = undefined;
+                    scope.isCreateOrUpdate = false;
+                    scope.isListSelected = true;
                 };
 
-                scope.select = function(document){
-                    scope.isListSelected = false;
+                scope.selectDocument = function (document) {
                     scope.documentSelected = document;
+                    scope.isListSelected = false;
                     scope.isDocumentSelected = true;
-
                 };
 
-                scope.back = function(){
+                scope.back = function () {
                     scope.isDocumentSelected = false;
                     scope.isListSelected = true;
+                };
+
+                scope.searchAgain = function () {
+                    $state.reload();
                 };
 
                 //TODO: Not working yet
@@ -119,6 +122,8 @@
                 };
 
                 scope.storeDocument = function (event) {
+                    if(angular.isDefined(scope.coverImagePath)) alert(scope.coverImagePath);
+                    else alert("no definido");
                     var translations = {
                         title: $filter('translate')('DIALOG_CREATE_TITLE'),
                         textContent: $filter('translate')('DIALOG_CREATE_CONTENT'),
@@ -160,7 +165,6 @@
                 };
 
                 scope.showDeleteConfirm = function (event, document) {
-
                     var translations = {
                         title: $filter('translate')('DIALOG_DELETE_TITLE'),
                         textContent: $filter('translate')('DIALOG_DELETE_CONTENT'),
@@ -184,8 +188,6 @@
                     }, function() {
                     });
                 };
-
-
 
             }
         };

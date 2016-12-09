@@ -26,6 +26,7 @@
     <!-- JS -->
     <script src="backendService.js" type="text/javascript"></script>
 
+    <script src="./res/js/jquery.min.js"></script>
     <script src="./res/js/angular.min.js"></script>
     <script src="./res/js/angular-animate.min.js"></script>
     <script src="./res/js/angular-aria.min.js"></script>
@@ -34,7 +35,6 @@
     <script src="./res/js/angular-ui-router.min.js"></script>
     <script src="./res/js/angular-translate.min.js"></script>
     <script src="./res/js/angular-translate-loader-static-files.min.js"></script>
-    <script src="./res/js/jquery.min.js"></script>
     <script src="./res/js/bootstrap.min.js"></script>
 
     <!-- App -->
@@ -50,6 +50,8 @@
     <script src="search/all/search-all-controller.js"></script>
     <script src="search/author/search-author-controller.js"></script>
     <script src="search/document/search-document-controller.js"></script>
+    <script src="search/boolean/search-boolean-controller.js"></script>
+    <script src="search/query/search-query-controller.js"></script>
     <script src="search/search-routes.js"></script>
 
     <!-- Manage -->
@@ -75,14 +77,15 @@
     <script src="directives/star-rating/star-rating.js"></script>
     <script src="directives/document-info/document-info.js"></script>
     <script src="directives/document-list/document-list.js"></script>
-    <script src="directives/form-file-upload/form-file-upload.js"></script>
+    <script src="directives/fd-input/fd-input.js"></script>
 </head>
 
 <body>
 
-<!-- TODO: Fix loading circular -->
 <loading-circular ng-model="$rootScope.isRequesting"></loading-circular>
 <login-form is-logged-in="$rootScope.isLoggedIn"></login-form>
+
+<side-nav></side-nav>
 
 <div ui-view="body"></div>
 

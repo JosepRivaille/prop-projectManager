@@ -1,4 +1,4 @@
-<md-content class="fill-all" id="document-info" ng-cloak>
+<md-content class="fill-all-window" id="document-info" ng-cloak>
     <div class="container" layout="row">
         <div style="height: 100%;" layout="column" layout-align="center center">
 
@@ -8,15 +8,21 @@
                     <img class="doc-cover" ng-show="{{document.cover === ''}}" ng-src="../images/sample.png">
                 </div>
                 <div class="buttons-container" layout-align="end stretch" layout="column">
-                    <md-button ng-click="addFavourite()" ng-if="!isFavourite" class="md-raised md-primary">{{'BUTTON_ADD_FAVOURITES' | translate}}</md-button>
-                    <md-button ng-click="removeFavourite()" ng-if="isFavourite" class="md-raised md-primary">{{'BUTTON_REMOVE_FROM_FAVOURITES' | translate}}</md-button>
-                    <md-button class="md-raised md-accent">{{'BUTTON_SEARCH_SIMILARS' | translate}}</md-button>
+                    <md-button ng-click="addFavourite()" ng-if="!isFavourite" class="md-raised md-primary">
+                        {{'BUTTON_ADD_FAVOURITES' | translate}}
+                    </md-button>
+                    <md-button ng-click="removeFavourite()" ng-if="isFavourite" class="md-raised md-primary">
+                        {{'BUTTON_REMOVE_FROM_FAVOURITES' | translate}}
+                    </md-button>
+                    <md-button ng-click="searchSimilars($event)" class="md-raised md-accent">
+                        {{'BUTTON_SEARCH_SIMILARS' | translate}}
+                    </md-button>
                 </div>
 
             </div>
         </div>
-        <div flex layout="column" layout-align="start start" class="right-container">
 
+        <div flex layout="column" layout-align="start start" class="right-container">
             <div class="info-container" layout="column">
                 <div class="info-header">
                     <div layout="column" layout-align="center center">
@@ -25,10 +31,11 @@
                         <star-rating ng-model="document.rating"></star-rating>
                     </div>
                 </div>
-                <div style="width: 100%; overflow-x: hidden; overflow-y: scroll; margin-top: 20px;">
+                <div style="width: 100%; overflow-x: hidden; overflow-y: auto; margin-top: 20px;">
                     <p>{{document.content}}</p>
                 </div>
             </div>
         </div>
+
     </div>
 </md-content>

@@ -17,7 +17,7 @@ import java.util.Set;
 
 public class DaoDocumentsImpl implements DaoDocuments {
 
-    public void addNewDocument(Connection c, Document document) throws AlreadyExistingDocumentException {
+    public void createNewDocument(Connection c, Document document) throws AlreadyExistingDocumentException {
         String title = document.getTitle();
         String author = document.getAuthor();
         String content = document.getContent();
@@ -72,22 +72,27 @@ public class DaoDocumentsImpl implements DaoDocuments {
     }
 
     @Override
-    public void updateExistingDocument(Connection c, Document oldDocument, Document newDocument) {
-        //TODO al modificar un documento deberian actualizarse tambien datos como posiciones de palabras, ratings..?
+    public void editExistingDocument(Connection c, Document oldDocument, Document newDocument)
+            throws AlreadyExistingDocumentException {
+        //Old data
         String oldTitle = oldDocument.getTitle();
         String oldAuthor = oldDocument.getAuthor();
+        //New data
+        String newTitle = newDocument.getTitle();
+        String newAuthor = newDocument.getAuthor();
+        String newTermFrequency = StringUtils.buildJSONFromFrequencyMap(newDocument.getTermFrequency());
+        String newTermPositions = StringUtils.buildJSONFromPositionsMap(newDocument.getTermPositions());
+        String newContent = newDocument.getContent();
+        Float newRating = newDocument.getRating();
         try {
             Statement statement = c.createStatement();
-            String query = String.format("UPDATE documents " +
-                            "SET title='%s', author_name='%s', term_frequency='%s',term_positions='%s', content='%s', rating='%f'" +
+            String query = String.format("UPDATE documents SET title='%s', author_name='%s', " +
+                            "term_frequency='%s',term_positions='%s', content='%s', rating='%f'" +
                             "WHERE title='%s' AND author_name='%s';",
-                    newDocument.getTitle(), newDocument.getAuthor(),
-                    StringUtils.buildJSONFromFrequencyMap(newDocument.getTermFrequency()),
-                    StringUtils.buildJSONFromPositionsMap(newDocument.getTermPositions()),
-                    newDocument.getContent(), newDocument.getRating(), oldTitle, oldAuthor);
+                    newTitle, newAuthor, newTermFrequency, newTermPositions, newContent, newRating, oldTitle, oldAuthor);
             statement.executeUpdate(query);
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new AlreadyExistingDocumentException();
         }
     }
 

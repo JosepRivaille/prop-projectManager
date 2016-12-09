@@ -1,13 +1,13 @@
-<md-content class="fill-all">
+<md-content id="settings-wrapper" class="fill-all-window">
     <h1 class="title-landing">
         {{ vm.title | translate}}
     </h1>
-    <md-list>
+    <md-list id="settings-scroll">
         <md-subheader class="md-no-sticky">{{vm.languages.title | translate}}</md-subheader>
-        <md-list-item ng-repeat="value in vm.languages.values">
-            <p>{{value.name | translate}}</p>
-            <md-checkbox class="md-raised md-primary" ng-model="value.selected" aria-label="Language checkbox"
-                         ng-click="vm.disableOtherLanguages(value)"></md-checkbox>
+        <md-list-item ng-repeat="language in vm.languages.values">
+            <p>{{language.name | translate}}</p>
+            <md-checkbox class="md-raised md-primary" ng-model="language.selected" aria-label="Language checkbox"
+                         ng-click="vm.disableOtherLanguages(language)"></md-checkbox>
         </md-list-item>
         <md-divider ></md-divider>
         <md-subheader class="md-no-sticky">{{vm.theme.title | translate}}</md-subheader>
@@ -17,9 +17,17 @@
             <md-switch class="md-primary" ng-model="vm.theme.darkTheme" aria-label="Switch theme"
                        ng-click="vm.switchTheme()"></md-switch>
         </md-list-item>
-        <md-subheader class="md-no-sticky">Logout account</md-subheader>
+        <md-divider ></md-divider>
+        <md-subheader class="md-no-sticky">{{'SETTINGS_ACCOUNT' | translate}}</md-subheader>
         <md-list-item>
-            <md-button ng-click="vm.logout(); $rootScope.isLoggedIn = false">Logout</md-button>
+            <md-button class="md-raised md-primary" ng-click="vm.logout(); $rootScope.isLoggedIn = false">
+                {{'ACCOUNT_LOGOUT' | translate}}
+            </md-button>
+        </md-list-item>
+        <md-list-item>
+            <md-button class="md-raised md-warn"  ng-click="vm.deleteAccount($event)">
+                {{'ACCOUNT_DELETE' | translate}}
+            </md-button>
         </md-list-item>
     </md-list>
 </md-content>
