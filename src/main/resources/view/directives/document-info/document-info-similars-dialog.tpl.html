@@ -1,15 +1,15 @@
-<div id="search-similar-documents-dialog" class="fill-all-parent">
+<div id="search-similar-documents-dialog" class="fill-all-parent no-scrollable">
     <md-dialog-content class="md-dialog-content dialog-forms" layout="column" layout-align="center center">
 
-        <form ng-if="similarDocuments === undefined" name="similarSearch">
+        <form ng-if="similarDocuments === undefined" name="similarSearch" class="no-scrollable">
             <p class="text-info text-bold-dialog">{{'DIALOG_SEARCH_SIMILAR_CONTENT' | translate}}</p>
-            <md-input-container class="md-block">
+            <md-input-container class="md-block" required>
                 <label>{{'DIALOG_SEARCH_SIMILAR_PLACEHOLDER' | translate}}</label>
                 <input ng-model="desiredNumber" name="desiredNumber" type="number" ng-required="true">
             </md-input-container>
 
             <p class="error-text" ng-show="isInvalidData !== undefined">{{isInvalidData | translate}}</p>
-            <md-button ng-disabled="similarDocuments.$invalid" class="md-raised md-primary"
+            <md-button ng-disabled="similarSearch.$invalid" class="md-raised md-primary"
                        ng-click="searchSimilarDocuments(desiredNumber)">
                 {{'BUTTON_SEARCH' | translate}}
             </md-button>

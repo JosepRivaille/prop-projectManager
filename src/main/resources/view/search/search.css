@@ -94,6 +94,57 @@
     font-weight: bold;
 }
 
+/************************/
+
+
+#search-query-dialog .similars-list {
+    width:400px;
+    max-height: 35vh;
+    padding: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+#search-query-dialog .similars-list .similars-list-item{
+    width:100%;
+    padding: 0;
+    margin: 0;
+}
+
+#search-query-dialog .similars-list .similars-list-item .md-button{
+    width:100%;
+    border-radius: 0px;
+    margin: 0;
+    padding: 5px;
+}
+
+#search-query-dialog .similars-list .similars-list-item .list-item-image{
+    height: 40px;
+}
+
+#search-query-dialog .similars-list .similars-list-item .item-info{
+    line-height: 20px;
+    padding-left: 6px;
+}
+
+#search-query-dialog .similars-list .similars-list-item .item-info .title{
+    font-weight: bold;
+}
+
+#search-similar-documents-dialog .similars-list .similars-list-item .item-info .author{
+
+}
+
+#search-similar-documents-dialog .similars-list .similars-list-item .percentage-space{
+    padding-right: 10px;
+}
+
+#search-similar-documents-dialog .similars-list .similars-list-item .percentage-space .percentage{
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+
 
 
 

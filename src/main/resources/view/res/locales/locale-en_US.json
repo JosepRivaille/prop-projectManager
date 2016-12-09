@@ -84,5 +84,6 @@
   "EXCEPTION_INVALID_QUERY": "Invalid query format",
   "EXCEPTION_INVALID_EXPRESSION": "Invalid expression format",
 
-  "AUTHORS_FOUND_LABEL": " authors found"
+  "AUTHORS_FOUND_LABEL": " authors found",
+  "DOCUMENTS_FOUND_LABEL": " documents found"
 }

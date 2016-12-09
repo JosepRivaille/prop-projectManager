@@ -58,7 +58,7 @@ public class ViewGraphicControllerImpl implements ViewGraphicController {
         List<DocumentBasicInfo> documentsBasicInfo = new ArrayList<>();
         for (Map.Entry<Double, List<Document>> documents : dss.getDocs().entrySet()) {
             for (Document document : documents.getValue()) {
-                documentsBasicInfo.add(new DocumentBasicInfo(document));
+                documentsBasicInfo.add(new DocumentBasicInfo(document, documents.getKey()));
             }
         }
         return new Gson().toJson(documentsBasicInfo);

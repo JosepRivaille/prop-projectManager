@@ -29,13 +29,16 @@
             })}());
 
         function DialogBooleanController($rootScope, $scope, $mdDialog) {
+            $scope.similarDocuments = undefined;
+
             $scope.searchQuery = function (query) {
                 alert("entramos en busqueda query");
                 try {
-                    vm.isInvalidData = undefined;
+                    $scope.isInvalidData = undefined;
                     var response = $rootScope.backendService.getDocumentsByQuery(query);
-                    vm.documentSelected = JSON.parse(response);
-                    $mdDialog.hide();
+                    //vm.documentSelected = JSON.parse(response);
+                    $scope.similarDocuments = JSON.parse(response);
+                    //$mdDialog.hide();
                 } catch (e) {
                     alert(e);
                     if (e.toString().indexOf('InvalidQueryException') !== -1) {
