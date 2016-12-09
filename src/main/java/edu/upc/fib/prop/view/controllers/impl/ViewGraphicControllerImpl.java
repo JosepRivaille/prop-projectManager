@@ -54,8 +54,17 @@ public class ViewGraphicControllerImpl implements ViewGraphicController {
     }
 
     @Override
-    public String getDocumentsByQuery(String query) throws InvalidQueryException {
-        throw new InvalidQueryException();
+    public String getDocumentsByQuery(String query) throws InvalidQueryException, DocumentNotFoundException {
+        //TODO estamos hardcodeando el numero de docs a buscar, ponerlo como dialog y que el usuario elija
+        //TODO ademas no va, hay que revisar
+        SortedDocumentsSet dss = this.businessController.searchDocumentsByQuery(query, 10);
+        List<DocumentBasicInfo> documentsBasicInfo = new ArrayList<>();
+        for (Map.Entry<Double, List<Document>> documents : dss.getDocs().entrySet()) {
+            for (Document document : documents.getValue()) {
+                documentsBasicInfo.add(new DocumentBasicInfo(document));
+            }
+        }
+        return new Gson().toJson(documentsBasicInfo);
     }
 
     @Override

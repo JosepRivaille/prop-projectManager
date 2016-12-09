@@ -56,9 +56,9 @@ body {
     background: white;
 }
 
-.no-scrollable { overflow: hidden; }
-.no-scrollable-x { overflow-x: hidden; }
-.no-scrollable-y { overflow-y: hidden; }
-.scrollable { overflow: auto; }
-.scrollable-x { overflow-x: auto; }
-.scrollable-y { overflow-y: auto; }
+.no-scrollable { overflow: hidden !important; }
+.no-scrollable-x { overflow-x: hidden !important; }
+.no-scrollable-y { overflow-y: hidden !important; }
+.scrollable { overflow: auto !important; }
+.scrollable-x { overflow-x: auto !important; }
+.scrollable-y { overflow-y: auto !important; }

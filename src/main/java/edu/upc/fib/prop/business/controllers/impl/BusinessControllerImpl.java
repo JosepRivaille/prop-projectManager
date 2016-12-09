@@ -114,7 +114,7 @@ public class BusinessControllerImpl implements BusinessController {
 
     @Override
     public SortedDocumentsSet searchDocumentsByQuery(String str, int k) {
-        Document document = new Document("", "", "str");
+        Document document = new Document("", "", str);
         document.updateFrequencies();
         return this.searchDocument.searchForSimilarDocuments(this.documentsCollection, document, k);
     }

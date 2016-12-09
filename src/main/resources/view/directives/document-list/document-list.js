@@ -27,13 +27,20 @@
                 documents: '=ngModel',
                 isEditMode: '=?',
                 isSearchMode : '=?',
-                parentTitle: '=?'
+                parentTitle: '=?',
+                parent: '=?'
             },
             link: function (scope) {
 
                 scope.isDocFavourite = function(doc){
                     return $rootScope.backendService.isDocumentFavourite(doc.title,doc.author);
                 }
+
+                scope.removeFavourite = function (doc) {
+                    $rootScope.backendService.removeFavourite(doc.title, doc.author);
+                    var index = scope.documents.indexOf(doc);
+                    scope.documents.splice(index, 1);
+                };
 
                 scope.isListSelected = true;
                 scope.isButtonOpened = false;
