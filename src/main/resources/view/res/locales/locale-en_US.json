@@ -44,7 +44,7 @@
   "DIALOG_DELETE_OK": "OK",
   "DIALOG_DELETE_CANCEL": "Cancel",
 
-  "DIALOG_SEARCH_SIMILAR_CONTENT": "How much similar documents you want to search for?",
+  "DIALOG_SEARCH_SIMILAR_CONTENT": "How many documents do you want to search for?",
   "DIALOG_SEARCH_SIMILAR_PLACEHOLDER": "Number of documents",
 
   "SETTINGS_LANGUAGES": "Change system language",
@@ -80,7 +80,8 @@
   "EXCEPTION_ALREADY_EXISTING_USER": "Already existing user with this email",
   "EXCEPTION_AUTHOR_NOT_FOUND": "No matching authors found in the system",
   "EXCEPTION_DOCUMENT_NOT_FOUND": "No matching document found",
-  "EXCEPTION_INVALID_QUERY": "Invalid query format, solve it and try again.",
+  "EXCEPTION_INVALID_QUERY": "Invalid query format",
+  "EXCEPTION_INVALID_EXPRESSION": "Invalid expression format",
 
   "AUTHORS_FOUND_LABEL": " authors found"
 }

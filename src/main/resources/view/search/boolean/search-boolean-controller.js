@@ -37,7 +37,7 @@
                     $mdDialog.hide();
                 } catch (e) {
                     if (e.toString().indexOf('InvalidQueryException') !== -1) {
-                        $scope.isInvalidData = 'EXCEPTION_INVALID_QUERY';
+                        $scope.isInvalidData = 'EXCEPTION_INVALID_EXPRESSION';
                     }
                 }
             }
