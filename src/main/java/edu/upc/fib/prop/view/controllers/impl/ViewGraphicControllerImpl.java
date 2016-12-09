@@ -69,7 +69,7 @@ public class ViewGraphicControllerImpl implements ViewGraphicController {
                 documentsBasicInfo.add(new DocumentBasicInfo(document));
             }
         }
-        return new Gson().toJson(sortedDocumentsSet);
+        return new Gson().toJson(documentsBasicInfo);
     }
 
     @Override

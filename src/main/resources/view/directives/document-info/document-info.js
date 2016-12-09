@@ -19,7 +19,7 @@
         vm.title = "TITLE_DOCUMENT_INFO";
     }
 
-    function documentInfo($rootScope, $mdDialog, $filter) {
+    function documentInfo($rootScope, $mdDialog) {
         return {
             restrict: 'EA',
             templateUrl: 'directives/document-info/document-info.tpl.html',
@@ -28,15 +28,16 @@
             },
             link: function (scope) {
 
-                function DialogSimilarDocumentsCtrl($rootScope, $mdDialog, $scope) {
+
+                function DialogSimilarDocumentsCtrl($rootScope, $scope) {
                     $scope.searchSimilarDocuments = function (desiredNumber) {
                         try {
                             $scope.isInvalidData = undefined;
                             var documentTitle = scope.document.title;
                             var authorName = scope.document.author;
                             var response = $rootScope.backendService.getDocumentsByRelevance(documentTitle, authorName, desiredNumber);
-                            alert(response);
-                            $mdDialog.hide();
+                            $scope.similarDocuments = JSON.parse(response);
+                            $scope.title = 'MENU_SEARCH_SIMILAR_DOCUMENTS';
                         } catch (e) {
                             if (e.toString().indexOf('DocumentNotFoundException') !== -1) {
                                 $scope.isInvalidData = 'EXCEPTION_DOCUMENT_NOT_FOUND';

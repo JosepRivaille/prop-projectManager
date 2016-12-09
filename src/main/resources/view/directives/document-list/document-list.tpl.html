@@ -48,8 +48,6 @@
 
     </div>
 
-    <!-- FORMULARIO CREACION/EDICION DOCS -->
-
     <div ng-if="!isListSelected && isEditMode && isCreateOrUpdate" class="no-scrollable fill-all-window">
         <md-content class="md-no-momentum fill-all-parent" layout="column">
             <div style="height: auto">
@@ -78,23 +76,6 @@
                         </md-input-container>
                     </div>
                     <div layout="row" layout-align="space-between none">
-                        <!--
-
-                        <md-input-container class="md-block">
-                            <form-file-upload ng-model="documentSelected.cover">Document cover</form-file-upload>
-                        </md-input-container>
-
-                        <md-button layout-align="center center" class="md-raised md-primary">
-                            <i class="fa fa-picture-o"></i>
-                        </md-button>
-                        <input type="file" id="file" name="file"/>
-
-                        -->
-
-                        <!--<md-button>
-                            <label for="file-input">Select</label>
-                        </md-button>
-                        <input id="file-input" type="file">-->
 
                         <div layout="row" layout-align="start center">
                             <md-button class="md-raised md-primary">
@@ -121,9 +102,6 @@
             </div>
         </md-content>
     </div>
-
-
-    <!-- BOTONES FLOTANTES ADD/IMPORT -->
 
     <div ng-if="isListSelected && isEditMode" class="right-bottom-buttons" layout="column" layout-align="center center" flex>
 

@@ -6,6 +6,7 @@
   "MENU_SEARCH_ALL": "All documents",
   "MENU_SEARCH_AUTHOR": "Filter by author",
   "MENU_SEARCH_SINGLE_DOCUMENT": "Get specific document",
+  "MENU_SEARCH_SIMILAR_DOCUMENTS": "Similar documents",
   "MENU_SEARCH_BOOLEAN": "Boolean expression",
   "MENU_SEARCH_QUERY": "Query search",
   "MENU_MANAGEMENT": "Management",
