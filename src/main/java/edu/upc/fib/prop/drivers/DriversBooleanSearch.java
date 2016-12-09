@@ -19,7 +19,7 @@ public class DriversBooleanSearch{
     }
 
     public static void main(String[] args) {
-        printResult("Insert some contents (-1 to stop)");
+        printResult("Insert some documents (-1 to stop)");
         Document doc;
         DocumentsCollection doccol = new DocumentsCollection();
         String name = IOUtils.askForString("Title");

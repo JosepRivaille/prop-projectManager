@@ -134,20 +134,21 @@ public class Document {
         for (String sentence : content.split(Constants.SENTENCE_SEPARATION_REGEX)) {
             Integer offsetCounter = 0;
             for (String word : sentence.split(Constants.WORD_SEPARATION_REGEX)) {
-                if (termPositions.containsKey(word)) {
-                    if (termPositions.get(word).containsKey(sentenceCounter)) {
-                        termPositions.get(word).get(sentenceCounter).add(offsetCounter);
+                String stdWord = word.toLowerCase();
+                if (termPositions.containsKey(stdWord)) {
+                    if (termPositions.get(stdWord).containsKey(sentenceCounter)) {
+                        termPositions.get(stdWord).get(sentenceCounter).add(offsetCounter);
                     } else {
                         Set<Integer> offsetData = new TreeSet<>();
                         offsetData.add(offsetCounter);
-                        termPositions.get(word).put(sentenceCounter, offsetData);
+                        termPositions.get(stdWord).put(sentenceCounter, offsetData);
                     }
                 } else {
                     Set<Integer> offsetData = new TreeSet<>();
                     offsetData.add(offsetCounter);
                     Map<Integer, Set<Integer>> sentenceData = new TreeMap<>();
                     sentenceData.put(sentenceCounter, offsetData);
-                    termPositions.put(word, sentenceData);
+                    termPositions.put(stdWord, sentenceData);
                 }
                 offsetCounter++;
             }

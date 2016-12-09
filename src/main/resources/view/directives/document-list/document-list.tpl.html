@@ -69,11 +69,11 @@
                     <div layout-gt-sm="row">
                         <md-input-container class="md-block" flex-gt-sm="">
                             <label>Document title</label>
-                            <input ng-model="documentSelected.title" type="text" ng-required="true">
+                            <input ng-model="documentSelected.title" nodeType="text" ng-required="true">
                         </md-input-container>
                         <md-input-container class="md-block" flex-gt-sm="">
                             <label>Author name</label>
-                            <input ng-model="documentSelected.author" type="text" ng-required="true">
+                            <input ng-model="documentSelected.author" nodeType="text" ng-required="true">
                         </md-input-container>
                     </div>
                     <div layout="row" layout-align="start none" flex>
@@ -93,7 +93,7 @@
                                 </label>
                             </md-button>
                             <p id="selectedImageLabel">{{fileName}}</p>
-                            <input id="fileInput" type="file" class="ng-hide" name="coverImagePath" fd-input file-name="fileName">
+                            <input id="fileInput" nodeType="file" class="ng-hide" name="coverImagePath" fd-input file-name="fileName">
                         </div>
 
 

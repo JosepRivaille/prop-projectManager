@@ -3,11 +3,11 @@
         <p class="text-info text-bold-dialog">{{'DESCRIPTION_DOCUMENT_SEARCH' | translate}}</p>
         <md-input-container class="md-block">
             <label>{{'PLACEHOLDER_AUTHOR_DOCUMENT_SEARCH' | translate}}</label>
-            <input ng-model="authorName" name="authorName" type="text" ng-required="true">
+            <input ng-model="authorName" name="authorName" nodeType="text" ng-required="true">
         </md-input-container>
         <md-input-container class="md-block">
             <label>{{'PLACEHOLDER_DOCUMENT_DOCUMENT_SEARCH' | translate}}</label>
-            <input ng-model="documentTitle" name="documentTitle" type="text" ng-required="true">
+            <input ng-model="documentTitle" name="documentTitle" nodeType="text" ng-required="true">
         </md-input-container>
 
         <p class="error-text text-center" ng-show="isInvalidData !== undefined">{{isInvalidData | translate}}</p>

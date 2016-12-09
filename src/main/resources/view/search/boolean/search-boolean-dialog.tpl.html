@@ -4,7 +4,7 @@
         <p class="text-info text-bold-dialog">{{'DESCRIPTION_BOOLEAN_SEARCH' | translate}}</p>
         <md-input-container class="md-block">
             <label>{{'PLACEHOLDER_BOOLEAN_SEARCH' | translate}}</label>
-            <input ng-model="booleanExpression" name="booleanExpression" type="text" ng-required="true">
+            <input ng-model="booleanExpression" name="booleanExpression" nodeType="text" ng-required="true">
         </md-input-container>
 
         <p class="error-text text-center" ng-show="isInvalidData !== undefined">{{isInvalidData | translate}}</p>

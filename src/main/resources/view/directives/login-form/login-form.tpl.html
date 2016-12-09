@@ -3,13 +3,13 @@
     <form ng-if="!isRegister" name="clientLogin">
         <md-input-container class="md-block" flex-gt-sm="">
             <label>{{'FORM_EMAIL' | translate}}</label>
-            <input ng-model="user.email" name="userEmail" type="email" ng-required="true">
+            <input ng-model="user.email" name="userEmail" nodeType="email" ng-required="true">
             <p class="error-text" ng-show="clientLogin.userEmail.$invalid && !clientLogin.userEmail.$pristine">
                 {{'FORM_INVALID_EMAIL' | translate}}</p>
         </md-input-container>
         <md-input-container class="md-block" flex-gt-sm="">
             <label>{{'FORM_PASSWORD' | translate}}</label>
-            <input ng-model="user.password" name="userPassword" type="password" ng-required="true">
+            <input ng-model="user.password" name="userPassword" nodeType="password" ng-required="true">
         </md-input-container>
 
         <p class="error-text" ng-show="isInvalidData !== undefined">{{isInvalidData | translate}}</p>
@@ -22,22 +22,22 @@
     <form ng-if="isRegister" name="clientRegister">
         <md-input-container ng-if="isRegister" class="md-block" flex-gt-sm="">
             <label>{{'FORM_USER_NAME' | translate}}</label>
-            <input ng-model="user.userName" name="userName" type="text" ng-required="true">
+            <input ng-model="user.userName" name="userName" nodeType="text" ng-required="true">
         </md-input-container>
         <md-input-container class="md-block" flex-gt-sm="">
             <label>{{'FORM_EMAIL' | translate}}</label>
-            <input ng-model="user.email" name="userEmail" type="email" ng-required="true">
+            <input ng-model="user.email" name="userEmail" nodeType="email" ng-required="true">
             <p class="error-text" ng-show="clientRegister.userEmail.$invalid && !clientRegister.userEmail.$pristine">
                 {{'FORM_INVALID_EMAIL' | translate}}
             </p>
         </md-input-container>
         <md-input-container class="md-block" flex-gt-sm="">
             <label>{{'FORM_PASSWORD' | translate}}</label>
-            <input ng-model="user.password" name="userPassword" type="password" ng-required="true">
+            <input ng-model="user.password" name="userPassword" nodeType="password" ng-required="true">
         </md-input-container>
         <md-input-container class="md-block" flex-gt-sm="">
             <label>{{'FORM_REPEAT_PASSWORD' | translate}}</label>
-            <input ng-model="user.password2" name="userPassword2" type="password" ng-required="true">
+            <input ng-model="user.password2" name="userPassword2" nodeType="password" ng-required="true">
         </md-input-container>
 
         <p class="error-text" ng-show="isInvalidData !== undefined">{{isInvalidData | translate}}</p>

@@ -1,142 +1,125 @@
 package edu.upc.fib.prop.models;
 
+import edu.upc.fib.prop.utils.Constants;
+
 import java.util.ArrayList;
-import java.util.Set;
 
 public class Node {
-    private char operator;
-    private String paraula;
-    private ArrayList<Node> childrens;
+
+    private Operator operator;
+    private NodeType nodeType;
+    private String word;
+    private ArrayList<Node> children;
 
     public Node(){
-        this.childrens = new ArrayList<>();
+        this.children = new ArrayList<>();
     }
 
+    private Node(NodeType nodeType, String word) {
+        this.nodeType = nodeType;
+        this.word = word;
+        this.children = new ArrayList<>();
+    }
 
-    public char getOperator() {
+    public Operator getOperator() {
         return operator;
     }
 
-    public void setOperator(char operator) {
-        this.operator = operator;
+    public NodeType getNodeType() {
+        return nodeType;
     }
 
-    public void addChildren(Node node){
-        this.childrens.add(node);
+    public void setNodeType(NodeType nodeType) {
+        this.nodeType = nodeType;
     }
 
-    public String getParaula() {
-        return paraula;
+    public String getWord() {
+        return word;
     }
 
-    public void addFulla(String paraula){
-
-        Node node = new Node();
-        node.operator = 'p';
-        node.paraula = paraula;
-        this.childrens.add(node);
+    public ArrayList<Node> getChildren() {
+        return children;
     }
 
-    public void addFrase(String paraula){
-
-        Node node = new Node();
-        node.operator = 'f';
-        node.paraula = paraula;
-        this.childrens.add(node);
-    }
-
-    public ArrayList<Node> getChildrens() {
-        return childrens;
-    }
-
-    public void clear(){
-        this.childrens.clear();
-    }
-
-    public void generarArbre(String expressio) {
-        Node fill;
-        int oberts, inici;
-        for(int i = 0; i < expressio.length(); ++i) {
-            if (i < expressio.length() && expressio.charAt(i) == '(') {
-                fill = new Node();
+    public void generateTree(String expression) {
+        Node child;
+        int open, start;
+        for (int i = 0; i < expression.length(); ++i) {
+            if (expression.charAt(i) == '(') {
+                child = new Node();
                 ++i;
-                inici = i;
-                oberts = 1;
-                while (i < expressio.length() && oberts != 0) {
-                    if (expressio.charAt(i) == '(') {
-                        ++oberts;
-                    } else if (expressio.charAt(i) == ')') {
-                        --oberts;
+                start = i;
+                open = 1;
+                while (i < expression.length() && open != 0) {
+                    if (expression.charAt(i) == '(') {
+                        ++open;
+                    } else if (expression.charAt(i) == ')') {
+                        --open;
                     }
                     ++i;
                 }
-                fill.generarArbre(expressio.substring(inici, i - 1));
-                this.addChildren(fill);
-            }
-            else if (i < expressio.length() && expressio.charAt(i) == '{') {
-                ++i;
-                inici = i;
-                while (i < expressio.length() && expressio.charAt(i) != '}') {
+                child.generateTree(expression.substring(start, i - 1));
+                this.children.add(child);
+            } else if (expression.charAt(i) == '{') {
+                start = ++i;
+                while (i < expression.length() && expression.charAt(i) != '}') {
                     ++i;
                 }
-                String[] paraules = expressio.substring(inici, i).split(" ");
-                fill = new Node();
-                fill.operator = '&';
-                for (String paraula : paraules) {
-                    fill.addFulla(paraula);
+                String[] words = expression.substring(start, i).split(Constants.WORD_SEPARATION_REGEX);
+                child = new Node();
+                child.operator = Operator.AND;
+                for (String word : words) { // Add words
+                    child.children.add(new Node(NodeType.WORD, word));
                 }
-                this.addChildren(fill);
-            }
-            else if(i < expressio.length() && (expressio.charAt(i) == '&' || expressio.charAt(i) == '|')){
-                this.setOperator(expressio.charAt(i));
-            }
-            else if (i < expressio.length() && expressio.charAt(i) == '"') {
-                ++i;
-                inici = i;
-                while (i < expressio.length() && expressio.charAt(i) != '"') {
+                this.children.add(child);
+            } else if (expression.charAt(i) == '&' || expression.charAt(i) == '|') {
+                this.operator = (expression.charAt(i) == '&') ? Operator.AND : Operator.OR;
+            } else if (expression.charAt(i) == '"') {
+                start = ++i;
+                while (i < expression.length() && expression.charAt(i) != '"') {
                     ++i;
                 }
-                this.addFrase(expressio.substring(inici, i));
-            }
-            else if (i < expressio.length() && expressio.charAt(i) == '!'){
-                fill = new Node();
-                Node net = new Node();
-                fill.operator = '!';
-                ++i;
-                inici = i;
-                char tancament;
-                switch (expressio.charAt(i)){
-                    case '{' : tancament = '}'; break;
-                    case '"' : tancament = '"'; break;
-                    case '(' : tancament = ')'; break;
-                    default :
-                        tancament = ' ';
-                        break;
+                String word = expression.substring(start, i);
+                this.children.add(new Node(NodeType.SENTENCE, word));
+            } else if (expression.charAt(i) == '!'){
+                child = new Node();
+                Node grandchild = new Node();
+                child.operator = Operator.NOT;
+                start = ++i;
+                char end;
+                switch (expression.charAt(i)){
+                    case '{' : end = '}'; break;
+                    case '"' : end = '"'; break;
+                    case '(' : end = ')'; break;
+                    default : end = ' ';
                 }
                 ++i;
-                while(i < expressio.length() && expressio.charAt(i) != tancament) {
+                while(i < expression.length() && expression.charAt(i) != end) {
                     ++i;
                 }
-                if(tancament == ' ' && i >= expressio.length()) --i;
-                net.generarArbre(expressio.substring(inici,i+1));
-                if(tancament == ' ' && i >= expressio.length()) ++i;
-                fill.addChildren(net);
-                this.addChildren(fill);
-            }
-            else if (i < expressio.length() && expressio.charAt(i) > 'A' & expressio.charAt(i) < 'z') {
-                inici = i;
-                ++i;
-                while (i < expressio.length() && expressio.charAt(i) != ' ') {
+                if (end == ' ' && i >= expression.length()) --i;
+                grandchild.generateTree(expression.substring(start,i+1));
+                if (end == ' ' && i >= expression.length()) ++i;
+                child.children.add(grandchild);
+                this.children.add(child);
+            } else if (expression.charAt(i) != ' ') {
+                start = i++;
+                while (i < expression.length() && expression.charAt(i) != ' ') {
                     ++i;
                 }
-                this.addFulla(expressio.substring(inici, i));
+                String word = expression.substring(start, i);
+                this.children.add(new Node(NodeType.WORD, word));
             }
 
         }
-        if(this.childrens.size() == 1 && this.operator != '!') {
-            this.operator  = this.childrens.get(0).operator;
-            this.paraula = this.childrens.get(0).paraula;
-            this.childrens = this.childrens.get(0).childrens;
+
+        if (this.children.size() == 1 && this.operator != Operator.NOT) {
+            this.operator  = this.children.get(0).operator;
+            this.nodeType = this.children.get(0).nodeType;
+            this.word = this.children.get(0).word;
+            this.children = this.children.get(0).children;
         }
+
     }
+
 }

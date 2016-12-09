@@ -130,8 +130,6 @@
                 };
 
                 scope.storeDocument = function (event) {
-                    if(angular.isDefined(scope.coverImagePath)) alert(scope.coverImagePath);
-                    else alert("no definido");
                     var translations = {
                         title: $filter('translate')('DIALOG_CREATE_TITLE'),
                         textContent: $filter('translate')('DIALOG_CREATE_CONTENT'),
