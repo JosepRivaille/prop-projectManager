@@ -1,7 +1,8 @@
 CREATE TABLE IF NOT EXISTS users (
   email VARCHAR PRIMARY KEY,                                -- User's email
   user_name VARCHAR NOT NULL,                               -- User's name
-  password VARCHAR NOT NULL,                                -- User's hashed password
+  password VARCHAR NOT NULL,                               -- User's hashed password
+  avatar VARCHAR NOT NULL,
   admin INTEGER NOT NULL                                    -- Admin -> 1 | StdUser -> 0
 );
 

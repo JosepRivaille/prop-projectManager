@@ -50,8 +50,8 @@ public class DaoUsersImpl implements DaoUsers {
         Statement statement = null;
         try {
             statement = c.createStatement();
-            String query = String.format("UPDATE users SET email='%s', user_name='%s', password='%s' WHERE email='%s';",
-                    updatedUser.getEmail(), updatedUser.getName(), updatedUser.getPassword(), oldEmail);
+            String query = String.format("UPDATE users SET email='%s', user_name='%s', password='%s', avatar='%s' WHERE email='%s';",
+                    updatedUser.getEmail(), updatedUser.getName(), updatedUser.getPassword(), updatedUser.getAvatar(), oldEmail);
             int updated = statement.executeUpdate(query);
             if (updated != 1) {
                 throw new UserNotFoundException();

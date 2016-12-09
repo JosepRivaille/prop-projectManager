@@ -2,16 +2,20 @@ package edu.upc.fib.prop.models;
 
 public class User {
 
+    final private String DEFAULT_AVATAR = "1";
+
     private String email;
     private String name;
     private String password;
     private Boolean admin;
+    private String avatar;
 
     public User(String email, String name, String password) {
         this.email = email;
         this.name = name;
         this.password = password;
         this.admin = Boolean.FALSE;
+        this.avatar = DEFAULT_AVATAR;
     }
 
     public String getEmail() {
@@ -37,6 +41,10 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public String getAvatar() {return avatar;}
+
+    public void setAvatar(String avatar) {this.avatar = avatar;}
 
     public Boolean getAdmin() {
         return admin;
