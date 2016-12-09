@@ -14,8 +14,12 @@
                             <img class="item-image" ng-show="{{document.cover === ''}}" ng-src="../images/sample.png">
                         </div>
                         <div flex class="item-info-container" layout="column" layout-align="space-between start">
-                            <h1>{{document.title}}</h1>
+                            <h1>
+                                {{document.title}}
+                                <img ng-if="isDocFavourite(document)" ng-src="../images/heart.png" style="height: 13px; margin-bottom: 2px;">
+                            </h1>
                             <h2>{{document.author}}</h2>
+
                             <star-rating ng-model="document.rating" read-only="true"></star-rating>
                         </div>
 

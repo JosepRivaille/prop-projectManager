@@ -31,6 +31,9 @@
             },
             link: function (scope) {
 
+                scope.isDocFavourite = function(doc){
+                    return $rootScope.backendService.isDocumentFavourite(doc.title,doc.author);
+                }
 
                 scope.isListSelected = true;
                 scope.isButtonOpened = false;
@@ -46,7 +49,7 @@
                         author: '',
                         cover: '',
                         content: '',
-                        rating: '1'
+                        rating: '1',
                     }
                 }
 
