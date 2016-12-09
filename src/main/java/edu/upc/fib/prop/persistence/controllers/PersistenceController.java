@@ -67,13 +67,7 @@ public interface PersistenceController {
      */
     void updateDocument(Document oldDocument, Document newDocument) throws AlreadyExistingDocumentException;
 
-    /**
-     * Updates a document ratings
-     * @param document document to rate
-     * @param rating points given to the document
-     * @param user User who rates
-     */
-    void rateDocument(Document document, int rating, String user) throws DocumentNotFoundException;
+    float rateDocument(Document document, int rating, String user) throws DocumentNotFoundException;
 
     /**
      *  Adds a document as a favourite of a given user
@@ -124,4 +118,6 @@ public interface PersistenceController {
      * @return
      */
     boolean isDocumentFavourite(String title, String author, String email);
+
+    int getMyRating(String title, String author, String email);
 }

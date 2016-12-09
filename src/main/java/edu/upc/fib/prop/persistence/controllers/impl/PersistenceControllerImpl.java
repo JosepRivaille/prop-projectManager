@@ -135,10 +135,11 @@ public class PersistenceControllerImpl implements PersistenceController {
     }
 
     @Override
-    public void rateDocument(Document document, int rating, String user) throws DocumentNotFoundException {
+    public float rateDocument(Document document, int rating, String user) throws DocumentNotFoundException {
         openConnection();
-        daoDocuments.rateDocument(c, document, rating, user);
+        float newRating = daoDocuments.rateDocument(c, document, rating, user);
         closeConnection();
+        return newRating;
     }
 
     @Override
@@ -191,6 +192,14 @@ public class PersistenceControllerImpl implements PersistenceController {
         boolean b = daoDocuments.isDocumentFavourite(c,title, author, email);
         closeConnection();
         return b;
+    }
+
+    @Override
+    public int getMyRating(String title, String author, String email) {
+        openConnection();
+        int res = daoDocuments.getMyRating(c, title, author, email);
+        closeConnection();
+        return res;
     }
 
     //////////

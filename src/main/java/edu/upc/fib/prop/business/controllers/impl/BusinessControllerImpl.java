@@ -118,18 +118,18 @@ public class BusinessControllerImpl implements BusinessController {
     }
 
     @Override
-    public Float rateDocument(String title, String author, int rating) throws DocumentNotFoundException {
+    public float rateDocument(String title, String author, int rating) throws DocumentNotFoundException {
 
         try {
             Document document = persistenceController.getDocument(title, author);
-            persistenceController.rateDocument(document, rating, this.usersManager.getCurrentUser().getEmail());
+            float newRating = persistenceController.rateDocument(document, rating, this.usersManager.getCurrentUser().getEmail());
             Document updatedDoc = persistenceController.getDocument(document.getTitle(), document.getAuthor());
             documentsCollection.updateDocument(document, updatedDoc);
-            return updatedDoc.getRating();
+            return newRating;
         } catch (InvalidDetailsException | AlreadyExistingDocumentException e) {
             e.printStackTrace();
-            return null;
         }
+        return 0f;
     }
 
     @Override
@@ -154,6 +154,11 @@ public class BusinessControllerImpl implements BusinessController {
     @Override
     public boolean isDocumentFavourite(String title, String author) {
         return persistenceController.isDocumentFavourite(title, author, usersManager.getCurrentUser().getEmail());
+    }
+
+    @Override
+    public int getMyRating(String title, String author) {
+        return persistenceController.getMyRating(title,author,usersManager.getCurrentUser().getEmail());
     }
 
     @Override

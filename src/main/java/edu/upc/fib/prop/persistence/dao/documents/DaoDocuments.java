@@ -61,7 +61,7 @@ public interface DaoDocuments {
      * @param rating Points given to the document
      * @param user User who rates the document
      */
-    void rateDocument(Connection c, Document doc, int rating, String user) throws DocumentNotFoundException;
+    float rateDocument(Connection c, Document doc, int rating, String user) throws DocumentNotFoundException;
 
     void addDocumentToFavourites(Connection c, String title, String author, String user) throws DocumentNotFoundException;
 
@@ -115,4 +115,6 @@ public interface DaoDocuments {
      * @return
      */
     boolean isDocumentFavourite(Connection c,String title, String author, String email);
+
+    int getMyRating(Connection c, String title, String author, String email);
 }

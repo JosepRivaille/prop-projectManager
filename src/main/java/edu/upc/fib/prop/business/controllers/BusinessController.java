@@ -167,7 +167,7 @@ public interface BusinessController {
             throws DocumentNotFoundException;
 
 
-    Float rateDocument(String title, String author, int rating) throws DocumentNotFoundException;
+    float rateDocument(String title, String author, int rating) throws DocumentNotFoundException;
 
 
     void deleteDocumentFromFavourites(String title, String author) throws DocumentNotFoundException;
@@ -185,4 +185,6 @@ public interface BusinessController {
      * @return
      */
     boolean isDocumentFavourite(String title, String author);
+
+    int getMyRating(String title, String author);
 }

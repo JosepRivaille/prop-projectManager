@@ -28,7 +28,8 @@
                     <div layout="column" layout-align="center center">
                         <p class="text-title text-center">{{document.title | uppercase}}</p>
                         <p class="text-author text-center">{{document.author}}</p>
-                        <star-rating ng-model="document.rating" document-title="document.title" document-author="document.author"></star-rating>
+
+                        <star-rating ng-model="document.rating" read-only="false" document-title="document.title" document-author="document.author"></star-rating>
                     </div>
                 </div>
                 <div style="width: 100%; overflow-x: hidden; overflow-y: auto; margin-top: 20px;">

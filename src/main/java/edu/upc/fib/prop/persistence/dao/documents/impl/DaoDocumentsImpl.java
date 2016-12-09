@@ -134,7 +134,7 @@ public class DaoDocumentsImpl implements DaoDocuments {
     }
 
     @Override
-    public void rateDocument(Connection c, Document doc, int rating, String user) throws DocumentNotFoundException{
+    public float rateDocument(Connection c, Document doc, int rating, String user) throws DocumentNotFoundException{
         try {
 
             Statement statement = c.createStatement();
@@ -156,7 +156,7 @@ public class DaoDocumentsImpl implements DaoDocuments {
                     "LIKE '%s' AND author_name LIKE '%s'", (float)total/n_ratings, doc.getTitle(), doc.getAuthor());
             query = query.replace(",", ".");
             statement.executeUpdate(query);
-
+            return (float)total/n_ratings;
         } catch (SQLException e) {
             throw new DocumentNotFoundException();
         }
@@ -299,6 +299,26 @@ public class DaoDocumentsImpl implements DaoDocuments {
             e.printStackTrace();
         }
         return false;
+    }
+
+    @Override
+    public int getMyRating(Connection c, String title, String author, String email) {
+
+        try {
+            Statement statement = c.createStatement();
+
+            String query = String.format("SELECT points FROM ratings WHERE title LIKE '%s' AND" +
+                    " author_name LIKE '%s' AND user_email LIKE '%s'", title, author, email);
+            ResultSet rs = statement.executeQuery(query);
+            if(rs.next()){
+                int res = rs.getInt("points");
+                return res;
+            }
+            else return 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
+        }
     }
 
 }

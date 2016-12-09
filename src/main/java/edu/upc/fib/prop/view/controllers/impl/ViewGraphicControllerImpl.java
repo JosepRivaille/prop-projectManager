@@ -173,7 +173,7 @@ public class ViewGraphicControllerImpl implements ViewGraphicController {
     }
 
     @Override
-    public Float rateDocument(String title, String author, int rating) throws DocumentNotFoundException {
+    public float rateDocument(String title, String author, int rating) throws DocumentNotFoundException {
         return this.businessController.rateDocument(title, author, rating);
     }
 
@@ -187,6 +187,10 @@ public class ViewGraphicControllerImpl implements ViewGraphicController {
 
     public void removeFavourite(String title, String author) throws DocumentNotFoundException {
         this.businessController.deleteDocumentFromFavourites(title, author);
+    }
+
+    public int getMyRating(String title, String author){
+        return businessController.getMyRating(title,author);
     }
     public void test(){
         System.out.println("ADJHADISDIUGAISUGD");
