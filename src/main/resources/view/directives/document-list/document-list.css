@@ -50,6 +50,7 @@
 
 #document-list .docs-list-item .item-buttons-container{
     height: 100%;
+    padding-right: 10px;
     /*background-color: #ffdd00;*/
     width: auto;
 }
