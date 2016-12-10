@@ -1,45 +1,55 @@
 <div id="home" class="fill-all-window">
-    <md-content class="fill-all-parent main-container" layout="column" layout-align="space-between stretch">
-        <div class="search-space" layout="row" layout-align="end center">
-            <div style="height: 30px; width: 300px; background-color: white;"></div>
-        </div>
-        <div class="recommended-docs-space" layout="column" layout-align="space-between stretch" flex>
-            <span class="section-title"> {{'RECOMMENDED_DOCUMENTS' | translate}}</span>
-            <div layout="column" layout-align="center stretch" flex>
-                <md-list layout="row" layout-align="space-around stretch" flex>
-                    <md-list-item ng-repeat="document in vm.recommendedDocs" layout="column" class="list-item" layout-align="start stretch">
-                        <div class="item-image-space" layout="column" layout-align="center center" flex>
-                            <img ng-src="../images/sample.png">
-                        </div>
-                        <div class="item-info-space" layout="column" layout-align="end center">
-                            <span class="title">{{document.title}}</span>
-                            <span class="author">{{document.author}}</span>
-                            <star-rating ng-model="document.rating"></star-rating>
-                        </div>
-
-
-                    </md-list-item>
-                </md-list>
+    <div ng-show="!vm.isDocumentSelected" class="fill-all-parent">
+        <md-content class="fill-all-parent main-container" layout="column" layout-align="space-between stretch">
+            <div class="search-space" layout="row" layout-align="end center">
+                <div style="height: 30px; width: 300px; background-color: white;"></div>
             </div>
-        </div>
-        <div class="recently-visited-docs-space" layout="column" layout-align="space-between stretch" flex>
-            <span class="section-title"> {{'RECENTLY_CONSULTED_DOCUMENTS' | translate}}</span>
-            <div layout="column" layout-align="center stretch" flex>
-                <md-list layout="row" layout-align="start stretch" flex>
-                    <md-list-item ng-repeat="document in vm.recommendedDocs" layout="column" class="list-item" layout-align="start stretch">
-                        <div class="item-image-space" layout="column" layout-align="center center" flex>
-                            <img ng-src="../images/sample.png">
-                        </div>
-                        <div class="item-info-space" layout="column" layout-align="end center">
-                            <span class="title">{{document.title}}</span>
-                            <span class="author">{{document.author}}</span>
-                            <star-rating ng-model="document.rating"></star-rating>
-                        </div>
+            <div class="recommended-docs-space" layout="column" layout-align="space-between stretch" flex>
+                <span class="section-title"> {{'RECOMMENDED_DOCUMENTS' | translate}}</span>
+                <div layout="column" layout-align="center stretch" flex>
+                    <md-list layout="row" layout-align="space-around stretch" flex>
+                        <md-list-item ng-repeat="document in vm.recommendedDocs" layout="column" class="list-item" layout-align="start stretch">
+                            <div class="item-image-space" layout="column" layout-align="center center">
+                                <img ng-src="../images/sample.png" ng-click="vm.select(document)">
+                            </div>
+                            <div class="item-info-space" layout="column" layout-align="end center">
+                                <span class="title">{{document.title}}</span>
+                                <span class="author">{{document.author}}</span>
+                                <star-rating ng-model="document.rating"></star-rating>
+                            </div>
 
 
-                    </md-list-item>
-                </md-list>
+                        </md-list-item>
+                    </md-list>
+                </div>
             </div>
+            <div class="recently-visited-docs-space" layout="column" layout-align="space-between stretch" flex>
+                <span class="section-title"> {{'RECOMMENDED_DOCUMENTS' | translate}}</span>
+                <div layout="column" layout-align="center stretch" flex>
+                    <md-list layout="row" layout-align="start stretch" flex>
+                        <md-list-item ng-repeat="document in vm.recommendedDocs"
+                                      layout="column" layout-align="space-around stretch">
+
+                            <div class="item-image-space" layout="column" layout-align="center center">
+                                <img ng-src="../images/sample.png" ng-click="vm.select(document)">
+                            </div>
+                            <div class="item-info-space" layout="column" layout-align="end center">
+                                <span class="title">{{document.title}}</span>
+                                <span class="author">{{document.author}}</span>
+                                <star-rating ng-model="document.rating"></star-rating>
+                            </div>
+                        </md-list-item>
+                    </md-list>
+                </div>
+            </div>
+        </md-content>
+    </div>
+    <div ng-if="vm.isDocumentSelected">
+        <div class="navigation-buttons-container">
+            <md-button class="md-fab md-primary" aria-label="Go back" ng-click="vm.back()">
+                <i class="fa fa-arrow-left"></i>
+            </md-button>
         </div>
-    </md-content>
+        <document-info ng-model="vm.selectedDocument">  </document-info>
+    </div>
 </div>

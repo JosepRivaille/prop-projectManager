@@ -7,8 +7,10 @@
 
 
 #home .section-title {
-    font-size: 1.7em;
+    font-size: 1.6em;
     font-weight: 600;
+    margin-left: 10px;
+    bottom: 0;
 }
 
 /***************************/
@@ -19,6 +21,7 @@
 #home .recommended-docs-space .item-image-space {
 }
 #home .recommended-docs-space .item-info-space {
+    padding-top: 5px;
     line-height: 13px;
 }
 #home .recommended-docs-space .item-info-space .title{
@@ -31,7 +34,7 @@
 }
 
 #home .recommended-docs-space .item-image-space img{
-    height: 135px;
+    max-height: 135px;
 }
 
 /***************************/
