@@ -11,9 +11,20 @@
     angular
         .module('project')
         .config(['$mdThemingProvider', '$provide', function ($mdThemingProvider, $provide) {
-            $mdThemingProvider.theme('dark');
 
-            $mdThemingProvider.setDefaultTheme('dark');
+            $mdThemingProvider.theme('light')
+                .primaryPalette('blue')
+                .accentPalette('indigo')
+                .warnPalette('red')
+                .backgroundPalette('light-green');
+
+            $mdThemingProvider.theme('dark')
+                .primaryPalette('amber')
+                .accentPalette('deep-purple')
+                .warnPalette('teal')
+                .backgroundPalette('blue-grey');
+
+            $mdThemingProvider.setDefaultTheme('light');
             $mdThemingProvider.alwaysWatchTheme(true);
             $provide.value('themeProvider', $mdThemingProvider);
         }]);

@@ -50,7 +50,7 @@
             title: 'SETTINGS_THEME',
             themeDark: 'SWITCH_THEME_DARK',
             themeLight: 'SWITCH_THEME_LIGHT',
-            darkTheme: false
+            darkTheme: true
         };
 
         vm.disableOtherLanguages = function (value) {
@@ -61,8 +61,7 @@
         };
 
         vm.switchTheme = function () {
-            var theme = vm.darkTheme ? 'dark' : 'light';
-            themeProvider.reload(theme);
+            $rootScope.selectedTheme = vm.theme.darkTheme ? 'dark' : 'light';
         };
 
         vm.logout = function () {
@@ -94,6 +93,7 @@
                 $state.go('project');
             }, function() {
             });
+
         };
     }
 
