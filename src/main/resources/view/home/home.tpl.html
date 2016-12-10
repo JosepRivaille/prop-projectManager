@@ -10,7 +10,7 @@
                     <md-list layout="row" layout-align="space-around stretch" flex>
                         <md-list-item ng-repeat="document in vm.recommendedDocs" layout="column" class="list-item" layout-align="start stretch">
                             <div class="item-image-space" layout="column" layout-align="center center">
-                                <img ng-src="../images/covers/{{document.cover}}" ng-click="vm.select(document)">
+                                <img ng-src="../../../covers/{{document.cover}}" ng-click="vm.select(document)">
                             </div>
                             <div class="item-info-space" layout="column" layout-align="end center">
                                 <span class="title">{{document.title}}</span>
@@ -31,7 +31,7 @@
                                       layout="column" layout-align="space-around stretch">
 
                             <div class="item-image-space" layout="column" layout-align="center center">
-                                <img ng-src="../images/covers/{{document.cover}}" ng-click="vm.select(document)">
+                                <img ng-src="../../../covers/{{document.cover}}" ng-click="vm.select(document)">
                             </div>
                             <div class="item-info-space" layout="column" layout-align="end center">
                                 <span class="title">{{document.title}}</span>

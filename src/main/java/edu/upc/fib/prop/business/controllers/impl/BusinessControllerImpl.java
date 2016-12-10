@@ -195,7 +195,7 @@ public class BusinessControllerImpl implements BusinessController {
         SecureRandom random = new SecureRandom();
         String filename = new BigInteger(130, random).toString(32).toString() + ".png";
         try {
-            ImageIO.write(bufferedImage, "png", new File("./src/main/resources/images/covers/" + filename));
+            ImageIO.write(bufferedImage, "png", new File("./covers/"+filename));
         } catch (IOException e) {
             e.printStackTrace();
         }
