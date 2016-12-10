@@ -19,7 +19,7 @@
         vm.title = "TITLE_DOCUMENT_LIST";
     }
 
-    function documentList($rootScope, $timeout, $mdDialog, $filter, $state) {
+    function documentList($rootScope, $mdDialog, $mdToast, $filter, $timeout, $state) {
         return {
             restrict: 'EA',
             templateUrl: 'directives/document-list/document-list.tpl.html',
@@ -48,57 +48,9 @@
                 scope.isDocumentSelected = false;
                 scope.isCreateOrUpdate = false;
 
-                if(angular.isUndefined(scope.isEditMode)) scope.isEditMode = false;
-
-                function buildDocument() {
-                    return {
-                        title: '',
-                        author: '',
-                        cover: '',
-                        content: '',
-                        relevance: '',
-                        rating: 0
-                    }
+                if (angular.isUndefined(scope.isEditMode)) {
+                    scope.isEditMode = false;
                 }
-
-                function getIndexToInsert(documentsList, newDocument) {
-                    var minIndex = 0;
-                    var maxIndex = documentsList.length - 1;
-                    var currentIndex;
-
-                    while (minIndex <= maxIndex) {
-                        currentIndex = (minIndex + maxIndex) / 2 | 0;
-                        if (documentsList[currentIndex].title < newDocument.title) {
-                            minIndex = currentIndex + 1;
-                        } else if (documentsList[currentIndex] > newDocument.title) {
-                            maxIndex = currentIndex - 1;
-                        } else {
-                            while (documentsList[currentIndex].author < newDocument.author) {
-                                ++currentIndex;
-                            } return currentIndex;
-                        }
-                    } return currentIndex;
-                }
-
-                function addDocumentOrdered(documentsList, newDocument) {
-                    var index = getIndexToInsert(documentsList, newDocument);
-                    documentsList.splice(index, 0, newDocument);
-                }
-
-                String.prototype.capitalizeFirstLetter = function() {
-                    return this.charAt(0).toUpperCase() + this.slice(1);
-                };
-
-                function treatException(e) {
-                    if (e.toString().indexOf('DocumentContentNotFoundException') !== -1) {
-                        return 'EXCEPTION_DOCUMENT_CONTENT_NOT_FOUND';
-                    } else if (e.toString().indexOf('InvalidDetailsException') !== -1) {
-                        return 'EXCEPTION_INVALID_DETAILS';
-                    } else if (e.toString().indexOf('AlreadyExistingDocumentException') !== -1) {
-                        return 'EXCEPTION_ALREADY_EXISTING_DOCUMENT';
-                    }
-                }
-
 
                 scope.$watch('scope.isButtonOpened', function(isOpen) {
                     if (isOpen) {
@@ -182,6 +134,7 @@
                             try {
                                 $rootScope.backendService.storeNewDocument(data);
                                 addDocumentOrdered(scope.documents, scope.documentSelected);
+                                showToast('TOAST_CREATED_DOCUMENT');
                             } catch (e) {
                                 scope.isInvalidData = treatException(e);
                             }
@@ -193,6 +146,7 @@
                                 var index = scope.documents.indexOf(scope.documentBackUp);
                                 scope.documents.splice(index, 1);
                                 addDocumentOrdered(scope.documents, scope.documentSelected);
+                                showToast('TOAST_EDITED_DOCUMENT');
                             } catch (e) {
                                 scope.isInvalidData = treatException(e);
                             }
@@ -224,9 +178,84 @@
                         $rootScope.backendService.deleteDocument(document.title, document.author);
                         var index = scope.documents.indexOf(document);
                         scope.documents.splice(index, 1);
+                        showToast('TOAST_DELETED_DOCUMENT');
                     }, function() {
                     });
                 };
+
+                //////////
+
+                function buildDocument() {
+                    return {
+                        title: '',
+                        author: '',
+                        cover: '',
+                        content: '',
+                        relevance: '',
+                        rating: 0
+                    }
+                }
+
+                function getIndexToInsert(documentsList, newDocument) {
+                    var minIndex = 0;
+                    var maxIndex = documentsList.length - 1;
+                    var currentIndex;
+
+                    while (minIndex <= maxIndex) {
+                        currentIndex = (minIndex + maxIndex) / 2 | 0;
+                        if (documentsList[currentIndex].title < newDocument.title) {
+                            minIndex = currentIndex + 1;
+                        } else if (documentsList[currentIndex] > newDocument.title) {
+                            maxIndex = currentIndex - 1;
+                        } else {
+                            while (documentsList[currentIndex].author < newDocument.author) {
+                                ++currentIndex;
+                            } return currentIndex;
+                        }
+                    } return currentIndex;
+                }
+
+                function addDocumentOrdered(documentsList, newDocument) {
+                    var index = getIndexToInsert(documentsList, newDocument);
+                    documentsList.splice(index, 0, newDocument);
+                }
+
+                String.prototype.capitalizeFirstLetter = function() {
+                    return this.charAt(0).toUpperCase() + this.slice(1);
+                };
+
+                function treatException(e) {
+                    if (e.toString().indexOf('DocumentContentNotFoundException') !== -1) {
+                        return 'EXCEPTION_DOCUMENT_CONTENT_NOT_FOUND';
+                    } else if (e.toString().indexOf('InvalidDetailsException') !== -1) {
+                        return 'EXCEPTION_INVALID_DETAILS';
+                    } else if (e.toString().indexOf('AlreadyExistingDocumentException') !== -1) {
+                        return 'EXCEPTION_ALREADY_EXISTING_DOCUMENT';
+                    }
+                }
+
+                function showToast(toastText) {
+                    (function() {
+                        $mdToast.show(
+                            $mdToast.simple()
+                                .textContent($filter('translate')(toastText))
+                                .position(getToastPosition())
+                                .hideDelay(3000)
+                        );
+                    }());
+
+                    function getToastPosition() {
+                        var positions = {
+                            bottom: true,
+                            top: false,
+                            left: false,
+                            right: true
+                        };
+                        return Object.keys(positions).filter(function(pos) {
+                            return positions[pos];
+                        }).join(' ');
+                    }
+                }
 
             }
         };

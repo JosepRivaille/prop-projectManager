@@ -19,7 +19,7 @@
         vm.title = "TITLE_DOCUMENT_INFO";
     }
 
-    function documentInfo($rootScope, $mdDialog) {
+    function documentInfo($rootScope, $mdDialog, $mdToast, $filter) {
         return {
             restrict: 'EA',
             templateUrl: 'directives/document-info/document-info.tpl.html',
@@ -28,13 +28,39 @@
             },
             link: function (scope) {
 
+                scope.isFavourite = $rootScope.backendService.isDocumentFavourite(scope.document.title, scope.document.author);
+
+                scope.addFavourite = function () {
+                    $rootScope.backendService.addFavourite(scope.document.title, scope.document.author);
+                    scope.isFavourite ^= true;
+                    showToast('TOAST_ADDED_TO_FAVOURITES');
+                };
+
+                scope.removeFavourite = function () {
+                    $rootScope.backendService.removeFavourite(scope.document.title, scope.document.author);
+                    scope.isFavourite ^= true;
+                    showToast('TOAST_DELETED_FROM_FAVOURITES');
+                };
+
+                scope.searchSimilars = function () {
+                    $mdDialog.show({
+                        controller: DialogSimilarDocumentsCtrl,
+                        templateUrl: 'directives/document-info/document-info-similars-dialog.tpl.html',
+                        clickOutsideToClose: true,
+                        escapeToClose: true
+                    });
+                };
+
+                //////////
+
                 function DialogSimilarDocumentsCtrl($rootScope, $scope, $mdDialog) {
                     $scope.searchSimilarDocuments = function (desiredNumber) {
                         try {
                             $scope.isInvalidData = undefined;
                             var documentTitle = scope.document.title;
                             var authorName = scope.document.author;
-                            var response = $rootScope.backendService.getDocumentsByRelevance(documentTitle, authorName, desiredNumber);
+                            var response = $rootScope.backendService
+                                .getDocumentsByRelevance(documentTitle, authorName, desiredNumber);
                             $scope.similarDocuments = JSON.parse(response);
                             $scope.title = 'MENU_SEARCH_SIMILAR_DOCUMENTS';
                         } catch (e) {
@@ -49,26 +75,28 @@
                     }
                 }
 
-                scope.isFavourite = $rootScope.backendService.isDocumentFavourite(scope.document.title, scope.document.author);
+                function showToast(toastText) {
+                    (function() {
+                        $mdToast.show(
+                            $mdToast.simple()
+                                .textContent($filter('translate')(toastText))
+                                .position(getToastPosition())
+                                .hideDelay(3000)
+                        );
+                    }());
 
-                scope.addFavourite = function () {
-                    $rootScope.backendService.addFavourite(scope.document.title, scope.document.author);
-                    scope.isFavourite ^= true;
-                };
-
-                scope.removeFavourite = function () {
-                    $rootScope.backendService.removeFavourite(scope.document.title, scope.document.author);
-                    scope.isFavourite ^= true;
-                };
-
-                scope.searchSimilars = function () {
-                    $mdDialog.show({
-                        controller: DialogSimilarDocumentsCtrl,
-                        templateUrl: 'directives/document-info/document-info-similars-dialog.tpl.html',
-                        clickOutsideToClose: true,
-                        escapeToClose: true
-                    });
-                };
+                    function getToastPosition() {
+                        var positions = {
+                            bottom: true,
+                            top: false,
+                            left: false,
+                            right: true
+                        };
+                        return Object.keys(positions).filter(function(pos) {
+                            return positions[pos];
+                        }).join(' ');
+                    }
+                }
 
             }
         };

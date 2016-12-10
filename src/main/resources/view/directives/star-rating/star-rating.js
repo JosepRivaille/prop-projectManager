@@ -36,6 +36,7 @@
                 }
 
                 function updateStars() {
+
                     scope.stars = [];
 
                    if(angular.isDefined(scope.readOnly) && !scope.readOnly){
@@ -54,17 +55,21 @@
                        }
                    }
                 }
+
                 scope.toggle = function (index) {
                     if (angular.isUndefined(scope.readOnly) || scope.readOnly === false) {
                         scope.userRating = index + 1;
-                        scope.ratingValue = $rootScope.backendService.rateDocument(scope.documentTitle, scope.documentAuthor, scope.userRating);
+                        scope.ratingValue = $rootScope.backendService
+                            .rateDocument(scope.documentTitle, scope.documentAuthor, scope.userRating);
                     }
                 };
+
                 scope.$watch('ratingValue', function (oldValue, newValue) {
                     if (angular.isDefined(newValue)) {
                         updateStars();
                     }
                 });
+
                 scope.$watch('userRating', function (oldValue, newValue) {
                     if (angular.isDefined(newValue)) {
                         updateStars();
