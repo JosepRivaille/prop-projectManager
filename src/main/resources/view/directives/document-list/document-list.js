@@ -175,17 +175,12 @@
                         .cancel(translations.cancel);
 
                     $mdDialog.show(confirm).then(function() {
+                        scope.documentSelected.title = scope.documentSelected.title.capitalizeFirstLetter();
+                        scope.documentSelected.author = scope.documentSelected.author.capitalizeFirstLetter();
                         if (scope.isNewDocument) {
-                            scope.documentSelected.title = scope.documentSelected.title.capitalizeFirstLetter();
-                            scope.documentSelected.author = scope.documentSelected.author.capitalizeFirstLetter();
                             var data = JSON.stringify(scope.documentSelected);
                             try {
                                 $rootScope.backendService.storeNewDocument(data);
-                                //TODO: Not working yet¿?
-                                if (!scope.isNewDocument) {
-                                    var index = scope.documents.indexOf(scope.documentBackUp);
-                                    scope.documents.splice(index, 1);
-                                }
                                 addDocumentOrdered(scope.documents, scope.documentSelected);
                             } catch (e) {
                                 scope.isInvalidData = treatException(e);
@@ -195,6 +190,9 @@
                             var oldData = JSON.stringify(scope.documentBackUp);
                             try {
                                 $rootScope.backendService.updateDocument(oldData, newData);
+                                var index = scope.documents.indexOf(scope.documentBackUp);
+                                scope.documents.splice(index, 1);
+                                addDocumentOrdered(scope.documents, scope.documentSelected);
                             } catch (e) {
                                 scope.isInvalidData = treatException(e);
                             }
