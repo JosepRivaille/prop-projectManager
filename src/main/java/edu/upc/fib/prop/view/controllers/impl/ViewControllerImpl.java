@@ -105,9 +105,8 @@ public class ViewControllerImpl implements ViewController {
     }
 
     @Override
-    public Document importDocument(String path)
-            throws ImportExportException, AlreadyExistingDocumentException, InvalidDetailsException {
-        return this.businessController.importDocument(path);
+    public Document importDocument(String path){
+            return null;
     }
 
     @Override

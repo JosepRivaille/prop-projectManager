@@ -12,6 +12,7 @@ import edu.upc.fib.prop.models.*;
 import edu.upc.fib.prop.persistence.controllers.PersistenceController;
 import edu.upc.fib.prop.persistence.controllers.impl.PersistenceControllerImpl;
 import edu.upc.fib.prop.utils.ImportExport;
+import javafx.stage.Stage;
 
 import java.sql.SQLException;
 
@@ -92,9 +93,9 @@ public class BusinessControllerImpl implements BusinessController {
     }
 
     @Override
-    public Document importDocument(String path)
+    public Document importDocument(Stage st)
             throws ImportExportException, AlreadyExistingDocumentException, InvalidDetailsException {
-        Document doc = ImportExport.importDocument(path);
+        Document doc = ImportExport.importDocument(st);
         this.storeNewDocument(doc);
         return doc;
     }

@@ -2,6 +2,7 @@ package edu.upc.fib.prop.business.controllers;
 
 import edu.upc.fib.prop.exceptions.*;
 import edu.upc.fib.prop.models.*;
+import javafx.stage.Stage;
 
 public interface BusinessController {
 
@@ -130,12 +131,7 @@ public interface BusinessController {
      */
     void deleteDocument(String title, String authorName) throws DocumentNotFoundException;
 
-    /**
-     * Imports a document.
-     *
-     * @param path Path of the document to import.
-     */
-    Document importDocument(String path)
+    Document importDocument(Stage st)
             throws ImportExportException, AlreadyExistingDocumentException, InvalidDetailsException;
 
     /**

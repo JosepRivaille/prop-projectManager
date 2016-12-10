@@ -35,6 +35,11 @@
                     return $rootScope.backendService.isDocumentFavourite(doc.title,doc.author);
                 };
 
+                scope.importDocument = function(){
+                    var response = $rootScope.backendService.importDocument();
+                    addDocumentOrdered(scope.documents, JSON.parse(response));
+                };
+
                 scope.removeFavourite = function (doc) {
                     $rootScope.backendService.removeFavourite(doc.title, doc.author);
                     var index = scope.documents.indexOf(doc);

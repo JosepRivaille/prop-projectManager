@@ -9,8 +9,7 @@
                 <md-button class="docs-list-item" ng-click="selectDocument(document)">
                     <div layout="row"  layout-align="space-between center" style="height: 100%;">
                         <div class="item-image-container">
-                            <img class="item-image" ng-show="{{document.cover !== ''}}" ng-src="../images/{{document.cover}}">
-                            <img class="item-image" ng-show="{{document.cover === ''}}" ng-src="../images/sample.png">
+                            <img class="item-image" ng-src="../images/covers/{{document.cover}}">
                         </div>
                         <div flex class="item-info-container" layout="column" layout-align="space-between start">
                             <h1>
@@ -50,8 +49,7 @@
                 <md-button class="docs-list-item" ng-click="selectDocument(document)">
                     <div layout="row"  layout-align="space-between center" style="height: 100%;">
                         <div class="item-image-container">
-                            <img class="item-image" ng-show="{{document.cover !== ''}}" ng-src="../images/{{document.cover}}">
-                            <img class="item-image" ng-show="{{document.cover === ''}}" ng-src="../images/sample.png">
+                            <img class="item-image" ng-src="../images/covers/{{document.cover}}">
                         </div>
                         <div flex class="item-info-container" layout="column" layout-align="space-between start">
                             <h1>
@@ -169,7 +167,7 @@
                     </md-tooltip>
                     <i class="fa fa-plus"></i>
                 </md-button>
-                <md-button aria-label="Import document" class="md-fab md-raised md-mini md-accent">
+                <md-button aria-label="Import document" class="md-fab md-raised md-mini md-accent" ng-click="importDocument()">
                     <md-tooltip md-direction="left" md-visible="tooltipVisible" md-autohide="true">
                         Import document
                     </md-tooltip>

@@ -8,6 +8,8 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 
 public class Document {
+    public static final String DEFAULT_COVER = "sample.png";
+
     private String title;
     private String author;
     private String user;
@@ -25,7 +27,7 @@ public class Document {
         this.content = content;
         this.termFrequency = new TreeMap<>();
         this.rating = 0f;
-        this.cover = "";
+        this.cover = DEFAULT_COVER;
     }
 
     public Document(String title, String author, String content) {
@@ -34,7 +36,7 @@ public class Document {
         termFrequency = new TreeMap<>();
         this.content = content;
         this.rating = 0f;
-        this.cover = "";
+        this.cover = DEFAULT_COVER;
     }
 
     /* Getters and Setters */

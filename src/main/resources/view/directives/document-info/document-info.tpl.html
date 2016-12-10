@@ -4,8 +4,7 @@
 
             <div layout="column" class="left-container" layout-align="center center">
                 <div class="image-container">
-                    <img class="doc-cover" ng-show="{{document.cover !== ''}}" ng-src="../images/{{document.cover}}">
-                    <img class="doc-cover" ng-show="{{document.cover === ''}}" ng-src="../images/sample.png">
+                    <img class="doc-cover" ng-src="../images/covers/{{document.cover}}">
                 </div>
                 <div class="buttons-container" layout-align="end stretch" layout="column">
                     <md-button ng-click="addFavourite()" ng-if="!isFavourite" class="md-raised md-primary">

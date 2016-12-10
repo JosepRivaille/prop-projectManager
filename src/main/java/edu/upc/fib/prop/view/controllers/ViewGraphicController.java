@@ -121,13 +121,7 @@ public interface ViewGraphicController {
      */
     String searchForAllDocuments();
 
-    /**
-     * Imports a document to the system.
-     *
-     * @param path The path where the document will be imported.
-     * @return The document imported.
-     */
-    String importDocument(String path)
+    String importDocument()
             throws ImportExportException, AlreadyExistingDocumentException, InvalidDetailsException;
 
     /**

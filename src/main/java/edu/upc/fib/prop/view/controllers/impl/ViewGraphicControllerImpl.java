@@ -7,6 +7,8 @@ import edu.upc.fib.prop.exceptions.*;
 import edu.upc.fib.prop.models.*;
 import edu.upc.fib.prop.utils.StringUtils;
 import edu.upc.fib.prop.view.controllers.ViewGraphicController;
+import javafx.scene.web.WebEngine;
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,10 +18,14 @@ import java.util.stream.Collectors;
 public class ViewGraphicControllerImpl implements ViewGraphicController {
 
     private BusinessController businessController;
+    Stage st;
+    WebEngine we;
 
-    public ViewGraphicControllerImpl() {
+    public ViewGraphicControllerImpl(Stage _st, WebEngine _we) {
         System.out.println("Initializing view controller (GRAPHICAL MODE)");
         businessController = new BusinessControllerImpl();
+        st = _st;
+        we = _we;
     }
 
     @Override
@@ -162,9 +168,11 @@ public class ViewGraphicControllerImpl implements ViewGraphicController {
     }
 
     @Override
-    public String importDocument(String path)
+    public String importDocument()
             throws ImportExportException, AlreadyExistingDocumentException, InvalidDetailsException {
-        return null;
+        Document doc = this.businessController.importDocument(st);
+        DocumentBasicInfo documentBasicInfo = new DocumentBasicInfo(doc);
+        return new Gson().toJson(documentBasicInfo);
     }
 
     @Override
