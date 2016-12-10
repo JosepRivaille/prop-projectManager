@@ -31,7 +31,7 @@
                 parent: '=?'
             },
             link: function (scope) {
-
+                if(angular.isUndefined(parent)) parent = "";
                 scope.isDocFavourite = function(doc){
                     return $rootScope.backendService.isDocumentFavourite(doc.title,doc.author);
                 };

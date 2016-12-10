@@ -4,7 +4,7 @@
         <h1 class="title-landing" layout-align="space-between center">
             {{parentTitle | translate}}
         </h1>
-        <md-list style="padding-bottom: 130px;" class="scrollable-y" flex>
+        <md-list ng-if="parent!='all'" style="padding-bottom: 130px;" class="scrollable-y" flex>
             <md-list-item ng-repeat="document in documents">
                 <md-button class="docs-list-item" ng-click="selectDocument(document)">
                     <div layout="row"  layout-align="space-between center" style="height: 100%;">
@@ -48,6 +48,52 @@
                 <md-divider></md-divider>
             </md-list-item>
         </md-list>
+
+        <md-grid-list ng-if="parent=='all'" style="padding-bottom: 130px;" class="scrollable-y" md-cols-sm="2" md-cols-md="3" md-cols-lg="4" md-gutter="0px" md-row-height="85px" flex>
+            <md-grid-tile ng-repeat="document in documents">
+                <md-button class="docs-list-item" ng-click="selectDocument(document)">
+                    <div layout="row"  layout-align="space-between center" style="height: 100%;">
+                        <div class="item-image-container">
+                            <img class="item-image" ng-show="{{document.cover !== ''}}" ng-src="../images/{{document.cover}}">
+                            <img class="item-image" ng-show="{{document.cover === ''}}" ng-src="../images/sample.png">
+                        </div>
+                        <div flex class="item-info-container" layout="column" layout-align="space-between start">
+                            <h1>
+                                {{document.title}}
+                                <!--<img ng-if="isDocFavourite(document)" ng-src="../images/heart.png" style="height: 13px; margin-bottom: 2px;">-->
+                                <i class="fa fa-heart" style="color: #c9302c;"></i>
+                            </h1>
+                            <h2>{{document.author}}</h2>
+
+                            <star-rating ng-model="document.rating" read-only="true"></star-rating>
+                        </div>
+
+                        <div ng-if="isEditMode" class="item-buttons-container" layout="row" layout-align="center center">
+                            <md-button onclick="location.href = event.stopPropagation();" class="md-raised md-primary" aria-label="Edit document"
+                                       ng-click="editDocument(document)">
+                                <i class="fa fa-pencil-square-o"></i>
+                            </md-button>
+                            <md-button onclick="location.href = event.stopPropagation();" class="md-raised md-warn" aria-label="Delete document"
+                                       ng-click="showDeleteConfirm($event, document)">
+                                <i class="fa fa-trash"></i>
+                            </md-button>
+                            <md-button onclick="location.href = event.stopPropagation();" class="md-raised md-accent" aria-label="Export document"
+                                       ng-click="export(document)">
+                                <i class="fa fa-download"></i>
+                            </md-button>
+                        </div>
+
+                        <div ng-if="parent=='favorites'" class="item-buttons-container" layout="row" layout-align="center center">
+                            <md-button onclick="location.href = event.stopPropagation();" ng-click="removeFavourite(document)" class="md-raised md-warn" aria-label="Remove favourite">
+                                <i class="fa fa-heartbeat"></i>
+                            </md-button>
+                        </div>
+
+                    </div>
+                </md-button>
+                <md-divider></md-divider>
+            </md-grid-tile>
+        </md-grid-list>
 
         <div ng-if="isSearchMode" class="right-bottom-buttons">
             <md-button class="md-fab md-primary" aria-label="Repeat Search" ng-click="searchAgain()">
