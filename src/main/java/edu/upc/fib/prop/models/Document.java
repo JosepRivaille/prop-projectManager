@@ -186,10 +186,12 @@ public class Document {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Document document = (Document) o;
-        return title != null ? title.equals(document.title) : document.title == null && (author != null ?
-                author.equals(document.author) : document.author == null && (user != null ? user.equals(document.user) :
-                document.user == null && (content != null ? content.equals(document.content) : document.content == null
-                        && (termFrequency != null ? termFrequency.equals(document.termFrequency) :
-                        document.termFrequency == null))));
+
+        return (title != null ? title.equals(document.title) : document.title == null) &&
+                (author != null ? author.equals(document.author) : document.author == null) &&
+                (user != null ? user.equals(document.user) : document.user == null) &&
+                (content != null ? content.equals(document.content) : document.content == null) &&
+                (termFrequency != null ? termFrequency.equals(document.termFrequency) : document.termFrequency == null) &&
+                (termPositions != null ? termPositions.equals(document.termPositions) : document.termPositions == null);
     }
 }

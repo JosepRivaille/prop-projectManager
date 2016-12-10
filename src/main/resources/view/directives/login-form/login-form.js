@@ -18,7 +18,7 @@
         vm.ctrlName = 'LoginFormCtrl';
     }
 
-    function loginForm($rootScope) {
+    function loginForm($rootScope, $state) {
         return {
             restrict: 'EA',
             templateUrl: 'directives/login-form/login-form.tpl.html',
@@ -41,6 +41,7 @@
                     return $rootScope.isLoggedIn;
                 }, function() {
                     scope.isLoggedIn = $rootScope.isLoggedIn;
+                    if(scope.isLoggedIn) $state.go('project.home');
                 }, true);
 
                 scope.changeFormMode = function () {

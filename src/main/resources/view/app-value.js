@@ -13,7 +13,7 @@
         .value('menuItems', [
             {
                 name: 'MENU_HOME',
-                state: 'project',
+                state: 'project.home',
                 icon: 'home',
                 selected: true
             },

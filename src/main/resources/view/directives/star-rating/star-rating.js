@@ -39,8 +39,6 @@
                     scope.stars = [];
 
                    if(angular.isDefined(scope.readOnly) && !scope.readOnly){
-                       //Estamos en document info
-                       //scope.userRating = $rootScope.backendService.getMyRating(scope.documentTitle, scope.documentAuthor);
                        for (var i = 0; i < 5; i++) {
                            scope.stars.push({
                                filled: i < scope.userRating
@@ -48,9 +46,10 @@
                        }
                    }
                    else {
+                       var roundedRating = Math.round(scope.ratingValue);
                        for (var i = 0; i < 5; i++) {
                            scope.stars.push({
-                               filled: i < scope.ratingValue
+                               filled: i < roundedRating
                            });
                        }
                    }
@@ -63,7 +62,6 @@
                 };
                 scope.$watch('ratingValue', function (oldValue, newValue) {
                     if (angular.isDefined(newValue)) {
-                        //$rootScope.backendService.rateDocument(scope.documentTitle, scope.documentAuthor, newValue);
                         updateStars();
                     }
                 });

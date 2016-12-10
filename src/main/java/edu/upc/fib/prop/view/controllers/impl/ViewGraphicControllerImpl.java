@@ -192,6 +192,28 @@ public class ViewGraphicControllerImpl implements ViewGraphicController {
     public int getMyRating(String title, String author){
         return businessController.getMyRating(title,author);
     }
+
+    //TODO implementacion temporal
+    @Override
+    public String getRecommendedDocs(int numDocs) {
+        DocumentsSet documents = this.businessController.searchForAllDocuments();
+        List<DocumentBasicInfo> documentsBasicInfo = new ArrayList<>();
+        int puestos = 0;
+        for (Document document : documents) {
+            if(puestos<numDocs) {
+                documentsBasicInfo.add(new DocumentBasicInfo(document));
+                ++puestos;
+            }
+        }
+        return new Gson().toJson(documentsBasicInfo);
+    }
+
+    //TODO implementacion temporal
+    @Override
+    public String getVisitedDocs(int numDocs) {
+        return getRecommendedDocs(numDocs);
+    }
+
     public void test(){
         System.out.println("ADJHADISDIUGAISUGD");
     }

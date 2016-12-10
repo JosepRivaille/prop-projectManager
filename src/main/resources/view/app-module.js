@@ -16,7 +16,8 @@
             'ngAria',
             'ngMessages',
             'ngMaterial',
-
+            
+            'project.home',
             'project.search',
             'project.manage',
             'project.settings',

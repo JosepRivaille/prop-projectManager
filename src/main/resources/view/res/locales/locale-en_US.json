@@ -85,5 +85,8 @@
   "EXCEPTION_INVALID_EXPRESSION": "Invalid expression format",
 
   "AUTHORS_FOUND_LABEL": " authors found",
-  "DOCUMENTS_FOUND_LABEL": " documents found"
+  "DOCUMENTS_FOUND_LABEL": " documents found",
+  "RECOMMENDED_DOCUMENTS": " Recommended documents",
+  "RECENTLY_CONSULTED_DOCUMENTS": " Consulted recently"
+
 }

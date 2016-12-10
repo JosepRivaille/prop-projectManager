@@ -141,5 +141,9 @@ public interface ViewGraphicController {
     float rateDocument(String title, String author, int rating) throws DocumentNotFoundException;
 
     int getMyRating(String title, String author);
+
+    String getRecommendedDocs(int numDocs);
+
+    String getVisitedDocs(int numDocs);
 }
 
