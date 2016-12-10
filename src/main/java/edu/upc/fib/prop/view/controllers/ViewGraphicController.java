@@ -141,5 +141,7 @@ public interface ViewGraphicController {
     String getVisitedDocs(int numDocs);
 
     void changeUserAvatar(int avatar);
+
+    String selectImage();
 }
 

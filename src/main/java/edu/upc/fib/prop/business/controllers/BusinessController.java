@@ -185,4 +185,6 @@ public interface BusinessController {
     int getMyRating(String title, String author);
 
     void changeUserAvatar(int avatar);
+
+    String selectImage(Stage st);
 }

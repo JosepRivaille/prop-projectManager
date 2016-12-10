@@ -12,8 +12,16 @@ import edu.upc.fib.prop.models.*;
 import edu.upc.fib.prop.persistence.controllers.PersistenceController;
 import edu.upc.fib.prop.persistence.controllers.impl.PersistenceControllerImpl;
 import edu.upc.fib.prop.utils.ImportExport;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.*;
+import java.math.BigInteger;
+import java.net.URL;
+import java.security.SecureRandom;
 import java.sql.SQLException;
 
 public class BusinessControllerImpl implements BusinessController {
@@ -165,6 +173,34 @@ public class BusinessControllerImpl implements BusinessController {
     @Override
     public void changeUserAvatar(int avatar) {
         this.persistenceController.changeUserAvatar(usersManager.getCurrentUser().getEmail(), avatar);
+    }
+
+    @Override
+    public String selectImage(Stage st) {
+
+        FileChooser.ExtensionFilter imageFilter
+                = new FileChooser.ExtensionFilter("Image Files","*.png");
+
+        FileChooser fc = new FileChooser();
+        fc.getExtensionFilters().add(imageFilter);
+        fc.setTitle("Open Resource File");
+        File file = fc.showOpenDialog(st);
+        BufferedImage bufferedImage = null;
+        try {
+            bufferedImage = ImageIO.read(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        SecureRandom random = new SecureRandom();
+        String filename = new BigInteger(130, random).toString(32).toString() + ".png";
+        try {
+            ImageIO.write(bufferedImage, "png", new File("./src/main/resources/images/covers/" + filename));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return filename;
     }
 
     @Override

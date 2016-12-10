@@ -228,6 +228,11 @@ public class ViewGraphicControllerImpl implements ViewGraphicController {
         this.businessController.changeUserAvatar(avatar);
     }
 
+    @Override
+    public String selectImage() {
+        return businessController.selectImage(st);
+    }
+
     public void test(){
         System.out.println("ADJHADISDIUGAISUGD");
     }

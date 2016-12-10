@@ -129,6 +129,12 @@
                     $state.reload();
                 };
 
+                scope.selectImage = function () {
+                    var path = $rootScope.backendService.selectImage();
+                    scope.selectedImage = path;
+                };
+
+
                 scope.storeDocument = function (event) {
                     var translations = {
                         title: scope.isNewDocument ? $filter('translate')('DIALOG_CREATE_TITLE') : $filter('translate')('DIALOG_EDIT_TITLE'),
@@ -149,6 +155,11 @@
                     $mdDialog.show(confirm).then(function() {
                         scope.documentSelected.title = scope.documentSelected.title.capitalizeFirstLetter();
                         scope.documentSelected.author = scope.documentSelected.author.capitalizeFirstLetter();
+                        if(angular.isDefined(scope.selectedImage)){
+                            alert("IMAGEN SELECCIONADA: " + scope.selectedImage);
+                            scope.documentSelected.cover = scope.selectedImage;
+                        }
+
                         if (scope.isNewDocument) {
                             var data = JSON.stringify(scope.documentSelected);
                             try {
@@ -174,8 +185,10 @@
                         }
                         scope.isCreateOrUpdate = false;
                         scope.isListSelected = true;
+                        scope.selectedImage = undefined;
                     }, function() {
                     });
+
                 };
 
                 scope.showDeleteConfirm = function (event, document) {

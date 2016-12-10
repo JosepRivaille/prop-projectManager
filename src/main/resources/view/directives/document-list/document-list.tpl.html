@@ -123,13 +123,11 @@
                     <div layout="row" layout-align="space-between none">
 
                         <div layout="row" layout-align="start center">
-                            <md-button class="md-raised md-primary">
-                                <label for="fileInput" class="fill-all-parent">
-                                    <i class="fa fa-picture-o"></i>
-                                </label>
+                            <md-button class="md-raised md-primary" ng-click="selectImage()">
+                                <i class="fa fa-picture-o"></i>
                             </md-button>
                             <p id="selectedImageLabel">{{fileName}}</p>
-                            <input id="fileInput" type="file" class="ng-hide" name="coverImagePath" fd-input file-name="fileName">
+
                         </div>
 
 
