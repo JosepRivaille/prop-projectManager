@@ -84,7 +84,7 @@
                     $rootScope.currentUser = {
                         email: usr.email,
                         userName: usr.name,
-                        avatar: usr.avatar + ".png"
+                        avatar: usr.avatar
                     };
                 }
 

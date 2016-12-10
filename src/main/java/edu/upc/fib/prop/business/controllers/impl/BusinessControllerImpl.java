@@ -162,6 +162,11 @@ public class BusinessControllerImpl implements BusinessController {
     }
 
     @Override
+    public void changeUserAvatar(int avatar) {
+        this.persistenceController.changeUserAvatar(usersManager.getCurrentUser().getEmail(), avatar);
+    }
+
+    @Override
     public void updateDocument(String title, String author, Document newDoc) throws AlreadyExistingDocumentException, InvalidDetailsException, DocumentNotFoundException {
         Document oldDoc = searchDocumentsByTitleAndAuthor(title, author);
         if(!(newDoc.getAuthor().equals("") && newDoc.getTitle().equals("") && newDoc.getContent().equals(""))) {

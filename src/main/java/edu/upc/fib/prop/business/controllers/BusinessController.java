@@ -187,4 +187,6 @@ public interface BusinessController {
     boolean isDocumentFavourite(String title, String author);
 
     int getMyRating(String title, String author);
+
+    void changeUserAvatar(int avatar);
 }

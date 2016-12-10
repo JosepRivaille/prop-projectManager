@@ -214,6 +214,11 @@ public class ViewGraphicControllerImpl implements ViewGraphicController {
         return getRecommendedDocs(numDocs);
     }
 
+    @Override
+    public void changeUserAvatar(int avatar) {
+        this.businessController.changeUserAvatar(avatar);
+    }
+
     public void test(){
         System.out.println("ADJHADISDIUGAISUGD");
     }

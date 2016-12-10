@@ -202,6 +202,13 @@ public class PersistenceControllerImpl implements PersistenceController {
         return res;
     }
 
+    @Override
+    public void changeUserAvatar(String email, int avatar) {
+        openConnection();
+        this.daoUsers.changeUserAvatar(c, email, avatar);
+        closeConnection();
+    }
+
     //////////
 
     private void openConnection() {

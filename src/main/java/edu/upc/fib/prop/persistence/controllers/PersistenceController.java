@@ -120,4 +120,6 @@ public interface PersistenceController {
     boolean isDocumentFavourite(String title, String author, String email);
 
     int getMyRating(String title, String author, String email);
+
+    void changeUserAvatar(String email, int avatar);
 }

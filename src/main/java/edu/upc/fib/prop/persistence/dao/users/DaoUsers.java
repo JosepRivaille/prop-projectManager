@@ -43,4 +43,5 @@ public interface DaoUsers {
      */
     void deleteUser(Connection c, User user) throws UserNotFoundException, SQLException;
 
+    void changeUserAvatar(Connection c, String email, int avatar);
 }

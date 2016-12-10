@@ -145,5 +145,7 @@ public interface ViewGraphicController {
     String getRecommendedDocs(int numDocs);
 
     String getVisitedDocs(int numDocs);
+
+    void changeUserAvatar(int avatar);
 }
 

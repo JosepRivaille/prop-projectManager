@@ -37,6 +37,16 @@
 
                     function DialogUserImageController($rootScope, $scope) {
                         $scope.avatars = new Array(13);
+
+                        $scope.changeAvatar = function(avatar){
+                            $rootScope.currentUser.avatar = avatar;
+                            $rootScope.backendService.changeUserAvatar(avatar);
+                            $scope.back();
+                        };
+
+                        $scope.back = function(){
+                            $mdDialog.hide();
+                        }
                     }
                 };
 
