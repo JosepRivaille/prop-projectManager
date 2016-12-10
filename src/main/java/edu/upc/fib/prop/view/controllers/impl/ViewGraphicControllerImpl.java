@@ -129,10 +129,11 @@ public class ViewGraphicControllerImpl implements ViewGraphicController {
     }
 
     @Override
-    public void storeNewDocument(String documentJSON)
+    public String storeNewDocument(String documentJSON)
             throws AlreadyExistingDocumentException, InvalidDetailsException {
         Document document = StringUtils.parseJSONToDocument(documentJSON);
         this.businessController.storeNewDocument(document);
+        return new Gson().toJson( new DocumentBasicInfo(document));
     }
 
     @Override

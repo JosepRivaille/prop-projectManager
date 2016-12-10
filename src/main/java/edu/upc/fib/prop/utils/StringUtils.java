@@ -75,7 +75,9 @@ public class StringUtils {
         String content = jsonObject.get("content").getAsString();
         String cover = jsonObject.get("cover").getAsString();
         Document document = new Document(title, authorName, content);
-        if(!cover.equals("")) document.setCover(cover);
+        if(!cover.equals("")){
+            document.setCover(cover);
+        }
         return document;
     }
 }

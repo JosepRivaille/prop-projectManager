@@ -93,6 +93,7 @@
   "TOAST_CREATED_DOCUMENT": "Successfully created document",
   "TOAST_EDITED_DOCUMENT": "Successfully updated document",
   "TOAST_DELETED_DOCUMENT": "Successfully deleted document",
+  "TOAST_DOCUMENT_IMPORTED_SUCCESSFULLY": "Document imported successfully",
 
   "EXCEPTION_USER_NOT_FOUND": "User not found in the system",
   "EXCEPTION_INVALID_DETAILS": "Invalid email and password combination",
@@ -101,6 +102,9 @@
   "EXCEPTION_DOCUMENT_NOT_FOUND": "No matching document found",
   "EXCEPTION_INVALID_QUERY": "Invalid query format",
   "EXCEPTION_INVALID_EXPRESSION": "Invalid expression format",
+  "EXCEPTION_IMPORT": "Error importing the document",
+  "EXCEPTION_EXPORT": "Error exporting the document",
+  "EXCEPTION_ALREADY_EXISTING_DOCUMENT": "The document already exists",
 
   "AUTHORS_FOUND_LABEL": " authors found",
   "DOCUMENTS_FOUND_LABEL": " documents found",

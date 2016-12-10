@@ -95,7 +95,7 @@ public interface ViewGraphicController {
      *
      * @param documentJSON New document to store.
      */
-    void storeNewDocument(String documentJSON) throws AlreadyExistingDocumentException, InvalidDetailsException;
+    String storeNewDocument(String documentJSON) throws AlreadyExistingDocumentException, InvalidDetailsException;
 
 
     void updateDocument(String oldDocumentJSON, String editedDocumentJSON)

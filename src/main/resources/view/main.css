@@ -63,6 +63,11 @@ body {
 .scrollable-x { overflow-x: auto !important; }
 .scrollable-y { overflow-y: auto !important; }
 
-.md-dialog {
-    z-index: 1600 !important;
+
+md-toast.md-success-toast-theme span {
+    color: white;
+}
+
+md-toast.md-error-toast-theme span {
+    color: #F44336;
 }

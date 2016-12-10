@@ -23,8 +23,12 @@
                 .accentPalette('deep-purple')
                 .warnPalette('teal')
                 .backgroundPalette('blue-grey');
+            
+            $mdThemingProvider.theme('success-toast');
+            $mdThemingProvider.theme('error-toast');
 
             $mdThemingProvider.setDefaultTheme('light');
+
             $mdThemingProvider.alwaysWatchTheme(true);
             $provide.value('themeProvider', $mdThemingProvider);
         }]);

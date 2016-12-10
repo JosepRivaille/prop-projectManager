@@ -36,8 +36,13 @@
                 };
 
                 scope.importDocument = function(){
-                    var response = $rootScope.backendService.importDocument();
-                    addDocumentOrdered(scope.documents, JSON.parse(response));
+                    try {
+                        var response = $rootScope.backendService.importDocument();
+                        addDocumentOrdered(scope.documents, JSON.parse(response));
+                        showToast('TOAST_DOCUMENT_IMPORTED_SUCCESSFULLY');
+                    } catch (e) {
+                        showToast(treatException(e), true);
+                    }
                 };
 
                 scope.removeFavourite = function (doc) {
@@ -147,8 +152,9 @@
                         if (scope.isNewDocument) {
                             var data = JSON.stringify(scope.documentSelected);
                             try {
-                                $rootScope.backendService.storeNewDocument(data);
-                                addDocumentOrdered(scope.documents, scope.documentSelected);
+                                var response = $rootScope.backendService.storeNewDocument(data);
+                                var doc = JSON.parse(response);
+                                addDocumentOrdered(scope.documents, doc);
                                 showToast('TOAST_CREATED_DOCUMENT');
                             } catch (e) {
                                 scope.isInvalidData = treatException(e);
@@ -246,14 +252,17 @@
                         return 'EXCEPTION_INVALID_DETAILS';
                     } else if (e.toString().indexOf('AlreadyExistingDocumentException') !== -1) {
                         return 'EXCEPTION_ALREADY_EXISTING_DOCUMENT';
+                    } else if (e.toString().indexOf('ImportExportException') !== -1) {
+                        return 'EXCEPTION_IMPORT';
                     }
                 }
 
-                function showToast(toastText) {
+                function showToast(toastText, error) {
                     (function() {
                         $mdToast.show(
                             $mdToast.simple()
                                 .textContent($filter('translate')(toastText))
+                                .theme(error?'error-toast':'success-toast')
                                 .position(getToastPosition())
                                 .hideDelay(3000)
                         );

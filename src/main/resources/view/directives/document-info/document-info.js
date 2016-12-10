@@ -82,11 +82,12 @@
                     }
                 }
 
-                function showToast(toastText) {
+                function showToast(toastText, error) {
                     (function() {
                         $mdToast.show(
                             $mdToast.simple()
                                 .textContent($filter('translate')(toastText))
+                                .theme(error ? 'error-toast':'success-toast')
                                 .position(getToastPosition())
                                 .hideDelay(3000)
                         );
