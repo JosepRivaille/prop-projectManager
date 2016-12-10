@@ -51,6 +51,13 @@
                     });
                 };
 
+                scope.export = function () {
+                    var filename = scope.document.title + ' - ' + scope.document.author;
+                    var text = scope.document.content;
+
+                    download(filename, text);
+                };
+
                 //////////
 
                 function DialogSimilarDocumentsCtrl($rootScope, $scope, $mdDialog) {
@@ -96,6 +103,20 @@
                             return positions[pos];
                         }).join(' ');
                     }
+                }
+
+                function download(filename, text) {
+                    var element = document.createElement('a');
+                    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+                    element.setAttribute('download', filename);
+                    element.setAttribute('target', '_self');
+
+                    element.style.display = 'none';
+                    document.body.appendChild(element);
+
+                    element.click();
+
+                    document.body.removeChild(element);
                 }
 
             }

@@ -119,14 +119,6 @@
                     $state.reload();
                 };
 
-                //TODO: Not working yet
-                scope.export = function (document) {
-                    var downloader = angular.element('#file-downloader');
-                    downloader.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(document.content));
-                    element.setAttribute('download', document.title + ' - ' + document.author + '.txt');
-                    downloader.triggerHandler('click');
-                };
-
                 scope.storeDocument = function (event) {
                     var translations = {
                         title: scope.isNewDocument ? $filter('translate')('DIALOG_CREATE_TITLE') : $filter('translate')('DIALOG_EDIT_TITLE'),

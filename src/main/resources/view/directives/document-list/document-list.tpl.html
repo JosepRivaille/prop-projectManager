@@ -31,10 +31,6 @@
                                        ng-click="showDeleteConfirm($event, document)">
                                 <i class="fa fa-trash"></i>
                             </md-button>
-                            <md-button onclick="location.href = event.stopPropagation();" class="md-raised md-accent" aria-label="Export document"
-                                       ng-click="export(document)">
-                                <i class="fa fa-download"></i>
-                            </md-button>
                         </div>
 
                         <div ng-if="parent=='favorites'" class="item-buttons-container" layout="row" layout-align="center center">
@@ -76,10 +72,6 @@
                             <md-button onclick="location.href = event.stopPropagation();" class="md-raised md-warn" aria-label="Delete document"
                                        ng-click="showDeleteConfirm($event, document)">
                                 <i class="fa fa-trash"></i>
-                            </md-button>
-                            <md-button onclick="location.href = event.stopPropagation();" class="md-raised md-accent" aria-label="Export document"
-                                       ng-click="export(document)">
-                                <i class="fa fa-download"></i>
                             </md-button>
                         </div>
 
@@ -181,7 +173,7 @@
                     <md-tooltip md-direction="left" md-visible="tooltipVisible" md-autohide="true">
                         Import document
                     </md-tooltip>
-                    <i class="fa fa-download"></i>
+                    <i class="fa fa-upload"></i>
                 </md-button>
             </md-fab-actions>
         </md-fab-speed-dial>
@@ -195,7 +187,6 @@
         </div>
         <document-info ng-model="documentSelected"></document-info>
     </div>
-
 
 </md-content>
 
