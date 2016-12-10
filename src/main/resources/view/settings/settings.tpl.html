@@ -1,4 +1,4 @@
-<md-content id="settings-wrapper" class="fill-all-window">
+<div id="settings-wrapper" class="fill-all-window">
     <h1 class="title-landing">
         {{ vm.title | translate}}
     </h1>
@@ -9,25 +9,20 @@
             <md-checkbox class="md-raised md-primary" ng-model="language.selected" aria-label="Language checkbox"
                          ng-click="vm.disableOtherLanguages(language)"></md-checkbox>
         </md-list-item>
-        <md-divider ></md-divider>
+        <md-divider></md-divider>
         <md-subheader class="md-no-sticky">{{vm.theme.title | translate}}</md-subheader>
         <md-list-item>
-            <p ng-if="vm.theme.darkTheme">{{vm.theme.themeDark | translate}}</p>
-            <p ng-if="!vm.theme.darkTheme">{{vm.theme.themeLight | translate}}</p>
-            <md-switch class="md-primary" ng-model="vm.theme.darkTheme" aria-label="Switch theme"
+            <p ng-if="vm.theme.lightTheme">{{vm.theme.themeDark | translate}}</p>
+            <p ng-if="!vm.theme.lightTheme">{{vm.theme.themeLight | translate}}</p>
+            <md-switch class="md-primary" ng-model="vm.theme.lightTheme" aria-label="Switch theme"
                        ng-click="vm.switchTheme()"></md-switch>
         </md-list-item>
-        <md-divider ></md-divider>
+        <md-divider></md-divider>
         <md-subheader class="md-no-sticky">{{'SETTINGS_ACCOUNT' | translate}}</md-subheader>
-        <md-list-item>
-            <md-button class="md-raised md-primary" ng-click="vm.logout()">
-                {{'ACCOUNT_LOGOUT' | translate}}
-            </md-button>
-        </md-list-item>
         <md-list-item>
             <md-button class="md-raised md-warn"  ng-click="vm.deleteAccount($event)">
                 {{'ACCOUNT_DELETE' | translate}}
             </md-button>
         </md-list-item>
     </md-list>
-</md-content>
+</div>

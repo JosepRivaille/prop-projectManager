@@ -16,11 +16,11 @@
         var vm = this;
         vm.ctrlName = 'AppCtrl';
 
-        $rootScope.$watch(function () {
+        /*$rootScope.$watch(function () {
             return $rootScope.selectedTheme;
         }, function () {
             vm.selectedTheme = $rootScope.selectedTheme;
-        });
+        });*/
 
         $rootScope.backendService = backendService;
         $rootScope.selectedTheme = 'light';

@@ -12,25 +12,15 @@
         .module('project')
         .config(['$mdThemingProvider', '$provide', function ($mdThemingProvider, $provide) {
 
-            $mdThemingProvider.theme('light')
-                .primaryPalette('blue')
-                .accentPalette('indigo')
-                .warnPalette('red')
-                .backgroundPalette('light-green');
+            $mdThemingProvider.theme('light');
 
-            $mdThemingProvider.theme('dark')
-                .primaryPalette('amber')
-                .accentPalette('deep-purple')
-                .warnPalette('teal')
-                .backgroundPalette('blue-grey');
+            $mdThemingProvider.theme('dark').dark();
             
             $mdThemingProvider.theme('success-toast');
             $mdThemingProvider.theme('error-toast');
 
             $mdThemingProvider.setDefaultTheme('light');
-
             $mdThemingProvider.alwaysWatchTheme(true);
             $provide.value('themeProvider', $mdThemingProvider);
         }]);
 }());
-
