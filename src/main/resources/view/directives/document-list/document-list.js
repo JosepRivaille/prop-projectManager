@@ -31,7 +31,6 @@
                 parent: '=?'
             },
             link: function (scope) {
-                if(angular.isUndefined(parent)) parent = "";
                 scope.isDocFavourite = function(doc){
                     return $rootScope.backendService.isDocumentFavourite(doc.title,doc.author);
                 };
@@ -80,10 +79,29 @@
                 };
 
                 scope.backToList = function () {
-                    scope.title = 'MENU_MANAGEMENT_ALL';
-                    scope.documentBackUp = undefined;
-                    scope.isCreateOrUpdate = false;
-                    scope.isListSelected = true;
+                    var translations = {
+                        title: $filter('translate')('DIALOG_BACK_TITLE'),
+                        textContent: $filter('translate')('DIALOG_BACK_CONTENT'),
+                        ariaLabel: $filter('translate')('DIALOG_BACK_ARIA_LABEL'),
+                        ok: $filter('translate')('DIALOG_BACK_OK'),
+                        cancel: $filter('translate')('DIALOG_BACK_CANCEL')
+                    };
+
+                    var confirm = $mdDialog.confirm()
+                        .title(translations.title)
+                        .textContent(translations.textContent)
+                        .ariaLabel(translations.ariaLabel)
+                        .targetEvent(event)
+                        .ok(translations.ok)
+                        .cancel(translations.cancel);
+
+                    $mdDialog.show(confirm).then(function () {
+                        scope.documentBackUp = undefined;
+                        scope.isCreateOrUpdate = false;
+                        scope.isListSelected = true;
+                        $mdDialog.hide();
+                    }, function () {
+                    });
                 };
 
                 scope.selectDocument = function (document) {
@@ -111,11 +129,11 @@
 
                 scope.storeDocument = function (event) {
                     var translations = {
-                        title: $filter('translate')('DIALOG_CREATE_TITLE'),
-                        textContent: $filter('translate')('DIALOG_CREATE_CONTENT'),
-                        ariaLabel: $filter('translate')('DIALOG_CREATE_ARIA_LABEL'),
-                        ok: $filter('translate')('DIALOG_CREATE_OK'),
-                        cancel: $filter('translate')('DIALOG_CREATE_CANCEL')
+                        title: scope.isNewDocument ? $filter('translate')('DIALOG_CREATE_TITLE') : $filter('translate')('DIALOG_EDIT_TITLE'),
+                        textContent: scope.isNewDocument ? $filter('translate')('DIALOG_CREATE_CONTENT') : $filter('translate')('DIALOG_EDIT_CONTENT'),
+                        ariaLabel: scope.isNewDocument ? $filter('translate')('DIALOG_CREATE_ARIA_LABEL') : $filter('translate')('DIALOG_EDIT_ARIA_LABEL'),
+                        ok: scope.isNewDocument ? $filter('translate')('DIALOG_CREATE_OK') : $filter('translate')('DIALOG_EDIT_OK'),
+                        cancel: scope.isNewDocument ? $filter('translate')('DIALOG_CREATE_CANCEL') : $filter('translate')('DIALOG_EDIT_CANCEL')
                     };
 
                     var confirm = $mdDialog.confirm()

@@ -1,4 +1,9 @@
 <md-content class="fill-all-window">
+    <div ng-show="!vm.isDocumentSelected">
+        <h1 class="title-landing" layout-align="space-between center">
+            {{vm.title | translate}}
+        </h1>
+    </div>
     <div ng-if="vm.isDocumentSelected">
         <div class="right-bottom-buttons">
             <md-button class="md-fab md-primary" aria-label="Restart search" ng-click="$state.reload()">

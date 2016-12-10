@@ -39,11 +39,23 @@
   "DIALOG_CREATE_OK": "OK",
   "DIALOG_CREATE_CANCEL": "Cancel",
 
+  "DIALOG_EDIT_TITLE": "Create document",
+  "DIALOG_EDIT_CONTENT": "You are about to create a new document and everyone will be able to see it. Are you sure you want to proceed?",
+  "DIALOG_EDIT_ARIA_LABEL": "Create document",
+  "DIALOG_EDIT_OK": "OK",
+  "DIALOG_EDIT_CANCEL": "Cancel",
+
   "DIALOG_DELETE_TITLE": "Delete document",
   "DIALOG_DELETE_CONTENT": "You are about to delete a document and this operation is irreversible. Are you sure you want to proceed?",
   "DIALOG_DELETE_ARIA_LABEL": "Delete document",
   "DIALOG_DELETE_OK": "OK",
   "DIALOG_DELETE_CANCEL": "Cancel",
+
+  "DIALOG_BACK_TITLE": "Unsaved changes",
+  "DIALOG_BACK_CONTENT": "You are about to quit without saving changes, all new data will be lost. Are you sure you want to proceed?",
+  "DIALOG_BACK__ARIA_LABEL": "Unsaved changes",
+  "DIALOG_BACK_OK": "OK",
+  "DIALOG_BACK_CANCEL": "Cancel",
 
   "DIALOG_SEARCH_SIMILAR_CONTENT": "How many documents do you want to search for?",
   "DIALOG_SEARCH_SIMILAR_PLACEHOLDER": "Number of documents",
