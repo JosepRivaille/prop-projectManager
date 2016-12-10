@@ -22,8 +22,13 @@
             vm.selectedTheme = $rootScope.selectedTheme;
         });*/
 
-        $rootScope.backendService = backendService;
-        $rootScope.selectedTheme = 'light';
+//        if (angular.isUndefined(backendService)) {
+            console.log('Error loading main backend service, stub activated instead');
+            $rootScope.backendService = backendServiceStub;
+//        } else {
+  //          $rootScope.backendService = backendService;
+    //    }
+
     }
 
 }());

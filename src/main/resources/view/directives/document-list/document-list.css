@@ -23,6 +23,10 @@
     height: 100%;
 }
 
+#document-list .list-space-below {
+    padding-bottom: 130px;
+}
+
 #document-list .docs-list-item .item-info-container{
     height: 100%;
     width: auto;

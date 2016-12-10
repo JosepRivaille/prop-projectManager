@@ -64,12 +64,6 @@
             $rootScope.selectedTheme = vm.theme.lightTheme ? 'light' : 'dark';
         };
 
-        vm.logout = function () {
-            $rootScope.backendService.userLogout();
-            $rootScope.isLoggedIn = false;
-            $state.go('project');
-        };
-
         vm.deleteAccount = function (event) {
             var translations = {
                 title: $filter('translate')('DIALOG_DELETE_TITLE'),
@@ -89,7 +83,7 @@
 
             $mdDialog.show(confirm).then(function() {
                 $rootScope.backendService.userDelete();
-                $rootScope.userStatus.isLoggedIn = false;
+                $rootScope.isLoggedIn = false;
                 $state.go('project');
             }, function() {
             });
