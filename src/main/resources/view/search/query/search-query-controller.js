@@ -37,7 +37,6 @@
                     var response = $rootScope.backendService.getDocumentsByQuery(query);
                     $scope.similarDocuments = JSON.parse(response);
                 } catch (e) {
-                    alert(e);
                     if (e.toString().indexOf('InvalidQueryException') !== -1) {
                         $scope.isInvalidData = 'EXCEPTION_INVALID_QUERY';
                     }

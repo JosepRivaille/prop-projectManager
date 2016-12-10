@@ -61,6 +61,34 @@
                     }
                 }
 
+                function getIndexToInsert(documentsList, newDocument) {
+                    var minIndex = 0;
+                    var maxIndex = documentsList.length - 1;
+                    var currentIndex;
+
+                    while (minIndex <= maxIndex) {
+                        currentIndex = (minIndex + maxIndex) / 2 | 0;
+                        if (documentsList[currentIndex].title < newDocument.title) {
+                            minIndex = currentIndex + 1;
+                        } else if (documentsList[currentIndex] > newDocument.title) {
+                            maxIndex = currentIndex - 1;
+                        } else {
+                            while (documentsList[currentIndex].author < newDocument.author) {
+                                ++currentIndex;
+                            } return currentIndex;
+                        }
+                    } return currentIndex;
+                }
+
+                function addDocumentOrdered(documentsList, newDocument) {
+                    var index = getIndexToInsert(documentsList, newDocument);
+                    documentsList.splice(index, 0, newDocument);
+                }
+
+                String.prototype.capitalizeFirstLetter = function() {
+                    return this.charAt(0).toUpperCase() + this.slice(1);
+                };
+
                 function treatException(e) {
                     if (e.toString().indexOf('DocumentContentNotFoundException') !== -1) {
                         return 'EXCEPTION_DOCUMENT_CONTENT_NOT_FOUND';
@@ -148,10 +176,17 @@
 
                     $mdDialog.show(confirm).then(function() {
                         if (scope.isNewDocument) {
+                            scope.documentSelected.title = scope.documentSelected.title.capitalizeFirstLetter();
+                            scope.documentSelected.author = scope.documentSelected.author.capitalizeFirstLetter();
                             var data = JSON.stringify(scope.documentSelected);
                             try {
                                 $rootScope.backendService.storeNewDocument(data);
-                                scope.documents.push(scope.documentSelected);
+                                //TODO: Not working yet¿?
+                                if (!scope.isNewDocument) {
+                                    var index = scope.documents.indexOf(scope.documentBackUp);
+                                    scope.documents.splice(index, 1);
+                                }
+                                addDocumentOrdered(scope.documents, scope.documentSelected);
                             } catch (e) {
                                 scope.isInvalidData = treatException(e);
                             }

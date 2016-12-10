@@ -31,7 +31,8 @@
                 try {
                     vm.isInvalidData = undefined;
                     var response = $rootScope.backendService.getDocumentByTitleAndAuthor(title, author);
-                    vm.documents = JSON.parse(response);
+                    vm.documentSelected = JSON.parse(response);
+                    vm.isDocumentSelected = true;
                     $mdDialog.hide();
                 } catch (e) {
                     if (e.toString().indexOf('DocumentNotFoundException') !== -1) {
