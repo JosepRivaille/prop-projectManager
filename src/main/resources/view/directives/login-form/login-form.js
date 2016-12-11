@@ -41,7 +41,9 @@
                     return $rootScope.isLoggedIn;
                 }, function() {
                     scope.isLoggedIn = $rootScope.isLoggedIn;
-                    if(scope.isLoggedIn) $state.go('project.home');
+                    if (scope.isLoggedIn) {
+                        $state.go('project.home');
+                    }
                 }, true);
 
                 scope.changeFormMode = function () {
