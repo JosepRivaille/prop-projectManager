@@ -3,10 +3,10 @@
         <div style="height: 100%;" layout="column" layout-align="center center">
 
             <div layout="column" class="left-container" layout-align="center center">
-                <div class="image-container">
+                <div class="image-container" layout="column" layout-align="end stretch">
                     <img class="doc-cover" ng-src="../../../covers/{{document.cover}}">
                 </div>
-                <div class="buttons-container" layout-align="end stretch" layout="column">
+                <div class="buttons-container" layout-align="end stretch" layout="column" layout-align="start stretch">
                     <md-button ng-click="addFavourite()" ng-if="!isFavourite" class="md-raised md-primary">
                         {{'BUTTON_ADD_FAVOURITES' | translate}}
                     </md-button>
