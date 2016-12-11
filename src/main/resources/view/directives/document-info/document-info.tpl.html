@@ -1,4 +1,4 @@
-<div class="fill-all-window" id="document-info" ng-cloak>
+<div id="document-info" class="fill-all-window" ng-cloak>
     <div class="container" layout="row">
         <div style="height: 100%;" layout="column" layout-align="center center">
 
@@ -23,17 +23,18 @@
 
             </div>
         </div>
-
+        <md-divider></md-divider>
         <div flex layout="column" layout-align="start start" class="right-container">
             <div class="info-container" layout="column">
                 <div class="info-header">
                     <div layout="column" layout-align="center center">
                         <p class="text-title text-center">{{document.title | uppercase}}</p>
                         <p class="text-author text-center">{{document.author}}</p>
-
-                        <star-rating ng-model="document.rating" read-only="false" document-title="document.title" document-author="document.author"></star-rating>
+                        <star-rating ng-model="document.rating" read-only="false" document-title="document.title"
+                                     document-author="document.author"></star-rating>
                     </div>
                 </div>
+
                 <md-content flex layout-padding class="wrap-text no-scrollable-x">{{document.content}}</md-content>
             </div>
         </div>

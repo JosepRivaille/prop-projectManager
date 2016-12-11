@@ -1,7 +1,7 @@
 #document-info {
     width: 100%;
     height: 100vh;
-    padding: 45px;
+    padding: 20px;
 }
 
 #document-info .container {
@@ -9,6 +9,7 @@
     height: 100%;
     padding: 0;
 }
+
 #document-info .doc-cover {
     max-width: 100%;
     max-height: 100%;
@@ -19,32 +20,33 @@
 
 #document-info .left-container{
     height: 70%;
-    padding: 0;
+    padding: 0 20px 0 0;
 }
 
 #document-info .left-container .md-button{
     margin: 5px 0 0;
     height: 50px;
 }
+
 #document-info .left-container .image-container{
     height: 75%;
 }
+
 #document-info .left-container .buttons-container{
     height: 25%;
     width: 100%;
 }
 
 #document-info .right-container{
-    padding-left: 50px;
-    padding-top: 5px;
+    padding: 5px 0 0 20px;
     font-family: sans-serif;
     height: 100%;
     text-align: left;
 }
 
 #document-info .right-container .md-content {
-     background: inherit;
- }
+    background: inherit;
+}
 
 #document-info .text-title {
     font-weight: bold;
