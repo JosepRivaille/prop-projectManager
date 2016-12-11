@@ -77,6 +77,7 @@
                     scope.isListSelected = false;
                     scope.isNewDocument = true;
                     scope.isCreateOrUpdate = true;
+                    scope.isInvalidData = undefined;
                 };
 
                 scope.editDocument = function (document) {
@@ -86,6 +87,7 @@
                     scope.isListSelected = false;
                     scope.isNewDocument = false;
                     scope.isCreateOrUpdate = true;
+                    scope.isInvalidData = undefined;
                 };
 
                 scope.backToList = function () {
@@ -123,6 +125,7 @@
                 scope.back = function () {
                     scope.isDocumentSelected = false;
                     scope.isListSelected = true;
+                    scope.isInvalidData = undefined;
                 };
 
                 scope.searchAgain = function () {
