@@ -1,38 +1,59 @@
-<div id="document-info" class="fill-all-window" layout="row" layout-align="center stretch" ng-cloak>
-    <!-- LEFT COLUMN -->
-    <div class="left-container" layout="column" layout-align="space-around stretch">
-        <!-- COVER IMAGE -->
-        <div flex="70" layout="row" layout-align="center center" class="image-container">
-            <img class="doc-cover" ng-src="../../../covers/{{document.cover}}">
+<div class="fill-all-window" id="document-info" ng-cloak>
+    <div class="container" layout="row">
+        <div style="height: 100%;" layout="column" layout-align="center center">
+
+            <div layout="column" class="left-container" layout-align="center center">
+                <div class="image-container">
+                    <img class="doc-cover" ng-src="../../../covers/{{document.cover}}">
+                </div>
+                <div class="buttons-container" layout-align="end stretch" layout="column">
+                    <md-button ng-click="addFavourite()" ng-if="!isFavourite" class="md-raised md-primary">
+                        {{'BUTTON_ADD_FAVOURITES' | translate}}
+                    </md-button>
+                    <md-button ng-click="removeFavourite()" ng-if="isFavourite" class="md-raised md-warn">
+                        {{'BUTTON_REMOVE_FROM_FAVOURITES' | translate}}
+                    </md-button>
+                    <md-button ng-click="searchSimilars($event)" class="md-raised md-accent">
+                        {{'BUTTON_SEARCH_SIMILARS' | translate}}
+                    </md-button>
+                    <md-button ng-click="export()" class="md-raised md-warn" aria-label="Export document">
+                        {{'BUTTON_EXPORT_DOCUMENT' | translate}}
+                    </md-button>
+                </div>
+
+            </div>
         </div>
-        <!-- ACTION BUTTONS -->
-        <div flex="30" layout="column" layout-align="center stretch">
-            <md-button ng-if="!isFavourite" flex ng-click="addFavourite()" class="md-raised md-primary">
-                {{'BUTTON_ADD_FAVOURITES' | translate}}
-            </md-button>
-            <md-button ng-if="isFavourite" flex ng-click="removeFavourite()" class="md-raised md-warn">
-                {{'BUTTON_REMOVE_FROM_FAVOURITES' | translate}}
-            </md-button>
-            <md-button flex ng-click="searchSimilars()" class="md-raised md-accent">
-                {{'BUTTON_SEARCH_SIMILARS' | translate}}
-            </md-button>
-            <md-button flex ng-click="export()" class="md-raised md-warn" aria-label="Export document">
-                {{'BUTTON_EXPORT_DOCUMENT' | translate}}
-            </md-button>
+
+        <!--
+        <div flex layout="column" layout-align="start start" class="right-container">
+            <div class="info-container" layout="column">
+                <div class="info-header" style="height:20%;background-color: #2b669a;">
+                    <div layout="column" layout-align="center center">
+                        <p class="text-title text-center">{{document.title | uppercase}}</p>
+                        <p class="text-author text-center">{{document.author}}</p>
+
+                        <star-rating ng-model="document.rating" read-only="false" document-title="document.title" document-author="document.author"></star-rating>
+                    </div>
+                </div>
+                <md-content style="background-color: #2b542c; height;80%;overflow-x: hidden; overflow-y: auto; margin-top: 20px;">
+                    <p>{{document.content}}</p>
+                </md-content>
+            </div>
         </div>
+        -->
+
+        <div flex layout="column" layout-align="start start" class="right-container">
+            <div class="info-container" layout="column">
+                <div class="info-header" style="background-color: #2b669a;">
+                    <div layout="column" layout-align="center center">
+                        <p class="text-title text-center">{{document.title | uppercase}}</p>
+                        <p class="text-author text-center">{{document.author}}</p>
+
+                        <star-rating ng-model="document.rating" read-only="false" document-title="document.title" document-author="document.author"></star-rating>
+                    </div>
+                </div>
+            <md-content style="background-color: #2b542c; word-wrap: break-word;" flex layout-padding class="no-scrollable-x">{{document.content}}</md-content>
+        </div>
+
     </div>
-    <md-divider></md-divider>
-    <!-- RIGHT COLUMN -->
-    <div flex layout="column" layout-align="start stretch">
-        <p layout-padding class="text-title text-center">{{document.title | uppercase}}</p>
-        <p class="text-center">{{document.author}}</p>
-        <div layout="row" layout-align="center center">
-            <star-rating ng-model="document.rating" read-only="false"
-                         document-title="document.title" document-author="document.author"></star-rating>
-        </div>
-        <md-divider></md-divider>
-        <!-- SCROLLABLE CONTENT -->
-        <md-content flex layout-padding class="no-scrollable-x">{{document.content}}</md-content>
-    </div>
-    <!-- END RIGHT COLUMN -->
 </div>
