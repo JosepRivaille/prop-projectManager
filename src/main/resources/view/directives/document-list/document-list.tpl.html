@@ -34,7 +34,7 @@
 
                         <div ng-if="parent=='favorites'" class="item-buttons-container" layout="row" layout-align="center center">
                             <md-button onclick="location.href = event.stopPropagation();" ng-click="removeFavourite(document)" class="md-raised md-warn" aria-label="Remove favourite">
-                                    <i class="fa fa-heartbeat"></i>
+                                <i class="fa fa-heartbeat"></i>
                             </md-button>
                         </div>
 
@@ -44,10 +44,10 @@
             </md-list-item>
         </md-list>
 
-        <md-grid-list ng-if="parent=='all'" style="padding-bottom: 130px;" class="scrollable-y" md-cols-sm="2" md-cols-md="3" md-cols-lg="4" md-gutter="0px" md-row-height="85px" flex>
+        <md-grid-list ng-if="parent=='all'" style="padding-bottom: 130px;" class="scrollable-y" md-cols="2" md-gutter="0px" md-row-height="85px" flex>
             <md-grid-tile ng-repeat="document in documents">
-                <md-button class="docs-list-item" ng-click="selectDocument(document)">
-                    <div layout="row"  layout-align="space-between center" style="height: 100%;">
+                <md-button class="docs-grid-item" ng-click="selectDocument(document)">
+                    <div layout="row"  layout-align="space-between center" style="height: 100%; width: 100%">
                         <div class="item-image-container">
                             <img class="item-image" ng-src="../../../covers/{{document.cover}}">
                         </div>
@@ -61,24 +61,6 @@
 
                             <star-rating ng-model="document.rating" read-only="true"></star-rating>
                         </div>
-
-                        <div ng-if="isEditMode" class="item-buttons-container" layout="row" layout-align="center center">
-                            <md-button onclick="location.href = event.stopPropagation();" class="md-raised md-primary" aria-label="Edit document"
-                                       ng-click="editDocument(document)">
-                                <i class="fa fa-pencil-square-o"></i>
-                            </md-button>
-                            <md-button onclick="location.href = event.stopPropagation();" class="md-raised md-warn" aria-label="Delete document"
-                                       ng-click="showDeleteConfirm($event, document)">
-                                <i class="fa fa-trash"></i>
-                            </md-button>
-                        </div>
-
-                        <div ng-if="parent=='favorites'" class="item-buttons-container" layout="row" layout-align="center center">
-                            <md-button onclick="location.href = event.stopPropagation();" ng-click="removeFavourite(document)" class="md-raised md-warn" aria-label="Remove favourite">
-                                <i class="fa fa-heartbeat"></i>
-                            </md-button>
-                        </div>
-
                     </div>
                 </md-button>
                 <md-divider></md-divider>

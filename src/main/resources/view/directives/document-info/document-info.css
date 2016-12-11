@@ -54,6 +54,9 @@
 
 #document-info .right-container .md-content {
     background: inherit;
+#document-info .info-container .info-header {
+    width: 100%;
+    word-wrap: break-word;
 }
 
 #document-info .word-wrap {
