@@ -1,30 +1,33 @@
-<div id="document-info" class="fill-all-window container" layout="row" layout-padding ng-cloak>
+<div class="fill-all-window" id="document-info" ng-cloak>
+    <div class="container" layout="row">
+        <div style="height: 100%;" layout="column" layout-align="center center">
 
-    <div layout="column" layout-align="center center" layout-padding class="all-height">
-        <div layout="column" class="left-container" layout-align="center center" layout-padding>
-            <div class="image-container">
-                <img class="doc-cover" ng-src="../../../covers/{{document.cover}}">
-            </div>
-            <div class="buttons-container" layout-align="end stretch" layout="column">
-                <md-button ng-click="addFavourite()" ng-if="!isFavourite" class="md-raised md-primary">
-                    {{'BUTTON_ADD_FAVOURITES' | translate}}
-                </md-button>
-                <md-button ng-click="removeFavourite()" ng-if="isFavourite" class="md-raised md-warn">
-                    {{'BUTTON_REMOVE_FROM_FAVOURITES' | translate}}
-                </md-button>
-                <md-button ng-click="searchSimilars($event)" class="md-raised md-accent">
-                    {{'BUTTON_SEARCH_SIMILARS' | translate}}
-                </md-button>
-                <md-button ng-click="export()" class="md-raised md-warn" aria-label="Export document">
-                    {{'BUTTON_EXPORT_DOCUMENT' | translate}}
-                </md-button>
+            <div layout="column" class="left-container" layout-align="center center">
+                <div class="image-container">
+                    <img class="doc-cover" ng-src="../../../covers/{{document.cover}}">
+                </div>
+                <div class="buttons-container" layout-align="end stretch" layout="column">
+                    <md-button ng-click="addFavourite()" ng-if="!isFavourite" class="md-raised md-primary">
+                        {{'BUTTON_ADD_FAVOURITES' | translate}}
+                    </md-button>
+                    <md-button ng-click="removeFavourite()" ng-if="isFavourite" class="md-raised md-warn">
+                        {{'BUTTON_REMOVE_FROM_FAVOURITES' | translate}}
+                    </md-button>
+                    <md-button ng-click="searchSimilars($event)" class="md-raised md-accent">
+                        {{'BUTTON_SEARCH_SIMILARS' | translate}}
+                    </md-button>
+                    <md-button ng-click="export()" class="md-raised md-warn" aria-label="Export document">
+                        {{'BUTTON_EXPORT_DOCUMENT' | translate}}
+                    </md-button>
+                </div>
+
             </div>
         </div>
-        -->
 
+        <!--
         <div flex layout="column" layout-align="start start" class="right-container">
             <div class="info-container" layout="column">
-                <div class="info-header">
+                <div class="info-header" style="height:20%;background-color: #2b669a;">
                     <div layout="column" layout-align="center center">
                         <p class="text-title text-center">{{document.title | uppercase}}</p>
                         <p class="text-author text-center">{{document.author}}</p>
@@ -32,9 +35,25 @@
                         <star-rating ng-model="document.rating" read-only="false" document-title="document.title" document-author="document.author"></star-rating>
                     </div>
                 </div>
-            <md-content style="word-wrap: break-word;" flex layout-padding class="no-scrollable-x">{{document.content}}</md-content>
+                <md-content style="background-color: #2b542c; height;80%;overflow-x: hidden; overflow-y: auto; margin-top: 20px;">
+                    <p>{{document.content}}</p>
+                </md-content>
+            </div>
         </div>
-        <md-content flex layout-padding class="no-scrollable-x word-wrap">{{document.content}}</md-content>
-    </div>
+        -->
 
+        <div flex layout="column" layout-align="start start" class="right-container">
+            <div class="info-container" layout="column">
+                <div class="info-header" style="background-color: #2b669a;">
+                    <div layout="column" layout-align="center center">
+                        <p class="text-title text-center">{{document.title | uppercase}}</p>
+                        <p class="text-author text-center">{{document.author}}</p>
+
+                        <star-rating ng-model="document.rating" read-only="false" document-title="document.title" document-author="document.author"></star-rating>
+                    </div>
+                </div>
+                <md-content style="background-color: #2b542c; word-wrap: break-word;" flex layout-padding class="no-scrollable-x">{{document.content}}</md-content>
+            </div>
+        </div>
+    </div>
 </div>

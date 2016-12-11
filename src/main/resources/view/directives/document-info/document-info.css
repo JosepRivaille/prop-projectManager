@@ -1,5 +1,17 @@
-#document-info .all-height {
+#document-info {
+    width: 100%;
+    height: 100vh;
+    padding: 45px;
+}
+
+#document-info .container {
+    width: 100%;
     height: 100%;
+    padding: 0;
+}
+#document-info .doc-cover {
+    height: 100%;
+    border-radius: 3px;
 }
 
 #document-info .left-container{
@@ -7,72 +19,41 @@
     padding: 0;
 }
 
+#document-info .left-container .md-button{
+    margin: 5px 0 0;
+    height: 50px;
+}
 #document-info .left-container .image-container{
     height: 75%;
 }
-
-#document-info .left-container .doc-cover {
-    max-width: 100%;
-    max-height: 100%;
-    width: auto;
-    height: auto;
-    border-radius: 3px;
-}
-
-#document-info .left-container .buttons-container {
+#document-info .left-container .buttons-container{
     height: 25%;
     width: 100%;
 }
 
-#document-info .left-container .buttons-container .md-button {
-    margin: 5px 0 0;
-    height: 50px;
-}
-
 #document-info .right-container{
-    padding: 5px 10px 0 10px;
+    padding-left: 50px;
+    padding-top: 5px;
     font-family: sans-serif;
     height: 100%;
-    width: 100%;
     text-align: left;
 }
 
-#document-info .right-container .info-header {
-    width: 100%;
-}
-
 #document-info .text-title {
-    font-weight: bold;
+    font-weight: bolder;
     font-size: 2em;
 }
 
-#document-info .right-container .info-header .text-title,
-#document-info .right-container .info-header .text-author {
-    margin-top: 0;
-    margin-bottom: 0;
+#document-info .info-container {
+    width: 100%;
 }
 
-#document-info .right-container .md-content {
-    background: inherit;
 #document-info .info-container .info-header {
     width: 100%;
     word-wrap: break-word;
 }
 
-#document-info .word-wrap {
-    word-wrap: break-word;
-}
-
-::-webkit-scrollbar {
-    width: 12px;
-}
-
-::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-    border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+#document-info .info-container .info-header p {
+    margin-top:0;
+    margin-bottom:0;
 }
