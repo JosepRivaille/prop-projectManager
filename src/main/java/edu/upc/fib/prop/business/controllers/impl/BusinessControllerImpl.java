@@ -178,12 +178,9 @@ public class BusinessControllerImpl implements BusinessController {
     @Override
     public String selectImage(Stage st) {
 
-        FileChooser.ExtensionFilter imageFilter
-                = new FileChooser.ExtensionFilter("Image Files","*.png");
-
         FileChooser fc = new FileChooser();
-        fc.getExtensionFilters().add(imageFilter);
-        fc.setTitle("Open Resource File");
+        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
+        fc.setTitle("Load image");
         File file = fc.showOpenDialog(st);
         BufferedImage bufferedImage = null;
         try {
@@ -193,9 +190,22 @@ public class BusinessControllerImpl implements BusinessController {
         }
 
         SecureRandom random = new SecureRandom();
-        String filename = new BigInteger(130, random).toString(32).toString() + ".png";
+        String filename = new BigInteger(130, random).toString(32).toString();
+
         try {
-            ImageIO.write(bufferedImage, "png", new File("./covers/"+filename));
+            if(file.getName().contains(".png")){
+                filename = filename.concat(".png");
+                ImageIO.write(bufferedImage, "png", new File("./covers/"+filename));
+            }
+            else if(file.getName().contains(".jpg")){
+                filename = filename.concat(".jpg");
+                ImageIO.write(bufferedImage, "jpg", new File("./covers/"+filename));
+            }
+            else if(file.getName().contains(".gif")){
+                filename = filename.concat(".gif");
+                ImageIO.write(bufferedImage, "gif", new File("./covers/"+filename));
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
