@@ -105,7 +105,7 @@
   "EXCEPTION_INVALID_EXPRESSION": "Invalid expression format",
   "EXCEPTION_IMPORT": "Error importing the document",
   "EXCEPTION_EXPORT": "Error exporting the document",
-  "EXCEPTION_ALREADY_EXISTING_DOCUMENT": "The document already exists",
+  "EXCEPTION_ALREADY_EXISTING_DOCUMENT": "A document with this title and author already exists",
 
   "AUTHORS_FOUND_LABEL": " authors found",
   "DOCUMENTS_FOUND_LABEL": " documents found",

@@ -130,18 +130,22 @@
                 };
 
                 scope.selectImage = function () {
-                    var path = $rootScope.backendService.selectImage();
-                    scope.selectedImage = path;
+                    scope.selectedImage = $rootScope.backendService.selectImage();
                 };
 
 
                 scope.storeDocument = function (event) {
                     var translations = {
-                        title: scope.isNewDocument ? $filter('translate')('DIALOG_CREATE_TITLE') : $filter('translate')('DIALOG_EDIT_TITLE'),
-                        textContent: scope.isNewDocument ? $filter('translate')('DIALOG_CREATE_CONTENT') : $filter('translate')('DIALOG_EDIT_CONTENT'),
-                        ariaLabel: scope.isNewDocument ? $filter('translate')('DIALOG_CREATE_ARIA_LABEL') : $filter('translate')('DIALOG_EDIT_ARIA_LABEL'),
-                        ok: scope.isNewDocument ? $filter('translate')('DIALOG_CREATE_OK') : $filter('translate')('DIALOG_EDIT_OK'),
-                        cancel: scope.isNewDocument ? $filter('translate')('DIALOG_CREATE_CANCEL') : $filter('translate')('DIALOG_EDIT_CANCEL')
+                        title: scope.isNewDocument ? $filter('translate')('DIALOG_CREATE_TITLE') :
+                            $filter('translate')('DIALOG_EDIT_TITLE'),
+                        textContent: scope.isNewDocument ? $filter('translate')('DIALOG_CREATE_CONTENT') :
+                            $filter('translate')('DIALOG_EDIT_CONTENT'),
+                        ariaLabel: scope.isNewDocument ? $filter('translate')('DIALOG_CREATE_ARIA_LABEL') :
+                            $filter('translate')('DIALOG_EDIT_ARIA_LABEL'),
+                        ok: scope.isNewDocument ? $filter('translate')('DIALOG_CREATE_OK') :
+                            $filter('translate')('DIALOG_EDIT_OK'),
+                        cancel: scope.isNewDocument ? $filter('translate')('DIALOG_CREATE_CANCEL') :
+                            $filter('translate')('DIALOG_EDIT_CANCEL')
                     };
 
                     var confirm = $mdDialog.confirm()
@@ -155,8 +159,7 @@
                     $mdDialog.show(confirm).then(function() {
                         scope.documentSelected.title = scope.documentSelected.title.capitalizeFirstLetter();
                         scope.documentSelected.author = scope.documentSelected.author.capitalizeFirstLetter();
-                        if(angular.isDefined(scope.selectedImage)){
-                            alert("IMAGEN SELECCIONADA: " + scope.selectedImage);
+                        if (angular.isDefined(scope.selectedImage)) {
                             scope.documentSelected.cover = scope.selectedImage;
                         }
 
@@ -167,6 +170,9 @@
                                 var doc = JSON.parse(response);
                                 addDocumentOrdered(scope.documents, doc);
                                 showToast('TOAST_CREATED_DOCUMENT');
+                                scope.isCreateOrUpdate = false;
+                                scope.isListSelected = true;
+                                scope.selectedImage = undefined;
                             } catch (e) {
                                 scope.isInvalidData = treatException(e);
                             }
@@ -178,14 +184,14 @@
                                 var index = scope.documents.indexOf(scope.documentBackUp);
                                 scope.documents.splice(index, 1);
                                 addDocumentOrdered(scope.documents, scope.documentSelected);
+                                scope.isCreateOrUpdate = false;
+                                scope.isListSelected = true;
+                                scope.selectedImage = undefined;
                                 showToast('TOAST_EDITED_DOCUMENT');
                             } catch (e) {
                                 scope.isInvalidData = treatException(e);
                             }
                         }
-                        scope.isCreateOrUpdate = false;
-                        scope.isListSelected = true;
-                        scope.selectedImage = undefined;
                     }, function() {
                     });
 
