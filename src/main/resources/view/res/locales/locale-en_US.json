@@ -91,10 +91,11 @@
 
   "TOAST_ADDED_TO_FAVOURITES": "Document added to favourites",
   "TOAST_DELETED_FROM_FAVOURITES": "Document removed from favourites",
-  "TOAST_CREATED_DOCUMENT": "Successfully created document",
-  "TOAST_EDITED_DOCUMENT": "Successfully updated document",
-  "TOAST_DELETED_DOCUMENT": "Successfully deleted document",
+  "TOAST_CREATED_DOCUMENT": "Document created successfully",
+  "TOAST_EDITED_DOCUMENT": "Document updated successfully",
+  "TOAST_DELETED_DOCUMENT": "Document deleted successfully",
   "TOAST_DOCUMENT_IMPORTED_SUCCESSFULLY": "Document imported successfully",
+  "TOAST_DOCUMENT_EXPORTED_SUCCESSFULLY": "Document exported successfully",
 
   "EXCEPTION_USER_NOT_FOUND": "User not found in the system",
   "EXCEPTION_INVALID_DETAILS": "Invalid email and password combination",

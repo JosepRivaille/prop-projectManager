@@ -54,7 +54,14 @@
                 scope.export = function () {
                     var filename = scope.document.title + ' - ' + scope.document.author;
                     var data = JSON.stringify(scope.document);
-                    $rootScope.backendService.exportDocument(data)
+                    try {
+                        $rootScope.backendService.exportDocument(data)
+                        showToast('TOAST_DOCUMENT_EXPORTED_SUCCESSFULLY');
+                    }catch (e) {
+                        if (e.toString().indexOf('ImportExportException') !== -1) {
+                           showToast('EXCEPTION_EXPORT', true);
+                        }
+                    }
                 };
 
                 //////////

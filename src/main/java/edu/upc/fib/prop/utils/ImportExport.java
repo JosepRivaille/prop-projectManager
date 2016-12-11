@@ -77,7 +77,7 @@ public class ImportExport {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new ImportExportException();
         }
     }
 }
