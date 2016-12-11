@@ -86,7 +86,7 @@
 }
 
 #search-similar-documents-dialog .similars-list .similars-list-item .percentage-space{
-    padding-right: 10px;
+    padding: 10px;
 }
 
 #search-similar-documents-dialog .similars-list .similars-list-item .percentage-space .percentage{
@@ -131,15 +131,15 @@
     font-weight: bold;
 }
 
-#search-similar-documents-dialog .similars-list .similars-list-item .item-info .author{
+#search-query-dialog .similars-list .similars-list-item .item-info .author{
 
 }
 
-#search-similar-documents-dialog .similars-list .similars-list-item .percentage-space{
-    padding-right: 10px;
+#search-query-dialog .similars-list .similars-list-item .percentage-space{
+    padding: 10px;
 }
 
-#search-similar-documents-dialog .similars-list .similars-list-item .percentage-space .percentage{
+#search-query-dialog .similars-list .similars-list-item .percentage-space .percentage{
     font-size: 1.5em;
     font-weight: bold;
 }

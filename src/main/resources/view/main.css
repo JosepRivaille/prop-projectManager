@@ -72,3 +72,12 @@ md-toast.md-success-toast-theme span {
 md-toast.md-error-toast-theme span {
     color: #F44336;
 }
+
+
+.hide-overflow {
+    overflow: hidden;
+}
+
+.wrap-text {
+   word-wrap: break-word;
+}
