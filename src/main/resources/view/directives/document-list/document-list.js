@@ -41,7 +41,8 @@
                         addDocumentOrdered(scope.documents, JSON.parse(response));
                         showToast('TOAST_DOCUMENT_IMPORTED_SUCCESSFULLY');
                     } catch (e) {
-                        showToast(treatException(e), true);
+                        var text = treatException(e) | 'OPERATION_CANCELED';
+                        showToast(text, true);
                     }
                 };
 
@@ -160,6 +161,8 @@
                         .cancel(translations.cancel);
 
                     $mdDialog.show(confirm).then(function() {
+                        scope.documentSelected.title = scope.documentSelected.title.capitalizeFirstLetter();
+                        scope.documentSelected.author = scope.documentSelected.author.capitalizeFirstLetter();
                         if (angular.isDefined(scope.selectedImage)) {
                             scope.documentSelected.cover = scope.selectedImage;
                         }
@@ -172,6 +175,7 @@
                                 addDocumentOrdered(scope.documents, doc);
                                 showToast('TOAST_CREATED_DOCUMENT');
                                 scope.isCreateOrUpdate = false;
+                                scope.isDocumentSelected = false;
                                 scope.isListSelected = true;
                                 scope.selectedImage = undefined;
                             } catch (e) {
@@ -186,6 +190,7 @@
                                 scope.documents.splice(index, 1);
                                 addDocumentOrdered(scope.documents, scope.documentSelected);
                                 scope.isCreateOrUpdate = false;
+                                scope.isDocumentSelected = false;
                                 scope.isListSelected = true;
                                 scope.selectedImage = undefined;
                                 showToast('TOAST_EDITED_DOCUMENT');
@@ -240,10 +245,10 @@
                 function getIndexToInsert(documentsList, newDocument) {
                     var minIndex = 0;
                     var maxIndex = documentsList.length - 1;
-                    var currentIndex;
+                    var currentIndex = 0;
 
                     while (minIndex <= maxIndex) {
-                        currentIndex = (minIndex + maxIndex) / 2 | 0;
+                        currentIndex = Math.floor((minIndex + maxIndex) / 2);
                         if (documentsList[currentIndex].title < newDocument.title) {
                             minIndex = currentIndex + 1;
                         } else if (documentsList[currentIndex] > newDocument.title) {
@@ -253,7 +258,7 @@
                                 ++currentIndex;
                             } return currentIndex;
                         }
-                    } return currentIndex;
+                    } return currentIndex + 1;
                 }
 
                 function addDocumentOrdered(documentsList, newDocument) {

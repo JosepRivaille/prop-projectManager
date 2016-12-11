@@ -1,71 +1,78 @@
-<md-content id="document-list" class="fill-all-parent">
+<div id="document-list" class="fill-all-window">
 
-    <div ng-show="isListSelected" class="fill-all-parent">
+    <!-- DOCUMENTS LIST -->
+    <div flex ng-show="isListSelected" class="fill-all-parent">
+
         <h1 class="title-landing" layout-align="space-between center">
             {{parentTitle | translate}}
         </h1>
-        <md-list ng-if="parent!='all'" style="padding-bottom: 130px;" class="scrollable-y" flex>
-            <md-list-item ng-repeat="document in documents">
-                <md-button class="docs-list-item" ng-click="selectDocument(document)">
-                    <div layout="row"  layout-align="space-between center" style="height: 100%;">
-                        <div class="item-image-container">
-                            <img class="item-image" ng-src="../../../covers/{{document.cover}}">
-                        </div>
-                        <div flex class="item-info-container" layout="column" layout-align="space-between start">
-                            <h1>
-                                {{document.title}}
-                                <i ng-if="isDocFavourite(document)"class="fa fa-heart" style="color: #c9302c;"></i>
-                            </h1>
-                            <h2>{{document.author}}</h2>
+        <md-divider></md-divider>
 
-                            <star-rating ng-model="document.rating" read-only="true"></star-rating>
-                        </div>
+        <!-- MANAGE LIST WITH EDIT/DELETE BUTTONS -->
+        <md-content ng-if="parent !== 'all'" class="scrollable-y fill-all-parent">
+            <md-list>
+                <md-list-item ng-repeat="document in documents">
+                    <md-button class="docs-list-item" ng-click="selectDocument(document)">
+                        <div layout="row"  layout-align="space-between center" style="height: 100%;">
+                            <div class="item-image-container">
+                                <img class="item-image" ng-src="../../../covers/{{document.cover}}">
+                            </div>
+                            <div flex class="item-info-container" layout="column" layout-align="space-between start">
+                                <h1>
+                                    {{document.title}}
+                                    <i ng-if="isDocFavourite(document)" class="fa fa-heart" style="color: #c9302c;"></i>
+                                </h1>
+                                <h2>{{document.author}}</h2>
+                                <star-rating ng-model="document.rating" read-only="true"></star-rating>
+                            </div>
 
-                        <div ng-if="isEditMode" class="item-buttons-container" layout="row" layout-align="center center">
-                            <md-button onclick="location.href = event.stopPropagation();" class="md-raised md-primary" aria-label="Edit document"
-                                       ng-click="editDocument(document)">
-                                <i class="fa fa-pencil-square-o"></i>
-                            </md-button>
-                            <md-button onclick="location.href = event.stopPropagation();" class="md-raised md-warn" aria-label="Delete document"
-                                       ng-click="showDeleteConfirm($event, document)">
-                                <i class="fa fa-trash"></i>
-                            </md-button>
-                        </div>
+                            <div ng-if="isEditMode" class="item-buttons-container" layout="row" layout-align="center center">
+                                <md-button onclick="location.href = event.stopPropagation();" class="md-raised md-primary"
+                                           aria-label="Edit document" ng-click="editDocument(document)">
+                                    <i class="fa fa-pencil-square-o"></i>
+                                </md-button>
+                                <md-button onclick="location.href = event.stopPropagation();" class="md-raised md-warn"
+                                           aria-label="Delete document" ng-click="showDeleteConfirm($event, document)">
+                                    <i class="fa fa-trash"></i>
+                                </md-button>
+                            </div>
 
-                        <div ng-if="parent=='favorites'" class="item-buttons-container" layout="row" layout-align="center center">
-                            <md-button onclick="location.href = event.stopPropagation();" ng-click="removeFavourite(document)" class="md-raised md-warn" aria-label="Remove favourite">
-                                <i class="fa fa-heartbeat"></i>
-                            </md-button>
-                        </div>
+                            <div ng-if="parent === 'favorites'" class="item-buttons-container" layout="row" layout-align="center center">
+                                <md-button onclick="location.href = event.stopPropagation();" ng-click="removeFavourite(document)" class="md-raised md-warn" aria-label="Remove favourite">
+                                    <i class="fa fa-heartbeat"></i>
+                                </md-button>
+                            </div>
 
-                    </div>
-                </md-button>
-                <md-divider></md-divider>
-            </md-list-item>
-        </md-list>
-
-        <md-grid-list ng-if="parent=='all'" style="padding-bottom: 130px;" class="scrollable-y" md-cols="2" md-gutter="0px" md-row-height="85px" flex>
-            <md-grid-tile ng-repeat="document in documents">
-                <md-button class="docs-grid-item" ng-click="selectDocument(document)">
-                    <div layout="row"  layout-align="space-between center" style="height: 100%; width: 100%">
-                        <div class="item-image-container">
-                            <img class="item-image" ng-src="../../../covers/{{document.cover}}">
                         </div>
-                        <div flex class="item-info-container" layout="column" layout-align="space-between start">
-                            <h1>
-                                {{document.title}}
-                                <!--<img ng-if="isDocFavourite(document)" ng-src="../images/heart.png" style="height: 13px; margin-bottom: 2px;">-->
-                                <i ng-if="isDocFavourite(document)" class="fa fa-heart" style="color: #c9302c;"></i>
-                            </h1>
-                            <h2>{{document.author}}</h2>
+                    </md-button>
+                    <md-divider></md-divider>
+                </md-list-item>
+            </md-list>
+        </md-content>
 
-                            <star-rating ng-model="document.rating" read-only="true"></star-rating>
+        <md-content ng-if="parent === 'all'" class="scrollable-y fill-all-parent">
+            <md-grid-list md-cols="2" md-gutter="0px" md-row-height="85px">
+                <md-grid-tile ng-repeat="document in documents">
+                    <md-button class="docs-grid-item" ng-click="selectDocument(document)">
+                        <div layout="row"  layout-align="space-between center" style="height: 100%; width: 100%">
+                            <div class="item-image-container">
+                                <img class="item-image" ng-src="../../../covers/{{document.cover}}">
+                            </div>
+                            <div flex class="item-info-container" layout="column" layout-align="space-between start">
+                                <h1>
+                                    {{document.title}}
+                                    <i ng-if="isDocFavourite(document)" class="fa fa-heart" style="color: #c9302c;"></i>
+                                </h1>
+                                <h2>{{document.author}}</h2>
+
+                                <star-rating ng-model="document.rating" read-only="true"></star-rating>
+                            </div>
                         </div>
-                    </div>
-                </md-button>
-                <md-divider></md-divider>
-            </md-grid-tile>
-        </md-grid-list>
+                    </md-button>
+                    <md-divider></md-divider>
+                </md-grid-tile>
+            </md-grid-list>
+        </md-content>
 
         <div ng-if="isSearchMode" class="right-bottom-buttons">
             <md-button class="md-fab md-primary" aria-label="Repeat Search" ng-click="searchAgain()">
@@ -98,9 +105,7 @@
                         <md-input-container class="md-block" style="width: 100%; overflow-y: auto;">
                             <label>Content</label>
                             <textarea class="document-content-textarea" ng-model="documentSelected.content" rows="7"
-                                      ng-required="true">
-
-                            </textarea>
+                                      ng-required="true"></textarea>
                         </md-input-container>
                     </div>
 
@@ -130,9 +135,8 @@
         </md-content>
     </div>
 
-    <div ng-if="isListSelected && isEditMode" class="right-bottom-buttons" layout="column" layout-align="center center" flex>
-
-        <md-fab-speed-dial md-open="isButtonOpened" md-direction="up" ng-class="'md-scale'"
+    <div ng-if="isListSelected && isEditMode" class="right-top-buttons" layout="column" layout-align="center center" flex>
+        <md-fab-speed-dial md-open="isButtonOpened" md-direction="left" ng-class="'md-scale'"
                            ng-mouseenter="isButtonOpened = true" ng-mouseleave="isButtonOpened=false">
             <md-fab-trigger>
                 <md-button aria-label="menu" class="md-fab md-primary">
@@ -143,14 +147,13 @@
             <md-fab-actions>
                 <md-button aria-label="Create document" class="md-fab md-raised md-mini md-accent"
                            ng-click="createDocument()">
-                    <md-tooltip md-direction="left" md-visible="tooltipVisible"
-                                md-autohide="true">
+                    <md-tooltip md-direction="up" md-visible="tooltipVisible" md-autohide="true">
                         Create document
                     </md-tooltip>
                     <i class="fa fa-plus"></i>
                 </md-button>
                 <md-button aria-label="Import document" class="md-fab md-raised md-mini md-accent" ng-click="importDocument()">
-                    <md-tooltip md-direction="left" md-visible="tooltipVisible" md-autohide="true">
+                    <md-tooltip md-direction="up" md-visible="tooltipVisible" md-autohide="true">
                         Import document
                     </md-tooltip>
                     <i class="fa fa-upload"></i>
@@ -168,5 +171,4 @@
         <document-info ng-model="documentSelected"></document-info>
     </div>
 
-</md-content>
-
+</div>

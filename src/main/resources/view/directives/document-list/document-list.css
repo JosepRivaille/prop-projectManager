@@ -14,8 +14,6 @@
     padding: 5px 5px 5px 20px;
 }
 
-
-
 #document-list .docs-list-item .item-image-container{
     height: 100%;
     width: auto;
@@ -59,10 +57,12 @@
     margin: 6px;
 }
 
-#document-list .right-bottom-buttons {
+#document-list .right-top-buttons {
+    z-index: 10;
     float: right;
     position: fixed;
-    margin-bottom: 0;
+    top: 1em;
+    right: 1em;
 }
 
 #document-list .error-text {
