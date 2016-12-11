@@ -4,6 +4,7 @@
 # Compilation outputs
 output/*
 target/*
+covers/*
 /classes/
 
 # Databases
