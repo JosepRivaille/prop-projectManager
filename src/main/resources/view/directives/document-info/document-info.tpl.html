@@ -20,14 +20,19 @@
                 </md-button>
             </div>
         </div>
-    </div>
-    <md-divider></md-divider>
-    <div flex layout="column" layout-align="start start" class="right-container" layout-padding>
-        <div layout="column" layout-align="center center" class="info-header">
-            <p class="text-title text-center">{{document.title | uppercase}}</p>
-            <p class="text-author text-center">{{document.author}}</p>
-            <star-rating ng-model="document.rating" read-only="false" document-title="document.title"
-                         document-author="document.author"></star-rating>
+        -->
+
+        <div flex layout="column" layout-align="start start" class="right-container">
+            <div class="info-container" layout="column">
+                <div class="info-header">
+                    <div layout="column" layout-align="center center">
+                        <p class="text-title text-center">{{document.title | uppercase}}</p>
+                        <p class="text-author text-center">{{document.author}}</p>
+
+                        <star-rating ng-model="document.rating" read-only="false" document-title="document.title" document-author="document.author"></star-rating>
+                    </div>
+                </div>
+            <md-content style="word-wrap: break-word;" flex layout-padding class="no-scrollable-x">{{document.content}}</md-content>
         </div>
         <md-content flex layout-padding class="no-scrollable-x word-wrap">{{document.content}}</md-content>
     </div>
