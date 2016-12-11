@@ -53,9 +53,8 @@
 
                 scope.export = function () {
                     var filename = scope.document.title + ' - ' + scope.document.author;
-                    var text = scope.document.content;
-
-                    download(filename, text);
+                    var data = JSON.stringify(scope.document);
+                    $rootScope.backendService.exportDocument(data)
                 };
 
                 //////////

@@ -124,13 +124,7 @@ public interface ViewGraphicController {
     String importDocument()
             throws ImportExportException, AlreadyExistingDocumentException, InvalidDetailsException;
 
-    /**
-     * Exports an existing document.
-     *
-     * @param pathToExport The path where the doccument will be exported.
-     * @param document     The document to export.
-     */
-    void exportDocument(String pathToExport, Document document, String os) throws ImportExportException;
+    void exportDocument(String documentJSON) throws ImportExportException;
 
     float rateDocument(String title, String author, int rating) throws DocumentNotFoundException;
 

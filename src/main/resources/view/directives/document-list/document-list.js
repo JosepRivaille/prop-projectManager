@@ -160,8 +160,6 @@
                         .cancel(translations.cancel);
 
                     $mdDialog.show(confirm).then(function() {
-                        scope.documentSelected.title = scope.documentSelected.title.capitalizeFirstLetter();
-                        scope.documentSelected.author = scope.documentSelected.author.capitalizeFirstLetter();
                         if (angular.isDefined(scope.selectedImage)) {
                             scope.documentSelected.cover = scope.selectedImage;
                         }

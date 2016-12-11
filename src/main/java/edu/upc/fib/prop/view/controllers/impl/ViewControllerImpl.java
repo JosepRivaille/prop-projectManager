@@ -111,7 +111,7 @@ public class ViewControllerImpl implements ViewController {
 
     @Override
     public void exportDocument(String pathToExport, Document document, String os) throws ImportExportException {
-        this.businessController.exportDocument(pathToExport, document, os);
+        //.businessController.exportDocument(pathToExport, document, os);
     }
 
     @Override

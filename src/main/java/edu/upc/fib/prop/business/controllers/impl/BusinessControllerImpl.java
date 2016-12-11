@@ -109,8 +109,8 @@ public class BusinessControllerImpl implements BusinessController {
     }
 
     @Override
-    public void exportDocument(String pathToExport, Document document, String os) throws ImportExportException {
-        ImportExport.exportDocument(pathToExport, document, os);
+    public void exportDocument(Stage st, Document document) throws ImportExportException {
+        ImportExport.exportDocument(st, document);
     }
 
     @Override

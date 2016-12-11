@@ -177,8 +177,9 @@ public class ViewGraphicControllerImpl implements ViewGraphicController {
     }
 
     @Override
-    public void exportDocument(String pathToExport, Document document, String os) throws ImportExportException {
-
+    public  void exportDocument(String documentJSON) throws ImportExportException {
+        Document document = StringUtils.parseJSONToDocument(documentJSON);
+        this.businessController.exportDocument(st, document);
     }
 
     @Override

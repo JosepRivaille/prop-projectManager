@@ -134,14 +134,7 @@ public interface BusinessController {
     Document importDocument(Stage st)
             throws ImportExportException, AlreadyExistingDocumentException, InvalidDetailsException;
 
-    /**
-     * Exports an existing document.
-     *
-     * @param pathToExport Path where the document will be exported.
-     * @param document     Document to export.
-     * @param os           OS used by the user.
-     */
-    void exportDocument(String pathToExport, Document document, String os) throws ImportExportException;
+    void exportDocument(Stage st, Document document) throws ImportExportException;
 
     /**
      * Search for matching documents by a boolean expression.
