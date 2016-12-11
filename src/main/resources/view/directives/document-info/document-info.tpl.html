@@ -24,10 +24,9 @@
             </div>
         </div>
 
-        <!--
         <div flex layout="column" layout-align="start start" class="right-container">
             <div class="info-container" layout="column">
-                <div class="info-header" style="height:20%;background-color: #2b669a;">
+                <div class="info-header">
                     <div layout="column" layout-align="center center">
                         <p class="text-title text-center">{{document.title | uppercase}}</p>
                         <p class="text-author text-center">{{document.author}}</p>
@@ -35,24 +34,7 @@
                         <star-rating ng-model="document.rating" read-only="false" document-title="document.title" document-author="document.author"></star-rating>
                     </div>
                 </div>
-                <md-content style="background-color: #2b542c; height;80%;overflow-x: hidden; overflow-y: auto; margin-top: 20px;">
-                    <p>{{document.content}}</p>
-                </md-content>
-            </div>
-        </div>
-        -->
-
-        <div flex layout="column" layout-align="start start" class="right-container">
-            <div class="info-container" layout="column">
-                <div class="info-header" style="background-color: #2b669a;">
-                    <div layout="column" layout-align="center center">
-                        <p class="text-title text-center">{{document.title | uppercase}}</p>
-                        <p class="text-author text-center">{{document.author}}</p>
-
-                        <star-rating ng-model="document.rating" read-only="false" document-title="document.title" document-author="document.author"></star-rating>
-                    </div>
-                </div>
-                <md-content style="background-color: #2b542c; word-wrap: break-word;" flex layout-padding class="no-scrollable-x">{{document.content}}</md-content>
+                <md-content flex layout-padding class="wrap-text no-scrollable-x">{{document.content}}</md-content>
             </div>
         </div>
     </div>

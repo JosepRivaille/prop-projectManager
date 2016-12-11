@@ -42,8 +42,12 @@
     text-align: left;
 }
 
+#document-info .right-container .md-content {
+     background: inherit;
+ }
+
 #document-info .text-title {
-    font-weight: bolder;
+    font-weight: bold;
     font-size: 2em;
 }
 
@@ -57,6 +61,7 @@
 }
 
 #document-info .info-container .info-header p {
-    margin-top:0;
-    margin-bottom:0;
+    margin-top: 0;
+    margin-bottom: 0;
 }
+
