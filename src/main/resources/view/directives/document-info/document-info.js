@@ -54,9 +54,8 @@
                 scope.export = function () {
                     var data = JSON.stringify(scope.document);
                     try {
-                        //TODO: DON'T SHOW TOAST WHEN CANCEL
-                        $rootScope.backendService.exportDocument(data);
-                        showToast('TOAST_DOCUMENT_EXPORTED_SUCCESSFULLY');
+                        var exportedOk = $rootScope.backendService.exportDocument(data)
+                        if(exportedOk) showToast('TOAST_DOCUMENT_EXPORTED_SUCCESSFULLY');
                     }catch (e) {
                         if (e.toString().indexOf('ImportExportException') !== -1) {
                             showToast('EXCEPTION_EXPORT', true);

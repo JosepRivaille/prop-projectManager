@@ -42,7 +42,9 @@
                         addDocumentOrdered(scope.documents, JSON.parse(response));
                         showToast('TOAST_DOCUMENT_IMPORTED_SUCCESSFULLY');
                     } catch (e) {
-                        var text = treatException(e) | 'OPERATION_CANCELED';
+                        alert(e);
+                        var text = treatException(e);
+                        alert(text);
                         showToast(text, true);
                     }
                 };
@@ -111,6 +113,7 @@
 
                     $mdDialog.show(confirm).then(function () {
                         scope.documentBackUp = undefined;
+                        scope.selectedImage = undefined;
                         scope.isCreateOrUpdate = false;
                         scope.isListSelected = true;
                         $mdDialog.hide();
@@ -281,6 +284,7 @@
                     } else if (e.toString().indexOf('ImportExportException') !== -1) {
                         return 'EXCEPTION_IMPORT';
                     }
+                    else return "GENERAL_ERROR_MESSAGE";
                 }
 
                 function showToast(toastText, error) {

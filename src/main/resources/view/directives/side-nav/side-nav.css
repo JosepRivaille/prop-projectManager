@@ -130,6 +130,10 @@
     font-weight: 700;
 }
 
+#side-nav .user-info-name {
+    color: #999999;
+}
+
 
 
 /* SCROLLBAR */
