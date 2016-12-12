@@ -23,5 +23,5 @@
 }
 
 .star-rating .readonly{
-    cursor: crosshair;
+    cursor: default !important;
 }

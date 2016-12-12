@@ -1,8 +1,6 @@
-<div id="search-query-dialog" class="no-scrollable">
-    <md-dialog-content class="md-dialog-content dialog-forms" layout="column" layout-align="center center"
-                       id="search-author-wrapper">
+<div id="search-query-dialog" class="fill-all-parent">
+    <md-dialog-content class="md-dialog-content dialog-forms scrollable-y" layout="column" layout-align="center center">
         <form name="querySearch">
-
             <div ng-if="!similarDocuments">
                 <p class="text-info text-bold-dialog">{{'DESCRIPTION_QUERY_SEARCH' | translate}}</p>
                 <md-input-container class="md-block">
@@ -21,9 +19,10 @@
                     {{'BUTTON_SEARCH' | translate}}
                 </md-button>
             </div>
-            <p ng-if="similarDocuments !== undefined" class="text-info text-center">{{similarDocuments.length}} {{"DOCUMENTS_FOUND_LABEL" | translate}}!</p>
-            <md-list ng-if="similarDocuments !== undefined" ng-cloak class="similars-list"
-                     layout="column" layout-align="start center">
+
+        </form>
+
+            <md-list ng-if="similarDocuments" ng-cloak class="similars-list" layout="column" layout-align="start center">
                 <md-list-item ng-repeat="document in similarDocuments" class="similars-list-item">
                     <md-button ng-click="selectNewDocument(document)">
                         <div class="fill-all-parent" layout="row" layout-align="space-between stretch">
@@ -43,7 +42,6 @@
                     <md-divider></md-divider>
                 </md-list-item>
             </md-list>
-        </form>
 
     </md-dialog-content>
 </div>

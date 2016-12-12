@@ -106,11 +106,7 @@
 
 
 #search-query-dialog .similars-list {
-    width:400px;
-    max-height: 35vh;
     padding: 0;
-    overflow-y: auto;
-    overflow-x: hidden;
 }
 
 #search-query-dialog .similars-list .similars-list-item{
