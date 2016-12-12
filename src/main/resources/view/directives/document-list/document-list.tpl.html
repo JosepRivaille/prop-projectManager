@@ -86,7 +86,7 @@
             </md-grid-list>
         </md-content>
 
-        <div ng-if="isSearchMode" class="right-bottom-buttons">
+        <div ng-if="isSearchMode" class="right-top-buttons">
             <md-button class="md-fab md-primary" aria-label="Repeat Search" ng-click="searchAgain()">
                 <i class="fa fa-search"></i>
             </md-button>
@@ -160,13 +160,13 @@
             <md-fab-actions>
                 <md-button aria-label="Create document" class="md-fab md-raised md-mini md-accent"
                            ng-click="createDocument()">
-                    <md-tooltip md-direction="up" md-visible="tooltipVisible" md-autohide="true">
+                    <md-tooltip md-direction="down" md-visible="tooltipVisible" md-autohide="true">
                         Create document
                     </md-tooltip>
                     <i class="fa fa-plus"></i>
                 </md-button>
                 <md-button aria-label="Import document" class="md-fab md-raised md-mini md-accent" ng-click="importDocument()">
-                    <md-tooltip md-direction="up" md-visible="tooltipVisible" md-autohide="true">
+                    <md-tooltip md-direction="down" md-visible="tooltipVisible" md-autohide="true">
                         Import document
                     </md-tooltip>
                     <i class="fa fa-upload"></i>
