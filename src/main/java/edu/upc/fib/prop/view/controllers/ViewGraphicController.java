@@ -37,7 +37,7 @@ public interface ViewGraphicController {
      */
     String getDocumentsByBooleanExpression(String booleanExpression) throws InvalidQueryException;
 
-    String getDocumentsByQuery(String query) throws InvalidQueryException, DocumentNotFoundException;
+    String getDocumentsByQuery(String query, int numberOfDocuments) throws InvalidQueryException, DocumentNotFoundException;
 
     /**
      *

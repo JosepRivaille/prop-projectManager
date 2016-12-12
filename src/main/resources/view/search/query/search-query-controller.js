@@ -31,10 +31,10 @@
         function DialogBooleanController($rootScope, $scope, $mdDialog) {
             $scope.similarDocuments = undefined;
 
-            $scope.searchQuery = function (query) {
+            $scope.searchQuery = function (query, numberOfDocuments) {
                 try {
                     $scope.isInvalidData = undefined;
-                    var response = $rootScope.backendService.getDocumentsByQuery(query);
+                    var response = $rootScope.backendService.getDocumentsByQuery(query, numberOfDocuments);
                     $scope.similarDocuments = JSON.parse(response);
                 } catch (e) {
                     if (e.toString().indexOf('InvalidQueryException') !== -1) {

@@ -18,7 +18,7 @@
 
         vm.unlockTit = function () {
             $mdDialog.show({
-                template: '<img src="../images/avatars/tit.jpg">',
+                template: '<img src="https://i.imgflip.com/1ftr9m.jpg"">',
                 zIndex: 2000,
                 clickOutsideToClose: true,
                 escapeToClose: true
