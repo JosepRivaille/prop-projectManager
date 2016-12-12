@@ -152,12 +152,11 @@ public class BusinessControllerImpl implements BusinessController {
     }
 
     @Override
-    public Document getRocchioQuery(String query, SortedDocumentsSet list, double rv, float b, float c) {
-       /*     throws DocumentNotFoundException {
-        Document docquery = new Document("", "", "query");
+    public Document getRocchioQuery(String query, SortedDocumentsSet list, double rv, float b, float c)
+            throws DocumentNotFoundException {
+        Document docquery = new Document("", "", query);
         docquery.updateFrequencies();
-        return searchDocument.getRocchioQuery(docquery,list,rv,b,c);*/
-        return null;
+        return searchDocument.getRocchioQuery(docquery,list,rv,b,c);
     }
 
     @Override

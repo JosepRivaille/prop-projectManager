@@ -163,7 +163,6 @@ public interface ViewController {
      * @param b
      * @param c
      * @return
-     * @throws DocumentContentNotFoundException
      */
     Document getRocchioQuery(String query, SortedDocumentsSet list, double rv, float b, float c)
             throws DocumentNotFoundException;

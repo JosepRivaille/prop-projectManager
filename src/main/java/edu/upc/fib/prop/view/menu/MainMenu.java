@@ -276,7 +276,6 @@ public class MainMenu {
                 break;
 
             case Strings.SEARCH_DOCUMENTS_BY_QUERY:
-                /*
                 String query = IOUtils.askForString(Strings.TYPE_QUERY);
                 int k2 = IOUtils.askForInt(Strings.TYPE_NUMBER_OF_DOCUMENTS, 1, 10000);
                 System.out.println("Please choose your search method:");
@@ -308,16 +307,13 @@ public class MainMenu {
                         }
                     }
                 } catch (DocumentNotFoundException e) {
-                     System.out.println(Strings.NO_DOCUMENTS_FOUND);
-                } catch (DocumentContentNotFoundException e) {
-                    System.out.println(Strings.DOCUMENT_CONTENT_NOT_FOUND);
+                    System.out.println(Strings.NO_DOCUMENTS_FOUND);
                 }
                 IOUtils.enterToContinue();
-                */
+
                 break;
 
             case Strings.SEARCH_DOCUMENTS_BY_RELEVANCE:
-                /*
                 DocumentsSet allDocuments = viewController.searchForAllDocuments();
                 IOUtils.drawLine(120);
                 System.out.printf("    %-48s %-30s %-25s %n", "Title", "Author", "Created by");
@@ -349,7 +345,6 @@ public class MainMenu {
                     System.out.println(Strings.NO_DOCUMENTS_FOUND);
                 }
                 IOUtils.enterToContinue();
-                */
                 break;
 
             case Strings.SEARCH_ALL_DOCUMENTS:

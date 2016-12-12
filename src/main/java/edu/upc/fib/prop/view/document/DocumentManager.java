@@ -26,7 +26,7 @@ public class DocumentManager {
     public Document createDocument() {
         String title = IOUtils.askForString("Title");
         String author = IOUtils.askForString("Author");
-        String content = IOUtils.askForString("Content file");
+        String content = IOUtils.askForString("Content");
         return new Document(title, author, content);
     }
 
