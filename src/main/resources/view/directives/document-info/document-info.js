@@ -82,7 +82,7 @@
                         }
                     };
                     $scope.selectNewDocument = function (document) {
-                        scope.documentSelected = document;
+                        scope.document = document;
                         $mdDialog.hide();
                     }
                 }
