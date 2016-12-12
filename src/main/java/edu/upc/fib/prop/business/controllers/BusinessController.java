@@ -134,7 +134,7 @@ public interface BusinessController {
     Document importDocument(Stage st)
             throws ImportExportException, AlreadyExistingDocumentException, InvalidDetailsException;
 
-    void exportDocument(Stage st, Document document) throws ImportExportException;
+    boolean exportDocument(Stage st, Document document) throws ImportExportException;
 
     /**
      * Search for matching documents by a boolean expression.

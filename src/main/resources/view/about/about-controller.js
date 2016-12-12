@@ -12,8 +12,17 @@
         .module('project.about')
         .controller('AboutCtrl', AboutCtrl);
 
-    function AboutCtrl() {
+    function AboutCtrl($mdDialog) {
         var vm = this;
         vm.ctrlName = 'AboutCtrl';
+
+        vm.unlockTit = function () {
+            $mdDialog.show({
+                template: '<img src="../images/avatars/tit.jpg">',
+                zIndex: 2000,
+                clickOutsideToClose: true,
+                escapeToClose: true
+            });
+        };
     }
 }());

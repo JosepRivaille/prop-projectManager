@@ -12,7 +12,6 @@ import edu.upc.fib.prop.models.*;
 import edu.upc.fib.prop.persistence.controllers.PersistenceController;
 import edu.upc.fib.prop.persistence.controllers.impl.PersistenceControllerImpl;
 import edu.upc.fib.prop.utils.ImportExport;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -20,7 +19,6 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.math.BigInteger;
-import java.net.URL;
 import java.security.SecureRandom;
 import java.sql.SQLException;
 
@@ -109,8 +107,8 @@ public class BusinessControllerImpl implements BusinessController {
     }
 
     @Override
-    public void exportDocument(Stage st, Document document) throws ImportExportException {
-        ImportExport.exportDocument(st, document);
+    public boolean exportDocument(Stage st, Document document) throws ImportExportException {
+        return ImportExport.exportDocument(st, document);
     }
 
     @Override

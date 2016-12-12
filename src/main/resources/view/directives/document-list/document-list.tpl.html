@@ -10,6 +10,12 @@
 
         <!-- MANAGE LIST WITH EDIT/DELETE BUTTONS -->
         <md-content ng-if="parent !== 'all'" class="scrollable-y fill-all-parent">
+            <div ng-if="documents.length == 0" class="fill-all-parent" layout="column" layout-align="center center" style="opacity: 0.2;">
+                <img ng-src="../images/document-icon.png" style="height: 100px;">
+                <p style="color: #5e5e5e; font-size: 1.2em; margin-top: 10px;">
+                    {{'NO_DOCUMENTS_FOUND' | translate}}
+                </p>
+            </div>
             <md-list>
                 <md-list-item ng-repeat="document in documents">
                     <md-button class="docs-list-item" ng-click="selectDocument(document)">
@@ -51,6 +57,12 @@
         </md-content>
 
         <md-content ng-if="parent === 'all'" class="scrollable-y fill-all-parent">
+            <div ng-if="documents.length == 0" class="fill-all-parent" style="opacity: 0.4;" layout="column" layout-align="center center">
+                <img ng-src="../images/document-icon.png" style="height: 100px;">
+                <p style="color: #5e5e5e; font-size: 1.2em; margin-top: 10px;">
+                    {{'NO_DOCUMENTS_FOUND' | translate}}
+                </p>
+            </div>
             <md-grid-list md-cols="2" md-gutter="0px" md-row-height="85px">
                 <md-grid-tile ng-repeat="document in documents">
                     <md-button class="docs-grid-item" ng-click="selectDocument(document)">
@@ -117,7 +129,8 @@
                             <md-button class="md-raised md-primary" ng-click="selectImage()">
                                 <i class="fa fa-picture-o"></i>
                             </md-button>
-                            <p id="selectedImageLabel">{{selectedImage}}</p>
+                            <img ng-if="selectedImage" style="height: 35px; border: 5px black;" ng-src="../../../covers/{{selectedImage}}">
+                            <img ng-if="!selectedImage && documentSelected.cover" style="height: 35px; border: 5px black;" ng-src="../../../covers/{{documentSelected.cover}}">
                         </div>
 
                         <div flex layout="row" layout-align="end end">

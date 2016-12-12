@@ -1,9 +1,6 @@
 <div id="home" class="fill-all-window">
     <div ng-show="!vm.isDocumentSelected" class="fill-all-parent">
         <md-content class="fill-all-parent main-container" layout="column" layout-align="space-between stretch">
-            <div class="search-space" layout="row" layout-align="end center">
-                <div style="height: 30px; width: 300px; background-color: white;"></div>
-            </div>
             <div class="recommended-docs-space" layout="column" layout-align="space-between stretch" flex>
                 <span class="section-title"> {{'RECOMMENDED_DOCUMENTS' | translate}}</span>
                 <div layout="column" layout-align="center stretch" flex>
@@ -12,7 +9,7 @@
                             <div class="item-image-space" layout="column" layout-align="center center">
                                 <img ng-src="../../../covers/{{document.cover}}" ng-click="vm.select(document)">
                             </div>
-                            <div class="item-info-space" layout="column" layout-align="end center">
+                            <div class="item-info-space" layout="column" layout-align="end center" style="overflow:hidden;">
                                 <span class="title">{{document.title}}</span>
                                 <span class="author">{{document.author}}</span>
                                 <star-rating ng-model="document.rating"></star-rating>

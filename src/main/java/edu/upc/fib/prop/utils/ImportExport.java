@@ -44,7 +44,7 @@ public class ImportExport {
         }
     }
 
-    public static void exportDocument(Stage st, Document document) throws ImportExportException {
+    public static boolean exportDocument(Stage st, Document document) throws ImportExportException {
         DocumentBasicInfo doc = new DocumentBasicInfo(document);
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON file", "*.json"));
@@ -62,6 +62,7 @@ public class ImportExport {
                     BufferedWriter bw = new BufferedWriter(fw);
                     bw.write(jsonDoc);
                     bw.close();
+                    return true;
                 }
                 else if(file.getName().contains(".txt")){
                     FileWriter fw = new FileWriter(file);
@@ -74,8 +75,10 @@ public class ImportExport {
                     bw.newLine();
                     bw.write(document.getContent());
                     bw.close();
+                    return true;
                 }
             }
+            return false;
         } catch (IOException e) {
             throw new ImportExportException();
         }

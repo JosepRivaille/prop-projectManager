@@ -1,7 +1,6 @@
 package edu.upc.fib.prop.view.controllers;
 
 import edu.upc.fib.prop.exceptions.*;
-import edu.upc.fib.prop.models.*;
 
 public interface ViewGraphicController {
 
@@ -124,7 +123,7 @@ public interface ViewGraphicController {
     String importDocument()
             throws ImportExportException, AlreadyExistingDocumentException, InvalidDetailsException;
 
-    void exportDocument(String documentJSON) throws ImportExportException;
+    boolean exportDocument(String documentJSON) throws ImportExportException;
 
     float rateDocument(String title, String author, int rating) throws DocumentNotFoundException;
 
