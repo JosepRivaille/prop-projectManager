@@ -114,3 +114,7 @@
     padding-right: 10px;
     width: auto;
 }
+
+#document-list .opaque-image {
+    opacity: 0.5;
+}
