@@ -31,11 +31,12 @@
                 parent: '=?'
             },
             link: function (scope) {
-                scope.isDocFavourite = function(doc){
-                    return $rootScope.backendService.isDocumentFavourite(doc.title,doc.author);
+
+                scope.isDocFavourite = function(document) {
+                    return $rootScope.backendService.isDocumentFavourite(document.title, document.author);
                 };
 
-                scope.importDocument = function(){
+                scope.importDocument = function() {
                     try {
                         var response = $rootScope.backendService.importDocument();
                         addDocumentOrdered(scope.documents, JSON.parse(response));

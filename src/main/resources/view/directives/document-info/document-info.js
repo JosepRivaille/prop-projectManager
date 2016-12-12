@@ -52,14 +52,14 @@
                 };
 
                 scope.export = function () {
-                    var filename = scope.document.title + ' - ' + scope.document.author;
                     var data = JSON.stringify(scope.document);
                     try {
-                        $rootScope.backendService.exportDocument(data)
+                        //TODO: DON'T SHOW TOAST WHEN CANCEL
+                        $rootScope.backendService.exportDocument(data);
                         showToast('TOAST_DOCUMENT_EXPORTED_SUCCESSFULLY');
                     }catch (e) {
                         if (e.toString().indexOf('ImportExportException') !== -1) {
-                           showToast('EXCEPTION_EXPORT', true);
+                            showToast('EXCEPTION_EXPORT', true);
                         }
                     }
                 };
@@ -110,20 +110,6 @@
                             return positions[pos];
                         }).join(' ');
                     }
-                }
-
-                function download(filename, text) {
-                    var element = document.createElement('a');
-                    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
-                    element.setAttribute('download', filename);
-                    element.setAttribute('target', '_self');
-
-                    element.style.display = 'none';
-                    document.body.appendChild(element);
-
-                    element.click();
-
-                    document.body.removeChild(element);
                 }
 
             }
