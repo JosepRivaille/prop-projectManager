@@ -21,6 +21,13 @@ public class Node {
         this.children = new ArrayList<>();
     }
 
+    private void copy(Node node){
+        this.operator = node.operator;
+        this.nodeType = node.nodeType;
+        this.word = node.word;
+        this.children = node.children;
+    }
+
     public Operator getOperator() {
         return operator;
     }
@@ -73,7 +80,41 @@ public class Node {
                 }
                 this.children.add(child);
             } else if (expression.charAt(i) == '&' || expression.charAt(i) == '|') {
-                this.operator = (expression.charAt(i) == '&') ? Operator.AND : Operator.OR;
+                Operator op = (expression.charAt(i) == '&') ? Operator.AND : Operator.OR;
+                if(this.operator == null) this.operator = op;
+                else if(this.operator != op) {
+                    child = new Node();
+                    child.copy(this);
+                    this.children = new ArrayList<>();
+                    this.operator = op;
+                    i++;
+                    while(expression.charAt(i) == ' ') ++i;
+                    start = i;
+                    Node child2 = new Node();
+                    char end;
+                    switch (expression.charAt(start)) {
+                        case '{':
+                            end = '}';
+                            break;
+                        case '"':
+                            end = '"';
+                            break;
+                        case '(':
+                            end = ')';
+                            break;
+                        default:
+                            end = ' ';
+                    }
+                    ++i;
+                    while (i < expression.length() && expression.charAt(i) != end) {
+                        ++i;
+                    }
+                    if (end == ' ' && i >= expression.length()) --i;
+                    child2.generateTree(expression.substring(start, i+1));
+                    this.children.add(child);
+                    this.children.add(child2);
+                    if (end == ' ' && i >= expression.length()) ++i;
+                }
             } else if (expression.charAt(i) == '"') {
                 start = ++i;
                 while (i < expression.length() && expression.charAt(i) != '"') {
@@ -114,10 +155,7 @@ public class Node {
         }
 
         if (this.children.size() == 1 && this.operator != Operator.NOT) {
-            this.operator  = this.children.get(0).operator;
-            this.nodeType = this.children.get(0).nodeType;
-            this.word = this.children.get(0).word;
-            this.children = this.children.get(0).children;
+            this.copy(this.children.get(0));
         }
 
     }
