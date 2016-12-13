@@ -42,16 +42,16 @@ public class DocumentsCollection {
         return (this.getDocument(title,author) != null);
     }
 
-    public Document updateDocument(Document oldDoc, Document newDoc)
+    public Document updateDocument(Document oldDocument, Document newDocument)
             throws InvalidDetailsException, AlreadyExistingDocumentException {
-        Document updatedDoc = oldDoc.merge(newDoc);
-        if(!updatedDoc.isCorrect()) throw new InvalidDetailsException();
-        if(!oldDoc.getContent().equals(newDoc.getContent())){
+        Document updatedDoc = oldDocument.merge(newDocument);
+        if (!updatedDoc.isCorrect()) throw new InvalidDetailsException();
+        if (!oldDocument.getContent().equals(newDocument.getContent())){
             updatedDoc.updateFrequencies();
             updatedDoc.updatePositions();
         }
-        this.documents.remove(oldDoc);
-        for(Map.Entry<String,Float> entry : oldDoc.getTermFrequency().entrySet()) {
+        this.documents.remove(oldDocument);
+        for(Map.Entry<String,Float> entry : oldDocument.getTermFrequency().entrySet()) {
             removeWord(entry.getKey());
         }
         this.documents.add(updatedDoc);
@@ -67,29 +67,31 @@ public class DocumentsCollection {
         if (o == null || getClass() != o.getClass()) return false;
         DocumentsCollection that = (DocumentsCollection) o;
         return documents != null ? documents.equals(that.documents) : that.documents == null;
-
     }
 
     private void addWord(String word){
-        if(wordsFrequencies.containsKey(word)) wordsFrequencies.put(word, wordsFrequencies.get(word)+1);
+        if (wordsFrequencies.containsKey(word)) wordsFrequencies.put(word, wordsFrequencies.get(word) + 1);
         else wordsFrequencies.put(word, 1);
     }
 
     private void removeWord(String word){
-        if(wordsFrequencies.containsKey(word)) wordsFrequencies.put(word, wordsFrequencies.get(word)-1);
-        if(wordsFrequencies.get(word)<=0) wordsFrequencies.remove(word);
+        if(wordsFrequencies.containsKey(word)) wordsFrequencies.put(word, wordsFrequencies.get(word) - 1);
+        if(wordsFrequencies.get(word) <= 0) wordsFrequencies.remove(word);
     }
 
     private Float getIdf(String word){
         if(!wordsFrequencies.containsKey(word)) return 0f;
-        return (float)Math.log((float)documents.size()/(float)wordsFrequencies.get(word));
+        return (float)Math.log((float)documents.size() / (float)wordsFrequencies.get(word));
     }
 
     public int size(){ return documents.size();}
 
     private Document getDocument(String title, String author){
-        for(Document d : documents){
-            if(d.getTitle().toLowerCase().equals(title.toLowerCase()) && d.getAuthor().toLowerCase().equals(author.toLowerCase())) return d;
+        for(Document d : documents) {
+            if (d.getTitle().toLowerCase().equals(title.toLowerCase()) &&
+                    d.getAuthor().toLowerCase().equals(author.toLowerCase())) {
+                return d;
+            }
         }
         return null;
     }

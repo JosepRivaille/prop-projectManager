@@ -49,9 +49,7 @@ public class SearchBooleanExpressionImpl implements SearchBooleanExpression {
             node.generateTree(booleanExpression.toLowerCase());
             DocumentsSet matchingDocuments = new DocumentsSet();
             for (Document document : allDocuments.getDocuments()) {
-                //TODO: Optimitzar
                 Integer sentences = document.getContent().split(Constants.SENTENCE_SEPARATION_REGEX).length;
-                document.updatePositions();
                 boolean documentMatches = checkDocumentMatchesExpression(document.getTermPositions(), node, sentences);
                 if (documentMatches) {
                     matchingDocuments.add(document);
@@ -62,10 +60,10 @@ public class SearchBooleanExpressionImpl implements SearchBooleanExpression {
     }
 
     private boolean checkDocumentMatchesExpression
-            (Map<String, Map<Integer, Set<Integer>>> termPositions, BooleanExpressionNode node, Integer numFrases) {
+            (Map<String, Map<Integer, Set<Integer>>> termPositions, BooleanExpressionNode node, Integer sentences) {
         Set<Integer> totalFrases = new TreeSet<>();
 
-        for (int i = 0; i < numFrases; ++i) {
+        for (int i = 0; i < sentences; ++i) {
             totalFrases.add(i);
         }
         Set<Integer> result = satisfy(termPositions, node, totalFrases);
@@ -73,21 +71,21 @@ public class SearchBooleanExpressionImpl implements SearchBooleanExpression {
     }
 
     private Set<Integer> satisfy
-            (Map<String, Map<Integer, Set<Integer>>> termPositions, BooleanExpressionNode node, Set<Integer> totalFrases) {
+            (Map<String, Map<Integer, Set<Integer>>> termPositions, BooleanExpressionNode node, Set<Integer> sentences) {
 
         Operator operator = node.getOperator();
         NodeType nodeType = node.getNodeType();
         Set<Integer> bones = new TreeSet<>();
         ArrayList<BooleanExpressionNode> fills = node.getChildren();
         if ((Operator.AND).equals(operator)) {
-            bones = satisfy(termPositions, fills.get(0),totalFrases);
+            bones = satisfy(termPositions, fills.get(0),sentences);
             for (int i = 1; i < fills.size(); ++i) {
                 if(bones.isEmpty()) break;
-                bones.retainAll(satisfy(termPositions, fills.get(i),totalFrases));
+                bones.retainAll(satisfy(termPositions, fills.get(i),sentences));
             }
         } else if ((Operator.OR).equals(operator)) {
             for (BooleanExpressionNode fill : node.getChildren()) {
-                bones.addAll(satisfy(termPositions, fill,totalFrases));
+                bones.addAll(satisfy(termPositions, fill,sentences));
             }
         } else if ((NodeType.WORD).equals(nodeType)) {
             if(termPositions.containsKey(node.getWord())) {
@@ -96,8 +94,8 @@ public class SearchBooleanExpressionImpl implements SearchBooleanExpression {
                 }
             }
         } else if ((Operator.NOT).equals(operator)) {
-            bones = totalFrases;
-            bones.removeAll(satisfy(termPositions, node.getChildren().get(0),totalFrases));
+            bones = sentences;
+            bones.removeAll(satisfy(termPositions, node.getChildren().get(0),sentences));
         } else if ((NodeType.SENTENCE).equals(nodeType)) {
             String[] words = node.getWord().split(Constants.WORD_SEPARATION_REGEX);
             Boolean existsString;

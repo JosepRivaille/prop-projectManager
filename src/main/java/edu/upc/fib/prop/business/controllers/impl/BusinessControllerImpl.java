@@ -176,7 +176,8 @@ public class BusinessControllerImpl implements BusinessController {
     public String selectImage(Stage st) {
 
         FileChooser fc = new FileChooser();
-        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
+        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter
+                ("Image Files", "*.png", "*.jpg", "*.gif"));
         fc.setTitle("Load image");
         File file = fc.showOpenDialog(st);
         BufferedImage bufferedImage = null;
@@ -187,20 +188,23 @@ public class BusinessControllerImpl implements BusinessController {
         }
 
         SecureRandom random = new SecureRandom();
-        String filename = new BigInteger(130, random).toString(32).toString();
+        String filename = new BigInteger(130, random).toString(32);
 
         try {
             if(file.getName().contains(".png")){
                 filename = filename.concat(".png");
-                ImageIO.write(bufferedImage, "png", new File("./covers/"+filename));
+                assert bufferedImage != null;
+                ImageIO.write(bufferedImage, "png", new File("./covers/" + filename));
             }
             else if(file.getName().contains(".jpg")){
                 filename = filename.concat(".jpg");
-                ImageIO.write(bufferedImage, "jpg", new File("./covers/"+filename));
+                assert bufferedImage != null;
+                ImageIO.write(bufferedImage, "jpg", new File("./covers/" + filename));
             }
             else if(file.getName().contains(".gif")){
                 filename = filename.concat(".gif");
-                ImageIO.write(bufferedImage, "gif", new File("./covers/"+filename));
+                assert bufferedImage != null;
+                ImageIO.write(bufferedImage, "gif", new File("./covers/" + filename));
             }
 
         } catch (IOException e) {
@@ -211,15 +215,18 @@ public class BusinessControllerImpl implements BusinessController {
     }
 
     @Override
-    public void updateDocument(String title, String author, Document newDoc) throws AlreadyExistingDocumentException, InvalidDetailsException, DocumentNotFoundException {
+    public void updateDocument(String title, String author, Document newDoc)
+            throws AlreadyExistingDocumentException, InvalidDetailsException, DocumentNotFoundException {
+
         Document oldDoc = searchDocumentsByTitleAndAuthor(title, author);
-        if(!(newDoc.getAuthor().equals("") && newDoc.getTitle().equals("") && newDoc.getContent().equals(""))) {
-            if(!(oldDoc.getAuthor().toLowerCase().equals(newDoc.getAuthor().toLowerCase()) &&
+        if (!(newDoc.getAuthor().equals("") && newDoc.getTitle().equals("") && newDoc.getContent().equals(""))) {
+            if (!(oldDoc.getAuthor().toLowerCase().equals(newDoc.getAuthor().toLowerCase()) &&
                     oldDoc.getAuthor().toLowerCase().equals(newDoc.getAuthor().toLowerCase()))) {
-                if (documentsCollection.containsTitleAndAuthor(newDoc.getTitle(), newDoc.getAuthor()))
+                if (documentsCollection.containsTitleAndAuthor(newDoc.getTitle(), newDoc.getAuthor())) {
                     throw new AlreadyExistingDocumentException();
+                }
             }
-            if(!oldDoc.getTitle().equals(newDoc.getTitle()) || !oldDoc.getAuthor().equals(newDoc.getAuthor())){
+            if (!oldDoc.getTitle().equals(newDoc.getTitle()) || !oldDoc.getAuthor().equals(newDoc.getAuthor())) {
                 persistenceController.deleteAllFavouritesOfDocument(oldDoc);
                 persistenceController.deleteAllRatingsOfDocument(oldDoc);
                 newDoc.setRating(1f);
