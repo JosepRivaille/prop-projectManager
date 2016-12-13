@@ -41,17 +41,18 @@ public class SearchBooleanExpressionImpl implements SearchBooleanExpression {
     @Override
     public DocumentsSet searchDocumentsByBooleanExpression(String booleanExpression, DocumentsCollection allDocuments)
             throws InvalidQueryException {
+
         if (!checkValidBooleanExpression(booleanExpression)) {
             throw new InvalidQueryException();
         } else {
-            Node node = new Node();
+            BooleanExpressionNode node = new BooleanExpressionNode();
             node.generateTree(booleanExpression.toLowerCase());
             DocumentsSet matchingDocuments = new DocumentsSet();
             for (Document document : allDocuments.getDocuments()) {
                 //TODO: Optimitzar
-                Integer numFrases = document.getContent().split(Constants.SENTENCE_SEPARATION_REGEX).length;
+                Integer sentences = document.getContent().split(Constants.SENTENCE_SEPARATION_REGEX).length;
                 document.updatePositions();
-                boolean documentMatches = checkDocumentMatchesExpression(document.getTermPositions(), node, numFrases);
+                boolean documentMatches = checkDocumentMatchesExpression(document.getTermPositions(), node, sentences);
                 if (documentMatches) {
                     matchingDocuments.add(document);
                 }
@@ -61,8 +62,9 @@ public class SearchBooleanExpressionImpl implements SearchBooleanExpression {
     }
 
     private boolean checkDocumentMatchesExpression
-            (Map<String, Map<Integer, Set<Integer>>> termPositions, Node node, Integer numFrases) {
+            (Map<String, Map<Integer, Set<Integer>>> termPositions, BooleanExpressionNode node, Integer numFrases) {
         Set<Integer> totalFrases = new TreeSet<>();
+
         for (int i = 0; i < numFrases; ++i) {
             totalFrases.add(i);
         }
@@ -70,11 +72,13 @@ public class SearchBooleanExpressionImpl implements SearchBooleanExpression {
         return !(result.isEmpty());
     }
 
-    private Set<Integer> satisfy(Map<String, Map<Integer, Set<Integer>>> termPositions, Node node, Set<Integer> totalFrases){
+    private Set<Integer> satisfy
+            (Map<String, Map<Integer, Set<Integer>>> termPositions, BooleanExpressionNode node, Set<Integer> totalFrases) {
+
         Operator operator = node.getOperator();
         NodeType nodeType = node.getNodeType();
         Set<Integer> bones = new TreeSet<>();
-        ArrayList<Node> fills = node.getChildren();
+        ArrayList<BooleanExpressionNode> fills = node.getChildren();
         if ((Operator.AND).equals(operator)) {
             bones = satisfy(termPositions, fills.get(0),totalFrases);
             for (int i = 1; i < fills.size(); ++i) {
@@ -82,7 +86,7 @@ public class SearchBooleanExpressionImpl implements SearchBooleanExpression {
                 bones.retainAll(satisfy(termPositions, fills.get(i),totalFrases));
             }
         } else if ((Operator.OR).equals(operator)) {
-            for (Node fill : node.getChildren()) {
+            for (BooleanExpressionNode fill : node.getChildren()) {
                 bones.addAll(satisfy(termPositions, fill,totalFrases));
             }
         } else if ((NodeType.WORD).equals(nodeType)) {
