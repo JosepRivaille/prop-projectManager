@@ -182,4 +182,8 @@ public interface BusinessController {
     void changeUserAvatar(int avatar) throws SQLException;
 
     String selectImage(Stage st);
+
+    String editContentExternalTool(String content);
+
+    void searchInformation(String title, String author);
 }

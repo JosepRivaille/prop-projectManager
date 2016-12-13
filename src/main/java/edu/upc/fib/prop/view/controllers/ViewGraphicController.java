@@ -138,5 +138,9 @@ public interface ViewGraphicController {
     void changeUserAvatar(int avatar) throws SQLException;
 
     String selectImage();
+
+    String editContentExternalTool(String content);
+
+    void searchInformation(String title, String author);
 }
 

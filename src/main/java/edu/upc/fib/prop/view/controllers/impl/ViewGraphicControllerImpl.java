@@ -233,6 +233,16 @@ public class ViewGraphicControllerImpl implements ViewGraphicController {
         return businessController.selectImage(st);
     }
 
+    @Override
+    public String editContentExternalTool(String content) {
+        return this.businessController.editContentExternalTool(content);
+    }
+
+    @Override
+    public void searchInformation(String title, String author) {
+        this.businessController.searchInformation(title, author);
+    }
+
     public void test(){
         System.out.println("ADJHADISDIUGAISUGD");
     }

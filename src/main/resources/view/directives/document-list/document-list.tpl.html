@@ -113,12 +113,16 @@
                             <input ng-model="documentSelected.author" type="text" ng-required="true">
                         </md-input-container>
                     </div>
-                    <div layout="row" layout-align="start none" flex>
+                    <div layout="column" layout-align="start start" flex>
                         <md-input-container class="md-block" style="width: 100%; overflow-y: auto;">
                             <label>Content</label>
                             <textarea class="document-content-textarea" ng-model="documentSelected.content" rows="7"
-                                      ng-required="true"></textarea>
+                                      ng-required="true" style="margin-bottom: 0;"></textarea>
                         </md-input-container>
+                        <md-button class="md-raised md-primary" style="margin-top: 0;"
+                                   ng-click="editContentExternalTool(documentSelected.content)">
+                            <i class="fa fa-share-square-o"></i>
+                        </md-button>
                     </div>
 
                     <p ng-show="isInvalidData !== undefined" class="error-text">{{isInvalidData | translate}}</p>

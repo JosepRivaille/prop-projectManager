@@ -34,6 +34,10 @@
                     scope.isFavourite ^= true;
                     showToast('TOAST_ADDED_TO_FAVOURITES');
                 };
+                
+                scope.searchInformation = function () {
+                    $rootScope.backendService.searchInformation(scope.document.title, scope.document.author);
+                }
 
                 scope.removeFavourite = function () {
                     $rootScope.backendService.removeFavourite(scope.document.title, scope.document.author);

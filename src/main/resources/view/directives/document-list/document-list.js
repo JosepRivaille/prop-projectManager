@@ -49,6 +49,10 @@
                     }
                 };
 
+                scope.editContentExternalTool = function(content){
+                    scope.documentSelected.content = $rootScope.backendService.editContentExternalTool(content);
+                };
+
                 scope.removeFavourite = function (doc) {
                     $rootScope.backendService.removeFavourite(doc.title, doc.author);
                     var index = scope.documents.indexOf(doc);

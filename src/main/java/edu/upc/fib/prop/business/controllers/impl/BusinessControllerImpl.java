@@ -11,16 +11,20 @@ import edu.upc.fib.prop.exceptions.*;
 import edu.upc.fib.prop.models.*;
 import edu.upc.fib.prop.persistence.controllers.PersistenceController;
 import edu.upc.fib.prop.persistence.controllers.impl.PersistenceControllerImpl;
+import edu.upc.fib.prop.utils.FileUtils;
 import edu.upc.fib.prop.utils.ImportExport;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.math.BigInteger;
+import java.net.URI;
 import java.security.SecureRandom;
 import java.sql.SQLException;
+import java.util.Scanner;
 
 public class BusinessControllerImpl implements BusinessController {
 
@@ -172,6 +176,8 @@ public class BusinessControllerImpl implements BusinessController {
         this.persistenceController.changeUserAvatar(usersManager.getCurrentUser().getEmail(), avatar);
     }
 
+
+
     @Override
     public String selectImage(Stage st) {
 
@@ -212,6 +218,52 @@ public class BusinessControllerImpl implements BusinessController {
         }
 
         return filename;
+    }
+
+    @Override
+    public String editContentExternalTool(String content) {
+        try {
+            File file=File.createTempFile("temp", ".txt");
+            file.deleteOnExit();
+            FileWriter fw = new FileWriter(file);
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write(content);
+            bw.close();
+
+            Desktop d = java.awt.Desktop.getDesktop();
+            if(d.isSupported(Desktop.Action.EDIT)){
+                d.edit(file);
+            }
+            System.err.println("seguimos ejecucion");
+            Scanner reader = new Scanner(file);
+            String newContent = "";
+
+            while (reader.hasNextLine()){
+                String line = reader.nextLine();
+                if(line.isEmpty()) newContent += "\n\n";
+                else newContent += line;
+            }
+            System.err.println(newContent);
+            return newContent;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return content;
+        }
+    }
+
+    @Override
+    public void searchInformation(String title, String author) {
+        Desktop d = java.awt.Desktop.getDesktop();
+        String url = "https://www.google.es/#q=" + title + " " + author;
+        url = url.replace(' ', '+');
+
+        if(d.isSupported(Desktop.Action.BROWSE)){
+            try {
+                d.browse(URI.create(url));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
