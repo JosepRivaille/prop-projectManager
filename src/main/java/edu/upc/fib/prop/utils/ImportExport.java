@@ -10,6 +10,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.*;
+import java.util.Scanner;
 
 public class ImportExport {
 
@@ -30,13 +31,30 @@ public class ImportExport {
         try {
             Gson gson = new Gson();
             FileChooser fileChooser = new FileChooser();
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON file", "*.json"));
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text file", "*.txt"));
             fileChooser.setTitle("Import document");
             File file = fileChooser.showOpenDialog(st);
-            JsonReader reader = new JsonReader(new FileReader(file));
-            Document doc = gson.fromJson(reader, Document.class);
-            doc.setCover(Document.DEFAULT_COVER);
-            if (doc.isCorrect()) return doc;
-            else throw new ImportExportException();
+            if (file != null) {
+                if (file.getName().contains(".json")) {
+                    JsonReader reader = new JsonReader(new FileReader(file));
+                    Document doc = gson.fromJson(reader, Document.class);
+                    doc.setCover(Document.DEFAULT_COVER);
+                    if (doc.isCorrect()) return doc;
+                }
+                if (file.getName().contains(".txt")) {
+                    Scanner reader = new Scanner(file);
+                    String author = reader.nextLine();
+                    String title = reader.nextLine();
+                    String content = "";
+
+                    while (reader.hasNextLine()) content += reader.nextLine();
+                    Document doc = new Document(title,author,content);
+                    doc.setCover(Document.DEFAULT_COVER);
+                    if (doc.isCorrect()) return doc;
+                }
+            }
+            throw new ImportExportException();
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -67,11 +85,9 @@ public class ImportExport {
                 else if(file.getName().contains(".txt")){
                     FileWriter fw = new FileWriter(file);
                     BufferedWriter bw = new BufferedWriter(fw);
-                    bw.newLine();
                     bw.write(document.getTitle().toUpperCase());
                     bw.newLine();
                     bw.write(document.getAuthor());
-                    bw.newLine();
                     bw.newLine();
                     bw.write(document.getContent());
                     bw.close();
