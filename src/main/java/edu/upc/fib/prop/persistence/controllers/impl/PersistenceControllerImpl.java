@@ -171,7 +171,7 @@ public class PersistenceControllerImpl implements PersistenceController {
     }
 
     @Override
-    public Document getDocument(String title, String author) {
+    public Document getDocument(String title, String author) throws DocumentNotFoundException {
         openConnection();
         Document document = daoDocuments.getDocument(c, title, author);
         closeConnection();

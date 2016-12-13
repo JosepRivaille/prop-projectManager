@@ -16,6 +16,7 @@ public interface DaoAuthors {
      * Creates an author in persistence.
      * @param c DB connection.
      * @param author Author to store in the DB.
+     * @throws SQLException when SQLiteDB related error.
      */
     void createAuthor(Connection c, String author) throws SQLException;
 
@@ -30,6 +31,7 @@ public interface DaoAuthors {
      * @param c DB connection.
      * @param author Author to search for.
      * @return Author that matches desired author.
+     * @throws AuthorNotFoundException when author doesn't match any DB entry.
      */
     Author getAuthorByName(Connection c, String author) throws AuthorNotFoundException;
 

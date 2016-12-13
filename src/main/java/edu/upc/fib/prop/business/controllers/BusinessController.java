@@ -4,6 +4,8 @@ import edu.upc.fib.prop.exceptions.*;
 import edu.upc.fib.prop.models.*;
 import javafx.stage.Stage;
 
+import java.sql.SQLException;
+
 public interface BusinessController {
 
     /*--------------- Users */
@@ -177,7 +179,7 @@ public interface BusinessController {
 
     int getMyRating(String title, String author);
 
-    void changeUserAvatar(int avatar);
+    void changeUserAvatar(int avatar) throws SQLException;
 
     String selectImage(Stage st);
 }

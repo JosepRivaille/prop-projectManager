@@ -10,6 +10,7 @@ import edu.upc.fib.prop.view.controllers.ViewGraphicController;
 import javafx.scene.web.WebEngine;
 import javafx.stage.Stage;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -223,7 +224,7 @@ public class ViewGraphicControllerImpl implements ViewGraphicController {
     }
 
     @Override
-    public void changeUserAvatar(int avatar) {
+    public void changeUserAvatar(int avatar) throws SQLException {
         this.businessController.changeUserAvatar(avatar);
     }
 

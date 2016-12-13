@@ -2,6 +2,8 @@ package edu.upc.fib.prop.view.controllers;
 
 import edu.upc.fib.prop.exceptions.*;
 
+import java.sql.SQLException;
+
 public interface ViewGraphicController {
 
     /**
@@ -133,7 +135,7 @@ public interface ViewGraphicController {
 
     String getVisitedDocs(int numDocs);
 
-    void changeUserAvatar(int avatar);
+    void changeUserAvatar(int avatar) throws SQLException;
 
     String selectImage();
 }

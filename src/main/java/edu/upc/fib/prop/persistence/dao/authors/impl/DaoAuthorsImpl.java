@@ -15,7 +15,7 @@ public class DaoAuthorsImpl implements DaoAuthors {
     @Override
     public void createAuthor(Connection c, String author) throws SQLException {
         Statement statement = c.createStatement();
-        String query = String.format("INSERT INTO authors VALUES('%s');", author);
+        String query = String.format("INSERT INTO authors VALUES ('%s');", author);
         statement.executeUpdate(query);
     }
 

@@ -85,12 +85,13 @@ public class DaoUsersImpl implements DaoUsers {
     @Override
     public void changeUserAvatar(Connection c, String email, int avatar) {
         try {
-        Statement statement = c.createStatement();
-        String query = String.format("UPDATE users SET avatar='%d' WHERE email LIKE '%s'", avatar, email);
-        statement.executeUpdate(query);
-        statement.close();
+            Statement statement = c.createStatement();
+            String query = String.format("UPDATE users SET avatar='%d' WHERE email LIKE '%s'", avatar, email);
+            statement.executeUpdate(query);
+            statement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
 }

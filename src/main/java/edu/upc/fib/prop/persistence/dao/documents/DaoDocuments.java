@@ -7,12 +7,16 @@ import edu.upc.fib.prop.models.DocumentsCollection;
 
 import java.sql.Connection;
 
+/**
+ * Data Access Object for documents in persistence.
+ */
 public interface DaoDocuments {
 
     /**
      * Creates a new document in persistence.
      * @param c DB connection.
      * @param document Document to add in persistence.
+     * @throws AlreadyExistingDocumentException when document already exists.
      */
     void createNewDocument(Connection c, Document document) throws AlreadyExistingDocumentException;
 
@@ -28,6 +32,7 @@ public interface DaoDocuments {
      * @param c DB connection.
      * @param oldDocument Old document to be replaced.
      * @param newDocument New document to store.
+     * @throws AlreadyExistingDocumentException when document already exists.
      */
     void editExistingDocument(Connection c, Document oldDocument, Document newDocument)
             throws AlreadyExistingDocumentException;
@@ -40,7 +45,7 @@ public interface DaoDocuments {
     void deleteExistingDocument(Connection c, Document document);
 
     /**
-     * Updates documents owned by a user when changes account details
+     * Updates documents owned by a user when changes account details.
      * @param c DB connection.
      * @param oldEmail Old email to replace.
      * @param newEmail New email to set.
@@ -55,66 +60,86 @@ public interface DaoDocuments {
     void deleteDocuments(Connection c, String email);
 
     /**
-     * Rates a document
-     * @param c DB connection
-     * @param doc   Document to rate
-     * @param rating Points given to the document
-     * @param user User who rates the document
+     * Rates a document.
+     * @param c DB connection.
+     * @param doc Document to rate.
+     * @param rating Points given to the document.
+     * @param user User who rates the document.
+     * @throws DocumentNotFoundException when document not found in the system.
      */
     float rateDocument(Connection c, Document doc, int rating, String user) throws DocumentNotFoundException;
 
-    void addDocumentToFavourites(Connection c, String title, String author, String user) throws DocumentNotFoundException;
-
-
-    void deleteDocumentFromFavourites(Connection c, String title, String author, String user) throws DocumentNotFoundException;
+    /**
+     * Adds a document to favourites.
+     * @param c DB connection.
+     * @param title Document title.
+     * @param author Document author name.
+     * @param user User who favourites the document.
+     * @throws DocumentNotFoundException when document not found in the system.
+     */
+    void addDocumentToFavourites(Connection c, String title, String author, String user)
+            throws DocumentNotFoundException;
 
     /**
-     * Removes all favourites of a given document from all users
-     * @param c DB Connection
-     * @param document All favourites related with this book will be deleted
+     * Removes a document from favourites.
+     * @param c DB connection.
+     * @param title Document title.
+     * @param author Document author name.
+     * @param user User who remove favourite from the document.
+     * @throws DocumentNotFoundException when document not found in the system.
+     */
+    void deleteDocumentFromFavourites(Connection c, String title, String author, String user)
+            throws DocumentNotFoundException;
+
+    /**
+     * Removes all favourites of a given document from all users.
+     * @param c DB Connection.
+     * @param document All favourites related with this book will be deleted.
      */
     void deleteAllFavouritesOfDocument(Connection c, Document document);
 
     /**
-     * Removes all ratings of a given document from all users
-     * @param c DB Connection
-     * @param document All ratings related with this book will be deleted
+     * Removes all ratings of a given document from all users.
+     * @param c DB Connection.
+     * @param document All ratings related with this book will be deleted.
      */
     void deleteAllRatingsOfDocument(Connection c, Document document);
 
     /**
-     * Update all documents ratings
-     * @param c DB Connection
-     * @param document Dcument to update its rating
-     * @param newRating New rating
+     * Gets a specific document given the title and the author name.
+     * @param c DB connection.
+     * @param title Document title.
+     * @param author Document author name.
+     * @return Desired document if exists.
      */
-    void updateRatings(Connection c, Document document, Float newRating);
+    Document getDocument(Connection c, String title, String author) throws DocumentNotFoundException;
 
     /**
-     * It returns, if exists, the document with the given title and author
-     * @param title
-     * @param author
-     * @return
+     * Get all user favourite documents.
+     * @param c DB connection.
+     * @param email User which requires favourites.
+     * @return Favourite documents by a user.
      */
-    Document getDocument(Connection c, String title, String author);
+    DocumentsCollection getFavourites(Connection c, String email);
 
     /**
-     *
-     * @param c
-     * @param user
-     * @return
-     */
-    DocumentsCollection getFavourites(Connection c, String user);
-
-    /**
-     * Checks if a document is or not favourited by the user.
+     * Checks if a document is or not favourite of given user.
      * @param c DB connection.
      * @param title Document title.
      * @param author Document author
-     * @param email
-     * @return
+     * @param email User email which requires favourites.
+     * @return If document is or not favourite of given user.
      */
     boolean isDocumentFavourite(Connection c,String title, String author, String email);
 
+    /**
+     * Gets given user rating for a document.
+     * @param c DB connection.
+     * @param title Document title.
+     * @param author Document author name.
+     * @param email User email.
+     * @return Rating value for desired document.
+     */
     int getMyRating(Connection c, String title, String author, String email);
+
 }

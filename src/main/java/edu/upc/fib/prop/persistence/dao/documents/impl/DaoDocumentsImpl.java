@@ -136,14 +136,14 @@ public class DaoDocumentsImpl implements DaoDocuments {
     @Override
     public float rateDocument(Connection c, Document doc, int rating, String user) throws DocumentNotFoundException{
         try {
-
             Statement statement = c.createStatement();
             String query = String.format("INSERT OR REPLACE INTO ratings(user_email, title, author_name, points)" +
                     " VALUES ('%s','%s','%s', %d)", user, doc.getTitle(), doc.getAuthor(), rating);
             statement.executeUpdate(query);
 
             statement = c.createStatement();
-            query = String.format("SELECT points FROM ratings WHERE title LIKE '%s' AND author_name LIKE '%s'", doc.getTitle(), doc.getAuthor());
+            query = String.format("SELECT points FROM ratings WHERE title LIKE '%s' AND author_name LIKE '%s'",
+                    doc.getTitle(), doc.getAuthor());
             ResultSet rs = statement.executeQuery(query);
             Float total = 0f;
             int n_ratings = 0;
@@ -153,10 +153,10 @@ public class DaoDocumentsImpl implements DaoDocuments {
             }
 
             query = String.format("UPDATE documents SET rating = %.2f WHERE title " +
-                    "LIKE '%s' AND author_name LIKE '%s'", (float)total/n_ratings, doc.getTitle(), doc.getAuthor());
+                    "LIKE '%s' AND author_name LIKE '%s'", total / n_ratings, doc.getTitle(), doc.getAuthor());
             query = query.replace(",", ".");
             statement.executeUpdate(query);
-            return (float)total/n_ratings;
+            return total / n_ratings;
         } catch (SQLException e) {
             throw new DocumentNotFoundException();
         }
@@ -213,18 +213,7 @@ public class DaoDocumentsImpl implements DaoDocuments {
     }
 
     @Override
-    public void updateRatings(Connection c, Document document, Float newRating) {
-        try {
-            Statement statement = c.createStatement();
-            String query = String.format("UPDATE documents SET rating", document.getTitle(), document.getAuthor());
-            statement.executeUpdate(query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public Document getDocument(Connection c, String title, String author) {
+    public Document getDocument(Connection c, String title, String author) throws DocumentNotFoundException {
         try {
 
             Statement statement = c.createStatement();
@@ -245,20 +234,21 @@ public class DaoDocumentsImpl implements DaoDocuments {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DocumentNotFoundException();
         }
-        return null;
+
+        throw new DocumentNotFoundException();
     }
 
     @Override
-    public DocumentsCollection getFavourites(Connection c, String user) {
+    public DocumentsCollection getFavourites(Connection c, String email) {
         DocumentsCollection favouriteDocuments = new DocumentsCollection();
         try {
             Statement statement = c.createStatement();
             String query = String.format
                     ("SELECT * FROM documents d, favourites f " +
                             "WHERE f.user_email = '%s' AND f.title = d.title AND f.author_name = d.author_name " +
-                            "ORDER BY d.title, d.author_name;", user);
+                            "ORDER BY d.title, d.author_name;", email);
             ResultSet rs = statement.executeQuery(query);
             while (rs.next()) {
                 String title = rs.getString("title");
@@ -268,7 +258,7 @@ public class DaoDocumentsImpl implements DaoDocuments {
                 String termFrequency = rs.getString("term_frequency");
                 String termPositions = rs.getString("term_positions");
                 Float rating = rs.getFloat("rating");
-                Document document = new Document(title, authorName, content, user);
+                Document document = new Document(title, authorName, content, email);
                 document.setRating(rating);
                 document.setCover(cover);
                 document.setTermFrequency(StringUtils.buildFrequencyMapFromJSON(termFrequency));

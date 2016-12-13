@@ -101,7 +101,7 @@ public interface PersistenceController {
      * @param author
      * @return
      */
-    Document getDocument(String title, String author);
+    Document getDocument(String title, String author) throws DocumentNotFoundException;
 
     /**
      *
