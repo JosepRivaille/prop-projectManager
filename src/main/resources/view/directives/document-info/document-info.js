@@ -27,7 +27,6 @@
                 document: '=ngModel'
             },
             link: function (scope) {
-
                 scope.isFavourite = $rootScope.backendService.isDocumentFavourite(scope.document.title, scope.document.author);
 
                 scope.addFavourite = function () {

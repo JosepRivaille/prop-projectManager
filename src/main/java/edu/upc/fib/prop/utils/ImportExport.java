@@ -44,11 +44,15 @@ public class ImportExport {
                 }
                 if (file.getName().contains(".txt")) {
                     Scanner reader = new Scanner(file);
-                    String author = reader.nextLine();
                     String title = reader.nextLine();
+                    String author = reader.nextLine();
                     String content = "";
 
-                    while (reader.hasNextLine()) content += reader.nextLine();
+                    while (reader.hasNextLine()){
+                        String line = reader.nextLine();
+                        if(line.isEmpty()) content += "\n\n";
+                        else content += line;
+                    }
                     Document doc = new Document(title,author,content);
                     doc.setCover(Document.DEFAULT_COVER);
                     if (doc.isCorrect()) return doc;
