@@ -29,6 +29,11 @@
             })}());
 
         function DialogBooleanController($rootScope, $scope, $mdDialog) {
+
+            $scope.searchMode1 = 'Normal mode';
+            $scope.searchMode2 = 'Super mode';
+            $scope.searchMode = $scope.searchMode1;
+
             $scope.similarDocuments = undefined;
 
             $scope.searchQuery = function (query, numberOfDocuments) {

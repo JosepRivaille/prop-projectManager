@@ -8,6 +8,11 @@
                 <input ng-model="desiredNumber" name="desiredNumber" type="number" ng-required="true">
             </md-input-container>
 
+            <md-radio-group ng-model="searchMode">
+                <md-radio-button value="{{searchMode1}}" class="md-primary">{{searchMode1}}</md-radio-button>
+                <md-radio-button value="{{searchMode2}}" class="md-warn">{{searchMode2}}</md-radio-button>
+            </md-radio-group>
+
             <p class="error-text" ng-show="isInvalidData !== undefined">{{isInvalidData | translate}}</p>
             <md-button ng-disabled="similarSearch.$invalid" class="md-raised md-primary"
                        ng-click="searchSimilarDocuments(desiredNumber)">
