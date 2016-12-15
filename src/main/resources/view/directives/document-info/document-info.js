@@ -26,7 +26,8 @@
             restrict: 'EA',
             templateUrl: 'directives/document-info/document-info.tpl.html',
             scope: {
-                document: '=ngModel'
+                document: '=ngModel',
+                from: "=?"
             },
             link: function (scope) {
 
@@ -41,13 +42,21 @@
                 //TOOLBAR CONFIG
 
                 $rootScope.toolbarParams.title = scope.document.title;
-                $rootScope.toolbarParams.back = true;
+
                 $rootScope.toolbarParams.print = true;
                 $rootScope.toolbarParams.google = true;
                 $rootScope.toolbarParams.import = false;
                 $rootScope.toolbarParams.create = false;
-                $rootScope.toolbarParams.search = false;
 
+
+                if(angular.isDefined(scope.from) && scope.from == "search"){
+                    $rootScope.toolbarParams.back = false;
+                    $rootScope.toolbarParams.search = true;
+                }
+                else{
+                    $rootScope.toolbarParams.back = true;
+                    $rootScope.toolbarParams.search = false;
+                }
                 $rootScope.toolbarFunctions.google = scope.searchInformation;
                 $rootScope.toolbarFunctions.print = scope.printDocument;
                 $rootScope.toolbarParams.enabled = true;
