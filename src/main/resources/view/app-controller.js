@@ -12,15 +12,15 @@
         .module('project')
         .controller('AppCtrl', AppCtrl);
 
-    function AppCtrl($rootScope) {
+    function AppCtrl($rootScope, $scope) {
         var vm = this;
         vm.ctrlName = 'AppCtrl';
 
-        /*$rootScope.$watch(function () {
+        $scope.$watch(function () {
             return $rootScope.selectedTheme;
         }, function () {
             vm.selectedTheme = $rootScope.selectedTheme;
-        });*/
+        });
 
         $rootScope.selectedTheme = 'light';
 
