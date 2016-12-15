@@ -29,6 +29,13 @@
 
                 scope.params = $rootScope.toolbarParams;
                 scope.functions = $rootScope.toolbarFunctions;
+                scope.isLoggedIn = $rootScope.isLoggedIn;
+
+                scope.$watch(function() {
+                    return $rootScope.isLoggedIn;
+                }, function() {
+                    scope.isLoggedIn = $rootScope.isLoggedIn;
+                }, true);
 
             }
         };

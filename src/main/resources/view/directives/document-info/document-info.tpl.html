@@ -5,7 +5,7 @@
             <div layout="colum" layout-align="center center">
                 <img class="doc-cover" ng-src="../../../covers/{{document.cover}}" ng-click="searchInformation()">
             </div>
-            <div layout="column" layout-align="start stretch">
+            <div layout="column" class="buttons" layout-align="start stretch">
                 <md-button ng-click="addFavourite()" ng-if="!isFavourite" class="md-raised md-primary">
                     {{'BUTTON_ADD_FAVOURITES' | translate}}
                 </md-button>

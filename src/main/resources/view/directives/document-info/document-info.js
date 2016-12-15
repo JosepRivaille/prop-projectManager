@@ -100,6 +100,7 @@
                         clickOutsideToClose: true,
                         escapeToClose: true
                     });
+
                 };
 
 
@@ -141,6 +142,7 @@
                     };
                     $scope.selectNewDocument = function (document) {
                         scope.document = document;
+                        $rootScope.toolbarParams.title = document.title;
                         $mdDialog.hide();
                     }
                 }
