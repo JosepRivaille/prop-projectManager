@@ -1,4 +1,4 @@
-<div id="search-query-dialog" class="fill-all-parent">
+<div id="search-query-dialog" class="fill-parent">
     <md-dialog-content class="md-dialog-content dialog-forms scrollable-y" layout="column" layout-align="center center">
         <form name="querySearch">
             <div ng-if="!similarDocuments">
@@ -30,7 +30,7 @@
             <md-list ng-if="similarDocuments" ng-cloak class="similars-list" layout="column" layout-align="start center">
                 <md-list-item ng-repeat="document in similarDocuments" class="similars-list-item">
                     <md-button ng-click="selectNewDocument(document)">
-                        <div class="fill-all-parent" layout="row" layout-align="space-between stretch">
+                        <div class="fill-parent" layout="row" layout-align="space-between stretch">
                             <div>
                                 <img ng-src="../../../covers/{{document.cover}}" class="list-item-image">
                             </div>

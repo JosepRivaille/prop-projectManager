@@ -1,6 +1,10 @@
 <!--<div md-theme="{{vm.selectedTheme}}" md-theme-watch class="md1-layout md1-js-layout">-->
-<div class="md1-layout md1-js-layout">
+<div class="md1-layout md1-js-layout fill-all-window">
 
-    <div class="no-scrollable" id="wrapper" ui-view="wrapper"></div>
+    <div class="no-scrollable fill-all-window" id="wrapper">
+        <toolbar></toolbar>
+        <div ui-view="wrapper">
+        </div>
+    </div>
 
 </div>

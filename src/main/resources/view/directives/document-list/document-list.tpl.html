@@ -1,16 +1,10 @@
-<div id="document-list" class="fill-all-window">
+<div id="document-list" class="fill-parent">
 
     <!-- DOCUMENTS LIST -->
-    <div layout="column" ng-show="isListSelected" class="fill-all-parent">
-
-        <h1 class="title-landing" layout-align="space-between center">
-            {{parentTitle | translate}}
-        </h1>
-        <md-divider></md-divider>
-
+    <div layout="column" ng-show="isListSelected" class="fill-parent">
         <!-- MANAGE LIST WITH EDIT/DELETE BUTTONS -->
         <md-content ng-if="parent !== 'all'" class="scrollable-y">
-            <div ng-if="documents.length == 0" class="fill-all-parent opaque-image" layout="column" layout-align="center center">
+            <div ng-if="documents.length == 0" class="fill-parent opaque-image" layout="column" layout-align="center center">
                 <img ng-src="../images/document-icon.png" style="height: 100px;">
                 <p style="color: #5e5e5e; font-size: 1.2em; margin-top: 10px;">
                     {{'NO_DOCUMENTS_FOUND' | translate}}
@@ -57,7 +51,7 @@
         </md-content>
 
         <md-content ng-if="parent === 'all'" class="scrollable-y">
-            <div ng-if="documents.length == 0" class="fill-all-parent opaque-image" layout="column" layout-align="center center">
+            <div ng-if="documents.length == 0" class="fill-parent opaque-image" layout="column" layout-align="center center">
                 <img ng-src="../images/document-icon.png" style="height: 100px;">
                 <p style="color: #5e5e5e; font-size: 1.2em; margin-top: 10px;">
                     {{'NO_DOCUMENTS_FOUND' | translate}}
@@ -94,8 +88,8 @@
 
     </div>
 
-    <div ng-if="!isListSelected && isEditMode && isCreateOrUpdate" class="no-scrollable fill-all-window">
-        <md-content class="md-no-momentum fill-all-parent" layout="column">
+    <div ng-if="!isListSelected && isEditMode && isCreateOrUpdate" class="no-scrollable fill-parent">
+        <md-content class="md-no-momentum fill-parent" layout="column">
             <div style="height: auto">
                 <h1 class="title-landing" layout-align="start center">
                     {{title | translate}}
