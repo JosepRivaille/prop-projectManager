@@ -1,7 +1,4 @@
-<div id="settings-wrapper" class="fill-all-window">
-    <h1 class="title-landing">
-        {{ vm.title | translate}}
-    </h1>
+<div id="settings-wrapper" class="fill-parent">
     <md-list id="settings-scroll">
         <md-subheader class="md-no-sticky">{{vm.languages.title | translate}}</md-subheader>
         <md-list-item ng-repeat="language in vm.languages.values">

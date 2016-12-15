@@ -17,6 +17,12 @@
         vm.ctrlName = 'ManageFavouritesCtrl';
         vm.title = 'MENU_MANAGEMENT_FAVOURITES';
 
+        //TOOLBAR CONFIG
+        $rootScope.resetToolbar();
+        $rootScope.toolbarParams.title = vm.title;
+        $rootScope.toolbarParams.enabled = true;
+
+
         var response = $rootScope.backendService.getCurrentUserFavourites();
         vm.documents = JSON.parse(response);
     }

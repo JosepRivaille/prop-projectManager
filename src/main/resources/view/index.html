@@ -19,6 +19,7 @@
     <link rel="stylesheet" type="text/css" href="./directives/document-info/document-info.css">
     <link rel="stylesheet" type="text/css" href="./directives/document-list/document-list.css">
     <link rel="stylesheet" type="text/css" href="./directives/star-rating/star-rating.css">
+    <link rel="stylesheet" type="text/css" href="./directives/toolbar/toolbar.css">
     <link rel="stylesheet" type="text/css" href="./search/search.css">
     <link rel="stylesheet" type="text/css" href="./settings/settings.css">
     <link rel="stylesheet" type="text/css" href="./home/home.css">
@@ -84,6 +85,7 @@
     <script src="directives/document-info/document-info.js"></script>
     <script src="directives/document-list/document-list.js"></script>
     <script src="directives/fd-input/fd-input.js"></script>
+    <script src="directives/toolbar/toolbar.js"></script>
 </head>
 
 <body>
@@ -93,7 +95,7 @@
 
 <side-nav></side-nav>
 
-<div ui-view="body"></div>
+<div ui-view="body" class="no-scrollable" style="width: 100vw; height: 100vh;"></div>
 
 </body>
 </html>

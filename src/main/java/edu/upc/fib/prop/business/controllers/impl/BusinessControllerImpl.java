@@ -1,5 +1,6 @@
 package edu.upc.fib.prop.business.controllers.impl;
 
+import com.sun.javafx.font.FontFactory;
 import edu.upc.fib.prop.business.controllers.BusinessController;
 import edu.upc.fib.prop.business.search.SearchBooleanExpression;
 import edu.upc.fib.prop.business.search.impl.SearchAuthorImpl;
@@ -353,6 +354,30 @@ public class BusinessControllerImpl implements BusinessController {
         persistenceController.deleteAllFavouritesOfDocument(document);
         persistenceController.deleteAllRatingsOfDocument(document);
         reloadDBData();
+    }
+
+    public void printDocument(String title, String author, String content){
+        Desktop d = java.awt.Desktop.getDesktop();
+        if(d.isSupported(Desktop.Action.PRINT)){
+            try {
+
+                File file = new File(title + ".txt");
+
+                FileWriter fw = new FileWriter(file);
+                BufferedWriter bw = new BufferedWriter(fw);
+                bw.newLine();
+                bw.newLine();
+                bw.write(author);
+                bw.newLine();
+                bw.newLine();
+                bw.write(content);
+                bw.close();
+                d.print(file);
+                file.deleteOnExit();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     //////////

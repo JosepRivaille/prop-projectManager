@@ -13,10 +13,15 @@
         .controller('DocumentListCtrl', DocumentListCtrl)
         .directive('documentList', documentList);
 
-    function DocumentListCtrl() {
+    function DocumentListCtrl($rootScope) {
         var vm = this;
         vm.ctrlName = 'DocumentListCtrl';
         vm.title = "TITLE_DOCUMENT_LIST";
+
+        //TOOLBAR CONFIG
+        $rootScope.resetToolbar();
+        $rootScope.toolbarParams.title = vm.title;
+        $rootScope.toolbarParams.enabled = true;
     }
 
     function documentList($rootScope, $mdDialog, $mdToast, $filter, $timeout, $state) {

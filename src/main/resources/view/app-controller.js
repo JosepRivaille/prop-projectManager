@@ -26,9 +26,23 @@
 
         // Uncomment if wanna test in browser
         //alert('Error loading main backend service, stub activated instead');
-        //$rootScope.backendService = backendServiceStub;
+        $rootScope.backendService = backendServiceStub;
 
-        $rootScope.backendService = backendService;
+        //$rootScope.backendService = backendService;
+
+        $rootScope.resetToolbar = function(){
+            $rootScope.toolbarParams.title = "";
+            $rootScope.toolbarParams.goback = false;
+            $rootScope.toolbarParams.search = false;
+            $rootScope.toolbarParams.print = false;
+        }
+        $rootScope.toolbarParams = {
+            'enabled': false,
+            'title': "",
+            'goback': false,
+            'search': false,
+            'print': false,
+        };
 
     }
 

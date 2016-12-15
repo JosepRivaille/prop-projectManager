@@ -16,7 +16,9 @@
     function DocumentInfoCtrl() {
         var vm = this;
         vm.ctrlName = 'DocumentInfoCtrl';
-        vm.title = "TITLE_DOCUMENT_INFO";
+        vm.title = "DOCUMENT_INFO";
+
+
     }
 
     function documentInfo($rootScope, $mdDialog, $mdToast, $filter) {
@@ -27,6 +29,14 @@
                 document: '=ngModel'
             },
             link: function (scope) {
+
+                //TOOLBAR CONFIG
+                $rootScope.resetToolbar();
+                $rootScope.toolbarParams.title = scope.document.title;
+                $rootScope.toolbarParams.goback = true;
+                $rootScope.toolbarParams.print = true;
+                $rootScope.toolbarParams.enabled = true;
+
                 scope.isFavourite = $rootScope.backendService.isDocumentFavourite(scope.document.title, scope.document.author);
 
                 scope.addFavourite = function () {
@@ -53,6 +63,10 @@
                         escapeToClose: true
                     });
                 };
+
+                scope.printDocument = function () {
+                    $rootScope.backendService.printDocument(scope.document.title, scope.document.author, scope.document.content);
+                }
 
                 scope.export = function () {
                     var data = JSON.stringify(scope.document);

@@ -15,8 +15,12 @@
     function SettingsCtrl($rootScope, $mdDialog, $translate, $state, $filter) {
         var vm = this;
         vm.ctrlName = 'SettingsCtrl';
-
         vm.title = "MENU_SETTINGS";
+
+        //TOOLBAR CONFIG
+        $rootScope.resetToolbar();
+        $rootScope.toolbarParams.title = vm.title;
+        $rootScope.toolbarParams.enabled = true;
 
         vm.languages = {
             title: 'SETTINGS_LANGUAGES',

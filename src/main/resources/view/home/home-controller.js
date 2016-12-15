@@ -15,6 +15,14 @@
     function HomeCtrl($rootScope) {
         var vm = this;
         vm.ctrlName = 'HomeCtrl';
+        vm.title = "MENU_HOME"
+
+        //TOOLBAR CONFIG
+        $rootScope.resetToolbar();
+        $rootScope.toolbarParams.title = vm.title;
+        $rootScope.toolbarParams.enabled = true;
+
+
         vm.isDocumentSelected = false;
         vm.recommendedDocs = JSON.parse($rootScope.backendService.getRecommendedDocs(5));
         vm.visitedDocs = JSON.parse($rootScope.backendService.getVisitedDocs(7));

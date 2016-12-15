@@ -186,4 +186,6 @@ public interface BusinessController {
     String editContentExternalTool(String content);
 
     void searchInformation(String title, String author);
+
+    void printDocument(String title, String author, String content);
 }

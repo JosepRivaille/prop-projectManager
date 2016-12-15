@@ -243,6 +243,11 @@ public class ViewGraphicControllerImpl implements ViewGraphicController {
         this.businessController.searchInformation(title, author);
     }
 
+    @Override
+    public void printDocument(String title, String author, String content) {
+        this.businessController.printDocument(title, author, content);
+    }
+
     public void test(){
         System.out.println("ADJHADISDIUGAISUGD");
     }
