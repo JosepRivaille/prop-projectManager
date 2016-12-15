@@ -18,6 +18,12 @@
     height: 100%;
     width: auto;
 }
+#document-list .externalEditButton {
+    opacity: 0.4;
+}
+#document-list .externalEditButton:hover{
+    opacity: 1;
+}
 
 #document-list .docs-list-item .item-image-container > .item-image{
     height: 90%;

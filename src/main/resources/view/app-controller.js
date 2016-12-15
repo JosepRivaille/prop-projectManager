@@ -39,12 +39,14 @@
             $rootScope.toolbarParams.create = false;
             $rootScope.toolbarParams.import = false;
             $rootScope.toolbarParams.google = false;
+            $rootScope.toolbarParams.openExternalTool = false;
             $rootScope.toolbarFunctions.back = function(){};
             $rootScope.toolbarFunctions.search = function(){};
             $rootScope.toolbarFunctions.print = function(){};
             $rootScope.toolbarFunctions.create = function(){};
             $rootScope.toolbarFunctions.import = function(){};
             $rootScope.toolbarFunctions.google = function(){};
+            $rootScope.toolbarFunctions.openExternalTool = function(){};
         };
 
         $rootScope.toolbarParams = {
@@ -56,6 +58,7 @@
             'create': false,
             'import': false,
             'google': false,
+            'external': false
         };
 
         $rootScope.toolbarFunctions = {
@@ -65,6 +68,7 @@
             'create': function(){},
             'import': function(){},
             'google': function(){},
+            'external': function(){}
         };
 
     }

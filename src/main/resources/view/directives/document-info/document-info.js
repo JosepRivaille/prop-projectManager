@@ -27,7 +27,9 @@
             templateUrl: 'directives/document-info/document-info.tpl.html',
             scope: {
                 document: '=ngModel',
-                from: "=?"
+                from: "=?",
+                aux: "=?",
+                parentTitle: "=?"
             },
             link: function (scope) {
 
@@ -54,6 +56,16 @@
                     $rootScope.toolbarParams.search = true;
                     $rootScope.toolbarFunctions.search = function () {
                         $state.reload();
+                    }
+                }
+                if(angular.isDefined(scope.from) && scope.from == "home"){
+                    $rootScope.toolbarParams.back = true;
+
+                    $rootScope.toolbarFunctions.back = function () {
+                        $rootScope.toolbarParams.title = scope.parentTitle;
+                        $rootScope.toolbarParams.print = false;
+                        $rootScope.toolbarParams.google = false;
+                        scope.aux = undefined;
                     }
                 }
                 else{

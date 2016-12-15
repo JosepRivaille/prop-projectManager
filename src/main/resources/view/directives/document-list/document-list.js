@@ -55,6 +55,8 @@
                     $rootScope.toolbarParams.title = scope.title;
                     $rootScope.toolbarParams.create = false;
                     $rootScope.toolbarParams.import = false;
+                    $rootScope.toolbarParams.external = true;
+
 
                     scope.documentSelected = buildDocument();
                     scope.isListSelected = false;
@@ -62,6 +64,12 @@
                     scope.isCreateOrUpdate = true;
                     scope.isInvalidData = undefined;
                 };
+
+                scope.editContentExternalTool = function(){
+                    alert("JJJJ");
+                    scope.documentSelected.content = $rootScope.backendService.editContentExternalTool(scope.documentSelected.content);
+                };
+
 
                 scope.searchAgain = function () {
                     updateToolbar();
@@ -79,11 +87,13 @@
                 $rootScope.toolbarFunctions.search = scope.searchAgain;
                 $rootScope.toolbarFunctions.create = scope.createDocument;
                 $rootScope.toolbarFunctions.import = scope.importDocument;
+                $rootScope.toolbarFunctions.external = scope.editContentExternalTool;
 
 
 
                 function updateToolbar(){
                     $rootScope.toolbarParams.title = scope.parentTitle;
+                    $rootScope.toolbarParams.external = false;
                     if(scope.isEditMode) {
                         $rootScope.toolbarParams.import = true;
                         $rootScope.toolbarParams.create = true;
@@ -121,9 +131,6 @@
 
 
 
-                scope.editContentExternalTool = function(content){
-                    scope.documentSelected.content = $rootScope.backendService.editContentExternalTool(content);
-                };
 
                 scope.removeFavourite = function (doc) {
                     $rootScope.backendService.removeFavourite(doc.title, doc.author);
@@ -159,6 +166,7 @@
                     $rootScope.toolbarParams.title = scope.title;
                     $rootScope.toolbarParams.import = false;
                     $rootScope.toolbarParams.create = false;
+                    $rootScope.toolbarParams.external = true;
 
                     scope.documentBackUp = angular.copy(document);
                     scope.documentSelected = document;

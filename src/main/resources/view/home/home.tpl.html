@@ -34,6 +34,7 @@
         </md-content>
     </div>
     <div ng-if="vm.isDocumentSelected" layout="column" flex>
-        <document-info ng-model="vm.selectedDocument" layout="column" flex>  </document-info>
+        <document-info ng-model="vm.selectedDocument" aux="vm.isDocumentSelected" parent-title="vm.title" from="'home'"
+                       layout="column" flex>  </document-info>
     </div>
 </div>
