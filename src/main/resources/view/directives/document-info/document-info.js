@@ -21,7 +21,7 @@
 
     }
 
-    function documentInfo($rootScope, $mdDialog, $mdToast, $filter) {
+    function documentInfo($rootScope, $mdDialog, $mdToast, $filter, $state) {
         return {
             restrict: 'EA',
             templateUrl: 'directives/document-info/document-info.tpl.html',
@@ -52,6 +52,9 @@
                 if(angular.isDefined(scope.from) && scope.from == "search"){
                     $rootScope.toolbarParams.back = false;
                     $rootScope.toolbarParams.search = true;
+                    $rootScope.toolbarFunctions.search = function () {
+                        $state.reload();
+                    }
                 }
                 else{
                     $rootScope.toolbarParams.back = true;
