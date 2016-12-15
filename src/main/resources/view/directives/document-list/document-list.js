@@ -50,9 +50,12 @@
                 };
 
                 scope.createDocument = function (){
+                    scope.title = 'MENU_MANAGEMENT_CREATE';
+
+                    $rootScope.toolbarParams.title = scope.title;
                     $rootScope.toolbarParams.create = false;
                     $rootScope.toolbarParams.import = false;
-                    scope.title = 'MENU_MANAGEMENT_CREATE';
+
                     scope.documentSelected = buildDocument();
                     scope.isListSelected = false;
                     scope.isNewDocument = true;
@@ -152,6 +155,11 @@
 
                 scope.editDocument = function (document) {
                     scope.title = 'MENU_MANAGEMENT_UPDATE';
+
+                    $rootScope.toolbarParams.title = scope.title;
+                    $rootScope.toolbarParams.import = false;
+                    $rootScope.toolbarParams.create = false;
+
                     scope.documentBackUp = angular.copy(document);
                     scope.documentSelected = document;
                     scope.isListSelected = false;
@@ -161,6 +169,7 @@
                 };
 
                 scope.backToList = function () {
+
                     var translations = {
                         title: $filter('translate')('DIALOG_BACK_TITLE'),
                         textContent: $filter('translate')('DIALOG_BACK_CONTENT'),
@@ -178,6 +187,7 @@
                         .cancel(translations.cancel);
 
                     $mdDialog.show(confirm).then(function () {
+                        updateToolbar();
                         scope.documentBackUp = undefined;
                         scope.selectedImage = undefined;
                         scope.isCreateOrUpdate = false;
@@ -225,8 +235,7 @@
                         .cancel(translations.cancel);
 
                     $mdDialog.show(confirm).then(function() {
-                        scope.documentSelected.title = scope.documentSelected.title.capitalizeFirstLetter();
-                        scope.documentSelected.author = scope.documentSelected.author.capitalizeFirstLetter();
+                        updateToolbar();
                         if (angular.isDefined(scope.selectedImage)) {
                             scope.documentSelected.cover = scope.selectedImage;
                         }

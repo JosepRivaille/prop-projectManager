@@ -282,7 +282,7 @@ public class BusinessControllerImpl implements BusinessController {
             if (!oldDoc.getTitle().equals(newDoc.getTitle()) || !oldDoc.getAuthor().equals(newDoc.getAuthor())) {
                 persistenceController.deleteAllFavouritesOfDocument(oldDoc);
                 persistenceController.deleteAllRatingsOfDocument(oldDoc);
-                newDoc.setRating(1f);
+                newDoc.setRating(0f);
             }
             Document updatedDoc = documentsCollection.updateDocument(oldDoc, newDoc);
             persistenceController.updateDocument(oldDoc, updatedDoc);
