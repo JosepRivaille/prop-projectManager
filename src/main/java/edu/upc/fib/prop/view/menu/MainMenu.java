@@ -293,19 +293,7 @@ public class MainMenu {
                                     list.getDocument(kk).getTitle(), list.getDocument(kk).getAuthor());
                         }
                     }
-                    else {
-                        SortedDocumentsSet list = viewController.searchDocumentsByQuery(query, k2);
-                        Document rocchioQuery = viewController.getRocchioQuery(query,list,0.2,0.8f,0.1f);
-                        SortedDocumentsSet list2 = viewController.getDocumentsByRelevance(rocchioQuery,k2);
-                        IOUtils
-                                .drawLine(100);
-                        System.out.printf("    %-10s %-45s %-25s %n", "S.Factor", "Title", "Author");
-                        IOUtils.drawLine(100);
-                        for (int kk = 0; kk < list2.getSize(); ++kk) {
-                            System.out.printf("%-3d %-10s %-45s %-25s %n", kk + 1, String.format("%.2f", list2.getValue(kk)),
-                                    list2.getDocument(kk).getTitle(), list2.getDocument(kk).getAuthor());
-                        }
-                    }
+                   
                 } catch (DocumentNotFoundException e) {
                     System.out.println(Strings.NO_DOCUMENTS_FOUND);
                 }

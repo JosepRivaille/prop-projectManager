@@ -155,16 +155,5 @@ public interface ViewController {
      */
     void deleteDocumentFromFavourites(Document document) throws DocumentNotFoundException;
 
-    /**
-     *
-     * @param query
-     * @param list
-     * @param rv
-     * @param b
-     * @param c
-     * @return
-     */
-    Document getRocchioQuery(String query, SortedDocumentsSet list, double rv, float b, float c)
-            throws DocumentNotFoundException;
 }
 

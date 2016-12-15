@@ -165,10 +165,6 @@ public interface BusinessController {
 
     void addDocumentToFavourites(String title, String author) throws DocumentNotFoundException;
 
-
-    Document getRocchioQuery(String query, SortedDocumentsSet list, double rv, float b, float c)
-            throws DocumentNotFoundException;
-
     /**
      * Returns true if the document with the given title and author is marked as a favourite by the logged user
      * @param title title of the document

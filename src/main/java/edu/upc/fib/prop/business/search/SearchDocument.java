@@ -46,33 +46,4 @@ public interface SearchDocument {
      * @return A set of document sorted.
      */
     SortedDocumentsSet searchForSimilarDocuments(DocumentsCollection col, Document doc, int k);
-
-    /**
-     * Returns a SortedDocumentsSet of the documents on list which have its relevance above rv
-     *
-     * @param list
-     * @param rv
-     * @return
-     */
-    SortedDocumentsSet getRelevantDocuments(SortedDocumentsSet list, double rv);
-
-    /**
-     * @param list
-     * @param rv
-     * @return
-     */
-    SortedDocumentsSet getNonRelevantDocuments(SortedDocumentsSet list, double rv);
-
-    /**
-     *
-     * @param query
-     * @param list
-     * @param rv
-     * @param b
-     * @param c
-     * @return
-     * @throws
-     */
-    Document getRocchioQuery(Document query, SortedDocumentsSet list, double rv, float b, float c)
-            throws DocumentNotFoundException;
 }

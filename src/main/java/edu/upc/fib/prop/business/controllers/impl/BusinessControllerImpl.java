@@ -155,14 +155,6 @@ public class BusinessControllerImpl implements BusinessController {
     }
 
     @Override
-    public Document getRocchioQuery(String query, SortedDocumentsSet list, double rv, float b, float c)
-            throws DocumentNotFoundException {
-        Document docquery = new Document("", "", query);
-        docquery.updateFrequencies();
-        return searchDocument.getRocchioQuery(docquery,list,rv,b,c);
-    }
-
-    @Override
     public boolean isDocumentFavourite(String title, String author) {
         return persistenceController.isDocumentFavourite(title, author, usersManager.getCurrentUser().getEmail());
     }

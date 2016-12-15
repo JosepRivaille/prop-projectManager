@@ -138,11 +138,4 @@ public class ViewControllerImpl implements ViewController {
         this.businessController.deleteDocumentFromFavourites(document.getTitle(), document.getAuthor());
     }
 
-    @Override
-    public Document getRocchioQuery(String query, SortedDocumentsSet list, double rv, float b, float c)
-            throws DocumentNotFoundException{
-        return businessController.getRocchioQuery(query,list,rv,b,c);
-    }
-
-
 }
