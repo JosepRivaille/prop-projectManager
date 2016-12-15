@@ -105,7 +105,7 @@ public class BusinessControllerImpl implements BusinessController {
 
     @Override
     public Document importDocument(Stage st)
-            throws ImportExportException, AlreadyExistingDocumentException, InvalidDetailsException {
+            throws ImportExportException, AlreadyExistingDocumentException, InvalidDetailsException, DocumentNotFoundException {
         Document doc = ImportExport.importDocument(st);
         this.storeNewDocument(doc);
         return doc;

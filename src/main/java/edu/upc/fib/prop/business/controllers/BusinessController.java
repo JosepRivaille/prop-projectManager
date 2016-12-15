@@ -134,7 +134,7 @@ public interface BusinessController {
     void deleteDocument(String title, String authorName) throws DocumentNotFoundException;
 
     Document importDocument(Stage st)
-            throws ImportExportException, AlreadyExistingDocumentException, InvalidDetailsException;
+            throws ImportExportException, AlreadyExistingDocumentException, InvalidDetailsException, DocumentNotFoundException;
 
     boolean exportDocument(Stage st, Document document) throws ImportExportException;
 

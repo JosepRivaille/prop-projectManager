@@ -3,6 +3,7 @@ package edu.upc.fib.prop.utils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
+import edu.upc.fib.prop.exceptions.DocumentNotFoundException;
 import edu.upc.fib.prop.exceptions.ImportExportException;
 import edu.upc.fib.prop.models.Document;
 import edu.upc.fib.prop.models.DocumentBasicInfo;
@@ -27,7 +28,7 @@ public class ImportExport {
 
     }
 
-    public static Document importDocument(Stage st) throws ImportExportException{
+    public static Document importDocument(Stage st) throws ImportExportException, DocumentNotFoundException {
         try {
             Gson gson = new Gson();
             FileChooser fileChooser = new FileChooser();
@@ -58,7 +59,7 @@ public class ImportExport {
                     if (doc.isCorrect()) return doc;
                 }
             }
-            throw new ImportExportException();
+            throw new DocumentNotFoundException();
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();

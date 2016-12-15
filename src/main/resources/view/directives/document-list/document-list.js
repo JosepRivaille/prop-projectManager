@@ -42,10 +42,10 @@
                         addDocumentOrdered(scope.documents, JSON.parse(response));
                         showToast('TOAST_DOCUMENT_IMPORTED_SUCCESSFULLY');
                     } catch (e) {
-                        alert(e);
-                        var text = treatException(e);
-                        alert(text);
-                        showToast(text, true);
+                        if(e.toString().indexOf('DocumentNotFoundException') === -1) {
+                            var text = treatException(e);
+                            showToast(text, true);
+                        }
                     }
                 };
 

@@ -123,7 +123,7 @@ public interface ViewGraphicController {
     String searchForAllDocuments();
 
     String importDocument()
-            throws ImportExportException, AlreadyExistingDocumentException, InvalidDetailsException;
+            throws ImportExportException, AlreadyExistingDocumentException, InvalidDetailsException, DocumentNotFoundException;
 
     boolean exportDocument(String documentJSON) throws ImportExportException;
 

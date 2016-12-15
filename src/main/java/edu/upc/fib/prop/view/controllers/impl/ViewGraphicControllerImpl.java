@@ -169,7 +169,7 @@ public class ViewGraphicControllerImpl implements ViewGraphicController {
 
     @Override
     public String importDocument()
-            throws ImportExportException, AlreadyExistingDocumentException, InvalidDetailsException {
+            throws ImportExportException, AlreadyExistingDocumentException, InvalidDetailsException, DocumentNotFoundException {
         Document doc = this.businessController.importDocument(st);
         DocumentBasicInfo documentBasicInfo = new DocumentBasicInfo(doc);
         return new Gson().toJson(documentBasicInfo);
