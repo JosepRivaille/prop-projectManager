@@ -1,5 +1,6 @@
 package edu.upc.fib.prop.business.controllers.impl;
 
+import com.sun.javafx.font.FontFactory;
 import edu.upc.fib.prop.business.controllers.BusinessController;
 import edu.upc.fib.prop.business.search.SearchBooleanExpression;
 import edu.upc.fib.prop.business.search.impl.SearchAuthorImpl;
@@ -281,7 +282,7 @@ public class BusinessControllerImpl implements BusinessController {
             if (!oldDoc.getTitle().equals(newDoc.getTitle()) || !oldDoc.getAuthor().equals(newDoc.getAuthor())) {
                 persistenceController.deleteAllFavouritesOfDocument(oldDoc);
                 persistenceController.deleteAllRatingsOfDocument(oldDoc);
-                newDoc.setRating(1f);
+                newDoc.setRating(0f);
             }
             Document updatedDoc = documentsCollection.updateDocument(oldDoc, newDoc);
             persistenceController.updateDocument(oldDoc, updatedDoc);
@@ -353,6 +354,31 @@ public class BusinessControllerImpl implements BusinessController {
         persistenceController.deleteAllFavouritesOfDocument(document);
         persistenceController.deleteAllRatingsOfDocument(document);
         reloadDBData();
+    }
+
+    public void printDocument(String title, String author, String content){
+        Desktop d = java.awt.Desktop.getDesktop();
+        if(d.isSupported(Desktop.Action.PRINT)){
+            try {
+
+                File file = File.createTempFile(title.replace(" ", ""), ".txt");
+                FileWriter fw = new FileWriter(file);
+                BufferedWriter bw = new BufferedWriter(fw);
+                bw.newLine();
+                bw.newLine();
+                bw.write(title);
+                bw.newLine();
+                bw.write(author);
+                bw.newLine();
+                bw.newLine();
+                bw.write(content);
+                bw.close();
+                d.print(file);
+                file.deleteOnExit();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     //////////

@@ -17,7 +17,13 @@
         vm.ctrlName = 'SearchDocumentCtrl';
 
         vm.title = "MENU_SEARCH_SINGLE_DOCUMENT";
-        
+
+        //TOOLBAR CONFIG
+        $rootScope.resetToolbar();
+        $rootScope.toolbarParams.title = vm.title;
+        $rootScope.toolbarParams.search = true;
+        $rootScope.toolbarParams.enabled = true;
+
         (function showDialog() {
             $mdDialog.show({
                 controller: DialogDocumentController,

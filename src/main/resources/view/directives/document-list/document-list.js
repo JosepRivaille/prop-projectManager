@@ -13,10 +13,11 @@
         .controller('DocumentListCtrl', DocumentListCtrl)
         .directive('documentList', documentList);
 
-    function DocumentListCtrl() {
+    function DocumentListCtrl($rootScope) {
         var vm = this;
         vm.ctrlName = 'DocumentListCtrl';
-        vm.title = "TITLE_DOCUMENT_LIST";
+
+
     }
 
     function documentList($rootScope, $mdDialog, $mdToast, $filter, $timeout, $state) {
@@ -32,9 +33,8 @@
             },
             link: function (scope) {
 
-                scope.isDocFavourite = function(document) {
-                    return $rootScope.backendService.isDocumentFavourite(document.title, document.author);
-                };
+
+                updateToolbar();
 
                 scope.importDocument = function() {
                     try {
@@ -49,9 +49,99 @@
                     }
                 };
 
-                scope.editContentExternalTool = function(content){
-                    scope.documentSelected.content = $rootScope.backendService.editContentExternalTool(content);
+                scope.createDocument = function (){
+                    scope.title = 'MENU_MANAGEMENT_CREATE';
+
+                    $rootScope.toolbarParams.title = scope.title;
+                    $rootScope.toolbarParams.create = false;
+                    $rootScope.toolbarParams.import = false;
+                    $rootScope.toolbarParams.external = true;
+
+
+                    scope.documentSelected = buildDocument();
+                    scope.isListSelected = false;
+                    scope.isNewDocument = true;
+                    scope.isCreateOrUpdate = true;
+                    scope.isInvalidData = undefined;
                 };
+
+                scope.editContentExternalTool = function(){
+                    alert("JJJJ");
+                    scope.documentSelected.content = $rootScope.backendService.editContentExternalTool(scope.documentSelected.content);
+                };
+
+
+                scope.searchAgain = function () {
+                    updateToolbar();
+                    $state.reload();
+                };
+
+                scope.back = function () {
+                    scope.isDocumentSelected = false;
+                    scope.isListSelected = true;
+                    scope.isInvalidData = undefined;
+                    updateToolbar();
+                };
+
+                $rootScope.toolbarFunctions.back = scope.back;
+                $rootScope.toolbarFunctions.search = scope.searchAgain;
+                $rootScope.toolbarFunctions.create = scope.createDocument;
+                $rootScope.toolbarFunctions.import = scope.importDocument;
+                $rootScope.toolbarFunctions.external = scope.editContentExternalTool;
+
+
+
+                function updateToolbar(){
+                    $rootScope.toolbarParams.title = scope.parentTitle;
+                    $rootScope.toolbarParams.external = false;
+                    if(scope.isEditMode) {
+                        $rootScope.toolbarParams.import = true;
+                        $rootScope.toolbarParams.create = true;
+                        $rootScope.toolbarParams.back = false;
+                        $rootScope.toolbarParams.google = false;
+                        $rootScope.toolbarParams.print = false;
+                        $rootScope.toolbarParams.search = false;
+                    }
+                    else if(scope.parent=="favorites"){
+                            $rootScope.toolbarParams.import = false;
+                            $rootScope.toolbarParams.create = false;
+                            $rootScope.toolbarParams.back = false;
+                            $rootScope.toolbarParams.google = false;
+                            $rootScope.toolbarParams.print = false;
+                            $rootScope.toolbarParams.search = false;
+                    }
+                    else if(scope.parent=="all"){
+                        $rootScope.toolbarParams.import = false;
+                        $rootScope.toolbarParams.create = false;
+                        $rootScope.toolbarParams.back = false;
+                        $rootScope.toolbarParams.google = false;
+                        $rootScope.toolbarParams.print = false;
+                        $rootScope.toolbarParams.search = false;
+                    }
+                    else if(scope.parent=="boolean"){
+                        $rootScope.toolbarParams.search = true;
+                    }
+                    else if(scope.isSearchMode){
+                        $rootScope.toolbarParams.import = false;
+                        $rootScope.toolbarParams.create = false;
+                        $rootScope.toolbarParams.back = false;
+                        $rootScope.toolbarParams.google = false;
+                        $rootScope.toolbarParams.print = false;
+                        $rootScope.toolbarParams.search = true;
+                    }
+                }
+
+
+
+
+
+
+                scope.isDocFavourite = function(document) {
+                    return $rootScope.backendService.isDocumentFavourite(document.title, document.author);
+                };
+
+
+
 
                 scope.removeFavourite = function (doc) {
                     $rootScope.backendService.removeFavourite(doc.title, doc.author);
@@ -79,17 +169,16 @@
                     }
                 });
 
-                scope.createDocument = function () {
-                    scope.title = 'MENU_MANAGEMENT_CREATE';
-                    scope.documentSelected = buildDocument();
-                    scope.isListSelected = false;
-                    scope.isNewDocument = true;
-                    scope.isCreateOrUpdate = true;
-                    scope.isInvalidData = undefined;
-                };
+
 
                 scope.editDocument = function (document) {
                     scope.title = 'MENU_MANAGEMENT_UPDATE';
+
+                    $rootScope.toolbarParams.title = scope.title;
+                    $rootScope.toolbarParams.import = false;
+                    $rootScope.toolbarParams.create = false;
+                    $rootScope.toolbarParams.external = true;
+
                     scope.documentBackUp = angular.copy(document);
                     scope.documentSelected = document;
                     scope.isListSelected = false;
@@ -99,6 +188,7 @@
                 };
 
                 scope.backToList = function () {
+
                     var translations = {
                         title: $filter('translate')('DIALOG_BACK_TITLE'),
                         textContent: $filter('translate')('DIALOG_BACK_CONTENT'),
@@ -116,6 +206,7 @@
                         .cancel(translations.cancel);
 
                     $mdDialog.show(confirm).then(function () {
+                        updateToolbar();
                         scope.documentBackUp = undefined;
                         scope.selectedImage = undefined;
                         scope.isCreateOrUpdate = false;
@@ -131,15 +222,9 @@
                     scope.isDocumentSelected = true;
                 };
 
-                scope.back = function () {
-                    scope.isDocumentSelected = false;
-                    scope.isListSelected = true;
-                    scope.isInvalidData = undefined;
-                };
 
-                scope.searchAgain = function () {
-                    $state.reload();
-                };
+
+
 
                 scope.selectImage = function () {
                     scope.selectedImage = $rootScope.backendService.selectImage();
@@ -169,8 +254,7 @@
                         .cancel(translations.cancel);
 
                     $mdDialog.show(confirm).then(function() {
-                        scope.documentSelected.title = scope.documentSelected.title.capitalizeFirstLetter();
-                        scope.documentSelected.author = scope.documentSelected.author.capitalizeFirstLetter();
+                        updateToolbar();
                         if (angular.isDefined(scope.selectedImage)) {
                             scope.documentSelected.cover = scope.selectedImage;
                         }

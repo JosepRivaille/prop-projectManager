@@ -12,11 +12,17 @@
         .module('project.search')
         .controller('SearchAuthorCtrl', SearchAuthorCtrl);
 
-    function SearchAuthorCtrl($mdDialog) {
+    function SearchAuthorCtrl($rootScope, $mdDialog) {
         var vm = this;
         vm.ctrlName = 'SearchAuthorCtrl';
 
         vm.title = 'MENU_SEARCH_AUTHOR';
+
+        //TOOLBAR CONFIG
+        $rootScope.resetToolbar();
+        $rootScope.toolbarParams.title = vm.title;
+        $rootScope.toolbarParams.search = true;
+        $rootScope.toolbarParams.enabled = true;
 
         vm.selectDocument = function (document) {
             vm.documentSelected = document;

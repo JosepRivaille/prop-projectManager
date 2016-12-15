@@ -1,20 +1,15 @@
 #document-info {
     width: 100%;
-    height: 100vh;
     padding: 20px;
 }
 
 #document-info .container {
     width: 100%;
-    height: 100%;
     padding: 0;
 }
 
 #document-info .doc-cover {
-    max-width: 100%;
-    max-height: 100%;
-    width: auto;
-    height: auto;
+    width: 200px;
     border-radius: 3px;
 }
 
@@ -39,13 +34,12 @@
 }
 
 #document-info .right-container{
-    padding: 5px 0 0 20px;
+    padding: 0 0 0 20px;
     font-family: sans-serif;
-    height: 100%;
     text-align: left;
 }
 
-#document-info .right-container .md-content {
+#document-info .md-content {
     background: inherit;
 }
 
@@ -54,17 +48,17 @@
     font-size: 2em;
 }
 
-#document-info .info-container {
-    width: 100%;
-}
-
-#document-info .info-container .info-header {
+#document-info .info-header {
     width: 100%;
     word-wrap: break-word;
 }
 
-#document-info .info-container .info-header p {
+#document-info .info-header p {
     margin-top: 0;
+    margin-bottom: 0;
+}
+#document-info .buttons .md-button{
+    margin-top: 4px;
     margin-bottom: 0;
 }
 

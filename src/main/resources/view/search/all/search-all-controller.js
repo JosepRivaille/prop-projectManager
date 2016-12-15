@@ -15,8 +15,12 @@
     function SearchAllCtrl($rootScope) {
         var vm = this;
         vm.ctrlName = 'SearchAllCtrl';
-
         vm.title = 'MENU_SEARCH_ALL';
+
+        //TOOLBAR CONFIG
+        $rootScope.resetToolbar();
+        $rootScope.toolbarParams.title = vm.title;
+        $rootScope.toolbarParams.enabled = true;
 
         vm.isDocumentSelected = false;
 

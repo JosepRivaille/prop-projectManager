@@ -1,22 +1,15 @@
-<div id="document-list" class="fill-all-window">
-
+<div id="document-list" layout="column" flex>
     <!-- DOCUMENTS LIST -->
-    <div layout="column" ng-show="isListSelected" class="fill-all-parent">
-
-        <h1 class="title-landing" layout-align="space-between center">
-            {{parentTitle | translate}}
-        </h1>
-        <md-divider></md-divider>
-
+    <div ng-show="isListSelected" layout="column" flex>
         <!-- MANAGE LIST WITH EDIT/DELETE BUTTONS -->
-        <md-content ng-if="parent !== 'all'" class="scrollable-y">
-            <div ng-if="documents.length == 0" class="fill-all-parent opaque-image" layout="column" layout-align="center center">
+        <md-content ng-if="parent !== 'all'" layout="column" flex>
+            <div ng-if="documents.length == 0" class="opaque-image" layout="column" layout-align="center center" flex>
                 <img ng-src="../images/document-icon.png" style="height: 100px;">
                 <p style="color: #5e5e5e; font-size: 1.2em; margin-top: 10px;">
                     {{'NO_DOCUMENTS_FOUND' | translate}}
                 </p>
             </div>
-            <md-list ng-if="documents.length !== 0">
+            <md-list ng-if="documents.length !== 0" class="scrollable-y" flex>
                 <md-list-item ng-repeat="document in documents">
                     <md-button class="docs-list-item" ng-click="selectDocument(document)">
                         <div layout="row"  layout-align="space-between center" style="height: 100%;">
@@ -56,14 +49,14 @@
             </md-list>
         </md-content>
 
-        <md-content ng-if="parent === 'all'" class="scrollable-y">
-            <div ng-if="documents.length == 0" class="fill-all-parent opaque-image" layout="column" layout-align="center center">
+        <md-content ng-if="parent === 'all'" layout="column" class="scrollable-y" flex>
+            <div ng-if="documents.length == 0" class="fill-parent opaque-image" layout="column" layout-align="center center">
                 <img ng-src="../images/document-icon.png" style="height: 100px;">
                 <p style="color: #5e5e5e; font-size: 1.2em; margin-top: 10px;">
                     {{'NO_DOCUMENTS_FOUND' | translate}}
                 </p>
             </div>
-            <md-grid-list ng-if="documents.length !== 0" md-cols="2" md-gutter="0px" md-row-height="85px">
+            <md-grid-list ng-if="documents.length !== 0" md-cols="2" md-gutter="0px" md-row-height="85px" flex>
                 <md-grid-tile ng-repeat="document in documents">
                     <md-button class="docs-grid-item" ng-click="selectDocument(document)">
                         <div layout="row"  layout-align="space-between center" style="height: 100%; width: 100%">
@@ -86,21 +79,10 @@
             </md-grid-list>
         </md-content>
 
-        <div ng-if="isSearchMode" class="right-top-buttons">
-            <md-button class="md-fab md-primary" aria-label="Repeat Search" ng-click="searchAgain()">
-                <i class="fa fa-search"></i>
-            </md-button>
-        </div>
-
     </div>
 
-    <div ng-if="!isListSelected && isEditMode && isCreateOrUpdate" class="no-scrollable fill-all-window">
-        <md-content class="md-no-momentum fill-all-parent" layout="column">
-            <div style="height: auto">
-                <h1 class="title-landing" layout-align="start center">
-                    {{title | translate}}
-                </h1>
-            </div>
+    <div ng-if="!isListSelected && isEditMode && isCreateOrUpdate" class="no-scrollable" layout="column" flex>
+        <md-content class="md-no-momentum" layout="column" flex>
             <div style="position: relative; padding: 40px;" layout="row" layout-align="center none" flex>
                 <form name="documentForm" layout="column" layout-align="space-between none" style="width:100%;">
                     <div layout-gt-sm="row">
@@ -114,15 +96,11 @@
                         </md-input-container>
                     </div>
                     <div layout="column" layout-align="start start" flex>
-                        <md-input-container class="md-block" style="width: 100%; overflow-y: auto;">
+                        <md-input-container class="md-block" style="width: 100%; overflow-y: auto;" flex>
                             <label>Content</label>
                             <textarea class="document-content-textarea" ng-model="documentSelected.content" rows="7"
                                       ng-required="true" style="margin-bottom: 0;"></textarea>
                         </md-input-container>
-                        <md-button class="md-raised md-primary" style="margin-top: 0;"
-                                   ng-click="editContentExternalTool(documentSelected.content)">
-                            <i class="fa fa-share-square-o"></i>
-                        </md-button>
                     </div>
 
                     <p ng-show="isInvalidData !== undefined" class="error-text">{{isInvalidData | translate}}</p>
@@ -152,40 +130,7 @@
         </md-content>
     </div>
 
-    <div ng-if="isListSelected && isEditMode" class="right-top-buttons" layout="column" layout-align="center center" flex>
-        <md-fab-speed-dial md-open="isButtonOpened" md-direction="left" ng-class="'md-scale'"
-                           ng-mouseenter="isButtonOpened = true" ng-mouseleave="isButtonOpened=false">
-            <md-fab-trigger>
-                <md-button aria-label="menu" class="md-fab md-primary">
-                    <i class="fa fa-bars"></i>
-                </md-button>
-            </md-fab-trigger>
-
-            <md-fab-actions>
-                <md-button aria-label="Create document" class="md-fab md-raised md-mini md-accent"
-                           ng-click="createDocument()">
-                    <md-tooltip md-direction="down" md-visible="tooltipVisible" md-autohide="true">
-                        Create document
-                    </md-tooltip>
-                    <i class="fa fa-plus"></i>
-                </md-button>
-                <md-button aria-label="Import document" class="md-fab md-raised md-mini md-accent" ng-click="importDocument()">
-                    <md-tooltip md-direction="down" md-visible="tooltipVisible" md-autohide="true">
-                        Import document
-                    </md-tooltip>
-                    <i class="fa fa-upload"></i>
-                </md-button>
-            </md-fab-actions>
-        </md-fab-speed-dial>
+    <div ng-if="isDocumentSelected" layout="column" flex>
+        <document-info ng-model="documentSelected" layout="column" flex></document-info>
     </div>
-
-    <div ng-if="isDocumentSelected">
-        <div class="navigation-buttons-container">
-            <md-button class="md-fab md-primary" aria-label="Go back" ng-click="back()">
-                <i class="fa fa-arrow-left"></i>
-            </md-button>
-        </div>
-        <document-info ng-model="documentSelected"></document-info>
-    </div>
-
 </div>

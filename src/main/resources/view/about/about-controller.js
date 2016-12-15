@@ -12,9 +12,14 @@
         .module('project.about')
         .controller('AboutCtrl', AboutCtrl);
 
-    function AboutCtrl($mdDialog) {
+    function AboutCtrl($rootScope, $mdDialog) {
         var vm = this;
         vm.ctrlName = 'AboutCtrl';
+
+        //TOOLBAR CONFIG
+        $rootScope.resetToolbar();
+        $rootScope.toolbarParams.title = "About";
+        $rootScope.toolbarParams.enabled = true;
 
         vm.unlockTit = function () {
             $mdDialog.show({

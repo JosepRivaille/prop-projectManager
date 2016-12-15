@@ -12,11 +12,17 @@
         .module('project.search')
         .controller('SearchBooleanCtrl', SearchBooleanCtrl);
 
-    function SearchBooleanCtrl($mdDialog) {
+    function SearchBooleanCtrl($rootScope, $mdDialog) {
         var vm = this;
         vm.ctrlName = 'SearchBooleanCtrl';
 
         vm.title = 'MENU_SEARCH_BOOLEAN';
+
+        //TOOLBAR CONFIG
+        $rootScope.resetToolbar();
+        $rootScope.toolbarParams.title = vm.title;
+        $rootScope.toolbarParams.search = true;
+        $rootScope.toolbarParams.enabled = true;
 
         vm.isDocumentSelected = false;
 

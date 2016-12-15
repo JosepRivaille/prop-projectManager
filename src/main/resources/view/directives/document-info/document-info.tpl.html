@@ -1,41 +1,40 @@
-<div id="document-info" class="fill-all-window" ng-cloak>
-    <div class="container" layout="row">
-        <div style="height: 100%;" layout="column" layout-align="center center">
+<div id="document-info" layout="column" flex ng-cloak>
+    <div class="container" layout="row" flex>
 
-            <div layout="column" class="left-container" layout-align="center center">
-                <div class="image-container" layout="column" layout-align="end stretch">
-                    <img class="doc-cover" ng-src="../../../covers/{{document.cover}}" ng-click="searchInformation()">
-                </div>
-                <div class="buttons-container" layout-align="end stretch" layout="column" layout-align="start stretch">
-                    <md-button ng-click="addFavourite()" ng-if="!isFavourite" class="md-raised md-primary">
-                        {{'BUTTON_ADD_FAVOURITES' | translate}}
-                    </md-button>
-                    <md-button ng-click="removeFavourite()" ng-if="isFavourite" class="md-raised md-warn">
-                        {{'BUTTON_REMOVE_FROM_FAVOURITES' | translate}}
-                    </md-button>
-                    <md-button ng-click="searchSimilars($event)" class="md-raised md-accent">
-                        {{'BUTTON_SEARCH_SIMILARS' | translate}}
-                    </md-button>
-                    <md-button ng-click="export()" class="md-raised md-warn" aria-label="Export document">
-                        {{'BUTTON_EXPORT_DOCUMENT' | translate}}
-                    </md-button>
-                </div>
-
+        <div layout="column" layout-align="center center" style="padding-right: 10px;">
+            <div layout="colum" layout-align="center center">
+                <img class="doc-cover" ng-src="../../../covers/{{document.cover}}" ng-click="searchInformation()">
+            </div>
+            <div layout="column" class="buttons" layout-align="start stretch">
+                <md-button ng-click="addFavourite()" ng-if="!isFavourite" class="md-raised md-primary">
+                    {{'BUTTON_ADD_FAVOURITES' | translate}}
+                </md-button>
+                <md-button ng-click="removeFavourite()" ng-if="isFavourite" class="md-raised md-primary">
+                    {{'BUTTON_REMOVE_FROM_FAVOURITES' | translate}}
+                </md-button>
+                <md-button ng-click="searchSimilars($event)" class="md-raised md-accent">
+                    {{'BUTTON_SEARCH_SIMILARS' | translate}}
+                </md-button>
+                <md-button ng-click="export()" class="md-raised md-warn" aria-label="Export document">
+                    {{'BUTTON_EXPORT_DOCUMENT' | translate}}
+                </md-button>
             </div>
         </div>
+
         <md-divider></md-divider>
-        <div flex layout="column" layout-align="start start" class="right-container">
-            <div class="info-container" layout="column">
-                <div class="info-header">
-                    <div layout="column" layout-align="center center">
-                        <p class="text-title text-center">{{document.title | uppercase}}</p>
-                        <p class="text-author text-center">{{document.author}}</p>
-                        <star-rating ng-model="document.rating" read-only="false" document-title="document.title"
-                                     document-author="document.author"></star-rating>
-                    </div>
+
+        <div layout="column" class="right-container" flex>
+            <div class="info-header">
+                <div layout="column" layout-align="center center">
+                    <p class="text-title text-center" ng-click="printDocument()">{{document.title | uppercase}}</p>
+                    <p class="text-author text-center">{{document.author}}</p>
+                    <star-rating ng-model="document.rating" read-only="false" document-title="document.title"
+                                 document-author="document.author"></star-rating>
                 </div>
-                <md-content flex layout-padding style="white-space: pre-wrap;" class="wrap-text no-scrollable-x">{{document.content}}</md-content>
             </div>
+            <md-content flex layout-padding style="white-space: pre-wrap;"
+                        class="wrap-text no-scrollable-x">{{document.content}}</md-content>
         </div>
+
     </div>
 </div>

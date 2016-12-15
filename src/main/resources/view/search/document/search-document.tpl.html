@@ -1,16 +1,5 @@
-<md-content class="fill-all-window">
-    <div ng-show="!vm.isDocumentSelected">
-        <h1 class="title-landing" layout-align="space-between center">
-            {{vm.title | translate}}
-        </h1>
-        <md-divider></md-divider>
-    </div>
-    <div ng-if="vm.isDocumentSelected">
-        <div class="left-top-buttons">
-            <md-button class="md-fab md-primary" aria-label="Restart search" ng-click="$state.reload()">
-                <i class="fa fa-search"></i>
-            </md-button>
-        </div>
-        <document-info ng-model="vm.documentSelected"></document-info>
+<md-content layout="column" flex>
+    <div ng-if="vm.isDocumentSelected" layout="column" flex>
+        <document-info from="'search'" ng-model="vm.documentSelected" layout="column" flex></document-info>
     </div>
 </md-content>

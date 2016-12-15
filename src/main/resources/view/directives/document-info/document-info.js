@@ -16,17 +16,67 @@
     function DocumentInfoCtrl() {
         var vm = this;
         vm.ctrlName = 'DocumentInfoCtrl';
-        vm.title = "TITLE_DOCUMENT_INFO";
+        vm.title = "DOCUMENT_INFO";
+
+
     }
 
-    function documentInfo($rootScope, $mdDialog, $mdToast, $filter) {
+    function documentInfo($rootScope, $mdDialog, $mdToast, $filter, $state) {
         return {
             restrict: 'EA',
             templateUrl: 'directives/document-info/document-info.tpl.html',
             scope: {
-                document: '=ngModel'
+                document: '=ngModel',
+                from: "=?",
+                aux: "=?",
+                parentTitle: "=?"
             },
             link: function (scope) {
+
+                scope.searchInformation = function () {
+                    $rootScope.backendService.searchInformation(scope.document.title, scope.document.author);
+                }
+
+                scope.printDocument = function () {
+                    $rootScope.backendService.printDocument(scope.document.title, scope.document.author, scope.document.content);
+                }
+
+                //TOOLBAR CONFIG
+
+                $rootScope.toolbarParams.title = scope.document.title;
+
+                $rootScope.toolbarParams.print = true;
+                $rootScope.toolbarParams.google = true;
+                $rootScope.toolbarParams.import = false;
+                $rootScope.toolbarParams.create = false;
+
+
+                if(angular.isDefined(scope.from) && scope.from == "search"){
+                    $rootScope.toolbarParams.back = false;
+                    $rootScope.toolbarParams.search = true;
+                    $rootScope.toolbarFunctions.search = function () {
+                        $state.reload();
+                    }
+                }
+                else if(angular.isDefined(scope.from) && scope.from == "home"){
+                    $rootScope.toolbarParams.back = true;
+
+                    $rootScope.toolbarFunctions.back = function () {
+                        $rootScope.toolbarParams.title = scope.parentTitle;
+                        $rootScope.toolbarParams.print = false;
+                        $rootScope.toolbarParams.google = false;
+                        $rootScope.toolbarParams.back = false;
+                        scope.aux = undefined;
+                    }
+                }
+                else{
+                    $rootScope.toolbarParams.back = true;
+                    $rootScope.toolbarParams.search = false;
+                }
+                $rootScope.toolbarFunctions.google = scope.searchInformation;
+                $rootScope.toolbarFunctions.print = scope.printDocument;
+                $rootScope.toolbarParams.enabled = true;
+
                 scope.isFavourite = $rootScope.backendService.isDocumentFavourite(scope.document.title, scope.document.author);
 
                 scope.addFavourite = function () {
@@ -35,9 +85,7 @@
                     showToast('TOAST_ADDED_TO_FAVOURITES');
                 };
                 
-                scope.searchInformation = function () {
-                    $rootScope.backendService.searchInformation(scope.document.title, scope.document.author);
-                }
+
 
                 scope.removeFavourite = function () {
                     $rootScope.backendService.removeFavourite(scope.document.title, scope.document.author);
@@ -52,7 +100,10 @@
                         clickOutsideToClose: true,
                         escapeToClose: true
                     });
+
                 };
+
+
 
                 scope.export = function () {
                     var data = JSON.stringify(scope.document);
@@ -91,6 +142,7 @@
                     };
                     $scope.selectNewDocument = function (document) {
                         scope.document = document;
+                        $rootScope.toolbarParams.title = document.title;
                         $mdDialog.hide();
                     }
                 }

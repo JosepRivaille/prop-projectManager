@@ -1,4 +1,4 @@
-<div id="search-similar-documents-dialog" class="fill-all-parent">
+<div id="search-similar-documents-dialog" class="fill-parent">
     <md-dialog-content class="md-dialog-content dialog-forms" layout="column" layout-align="center center">
 
         <form ng-if="similarDocuments === undefined" name="similarSearch" class="no-scrollable">
@@ -24,7 +24,7 @@
                  layout="column" layout-align="start center">
             <md-list-item ng-repeat="document in similarDocuments" class="similars-list-item">
                 <md-button ng-click="selectNewDocument(document)">
-                    <div class="fill-all-parent" layout="row" layout-align="space-between stretch">
+                    <div class="fill-parent" layout="row" layout-align="space-between stretch">
                         <div>
                             <img ng-src="../../../covers/{{document.cover}}" class="list-item-image">
                         </div>
