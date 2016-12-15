@@ -1,16 +1,15 @@
-<div id="document-list" class="fill-parent">
-
+<div id="document-list" layout="column" flex>
     <!-- DOCUMENTS LIST -->
-    <div layout="column" ng-show="isListSelected" class="fill-parent">
+    <div ng-show="isListSelected" layout="column" flex>
         <!-- MANAGE LIST WITH EDIT/DELETE BUTTONS -->
-        <md-content ng-if="parent !== 'all'" class="scrollable-y">
-            <div ng-if="documents.length == 0" class="fill-parent opaque-image" layout="column" layout-align="center center">
+        <md-content ng-if="parent !== 'all'" layout="column" flex>
+            <div ng-if="documents.length == 0" class="opaque-image" layout="column" layout-align="center center" flex>
                 <img ng-src="../images/document-icon.png" style="height: 100px;">
                 <p style="color: #5e5e5e; font-size: 1.2em; margin-top: 10px;">
                     {{'NO_DOCUMENTS_FOUND' | translate}}
                 </p>
             </div>
-            <md-list ng-if="documents.length !== 0">
+            <md-list ng-if="documents.length !== 0" class="scrollable-y" flex>
                 <md-list-item ng-repeat="document in documents">
                     <md-button class="docs-list-item" ng-click="selectDocument(document)">
                         <div layout="row"  layout-align="space-between center" style="height: 100%;">
@@ -50,14 +49,14 @@
             </md-list>
         </md-content>
 
-        <md-content ng-if="parent === 'all'" class="scrollable-y">
+        <md-content ng-if="parent === 'all'" layout="column" class="scrollable-y" flex>
             <div ng-if="documents.length == 0" class="fill-parent opaque-image" layout="column" layout-align="center center">
                 <img ng-src="../images/document-icon.png" style="height: 100px;">
                 <p style="color: #5e5e5e; font-size: 1.2em; margin-top: 10px;">
                     {{'NO_DOCUMENTS_FOUND' | translate}}
                 </p>
             </div>
-            <md-grid-list ng-if="documents.length !== 0" md-cols="2" md-gutter="0px" md-row-height="85px">
+            <md-grid-list ng-if="documents.length !== 0" md-cols="2" md-gutter="0px" md-row-height="85px" flex>
                 <md-grid-tile ng-repeat="document in documents">
                     <md-button class="docs-grid-item" ng-click="selectDocument(document)">
                         <div layout="row"  layout-align="space-between center" style="height: 100%; width: 100%">
@@ -135,8 +134,7 @@
         </md-content>
     </div>
 
-    <div ng-if="isDocumentSelected">
-        <document-info ng-model="documentSelected"></document-info>
+    <div ng-if="isDocumentSelected" layout="column" flex>
+        <document-info ng-model="documentSelected" layout="column" flex></document-info>
     </div>
-
 </div>

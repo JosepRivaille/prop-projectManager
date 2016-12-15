@@ -1,5 +1,5 @@
 #home .main-container{
-    padding: 50px;
+    padding: 20px;
 }
 #home .search-space {
     height: auto;
@@ -23,6 +23,7 @@
 #home .recommended-docs-space .item-info-space {
     padding-top: 5px;
     line-height: 13px;
+    overflow: hidden;
 }
 #home .recommended-docs-space .item-info-space .title{
     font-weight: 600;
@@ -34,7 +35,7 @@
 }
 
 #home .recommended-docs-space .item-image-space img{
-    max-height: 135px;
+    max-height:135px;
 }
 
 /***************************/
