@@ -18,7 +18,8 @@
 
         //TOOLBAR CONFIG
         $rootScope.resetToolbar();
-        $rootScope.toolbarParams.enabled = false;
+        $rootScope.toolbarParams.title = "About";
+        $rootScope.toolbarParams.enabled = true;
 
         vm.unlockTit = function () {
             $mdDialog.show({

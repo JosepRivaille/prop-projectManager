@@ -1,17 +1,26 @@
 <md-toolbar class="md-primary" ng-if="params.enabled">
     <div class="md-toolbar-tools md-medium-tall">
-        <md-button ng-if="params.goback" class="md-icon-button" aria-label="Go back">
+        <md-button ng-if="params.back" ng-click="functions.back()" class="md-icon-button" aria-label="Go back">
             <i class="fa fa-arrow-left"></i>
         </md-button>
         <h2>
             <span>{{params.title | translate}}</span>
         </h2>
         <span flex></span>
-        <md-button ng-if="params.print" class="md-icon-button" aria-label="Favorite">
+        <md-button ng-if="params.print" ng-click="functions.print()" class="md-icon-button" aria-label="Favorite">
             <i class="fa fa-print"></i>
         </md-button>
-        <md-button ng-if="params.search" class="md-icon-button" aria-label="More">
-           <i class="fa fa-search"></i>
+        <md-button ng-if="params.google" ng-click="functions.google()" class="md-icon-button" aria-label="More">
+            <i class="fa fa-google"></i>
+        </md-button>
+        <md-button ng-if="params.search" ng-click="functions.search()" class="md-icon-button" aria-label="More">
+            <i class="fa fa-search"></i>
+        </md-button>
+        <md-button ng-if="params.import" ng-click="functions.import()" class="md-icon-button" aria-label="More">
+            <i class="fa fa-download"></i>
+        </md-button>
+        <md-button ng-if="params.create" ng-click="functions.create()" class="md-icon-button" aria-label="More">
+            <i class="fa fa-plus"></i>
         </md-button>
     </div>
 </md-toolbar>

@@ -361,11 +361,12 @@ public class BusinessControllerImpl implements BusinessController {
         if(d.isSupported(Desktop.Action.PRINT)){
             try {
 
-                File file = new File(title + ".txt");
-
+                File file = File.createTempFile(title.replace(" ", ""), ".txt");
                 FileWriter fw = new FileWriter(file);
                 BufferedWriter bw = new BufferedWriter(fw);
                 bw.newLine();
+                bw.newLine();
+                bw.write(title);
                 bw.newLine();
                 bw.write(author);
                 bw.newLine();

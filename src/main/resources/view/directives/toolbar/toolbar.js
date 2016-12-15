@@ -28,7 +28,7 @@
             link: function (scope) {
 
                 scope.params = $rootScope.toolbarParams;
-
+                scope.functions = $rootScope.toolbarFunctions;
 
             }
         };

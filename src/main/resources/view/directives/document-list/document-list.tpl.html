@@ -80,12 +80,6 @@
             </md-grid-list>
         </md-content>
 
-        <div ng-if="isSearchMode" class="right-top-buttons">
-            <md-button class="md-fab md-primary" aria-label="Repeat Search" ng-click="searchAgain()">
-                <i class="fa fa-search"></i>
-            </md-button>
-        </div>
-
     </div>
 
     <div ng-if="!isListSelected && isEditMode && isCreateOrUpdate" class="no-scrollable fill-parent">
@@ -146,39 +140,7 @@
         </md-content>
     </div>
 
-    <div ng-if="isListSelected && isEditMode" class="right-top-buttons" layout="column" layout-align="center center" flex>
-        <md-fab-speed-dial md-open="isButtonOpened" md-direction="left" ng-class="'md-scale'"
-                           ng-mouseenter="isButtonOpened = true" ng-mouseleave="isButtonOpened=false">
-            <md-fab-trigger>
-                <md-button aria-label="menu" class="md-fab md-primary">
-                    <i class="fa fa-bars"></i>
-                </md-button>
-            </md-fab-trigger>
-
-            <md-fab-actions>
-                <md-button aria-label="Create document" class="md-fab md-raised md-mini md-accent"
-                           ng-click="createDocument()">
-                    <md-tooltip md-direction="down" md-visible="tooltipVisible" md-autohide="true">
-                        Create document
-                    </md-tooltip>
-                    <i class="fa fa-plus"></i>
-                </md-button>
-                <md-button aria-label="Import document" class="md-fab md-raised md-mini md-accent" ng-click="importDocument()">
-                    <md-tooltip md-direction="down" md-visible="tooltipVisible" md-autohide="true">
-                        Import document
-                    </md-tooltip>
-                    <i class="fa fa-upload"></i>
-                </md-button>
-            </md-fab-actions>
-        </md-fab-speed-dial>
-    </div>
-
     <div ng-if="isDocumentSelected">
-        <div class="navigation-buttons-container">
-            <md-button class="md-fab md-primary" aria-label="Go back" ng-click="back()">
-                <i class="fa fa-arrow-left"></i>
-            </md-button>
-        </div>
         <document-info ng-model="documentSelected"></document-info>
     </div>
 

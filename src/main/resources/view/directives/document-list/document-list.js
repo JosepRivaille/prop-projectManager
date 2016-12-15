@@ -16,12 +16,8 @@
     function DocumentListCtrl($rootScope) {
         var vm = this;
         vm.ctrlName = 'DocumentListCtrl';
-        vm.title = "TITLE_DOCUMENT_LIST";
 
-        //TOOLBAR CONFIG
-        $rootScope.resetToolbar();
-        $rootScope.toolbarParams.title = vm.title;
-        $rootScope.toolbarParams.enabled = true;
+
     }
 
     function documentList($rootScope, $mdDialog, $mdToast, $filter, $timeout, $state) {
@@ -37,9 +33,8 @@
             },
             link: function (scope) {
 
-                scope.isDocFavourite = function(document) {
-                    return $rootScope.backendService.isDocumentFavourite(document.title, document.author);
-                };
+
+                updateToolbar();
 
                 scope.importDocument = function() {
                     try {
@@ -53,6 +48,75 @@
                         showToast(text, true);
                     }
                 };
+
+                scope.createDocument = function (){
+                    $rootScope.toolbarParams.create = false;
+                    $rootScope.toolbarParams.import = false;
+                    scope.title = 'MENU_MANAGEMENT_CREATE';
+                    scope.documentSelected = buildDocument();
+                    scope.isListSelected = false;
+                    scope.isNewDocument = true;
+                    scope.isCreateOrUpdate = true;
+                    scope.isInvalidData = undefined;
+                };
+
+                scope.searchAgain = function () {
+                    updateToolbar();
+                    $state.reload();
+                };
+
+                scope.back = function () {
+                    scope.isDocumentSelected = false;
+                    scope.isListSelected = true;
+                    scope.isInvalidData = undefined;
+                    updateToolbar();
+                };
+
+                $rootScope.toolbarFunctions.back = scope.back;
+                $rootScope.toolbarFunctions.search = scope.searchAgain;
+                $rootScope.toolbarFunctions.create = scope.createDocument;
+                $rootScope.toolbarFunctions.import = scope.importDocument;
+
+
+
+                function updateToolbar(){
+                    $rootScope.toolbarParams.title = scope.parentTitle;
+                    if(scope.isEditMode) {
+                        $rootScope.toolbarParams.import = true;
+                        $rootScope.toolbarParams.create = true;
+                        $rootScope.toolbarParams.back = false;
+                        $rootScope.toolbarParams.google = false;
+                        $rootScope.toolbarParams.print = false;
+                        $rootScope.toolbarParams.search = false;
+                    }
+                    else if(scope.parent=="favorites"){
+                            $rootScope.toolbarParams.import = false;
+                            $rootScope.toolbarParams.create = false;
+                            $rootScope.toolbarParams.back = false;
+                            $rootScope.toolbarParams.google = false;
+                            $rootScope.toolbarParams.print = false;
+                            $rootScope.toolbarParams.search = false;
+                    }
+                    else if(scope.isSearchMode){
+                        $rootScope.toolbarParams.import = false;
+                        $rootScope.toolbarParams.create = false;
+                        $rootScope.toolbarParams.back = false;
+                        $rootScope.toolbarParams.google = false;
+                        $rootScope.toolbarParams.print = false;
+                        $rootScope.toolbarParams.search = true;
+                    }
+                }
+
+
+
+
+
+
+                scope.isDocFavourite = function(document) {
+                    return $rootScope.backendService.isDocumentFavourite(document.title, document.author);
+                };
+
+
 
                 scope.editContentExternalTool = function(content){
                     scope.documentSelected.content = $rootScope.backendService.editContentExternalTool(content);
@@ -84,14 +148,7 @@
                     }
                 });
 
-                scope.createDocument = function () {
-                    scope.title = 'MENU_MANAGEMENT_CREATE';
-                    scope.documentSelected = buildDocument();
-                    scope.isListSelected = false;
-                    scope.isNewDocument = true;
-                    scope.isCreateOrUpdate = true;
-                    scope.isInvalidData = undefined;
-                };
+
 
                 scope.editDocument = function (document) {
                     scope.title = 'MENU_MANAGEMENT_UPDATE';
@@ -136,15 +193,9 @@
                     scope.isDocumentSelected = true;
                 };
 
-                scope.back = function () {
-                    scope.isDocumentSelected = false;
-                    scope.isListSelected = true;
-                    scope.isInvalidData = undefined;
-                };
 
-                scope.searchAgain = function () {
-                    $state.reload();
-                };
+
+
 
                 scope.selectImage = function () {
                     scope.selectedImage = $rootScope.backendService.selectImage();

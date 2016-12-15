@@ -35,14 +35,35 @@
             $rootScope.toolbarParams.goback = false;
             $rootScope.toolbarParams.search = false;
             $rootScope.toolbarParams.print = false;
+            $rootScope.toolbarParams.create = false;
+            $rootScope.toolbarParams.import = false;
+            $rootScope.toolbarParams.google = false;
+            $rootScope.toolbarFunctions.back = function(){};
+            $rootScope.toolbarFunctions.search = function(){};
+            $rootScope.toolbarFunctions.print = function(){};
+            $rootScope.toolbarFunctions.create = function(){};
+            $rootScope.toolbarFunctions.import = function(){};
+            $rootScope.toolbarFunctions.google = function(){};
         };
 
         $rootScope.toolbarParams = {
             'enabled': false,
             'title': "",
-            'goback': false,
+            'back': false,
             'search': false,
             'print': false,
+            'create': false,
+            'import': false,
+            'google': false,
+        };
+
+        $rootScope.toolbarFunctions = {
+            'goback': function(){},
+            'search': function(){},
+            'print': function(){},
+            'create': function(){},
+            'import': function(){},
+            'google': function(){},
         };
 
     }

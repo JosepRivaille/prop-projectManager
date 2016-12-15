@@ -30,11 +30,26 @@
             },
             link: function (scope) {
 
+                scope.searchInformation = function () {
+                    $rootScope.backendService.searchInformation(scope.document.title, scope.document.author);
+                }
+
+                scope.printDocument = function () {
+                    $rootScope.backendService.printDocument(scope.document.title, scope.document.author, scope.document.content);
+                }
+
                 //TOOLBAR CONFIG
-                $rootScope.resetToolbar();
+
                 $rootScope.toolbarParams.title = scope.document.title;
-                $rootScope.toolbarParams.goback = true;
+                $rootScope.toolbarParams.back = true;
                 $rootScope.toolbarParams.print = true;
+                $rootScope.toolbarParams.google = true;
+                $rootScope.toolbarParams.import = false;
+                $rootScope.toolbarParams.create = false;
+                $rootScope.toolbarParams.search = false;
+
+                $rootScope.toolbarFunctions.google = scope.searchInformation;
+                $rootScope.toolbarFunctions.print = scope.printDocument;
                 $rootScope.toolbarParams.enabled = true;
 
                 scope.isFavourite = $rootScope.backendService.isDocumentFavourite(scope.document.title, scope.document.author);
@@ -45,9 +60,7 @@
                     showToast('TOAST_ADDED_TO_FAVOURITES');
                 };
                 
-                scope.searchInformation = function () {
-                    $rootScope.backendService.searchInformation(scope.document.title, scope.document.author);
-                }
+
 
                 scope.removeFavourite = function () {
                     $rootScope.backendService.removeFavourite(scope.document.title, scope.document.author);
@@ -64,9 +77,7 @@
                     });
                 };
 
-                scope.printDocument = function () {
-                    $rootScope.backendService.printDocument(scope.document.title, scope.document.author, scope.document.content);
-                }
+
 
                 scope.export = function () {
                     var data = JSON.stringify(scope.document);
