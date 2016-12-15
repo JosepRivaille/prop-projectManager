@@ -58,13 +58,14 @@
                         $state.reload();
                     }
                 }
-                if(angular.isDefined(scope.from) && scope.from == "home"){
+                else if(angular.isDefined(scope.from) && scope.from == "home"){
                     $rootScope.toolbarParams.back = true;
 
                     $rootScope.toolbarFunctions.back = function () {
                         $rootScope.toolbarParams.title = scope.parentTitle;
                         $rootScope.toolbarParams.print = false;
                         $rootScope.toolbarParams.google = false;
+                        $rootScope.toolbarParams.back = false;
                         scope.aux = undefined;
                     }
                 }

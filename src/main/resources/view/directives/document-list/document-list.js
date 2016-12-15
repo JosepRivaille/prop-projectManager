@@ -110,6 +110,17 @@
                             $rootScope.toolbarParams.print = false;
                             $rootScope.toolbarParams.search = false;
                     }
+                    else if(scope.parent=="all"){
+                        $rootScope.toolbarParams.import = false;
+                        $rootScope.toolbarParams.create = false;
+                        $rootScope.toolbarParams.back = false;
+                        $rootScope.toolbarParams.google = false;
+                        $rootScope.toolbarParams.print = false;
+                        $rootScope.toolbarParams.search = false;
+                    }
+                    else if(scope.parent=="boolean"){
+                        $rootScope.toolbarParams.search = true;
+                    }
                     else if(scope.isSearchMode){
                         $rootScope.toolbarParams.import = false;
                         $rootScope.toolbarParams.create = false;
