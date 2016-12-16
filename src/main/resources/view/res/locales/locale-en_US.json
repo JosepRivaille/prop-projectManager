@@ -113,8 +113,8 @@
   "RECOMMENDED_DOCUMENTS": " Recommended documents",
   "RECENTLY_CONSULTED_DOCUMENTS": " Consulted recently",
   "NO_DOCUMENTS_FOUND": "No documents were found",
-  "NO_DOCUMENTS_ADD_ONE_LABEL": "Add a new one!",
 
-  "OPERATION_CANCELED": "Operation canceled"
+  "OPERATION_CANCELED": "Operation canceled",
+  "GENERAL_ERROR_MESSAGE": "An error occurred"
 
 }

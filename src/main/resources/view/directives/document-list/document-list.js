@@ -147,6 +147,7 @@
                     $rootScope.backendService.removeFavourite(doc.title, doc.author);
                     var index = scope.documents.indexOf(doc);
                     scope.documents.splice(index, 1);
+                    showToast('TOAST_DELETED_FROM_FAVOURITES');
                 };
 
                 scope.isListSelected = true;

@@ -83,13 +83,14 @@ public class DaoDocumentsImpl implements DaoDocuments {
         String newTermFrequency = StringUtils.buildJSONFromFrequencyMap(newDocument.getTermFrequency());
         String newTermPositions = StringUtils.buildJSONFromPositionsMap(newDocument.getTermPositions());
         String newContent = newDocument.getContent();
+        String newCover = newDocument.getCover();
         Float newRating = newDocument.getRating();
         try {
             Statement statement = c.createStatement();
             String query = String.format("UPDATE documents SET title='%s', author_name='%s', " +
-                            "term_frequency='%s',term_positions='%s', content='%s', rating='%f'" +
+                            "term_frequency='%s',term_positions='%s', content='%s', rating='%f', cover='%s'" +
                             "WHERE title='%s' AND author_name='%s';",
-                    newTitle, newAuthor, newTermFrequency, newTermPositions, newContent, newRating, oldTitle, oldAuthor);
+                    newTitle, newAuthor, newTermFrequency, newTermPositions, newContent, newRating, newCover, oldTitle, oldAuthor);
             statement.executeUpdate(query);
         } catch (SQLException e) {
             throw new AlreadyExistingDocumentException();

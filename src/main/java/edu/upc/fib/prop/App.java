@@ -3,8 +3,11 @@ package edu.upc.fib.prop;
 import edu.upc.fib.prop.view.controllers.impl.ViewGraphicControllerImpl;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
+
+import java.io.File;
 
 import static edu.upc.fib.prop.utils.Java2JavascriptUtils.connectBackendObject;
 
@@ -14,6 +17,10 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         String PAGE = "/view/index.html";
+        ClassLoader classLoader = getClass().getClassLoader();
+        //Image icon = new Image(classLoader.getResource("images/app.ico"));
+        Image icon = new Image(getClass().getClassLoader().getResourceAsStream( "images/app.ico" ));
+        stage.getIcons().add(new Image(getClass().getClassLoader().getResourceAsStream( "images/icon.png" )));
         createWebView(stage, PAGE);
     }
 
