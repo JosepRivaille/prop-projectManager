@@ -17,9 +17,6 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         String PAGE = "/view/index.html";
-        ClassLoader classLoader = getClass().getClassLoader();
-        //Image icon = new Image(classLoader.getResource("images/app.ico"));
-        Image icon = new Image(getClass().getClassLoader().getResourceAsStream( "images/app.ico" ));
         stage.getIcons().add(new Image(getClass().getClassLoader().getResourceAsStream( "images/icon.png" )));
         createWebView(stage, PAGE);
     }
