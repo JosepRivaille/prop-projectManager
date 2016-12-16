@@ -25,6 +25,7 @@ import java.math.BigInteger;
 import java.net.URI;
 import java.security.SecureRandom;
 import java.sql.SQLException;
+import java.util.Random;
 import java.util.Scanner;
 
 public class BusinessControllerImpl implements BusinessController {
@@ -371,6 +372,30 @@ public class BusinessControllerImpl implements BusinessController {
                 e.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public DocumentsSet getRecommendedDocuments(int numDocs) {
+        return this.persistenceController.getRecommendedDocuments(numDocs, usersManager.getCurrentUser().getEmail());
+    }
+
+    @Override
+    public DocumentsSet getNewDiscoveries(int numDocs) {
+        DocumentsSet docs =  this.documentsCollection.getAllDocuments();
+        DocumentsSet res =  new DocumentsSet();
+        int added=0;
+        Random randomGenerator = new Random();
+        while(added<numDocs && docs.size()>0){
+            int index = randomGenerator.nextInt(docs.size());
+            Document d = docs.get(index);
+            if(!d.getUser().equals(usersManager.getCurrentUser().getEmail()) &&
+                    !persistenceController.isDocumentFavourite(d.getTitle(), d.getAuthor(), usersManager.getCurrentUser().getEmail())){
+                res.add(d);
+                added++;
+            }
+            docs.remove(d);
+        }
+        return res;
     }
 
     //////////

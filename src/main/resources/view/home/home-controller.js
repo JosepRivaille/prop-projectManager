@@ -25,7 +25,7 @@
 
         vm.isDocumentSelected = false;
         vm.recommendedDocs = JSON.parse($rootScope.backendService.getRecommendedDocs(5));
-        vm.visitedDocs = JSON.parse($rootScope.backendService.getVisitedDocs(7));
+        vm.newDiscoveries = JSON.parse($rootScope.backendService.getNewDiscoveries(7));
 
         vm.select = function(document){
             vm.isDocumentSelected = true;

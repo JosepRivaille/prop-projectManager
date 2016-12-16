@@ -1,5 +1,5 @@
-#home .main-container{
-    padding: 20px;
+#home .main-container > div {
+    padding: 10px;
 }
 #home .search-space {
     height: auto;
@@ -9,7 +9,7 @@
 #home .section-title {
     font-size: 1.6em;
     font-weight: 600;
-    margin-left: 10px;
+    padding-left: 10px;
     bottom: 0;
 }
 
@@ -23,7 +23,6 @@
 #home .recommended-docs-space .item-info-space {
     padding-top: 5px;
     line-height: 13px;
-    overflow: hidden;
 }
 #home .recommended-docs-space .item-info-space .title{
     font-weight: 600;
@@ -35,7 +34,8 @@
 }
 
 #home .recommended-docs-space .item-image-space img{
-    max-height:135px;
+    max-height: 100%;
+    max-width: 76%;
 }
 
 /***************************/
@@ -51,6 +51,7 @@
 #home .recently-visited-docs-space .item-image-space {
 }
 #home .recently-visited-docs-space .item-info-space {
+    padding-top: 5px;
     line-height: 13px;
 }
 #home .recently-visited-docs-space .item-info-space .title{
@@ -63,5 +64,12 @@
 }
 
 #home .recently-visited-docs-space .item-image-space img{
-    height: 135px;
+    max-height: 100%;
+    max-width: 76%;
+}
+
+.text-ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

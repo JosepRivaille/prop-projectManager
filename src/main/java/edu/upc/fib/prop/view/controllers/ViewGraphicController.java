@@ -133,7 +133,7 @@ public interface ViewGraphicController {
 
     String getRecommendedDocs(int numDocs);
 
-    String getVisitedDocs(int numDocs);
+    String getNewDiscoveries(int numDocs);
 
     void changeUserAvatar(int avatar) throws SQLException;
 

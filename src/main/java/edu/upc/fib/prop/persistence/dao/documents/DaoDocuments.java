@@ -4,6 +4,7 @@ import edu.upc.fib.prop.exceptions.AlreadyExistingDocumentException;
 import edu.upc.fib.prop.exceptions.DocumentNotFoundException;
 import edu.upc.fib.prop.models.Document;
 import edu.upc.fib.prop.models.DocumentsCollection;
+import edu.upc.fib.prop.models.DocumentsSet;
 
 import java.sql.Connection;
 
@@ -142,4 +143,5 @@ public interface DaoDocuments {
      */
     int getMyRating(Connection c, String title, String author, String email);
 
+    DocumentsSet getRecommendedDocuments(Connection c, int numDocs, String email);
 }

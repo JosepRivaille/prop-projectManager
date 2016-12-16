@@ -1,10 +1,7 @@
 package edu.upc.fib.prop.persistence.controllers.impl;
 
 import edu.upc.fib.prop.exceptions.*;
-import edu.upc.fib.prop.models.AuthorsCollection;
-import edu.upc.fib.prop.models.Document;
-import edu.upc.fib.prop.models.DocumentsCollection;
-import edu.upc.fib.prop.models.User;
+import edu.upc.fib.prop.models.*;
 import edu.upc.fib.prop.persistence.controllers.PersistenceController;
 import edu.upc.fib.prop.persistence.dao.authors.DaoAuthors;
 import edu.upc.fib.prop.persistence.dao.authors.impl.DaoAuthorsImpl;
@@ -207,6 +204,14 @@ public class PersistenceControllerImpl implements PersistenceController {
         openConnection();
         this.daoUsers.changeUserAvatar(c, email, avatar);
         closeConnection();
+    }
+
+    @Override
+    public DocumentsSet getRecommendedDocuments(int numDocs, String email) {
+        openConnection();
+        DocumentsSet documents = daoDocuments.getRecommendedDocuments(c, numDocs, email);
+        closeConnection();
+        return documents;
     }
 
     //////////

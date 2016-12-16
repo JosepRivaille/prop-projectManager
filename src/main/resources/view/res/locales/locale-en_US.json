@@ -115,6 +115,7 @@
   "NO_DOCUMENTS_FOUND": "No documents were found",
 
   "OPERATION_CANCELED": "Operation canceled",
-  "GENERAL_ERROR_MESSAGE": "An error occurred"
+  "GENERAL_ERROR_MESSAGE": "An error occurred",
+  "HOME_NEW_DISCOVERIES": "New discoveries"
 
 }

@@ -184,4 +184,8 @@ public interface BusinessController {
     void searchInformation(String title, String author);
 
     void printDocument(String title, String author, String content);
+
+    DocumentsSet getRecommendedDocuments(int numDocs);
+
+    DocumentsSet getNewDiscoveries(int numDocs);
 }

@@ -5,6 +5,7 @@ import edu.upc.fib.prop.exceptions.DocumentNotFoundException;
 import edu.upc.fib.prop.exceptions.InvalidDetailsException;
 import edu.upc.fib.prop.models.Document;
 import edu.upc.fib.prop.models.DocumentsCollection;
+import edu.upc.fib.prop.models.DocumentsSet;
 import edu.upc.fib.prop.persistence.dao.documents.DaoDocuments;
 import edu.upc.fib.prop.utils.StringUtils;
 
@@ -312,4 +313,36 @@ public class DaoDocumentsImpl implements DaoDocuments {
         }
     }
 
+    @Override
+    public DocumentsSet getRecommendedDocuments(Connection c, int numDocs, String email) {
+        DocumentsSet docs = new DocumentsSet();
+        try {
+            Statement statement = c.createStatement();
+            String query = String.format
+                    ("SELECT * FROM documents WHERE user_owner NOT LIKE '%s' AND " +
+                            "title NOT IN (SELECT title FROM favourites WHERE user_email LIKE '%s')" +
+                            " ORDER BY rating DESC LIMIT %d", email, email, numDocs);
+            ResultSet rs = statement.executeQuery(query);
+            while (rs.next()) {
+                String title = rs.getString("title");
+                String authorName = rs.getString("author_name");
+                String content = rs.getString("content");
+                String cover = rs.getString("cover");
+                String termFrequency = rs.getString("term_frequency");
+                String termPositions = rs.getString("term_positions");
+                Float rating = rs.getFloat("rating");
+                Document document = new Document(title, authorName, content, email);
+                document.setRating(rating);
+                document.setCover(cover);
+                document.setTermFrequency(StringUtils.buildFrequencyMapFromJSON(termFrequency));
+                document.setTermPositions(StringUtils.buildPositionMapFromJSON(termPositions));
+
+                docs.add(document);
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return docs;
+    }
 }

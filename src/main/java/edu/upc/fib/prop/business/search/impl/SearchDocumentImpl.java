@@ -90,4 +90,6 @@ public class SearchDocumentImpl implements SearchDocument {
         }
         return sumProd/( (sumSquaresWv1 + sumSquaresWv2) - sumProd);
     }
+
+
 }

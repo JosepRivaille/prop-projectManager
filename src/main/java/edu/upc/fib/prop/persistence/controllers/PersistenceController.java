@@ -1,10 +1,7 @@
 package edu.upc.fib.prop.persistence.controllers;
 
 import edu.upc.fib.prop.exceptions.*;
-import edu.upc.fib.prop.models.AuthorsCollection;
-import edu.upc.fib.prop.models.Document;
-import edu.upc.fib.prop.models.DocumentsCollection;
-import edu.upc.fib.prop.models.User;
+import edu.upc.fib.prop.models.*;
 
 import java.sql.SQLException;
 
@@ -122,4 +119,6 @@ public interface PersistenceController {
     int getMyRating(String title, String author, String email);
 
     void changeUserAvatar(String email, int avatar);
+
+    DocumentsSet getRecommendedDocuments(int numDocs, String email);
 }
