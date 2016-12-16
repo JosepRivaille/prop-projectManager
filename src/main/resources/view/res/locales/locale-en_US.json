@@ -116,6 +116,8 @@
 
   "OPERATION_CANCELED": "Operation canceled",
   "GENERAL_ERROR_MESSAGE": "An error occurred",
-  "HOME_NEW_DISCOVERIES": "New discoveries"
+  "HOME_NEW_DISCOVERIES": "New discoveries",
+  "NO_RECOMMENDED_DOCS_TO_SHOW": "There is no books to recommend to you right now",
+  "NO_NEW_DISCOVERIES_TO_SHOW": "We couldn't find anything new for you at this moment"
 
 }

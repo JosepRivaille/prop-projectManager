@@ -73,3 +73,8 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+#home .no-docs-message{
+    color: #8c8c8c;
+    font-size: 1.2em;
+}
