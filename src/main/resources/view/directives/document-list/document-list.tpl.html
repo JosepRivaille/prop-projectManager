@@ -17,11 +17,11 @@
                                 <img class="item-image" ng-src="../../../covers/{{document.cover}}">
                             </div>
                             <div flex class="item-info-container" layout="column" layout-align="space-between start">
-                                <h1>
+                                <h1 class="text-ellipsis">
                                     {{document.title}}
                                     <i ng-if="isDocFavourite(document)" class="fa fa-heart" style="color: #c9302c;"></i>
                                 </h1>
-                                <h2>{{document.author}}</h2>
+                                <h2 class="text-ellipsis">{{document.author}}</h2>
                                 <star-rating ng-model="document.rating" read-only="true"></star-rating>
                             </div>
 
@@ -64,11 +64,11 @@
                                 <img class="item-image" ng-src="../../../covers/{{document.cover}}">
                             </div>
                             <div flex class="item-info-container" layout="column" layout-align="space-between start">
-                                <h1>
+                                <h1 class="text-ellipsis">
                                     {{document.title}}
                                     <i ng-if="isDocFavourite(document)" class="fa fa-heart" style="color: #c9302c;"></i>
                                 </h1>
-                                <h2>{{document.author}}</h2>
+                                <h2 class="text-ellipsis">{{document.author}}</h2>
 
                                 <star-rating ng-model="document.rating" read-only="true"></star-rating>
                             </div>
