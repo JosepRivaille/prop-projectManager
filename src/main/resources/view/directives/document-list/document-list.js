@@ -359,7 +359,7 @@
                     var index = getIndexToInsert(documentsList, newDocument);
                     documentsList.splice(index, 0, newDocument);
                 }
-                
+
                 String.prototype.capitalizeFirstLetter = function() {
                     return this.charAt(0).toUpperCase() + this.slice(1);
                 };
