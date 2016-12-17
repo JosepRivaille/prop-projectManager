@@ -11,8 +11,7 @@
         <md-list-item>
             <p ng-if="vm.theme.darkTheme">{{vm.theme.themeDark | translate}}</p>
             <p ng-if="!vm.theme.darkTheme">{{vm.theme.themeLight | translate}}</p>
-            <md-switch class="md-primary" ng-model="vm.theme.darkTheme" aria-label="Switch theme"
-                       ng-click="vm.switchTheme()"></md-switch>
+            <md-switch class="md-primary" ng-model="vm.theme.darkTheme" aria-label="Switch theme"></md-switch>
         </md-list-item>
         <md-divider></md-divider>
         <md-subheader class="md-no-sticky">{{'SETTINGS_ACCOUNT' | translate}}</md-subheader>

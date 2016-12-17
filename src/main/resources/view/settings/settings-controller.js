@@ -12,7 +12,7 @@
         .module('project.settings')
         .controller('SettingsCtrl', SettingsCtrl);
 
-    function SettingsCtrl($rootScope, $mdDialog, $translate, $state, $filter) {
+    function SettingsCtrl($rootScope, $scope, $mdDialog, $translate, $state, $filter) {
         var vm = this;
         vm.ctrlName = 'SettingsCtrl';
         vm.title = "MENU_SETTINGS";
@@ -54,7 +54,7 @@
             title: 'SETTINGS_THEME',
             themeDark: 'SWITCH_THEME_DARK',
             themeLight: 'SWITCH_THEME_LIGHT',
-            darkTheme: false
+            darkTheme: $rootScope.selectedTheme === 'dark'
         };
 
         vm.disableOtherLanguages = function (value) {
@@ -62,10 +62,6 @@
                 language.selected = false;
             });
             $translate.use(value.locale);
-        };
-
-        vm.switchTheme = function () {
-            $rootScope.selectedTheme = vm.theme.darkTheme ? 'dark' : 'light';
         };
 
         vm.deleteAccount = function (event) {
@@ -91,8 +87,11 @@
                 $state.go('project');
             }, function() {
             });
-
         };
+
+        $scope.$watch('vm.theme.darkTheme', function () {
+            $rootScope.selectedTheme = vm.theme.darkTheme ? 'dark' : 'light';
+        });
     }
 
 }());
