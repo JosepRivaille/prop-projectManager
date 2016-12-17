@@ -28,7 +28,6 @@
         //alert('Error loading main backend service, stub activated instead');
         //$rootScope.backendService = backendServiceStub;
 
-
         $rootScope.backendService = backendService;
 
         $rootScope.resetToolbar = function(){
