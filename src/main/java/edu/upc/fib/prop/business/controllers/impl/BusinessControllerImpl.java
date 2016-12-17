@@ -353,6 +353,12 @@ public class BusinessControllerImpl implements BusinessController {
         persistenceController.deleteDocument(document);
         persistenceController.deleteAllFavouritesOfDocument(document);
         persistenceController.deleteAllRatingsOfDocument(document);
+
+        File cover = new File("./covers/" + document.getCover());
+        if(cover!=null){
+            cover.delete();
+        }
+
         reloadDBData();
     }
 
