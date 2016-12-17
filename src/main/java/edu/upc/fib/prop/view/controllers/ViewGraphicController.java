@@ -200,6 +200,23 @@ public interface ViewGraphicController {
      * @param author Author that we want to search
      */
     void searchInformation(String title, String author);
+
+    /**
+     * Does a search of the given title and author in amazon.
+     *
+     * @param title Title that we want to search
+     * @param author Author that we want to search
+     */
+    void searchOnAmazon(String title, String author);
+
+    /**
+     * Shares a document using email
+     * @param title title of the docuemtn
+     * @param author author
+     * @param content content
+     */
+    void shareByEmail(String title, String author, String content);
+
     /**
      * Prints the document defined by the parameters.
      *

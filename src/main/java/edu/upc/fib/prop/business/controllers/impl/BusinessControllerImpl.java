@@ -1,6 +1,5 @@
 package edu.upc.fib.prop.business.controllers.impl;
 
-import com.sun.javafx.font.FontFactory;
 import edu.upc.fib.prop.business.controllers.BusinessController;
 import edu.upc.fib.prop.business.search.SearchBooleanExpression;
 import edu.upc.fib.prop.business.search.impl.SearchAuthorImpl;
@@ -12,13 +11,11 @@ import edu.upc.fib.prop.exceptions.*;
 import edu.upc.fib.prop.models.*;
 import edu.upc.fib.prop.persistence.controllers.PersistenceController;
 import edu.upc.fib.prop.persistence.controllers.impl.PersistenceControllerImpl;
-import edu.upc.fib.prop.utils.FileUtils;
 import edu.upc.fib.prop.utils.ImportExport;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import javax.imageio.ImageIO;
-import javax.print.Doc;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
@@ -266,6 +263,44 @@ public class BusinessControllerImpl implements BusinessController {
             }
         }
     }
+
+    @Override
+    public void searchOnAmazon(String title, String author) {
+        Desktop d = java.awt.Desktop.getDesktop();
+        String url = "https://www.amazon.es/s/ref=nb_sb_noss?__mk_es_ES=%C3%85M%C3%85%C5%BD%C3%95%C3%91&url=search-alias%3Dstripbooks&field-keywords=" + title + " " + author;
+        url = url.replace(' ', '+');
+
+        if(d.isSupported(Desktop.Action.BROWSE)){
+            try {
+                d.browse(URI.create(url));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public void shareByEmail(String title, String author, String content) {
+        Desktop d = java.awt.Desktop.getDesktop();
+        String subject = "Hey, look at this book!";
+        String br = "%0D%0A";
+        String body = title + br + author + br + br + content.substring(0,500) + "...";
+        body += br + br + "You can find it on Amazon" + br;
+        //body += br + "https://www.amazon.es/s/ref=nb_sb_noss?__mk_es_ES=%C3%85M%C3%85%C5%BD%C3%95%C3%91&url=search-alias%3Dstripbooks&field-keywords=" + title + " " + author +br;
+        String to = "";
+        String uriStr = String.format("mailto:%s?subject=%s&body=%s", to, subject, body);
+        uriStr = uriStr.replace(" ", "%20");
+
+        if(d.isSupported(Desktop.Action.MAIL)){
+            try {
+                d.mail(URI.create(uriStr));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
 
     @Override
     public void updateDocument(String title, String author, Document newDoc)

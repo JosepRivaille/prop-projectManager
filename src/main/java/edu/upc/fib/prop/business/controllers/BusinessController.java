@@ -115,6 +115,8 @@ public interface BusinessController {
     void storeNewDocument(Document document)
             throws AlreadyExistingDocumentException, InvalidDetailsException;
 
+    void shareByEmail(String title, String author, String content);
+
     /**
      * Updates a document in persistence.
      *
@@ -268,4 +270,11 @@ public interface BusinessController {
      * @return DocumentsSet of random documents
      */
     DocumentsSet getNewDiscoveries(int numDocs);
+
+    /**
+     * Searches a document on Amazon
+     * @param title
+     * @param author
+     */
+    void searchOnAmazon(String title, String author);
 }

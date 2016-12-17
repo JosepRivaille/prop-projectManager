@@ -139,14 +139,14 @@ public class ViewGraphicControllerImpl implements ViewGraphicController {
     public void updateDocument(String oldDocumentJSON, String editedDocumentJSON)
             throws InvalidDetailsException, AlreadyExistingDocumentException, DocumentNotFoundException {
         Document oldDocument = StringUtils.parseJSONToDocument(oldDocumentJSON);
-            Document editedDocument = StringUtils.parseJSONToDocument(editedDocumentJSON);
-            businessController.updateDocument(oldDocument.getTitle(), oldDocument.getAuthor(), editedDocument);
-        }
+        Document editedDocument = StringUtils.parseJSONToDocument(editedDocumentJSON);
+        businessController.updateDocument(oldDocument.getTitle(), oldDocument.getAuthor(), editedDocument);
+    }
 
-        @Override
-        public void deleteDocument(String title, String authorName) {
-            try {
-                this.businessController.deleteDocument(title, authorName);
+    @Override
+    public void deleteDocument(String title, String authorName) {
+        try {
+            this.businessController.deleteDocument(title, authorName);
         } catch (DocumentNotFoundException e) {
             e.printStackTrace();
         }
@@ -207,7 +207,7 @@ public class ViewGraphicControllerImpl implements ViewGraphicController {
         DocumentsSet documents = this.businessController.getRecommendedDocuments(numDocs);
         List<DocumentBasicInfo> documentsBasicInfo = new ArrayList<>();
         for (Document document : documents) {
-                documentsBasicInfo.add(new DocumentBasicInfo(document));
+            documentsBasicInfo.add(new DocumentBasicInfo(document));
         }
         return new Gson().toJson(documentsBasicInfo);
     }
@@ -241,6 +241,17 @@ public class ViewGraphicControllerImpl implements ViewGraphicController {
     public void searchInformation(String title, String author) {
         this.businessController.searchInformation(title, author);
     }
+
+    @Override
+    public void searchOnAmazon(String title, String author) {
+        this.businessController.searchOnAmazon(title, author);
+    }
+
+    @Override
+    public void shareByEmail(String title, String author, String content) {
+        this.businessController.shareByEmail(title, author, content);
+    }
+
 
     @Override
     public void printDocument(String title, String author, String content) {

@@ -38,8 +38,15 @@
                     $rootScope.backendService.searchInformation(scope.document.title, scope.document.author);
                 };
 
+                scope.searchOnAmazon = function () {
+                    $rootScope.backendService.searchOnAmazon(scope.document.title, scope.document.author);
+                };
+
                 scope.printDocument = function () {
                     $rootScope.backendService.printDocument(scope.document.title, scope.document.author, scope.document.content);
+                };
+                scope.shareByEmail = function () {
+                    $rootScope.backendService.shareByEmail(scope.document.title, scope.document.author, scope.document.content);
                 };
 
                 //TOOLBAR CONFIG
@@ -75,6 +82,8 @@
                     $rootScope.toolbarParams.search = false;
                 }
                 $rootScope.toolbarFunctions.google = scope.searchInformation;
+                $rootScope.toolbarFunctions.amazon = scope.searchOnAmazon;
+                $rootScope.toolbarFunctions.sharemail = scope.shareByEmail;
                 $rootScope.toolbarFunctions.print = scope.printDocument;
                 $rootScope.toolbarParams.enabled = true;
 

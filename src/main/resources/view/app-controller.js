@@ -45,6 +45,8 @@
             $rootScope.toolbarFunctions.create = function(){};
             $rootScope.toolbarFunctions.import = function(){};
             $rootScope.toolbarFunctions.google = function(){};
+            $rootScope.toolbarFunctions.amazon = function(){};
+            $rootScope.toolbarFunctions.sharemail = function(){};
             $rootScope.toolbarFunctions.openExternalTool = function(){};
         };
 
@@ -67,6 +69,8 @@
             'create': function(){},
             'import': function(){},
             'google': function(){},
+            'amazon': function(){},
+            'sharemail': function(){},
             'external': function(){}
         };
 
