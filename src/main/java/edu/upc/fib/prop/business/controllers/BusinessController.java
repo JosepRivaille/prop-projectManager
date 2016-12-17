@@ -102,8 +102,8 @@ public interface BusinessController {
     DocumentsCollection getCurrentUserDocuments();
 
     /**
-     *
-     * @return
+     * Gets current session logged user favourite documents.
+     * @return Favourite documents of the current user.
      */
     DocumentsCollection getCurrentUserFavourites();
 
@@ -119,7 +119,7 @@ public interface BusinessController {
      * Updates a document in persistence.
      *
      * @param title title of the document to update
-     * @param title author of the document to update
+     * @param author author of the document to update
      * @param newDoc New document
      */
     void updateDocument(String title, String author, Document newDoc)
@@ -133,9 +133,22 @@ public interface BusinessController {
      */
     void deleteDocument(String title, String authorName) throws DocumentNotFoundException;
 
+    /**
+     * Imports a document to the data base given a Stage.
+     *
+     * @param st Stage where the document is found
+     * @return The document imported
+     */
     Document importDocument(Stage st)
             throws ImportExportException, AlreadyExistingDocumentException, InvalidDetailsException, DocumentNotFoundException;
 
+    /**
+     * Exports a document from the data base.
+     *
+     * @param st Stage where the document will be exported
+     * @param document Document to be exported
+     * @return True if successful, false if not
+     */
     boolean exportDocument(Stage st, Document document) throws ImportExportException;
 
     /**
@@ -152,40 +165,107 @@ public interface BusinessController {
      * @param str query to search
      * @param k   number of documents to search
      * @return sorted set of similar documents
-     * @throws DocumentNotFoundException
      */
     SortedDocumentsSet searchDocumentsByQuery(String str, int k)
             throws DocumentNotFoundException;
 
-
+    /**
+     * Gives a document a certain rating.
+     *
+     * @param title Title of the document
+     * @param author Author of the document
+     * @param rating Our rating
+     * @return The average rating of the document
+     */
     float rateDocument(String title, String author, int rating) throws DocumentNotFoundException;
 
-
+    /**
+     * Deletes a document form the current user favourites list.
+     *
+     * @param title Title of the document
+     * @param author Author of the document
+     */
     void deleteDocumentFromFavourites(String title, String author) throws DocumentNotFoundException;
 
+    /**
+     * Adds the document given to the current user favourites list.
+     *
+     * @param title Title of the document
+     * @param author Author of the document
+     */
     void addDocumentToFavourites(String title, String author) throws DocumentNotFoundException;
 
     /**
      * Returns true if the document with the given title and author is marked as a favourite by the logged user
+     *
      * @param title title of the document
      * @param author author of the document
-     * @return
+     * @return true if favourite, false if not
      */
     boolean isDocumentFavourite(String title, String author);
 
+    /**
+     * Get the rating of a document
+     *
+     * @param title Title of the document
+     * @param author Author of the document
+     * @return Document's rating
+     */
     int getMyRating(String title, String author);
 
+    /**
+     * Changes current user's avatar for the one given.
+     *
+     * @param avatar The new avatar
+     */
     void changeUserAvatar(int avatar) throws SQLException;
 
+    /**
+     * Selects an image from a new stage
+     *
+     * @param st New stage
+     * @return Filename of the image
+     */
     String selectImage(Stage st);
 
+    /**
+     * Edits a content by using an external tool
+     *
+     * @param content New content
+     * @return Content modified
+     */
     String editContentExternalTool(String content);
 
+    /**
+     * Does a search of the given title and author in google.
+     *
+     * @param title Title that we want to search
+     * @param author Authro that we want to search
+     */
     void searchInformation(String title, String author);
 
+    /**
+     * Prints the document defined by the parameters.
+     *
+     * @param title Title of the document
+     * @param author Author of the document
+     * @param content Content of the document
+     */
     void printDocument(String title, String author, String content);
 
+    /**
+     * Gets a set of recommended documents.
+     *
+     * @param numDocs Number of documents wanted in the set
+     * @return DocumentsSet of numDocs recommended documents
+     */
     DocumentsSet getRecommendedDocuments(int numDocs);
 
+    /**
+     * Returns numDocs random documents from all documents.
+     *
+     * @param numDocs Number of documents to retunr
+     * @return DocumentsSet of random documents
+     */
     DocumentsSet getNewDiscoveries(int numDocs);
 }
