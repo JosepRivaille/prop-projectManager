@@ -13,11 +13,9 @@
         .controller('DocumentListCtrl', DocumentListCtrl)
         .directive('documentList', documentList);
 
-    function DocumentListCtrl($rootScope) {
+    function DocumentListCtrl() {
         var vm = this;
         vm.ctrlName = 'DocumentListCtrl';
-
-
     }
 
     function documentList($rootScope, $mdDialog, $mdToast, $filter, $timeout, $state) {
@@ -88,59 +86,9 @@
                 $rootScope.toolbarFunctions.import = scope.importDocument;
                 $rootScope.toolbarFunctions.external = scope.editContentExternalTool;
 
-
-
-                function updateToolbar(){
-                    $rootScope.toolbarParams.title = scope.parentTitle;
-                    $rootScope.toolbarParams.external = false;
-                    if(scope.isEditMode) {
-                        $rootScope.toolbarParams.import = true;
-                        $rootScope.toolbarParams.create = true;
-                        $rootScope.toolbarParams.back = false;
-                        $rootScope.toolbarParams.google = false;
-                        $rootScope.toolbarParams.print = false;
-                        $rootScope.toolbarParams.search = false;
-                    }
-                    else if(scope.parent=="favorites"){
-                            $rootScope.toolbarParams.import = false;
-                            $rootScope.toolbarParams.create = false;
-                            $rootScope.toolbarParams.back = false;
-                            $rootScope.toolbarParams.google = false;
-                            $rootScope.toolbarParams.print = false;
-                            $rootScope.toolbarParams.search = false;
-                    }
-                    else if(scope.parent=="all"){
-                        $rootScope.toolbarParams.import = false;
-                        $rootScope.toolbarParams.create = false;
-                        $rootScope.toolbarParams.back = false;
-                        $rootScope.toolbarParams.google = false;
-                        $rootScope.toolbarParams.print = false;
-                        $rootScope.toolbarParams.search = false;
-                    }
-                    else if(scope.parent=="boolean"){
-                        $rootScope.toolbarParams.search = true;
-                    }
-                    else if(scope.isSearchMode){
-                        $rootScope.toolbarParams.import = false;
-                        $rootScope.toolbarParams.create = false;
-                        $rootScope.toolbarParams.back = false;
-                        $rootScope.toolbarParams.google = false;
-                        $rootScope.toolbarParams.print = false;
-                        $rootScope.toolbarParams.search = true;
-                    }
-                }
-
-
-
-
-
-
                 scope.isDocFavourite = function(document) {
                     return $rootScope.backendService.isDocumentFavourite(document.title, document.author);
                 };
-
-
-
 
                 scope.removeFavourite = function (doc) {
                     $rootScope.backendService.removeFavourite(doc.title, doc.author);
@@ -222,14 +170,9 @@
                     scope.isDocumentSelected = true;
                 };
 
-
-
-
-
                 scope.selectImage = function () {
                     scope.selectedImage = $rootScope.backendService.selectImage();
                 };
-
 
                 scope.storeDocument = function (event) {
                     var translations = {
@@ -254,7 +197,10 @@
                         .cancel(translations.cancel);
 
                     $mdDialog.show(confirm).then(function() {
-                        updateToolbar();
+
+                        scope.documentSelected.title = scope.documentSelected.title.capitalizeFirstLetter();
+                        scope.documentSelected.author = scope.documentSelected.author.capitalizeFirstLetter();
+
                         if (angular.isDefined(scope.selectedImage)) {
                             scope.documentSelected.cover = scope.selectedImage;
                         }
@@ -265,11 +211,13 @@
                                 var response = $rootScope.backendService.storeNewDocument(data);
                                 var doc = JSON.parse(response);
                                 addDocumentOrdered(scope.documents, doc);
-                                showToast('TOAST_CREATED_DOCUMENT');
                                 scope.isCreateOrUpdate = false;
                                 scope.isDocumentSelected = false;
                                 scope.isListSelected = true;
                                 scope.selectedImage = undefined;
+                                showToast('TOAST_CREATED_DOCUMENT');
+
+                                updateToolbar();
                             } catch (e) {
                                 scope.isInvalidData = treatException(e);
                             }
@@ -278,7 +226,7 @@
                             var oldData = JSON.stringify(scope.documentBackUp);
                             try {
                                 $rootScope.backendService.updateDocument(oldData, newData);
-                                var index = scope.documents.indexOf(scope.documentBackUp);
+                                var index = scope.documents.indexOf(scope.documentSelected);
                                 scope.documents.splice(index, 1);
                                 addDocumentOrdered(scope.documents, scope.documentSelected);
                                 scope.isCreateOrUpdate = false;
@@ -286,6 +234,8 @@
                                 scope.isListSelected = true;
                                 scope.selectedImage = undefined;
                                 showToast('TOAST_EDITED_DOCUMENT');
+
+                                updateToolbar();
                             } catch (e) {
                                 scope.isInvalidData = treatException(e);
                             }
@@ -334,25 +284,59 @@
                     }
                 }
 
-                //TODO arreglar funcion (accedia a posiciones incorrectas y lanzaba excepcion al no estar definidas
-                function getIndexToInsert(documentsList, newDocument) {
-                  /*  var minIndex = 0;
-                    var maxIndex = documentsList.length - 1;
-                    var currentIndex = 0;
+                function updateToolbar() {
+                    $rootScope.toolbarParams.title = scope.parentTitle;
+                    $rootScope.toolbarParams.external = false;
+                    if(scope.isEditMode) {
+                        $rootScope.toolbarParams.import = true;
+                        $rootScope.toolbarParams.create = true;
+                        $rootScope.toolbarParams.back = false;
+                        $rootScope.toolbarParams.google = false;
+                        $rootScope.toolbarParams.print = false;
+                        $rootScope.toolbarParams.search = false;
+                    }
+                    else if(scope.parent=="favorites"){
+                        $rootScope.toolbarParams.import = false;
+                        $rootScope.toolbarParams.create = false;
+                        $rootScope.toolbarParams.back = false;
+                        $rootScope.toolbarParams.google = false;
+                        $rootScope.toolbarParams.print = false;
+                        $rootScope.toolbarParams.search = false;
+                    }
+                    else if(scope.parent=="all"){
+                        $rootScope.toolbarParams.import = false;
+                        $rootScope.toolbarParams.create = false;
+                        $rootScope.toolbarParams.back = false;
+                        $rootScope.toolbarParams.google = false;
+                        $rootScope.toolbarParams.print = false;
+                        $rootScope.toolbarParams.search = false;
+                    }
+                    else if(scope.parent=="boolean"){
+                        $rootScope.toolbarParams.search = true;
+                    }
+                    else if(scope.isSearchMode){
+                        $rootScope.toolbarParams.import = false;
+                        $rootScope.toolbarParams.create = false;
+                        $rootScope.toolbarParams.back = false;
+                        $rootScope.toolbarParams.google = false;
+                        $rootScope.toolbarParams.print = false;
+                        $rootScope.toolbarParams.search = true;
+                    }
+                }
 
-                    while (minIndex <= maxIndex) {
-                        currentIndex = Math.floor((minIndex + maxIndex) / 2);
-                        if (documentsList[currentIndex].title < newDocument.title) {
-                            minIndex = currentIndex + 1;
-                        } else if (documentsList[currentIndex] > newDocument.title) {
-                            maxIndex = currentIndex - 1;
-                        } else {
-                            while (documentsList[currentIndex].author < newDocument.author) {
-                                ++currentIndex;
-                            } return currentIndex;
+                function getIndexToInsert(documentsList, newDocument) {
+                    var index = 0;
+                    while (index < documentsList.length) {
+                        if (newDocument.title < documentsList[index].title) {
+                            return index;
+                        } else if (newDocument.title === documentsList[index].title) {
+                            if (newDocument.author < documentsList[index].author) {
+                                return index;
+                            }
                         }
-                    } return currentIndex + 1;*/
-                  return 0;
+                        ++index;
+                    }
+                    return index;
                 }
 
                 function addDocumentOrdered(documentsList, newDocument) {

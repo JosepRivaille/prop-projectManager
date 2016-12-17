@@ -27,6 +27,7 @@
             templateUrl: 'directives/document-info/document-info.tpl.html',
             scope: {
                 document: '=ngModel',
+                documentsList: '=?',
                 from: "=?",
                 aux: "=?",
                 parentTitle: "=?"
@@ -35,11 +36,11 @@
 
                 scope.searchInformation = function () {
                     $rootScope.backendService.searchInformation(scope.document.title, scope.document.author);
-                }
+                };
 
                 scope.printDocument = function () {
                     $rootScope.backendService.printDocument(scope.document.title, scope.document.author, scope.document.content);
-                }
+                };
 
                 //TOOLBAR CONFIG
 
@@ -82,14 +83,15 @@
                 scope.addFavourite = function () {
                     $rootScope.backendService.addFavourite(scope.document.title, scope.document.author);
                     scope.isFavourite ^= true;
+                    addDocumentOrdered(scope.documentsList, scope.document);
                     showToast('TOAST_ADDED_TO_FAVOURITES');
                 };
-                
 
 
                 scope.removeFavourite = function () {
                     $rootScope.backendService.removeFavourite(scope.document.title, scope.document.author);
                     scope.isFavourite ^= true;
+                    removeDocumentFromList(scope.documentsList, scope.document);
                     showToast('TOAST_DELETED_FROM_FAVOURITES');
                 };
 
@@ -103,12 +105,10 @@
 
                 };
 
-
-
                 scope.export = function () {
                     var data = JSON.stringify(scope.document);
                     try {
-                        var exportedOk = $rootScope.backendService.exportDocument(data)
+                        var exportedOk = $rootScope.backendService.exportDocument(data);
                         if(exportedOk) showToast('TOAST_DOCUMENT_EXPORTED_SUCCESSFULLY');
                     }catch (e) {
                         if (e.toString().indexOf('ImportExportException') !== -1) {
@@ -118,6 +118,31 @@
                 };
 
                 //////////
+
+                function getIndexToInsert(documentsList, newDocument) {
+                    var index = 0;
+                    while (index < documentsList.length) {
+                        if (newDocument.title < documentsList[index].title) {
+                            return index;
+                        } else if (newDocument.title === documentsList[index].title) {
+                            if (newDocument.author < documentsList[index].author) {
+                                return index;
+                            }
+                        }
+                        ++index;
+                    }
+                    return index;
+                }
+
+                function addDocumentOrdered(documentsList, favouriteDocument) {
+                    var index = getIndexToInsert(documentsList, favouriteDocument);
+                    documentsList.splice(index, 0, favouriteDocument);
+                }
+
+                function removeDocumentFromList(documentsList, favouriteDocument) {
+                    var index = documentsList.indexOf(favouriteDocument);
+                    documentsList.splice(index, 1);
+                }
 
                 function DialogSimilarDocumentsCtrl($rootScope, $scope, $mdDialog) {
 

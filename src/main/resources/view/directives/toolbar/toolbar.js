@@ -22,9 +22,7 @@
         return {
             restrict: 'EA',
             templateUrl: 'directives/toolbar/toolbar.tpl.html',
-            scope: {
-
-            },
+            scope: {},
             link: function (scope) {
 
                 scope.params = $rootScope.toolbarParams;

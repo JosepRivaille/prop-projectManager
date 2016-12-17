@@ -37,7 +37,8 @@
                             </div>
 
                             <div ng-if="parent === 'favorites'" class="item-buttons-container" layout="row" layout-align="center center">
-                                <md-button alt="Remove from favourites" onclick="location.href = event.stopPropagation();" ng-click="removeFavourite(document)" class="md-raised md-warn" aria-label="Remove favourite">
+                                <md-button alt="Remove from favourites" onclick="location.href = event.stopPropagation();"
+                                           ng-click="removeFavourite(document)" class="md-raised md-warn" aria-label="Remove favourite">
                                     <i class="fa fa-heartbeat"></i>
                                 </md-button>
                             </div>
@@ -131,6 +132,6 @@
     </div>
 
     <div ng-if="isDocumentSelected" layout="column" flex>
-        <document-info ng-model="documentSelected" layout="column" flex></document-info>
+        <document-info ng-model="documentSelected" layout="column" documents-list="documents" flex></document-info>
     </div>
 </div>
