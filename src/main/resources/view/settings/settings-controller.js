@@ -54,7 +54,7 @@
             title: 'SETTINGS_THEME',
             themeDark: 'SWITCH_THEME_DARK',
             themeLight: 'SWITCH_THEME_LIGHT',
-            lightTheme: false
+            darkTheme: false
         };
 
         vm.disableOtherLanguages = function (value) {
@@ -65,7 +65,7 @@
         };
 
         vm.switchTheme = function () {
-            $rootScope.selectedTheme = vm.theme.lightTheme ? 'light' : 'dark';
+            $rootScope.selectedTheme = vm.theme.darkTheme ? 'dark' : 'light';
         };
 
         vm.deleteAccount = function (event) {
