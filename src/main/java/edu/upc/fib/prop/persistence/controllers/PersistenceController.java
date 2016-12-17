@@ -94,31 +94,49 @@ public interface PersistenceController {
 
     /**
      * It returns, if exists, the document with a given title and author.
-     * @param title
-     * @param author
-     * @return
+     * @param title Title of the document
+     * @param author Author of the document
+     * @return Document with this title and author
      */
     Document getDocument(String title, String author) throws DocumentNotFoundException;
 
     /**
-     *
-     * @return
-     * @param user
+     * Gets the list of favourite documents of the user given
+     * @param user The email of the user
+     * @return DocumentsCollection of the favourite documents of the user
      */
     DocumentsCollection getFavouriteDocuments(String user);
 
     /**
      * Returns true if the document with the given title and authors is marked as a favourite by the user with the given email
-     * @param title
-     * @param author
-     * @param email
-     * @return
+     * @param title Title of the document
+     * @param author Author of the document
+     * @param email Email of the user
+     * @return true if the document is marked as favourite, false if not
      */
     boolean isDocumentFavourite(String title, String author, String email);
 
+    /**
+     * Gets the rating that a user has given to a document, given its title and author
+     * @param title Title of the document
+     * @param author Author of the document
+     * @param email Email of the user
+     * @return The rating that the user has given to this document
+     */
     int getMyRating(String title, String author, String email);
 
+    /**
+     * Changes the users' avatar for the one given
+     * @param email Email of the user
+     * @param avatar New avatar
+     */
     void changeUserAvatar(String email, int avatar);
 
+    /**
+     * Gets the list of numDocs recommended documents of a user
+     * @param numDocs Number of documents in the list
+     * @param email Email of the user
+     * @return returns the list of recommended documents of this user
+     */
     DocumentsSet getRecommendedDocuments(int numDocs, String email);
 }
