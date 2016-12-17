@@ -143,5 +143,12 @@ public interface DaoDocuments {
      */
     int getMyRating(Connection c, String title, String author, String email);
 
+    /**
+     * Gets a document set of numDocs recommended documents.
+     * @param c DB connection.
+     * @param numDocs Number of documents.
+     * @param email User email.
+     * @return DocumentsSet of numDocs recommended documents.
+     */
     DocumentsSet getRecommendedDocuments(Connection c, int numDocs, String email);
 }
