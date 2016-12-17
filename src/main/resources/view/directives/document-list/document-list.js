@@ -358,8 +358,7 @@
                     } else if (e.toString().indexOf('ImportExportException') !== -1) {
                         return 'EXCEPTION_IMPORT';
                     }
-                    //else return "GENERAL_ERROR_MESSAGE";
-                    else alert(e);
+                    else return "GENERAL_ERROR_MESSAGE";
                 }
 
                 function showToast(toastText, error) {
