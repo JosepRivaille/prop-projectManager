@@ -26,6 +26,7 @@ public class Document {
         this.user = user;
         this.content = content;
         this.termFrequency = new TreeMap<>();
+        this.termPositions = new TreeMap<>();
         this.rating = 0f;
         this.cover = DEFAULT_COVER;
     }
@@ -33,6 +34,7 @@ public class Document {
     public Document(String title, String author, String content) {
         this.title = title;
         this.author = author;
+        termFrequency = new TreeMap<>();
         termFrequency = new TreeMap<>();
         this.content = content;
         this.rating = 0f;

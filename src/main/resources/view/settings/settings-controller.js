@@ -54,7 +54,7 @@
             title: 'SETTINGS_THEME',
             themeDark: 'SWITCH_THEME_DARK',
             themeLight: 'SWITCH_THEME_LIGHT',
-            lightTheme: true
+            lightTheme: false
         };
 
         vm.disableOtherLanguages = function (value) {

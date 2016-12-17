@@ -18,6 +18,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import javax.imageio.ImageIO;
+import javax.print.Doc;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
@@ -88,6 +89,12 @@ public class BusinessControllerImpl implements BusinessController {
     @Override
     public void deleteUser() throws UserNotFoundException {
         User user = usersManager.getCurrentUser();
+        DocumentsSet docs = searchDocument.filterByUser(this.documentsCollection, user.getEmail()).getAllDocuments();
+        for(Document d : docs){
+            persistenceController.deleteAllFavouritesOfDocument(d);
+            persistenceController.deleteAllRatingsOfDocument(d);
+            persistenceController.deleteDocument(d);
+        }
         persistenceController.deleteUser(user);
         usersManager.logout();
     }

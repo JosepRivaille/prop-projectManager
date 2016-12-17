@@ -41,6 +41,10 @@
                     $scope.isInvalidData = undefined;
                     var response = $rootScope.backendService.getDocumentsByQuery(query, numberOfDocuments);
                     $scope.similarDocuments = JSON.parse(response);
+                    if($scope.similarDocuments.length==0){
+                        $scope.similarDocuments = undefined;
+                        $scope.isInvalidData = 'NO_DOCUMENTS_FOUND';
+                    }
                 } catch (e) {
                     if (e.toString().indexOf('InvalidQueryException') !== -1) {
                         $scope.isInvalidData = 'EXCEPTION_INVALID_QUERY';

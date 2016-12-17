@@ -142,6 +142,7 @@
                     };
                     $scope.selectNewDocument = function (document) {
                         scope.document = document;
+                        scope.isFavourite = $rootScope.backendService.isDocumentFavourite(document.title, document.author);
                         $rootScope.toolbarParams.title = document.title;
                         $mdDialog.hide();
                     }

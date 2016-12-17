@@ -66,7 +66,6 @@
                 };
 
                 scope.editContentExternalTool = function(){
-                    alert("JJJJ");
                     scope.documentSelected.content = $rootScope.backendService.editContentExternalTool(scope.documentSelected.content);
                 };
 
@@ -335,8 +334,9 @@
                     }
                 }
 
+                //TODO arreglar funcion (accedia a posiciones incorrectas y lanzaba excepcion al no estar definidas
                 function getIndexToInsert(documentsList, newDocument) {
-                    var minIndex = 0;
+                  /*  var minIndex = 0;
                     var maxIndex = documentsList.length - 1;
                     var currentIndex = 0;
 
@@ -351,14 +351,15 @@
                                 ++currentIndex;
                             } return currentIndex;
                         }
-                    } return currentIndex + 1;
+                    } return currentIndex + 1;*/
+                  return 0;
                 }
 
                 function addDocumentOrdered(documentsList, newDocument) {
                     var index = getIndexToInsert(documentsList, newDocument);
                     documentsList.splice(index, 0, newDocument);
                 }
-
+                
                 String.prototype.capitalizeFirstLetter = function() {
                     return this.charAt(0).toUpperCase() + this.slice(1);
                 };
@@ -373,7 +374,8 @@
                     } else if (e.toString().indexOf('ImportExportException') !== -1) {
                         return 'EXCEPTION_IMPORT';
                     }
-                    else return "GENERAL_ERROR_MESSAGE";
+                    //else return "GENERAL_ERROR_MESSAGE";
+                    else alert(e);
                 }
 
                 function showToast(toastText, error) {
