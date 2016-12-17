@@ -174,7 +174,6 @@
                     scope.selectedImage = $rootScope.backendService.selectImage();
                 };
 
-
                 scope.storeDocument = function (event) {
                     var translations = {
                         title: scope.isNewDocument ? $filter('translate')('DIALOG_CREATE_TITLE') :
