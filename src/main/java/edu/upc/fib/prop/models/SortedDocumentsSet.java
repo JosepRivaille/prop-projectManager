@@ -38,8 +38,8 @@ public class SortedDocumentsSet{
 
     /**
      * Añade un elemento a la lista. Si está limitada y llena, se eliminará el documento con valor menor para hacer hueco.
-     * @param doc
-     * @param weight
+     * @param doc Documento a añadir
+     * @param weight Peso del documento
      */
     public void add(Document doc, Double weight){
         if(limited && size>=limit){
@@ -55,7 +55,7 @@ public class SortedDocumentsSet{
     /**
      * Devuelve el documento en la posicion indicada
      * @param index posicion a la que se accede
-     * @return
+     * @return devuelve el documento
      */
     public Document getDocument(int index){
         if(index>=size) return null;
@@ -72,7 +72,7 @@ public class SortedDocumentsSet{
     /**
      * Devuelve el valor que acompaña al documento en la posicion indicada
      * @param index posicion a la que se accede
-     * @return
+     * @return devuelve el valor
      */
     public Double getValue(int index){
         if(index>=size) return null;
