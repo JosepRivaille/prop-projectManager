@@ -115,7 +115,6 @@ public interface ViewController {
      * @param str query to search
      * @param k number of documents to search
      * @return sorted set of similar documents
-     * @throws DocumentNotFoundException
      */
     SortedDocumentsSet searchDocumentsByQuery(String str, int k)
             throws DocumentNotFoundException;
@@ -137,21 +136,20 @@ public interface ViewController {
 
     /**
      * Rates a document.
-     * @param document
-     * @param rating
+     * @param document Document to rate
+     * @param rating Rating given
      */
     void rateDocument(Document document, int rating) throws DocumentNotFoundException;
 
     /**
      * Add document to favourites.
-     * @param document
+     * @param document The document to add
      */
     void addDocumentToFavourites(Document document) throws DocumentNotFoundException;
 
     /**
-     * Removes a document from an user's favourite documents lits
-     * @param document
-     * @throws DocumentNotFoundException
+     * Removes a document from an user's favourite documents list
+     * @param document Document to remove
      */
     void deleteDocumentFromFavourites(Document document) throws DocumentNotFoundException;
 

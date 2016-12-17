@@ -39,15 +39,22 @@ public interface ViewGraphicController {
      */
     String getDocumentsByBooleanExpression(String booleanExpression) throws InvalidQueryException;
 
+    /**
+     * Search for k similar documents to a given key
+     *
+     * @param query query to search
+     * @param numberOfDocuments number of documents to search
+     * @return sorted set of similar documents
+     */
     String getDocumentsByQuery(String query, int numberOfDocuments) throws InvalidQueryException, DocumentNotFoundException;
 
     /**
+     * Gets the k most similar document to a given document
      *
-     * @param documentTitle
-     * @param authorName
-     * @param k
-     * @return
-     * @throws DocumentNotFoundException
+     * @param documentTitle Title of the document to compare
+     * @param authorName Name of the author of the document
+     * @param k Number of similar documents to look for
+     * @return K most similar documents
      */
     String getDocumentsByRelevance(String documentTitle, String authorName, int k)
             throws DocumentNotFoundException;
@@ -89,6 +96,9 @@ public interface ViewGraphicController {
      */
     String getCurrentUserDocuments();
 
+    /**
+     * Gets the favourite documents from the current user.
+     */
     String getCurrentUserFavourites();
 
     /**
@@ -98,7 +108,12 @@ public interface ViewGraphicController {
      */
     String storeNewDocument(String documentJSON) throws AlreadyExistingDocumentException, InvalidDetailsException;
 
-
+    /**
+     * Updates a document in persistence.
+     *
+     * @param oldDocumentJSON the document to update
+     * @param editedDocumentJSON the document updated
+     */
     void updateDocument(String oldDocumentJSON, String editedDocumentJSON)
             throws InvalidDetailsException, AlreadyExistingDocumentException, DocumentNotFoundException;
 
@@ -121,28 +136,77 @@ public interface ViewGraphicController {
      * @return DocumentSet with all the documents.
      */
     String searchForAllDocuments();
-
+    /**
+     * Imports a document to the data base.
+     *
+     * @return The document imported
+     */
     String importDocument()
             throws ImportExportException, AlreadyExistingDocumentException, InvalidDetailsException, DocumentNotFoundException;
-
+    /**
+     * Exports a document from the data base.
+     *
+     * @param documentJSON Address where the document will be exported
+     * @return True if successful, false if not
+     */
     boolean exportDocument(String documentJSON) throws ImportExportException;
 
     float rateDocument(String title, String author, int rating) throws DocumentNotFoundException;
-
+    /**
+     * Get the rating of a document
+     *
+     * @param title Title of the document
+     * @param author Author of the document
+     * @return Document's rating
+     */
     int getMyRating(String title, String author);
-
+    /**
+     * Gets a set of recommended documents.
+     *
+     * @param numDocs Number of documents wanted in the set
+     * @return DocumentsSet of numDocs recommended documents
+     */
     String getRecommendedDocs(int numDocs);
-
+    /**
+     * Returns numDocs random documents from all documents.
+     *
+     * @param numDocs Number of documents to retunr
+     * @return DocumentsSet of random documents
+     */
     String getNewDiscoveries(int numDocs);
-
+    /**
+     * Changes current user's avatar for the one given.
+     *
+     * @param avatar The new avatar
+     */
     void changeUserAvatar(int avatar) throws SQLException;
-
+    /**
+     * Selects a new image.
+     *
+     * @return Filename of the image
+     */
     String selectImage();
-
+    /**
+     * Edits a content by using an external tool
+     *
+     * @param content New content
+     * @return Content modified
+     */
     String editContentExternalTool(String content);
-
+    /**
+     * Does a search of the given title and author in google.
+     *
+     * @param title Title that we want to search
+     * @param author Author that we want to search
+     */
     void searchInformation(String title, String author);
-
+    /**
+     * Prints the document defined by the parameters.
+     *
+     * @param title Title of the document
+     * @param author Author of the document
+     * @param content Content of the document
+     */
     void printDocument(String title, String author, String content);
 }
 
