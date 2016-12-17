@@ -227,7 +227,7 @@
                             var oldData = JSON.stringify(scope.documentBackUp);
                             try {
                                 $rootScope.backendService.updateDocument(oldData, newData);
-                                var index = scope.documents.indexOf(scope.documentBackUp);
+                                var index = scope.documents.indexOf(scope.documentSelected);
                                 scope.documents.splice(index, 1);
                                 addDocumentOrdered(scope.documents, scope.documentSelected);
                                 scope.isCreateOrUpdate = false;
@@ -342,7 +342,6 @@
 
                 function addDocumentOrdered(documentsList, newDocument) {
                     var index = getIndexToInsert(documentsList, newDocument);
-                    alert(index);
                     documentsList.splice(index, 0, newDocument);
                 }
 

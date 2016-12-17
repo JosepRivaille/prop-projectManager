@@ -35,11 +35,11 @@
 
                 scope.searchInformation = function () {
                     $rootScope.backendService.searchInformation(scope.document.title, scope.document.author);
-                }
+                };
 
                 scope.printDocument = function () {
                     $rootScope.backendService.printDocument(scope.document.title, scope.document.author, scope.document.content);
-                }
+                };
 
                 //TOOLBAR CONFIG
 
@@ -102,8 +102,6 @@
                     });
 
                 };
-
-
 
                 scope.export = function () {
                     var data = JSON.stringify(scope.document);
