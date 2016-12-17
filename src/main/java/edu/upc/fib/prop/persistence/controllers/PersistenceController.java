@@ -68,14 +68,16 @@ public interface PersistenceController {
 
     /**
      *  Adds a document as a favourite of a given user
-     * @param document document to add as a favourite
+     * @param title Title of the document to add as a
+     * @param author Author of the document to add as a favourite
      * @param user User that added the document as a favourite
      */
     void addDocumentToFavourites(String title, String author, String user) throws DocumentNotFoundException;
 
     /**
      * Removes a document from an user's favourite documents list
-     * @param document Document that will be removed from favourites list
+     * @param title Title of the document that will be removed from favourites list
+     * @param author Author of the document that will be removed from favourites list
      * @param user User that deleted the document as a favourite
      */
     void deleteDocumentFromFavourites(String title, String author, String user) throws DocumentNotFoundException;

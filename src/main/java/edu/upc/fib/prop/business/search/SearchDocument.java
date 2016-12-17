@@ -38,7 +38,7 @@ public interface SearchDocument {
             throws DocumentNotFoundException;
 
     /**
-     * Given a number k > 0 and a document, finds the k most similar documents in the collection.
+     * Given a number k greater than 0 and a document, finds the k most similar documents in the collection.
      *
      * @param col List of all documents
      * @param doc Document which will be used as a reference.
