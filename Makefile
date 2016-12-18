@@ -19,22 +19,26 @@ CLASSES = \
 	src/main/java/edu/upc/fib/prop/exceptions/AlreadyExistingUserException.java \
 	src/main/java/edu/upc/fib/prop/exceptions/AlreadyExistingDocumentException.java \
 	src/main/java/edu/upc/fib/prop/exceptions/DocumentNotFoundException.java \
-	src/main/java/edu/upc/fib/prop/exceptions/DocumentContentNotFoundException.java \
 	src/main/java/edu/upc/fib/prop/exceptions/ImportExportException.java \
+	src/main/java/edu/upc/fib/prop/exceptions/InvalidQueryException.java \
 	src/main/java/edu/upc/fib/prop/utils/Constants.java \
 	src/main/java/edu/upc/fib/prop/utils/Strings.java \
 	src/main/java/edu/upc/fib/prop/utils/FileUtils.java \
-	src/main/java/edu/upc/fib/prop/utils/StringUtils.java \
 	src/main/java/edu/upc/fib/prop/utils/MenuTree.java \
 	src/main/java/edu/upc/fib/prop/utils/IOUtils.java \
 	src/main/java/edu/upc/fib/prop/models/Author.java \
 	src/main/java/edu/upc/fib/prop/models/Document.java \
+	src/main/java/edu/upc/fib/prop/models/DocumentBasicInfo.java \
 	src/main/java/edu/upc/fib/prop/models/User.java \
 	src/main/java/edu/upc/fib/prop/models/WeightsVector.java \
 	src/main/java/edu/upc/fib/prop/models/DocumentsSet.java \
 	src/main/java/edu/upc/fib/prop/models/DocumentsCollection.java \
 	src/main/java/edu/upc/fib/prop/models/SortedDocumentsSet.java \
 	src/main/java/edu/upc/fib/prop/models/AuthorsCollection.java \
+	src/main/java/edu/upc/fib/prop/models/Operator.java \
+	src/main/java/edu/upc/fib/prop/models/NodeType.java \
+	src/main/java/edu/upc/fib/prop/models/BooleanExpressionNode.java \
+	src/main/java/edu/upc/fib/prop/utils/StringUtils.java \
 	src/main/java/edu/upc/fib/prop/utils/ImportExport.java \
 	src/main/java/edu/upc/fib/prop/persistence/dao/authors/DaoAuthors.java \
 	src/main/java/edu/upc/fib/prop/persistence/dao/authors/impl/DaoAuthorsImpl.java \
@@ -50,6 +54,8 @@ CLASSES = \
 	src/main/java/edu/upc/fib/prop/business/search/impl/SearchDocumentImpl.java \
 	src/main/java/edu/upc/fib/prop/business/search/SearchAuthor.java \
 	src/main/java/edu/upc/fib/prop/business/search/impl/SearchAuthorImpl.java \
+	src/main/java/edu/upc/fib/prop/business/search/SearchBooleanExpression.java \
+	src/main/java/edu/upc/fib/prop/business/search/impl/SearchBooleanExpressionImpl.java \
 	src/main/java/edu/upc/fib/prop/business/controllers/BusinessController.java \
 	src/main/java/edu/upc/fib/prop/business/controllers/impl/BusinessControllerImpl.java \
 	src/main/java/edu/upc/fib/prop/drivers/DriversUtils.java \
@@ -60,14 +66,14 @@ CLASSES = \
 	src/main/java/edu/upc/fib/prop/drivers/SearchDocumentDriver.java \
 	src/main/java/edu/upc/fib/prop/drivers/UsersManagerDriver.java \
 	src/main/java/edu/upc/fib/prop/view/document/DocumentManager.java \
-	src/main/java/edu/upc/fib/prop/view/controllers/ViewController.java \
-	src/main/java/edu/upc/fib/prop/view/controllers/impl/ViewControllerImpl.java \
-	src/main/java/edu/upc/fib/prop/view/menu/MainMenu.java \
+	src/main/java/edu/upc/fib/prop/view/controllers/ViewGraphicController.java \
+	src/main/java/edu/upc/fib/prop/view/controllers/impl/ViewGraphicControllerImpl.java \
+	src/main/java/edu/upc/fib/prop/utils/Java2JavascriptUtils.java \
 	src/main/java/edu/upc/fib/prop/App.java
 
 CLS = $(CLASSES:.java=.class)
 
-all: $(CLS) buildJar buildTests
+all: $(CLS) buildJar buildTests 
 
 buildJar: $(CLS)
 	jar cmvf ./META-INF/MANIFEST_MAIN.MF prop-projectManager.jar -C $(TARGET)/ .
