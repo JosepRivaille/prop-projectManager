@@ -24,7 +24,6 @@ CLASSES = \
 	src/main/java/edu/upc/fib/prop/utils/Constants.java \
 	src/main/java/edu/upc/fib/prop/utils/Strings.java \
 	src/main/java/edu/upc/fib/prop/utils/FileUtils.java \
-	src/main/java/edu/upc/fib/prop/utils/MenuTree.java \
 	src/main/java/edu/upc/fib/prop/utils/IOUtils.java \
 	src/main/java/edu/upc/fib/prop/models/Author.java \
 	src/main/java/edu/upc/fib/prop/models/Document.java \
