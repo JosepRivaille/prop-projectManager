@@ -73,7 +73,7 @@ public class ViewGraphicControllerImpl implements ViewGraphicController {
     }
 
     @Override
-    public String getDocumentsByRelevance(String documentTitle, String authorName, int k)
+    public String getDocumentsByRelevance(String documentTitle, String authorName, int k, boolean isSuperMode)
             throws DocumentNotFoundException {
         Document originalDocument = businessController.searchDocumentsByTitleAndAuthor(documentTitle, authorName);
         SortedDocumentsSet sortedDocumentsSet = this.businessController.searchDocumentsByRelevance(originalDocument, k);

@@ -49,19 +49,19 @@ public interface ViewGraphicController {
     String getDocumentsByQuery(String query, int numberOfDocuments) throws InvalidQueryException, DocumentNotFoundException;
 
     /**
-     * Gets the k most similar document to a given document
-     *
-     * @param documentTitle Title of the document to compare
-     * @param authorName Name of the author of the document
-     * @param k Number of similar documents to look for
+     * Gets the k most similar document to a given document.
+     * @param documentTitle Title of the document to compare.
+     * @param authorName Name of the author of the document.
+     * @param k Number of similar documents to look for.
+     * @param isSuperMode Different query formula.
      * @return K most similar documents
      */
-    String getDocumentsByRelevance(String documentTitle, String authorName, int k)
+    String getDocumentsByRelevance(String documentTitle, String authorName, int k, boolean isSuperMode)
             throws DocumentNotFoundException;
 
     /**
      * Tries to log a user in the system.
-     *  @param email    Email to try the login..
+     * @param email Email to try the login..
      * @param password Password to try the login.
      */
     String userLogin(String email, String password) throws UserNotFoundException, InvalidDetailsException;
@@ -69,9 +69,9 @@ public interface ViewGraphicController {
     /**
      * Tries to register a new user in the system.
      *
-     * @param email     Email to try the register.
-     * @param userName  Username to try the register.
-     * @param password  Password to try the register.
+     * @param email Email to try the register.
+     * @param userName Username to try the register.
+     * @param password Password to try the register.
      * @param password2 Repeat password to try the register.
      */
     String userRegister(String email, String userName, String password, String password2) throws InvalidDetailsException, AlreadyExistingUserException;
