@@ -225,5 +225,30 @@ public interface ViewGraphicController {
      * @param content Content of the document
      */
     void printDocument(String title, String author, String content);
+
+    /**
+     *
+     * @param title
+     * @param author
+     * @return
+     */
+    boolean isDocumentFavourite(String title, String author);
+
+    /**
+     *
+     * @param title
+     * @param author
+     * @throws DocumentNotFoundException
+     */
+    void addFavourite(String title, String author) throws DocumentNotFoundException;
+
+    /**
+     *
+     * @param title
+     * @param author
+     * @throws DocumentNotFoundException
+     */
+    void removeFavourite(String title, String author) throws DocumentNotFoundException;
+
 }
 

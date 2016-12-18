@@ -7,7 +7,6 @@ import edu.upc.fib.prop.exceptions.*;
 import edu.upc.fib.prop.models.*;
 import edu.upc.fib.prop.utils.StringUtils;
 import edu.upc.fib.prop.view.controllers.ViewGraphicController;
-import javafx.scene.web.WebEngine;
 import javafx.stage.Stage;
 
 import java.sql.SQLException;
@@ -19,14 +18,12 @@ import java.util.stream.Collectors;
 public class ViewGraphicControllerImpl implements ViewGraphicController {
 
     private BusinessController businessController;
-    Stage st;
-    WebEngine we;
+    private Stage stage;
 
-    public ViewGraphicControllerImpl(Stage _st, WebEngine _we) {
+    public ViewGraphicControllerImpl(Stage stage) {
         System.out.println("Initializing view controller (GRAPHICAL MODE)");
         businessController = new BusinessControllerImpl();
-        st = _st;
-        we = _we;
+        this.stage = stage;
     }
 
     @Override
@@ -63,7 +60,8 @@ public class ViewGraphicControllerImpl implements ViewGraphicController {
     }
 
     @Override
-    public String getDocumentsByQuery(String query, int numberOfDocuments) throws InvalidQueryException, DocumentNotFoundException {
+    public String getDocumentsByQuery(String query, int numberOfDocuments)
+            throws InvalidQueryException, DocumentNotFoundException {
         SortedDocumentsSet dss = this.businessController.searchDocumentsByQuery(query, numberOfDocuments);
         List<DocumentBasicInfo> documentsBasicInfo = new ArrayList<>();
         for (Map.Entry<Double, List<Document>> documents : dss.getDocs().entrySet()) {
@@ -170,7 +168,7 @@ public class ViewGraphicControllerImpl implements ViewGraphicController {
     @Override
     public String importDocument()
             throws ImportExportException, AlreadyExistingDocumentException, InvalidDetailsException, DocumentNotFoundException {
-        Document doc = this.businessController.importDocument(st);
+        Document doc = this.businessController.importDocument(stage);
         DocumentBasicInfo documentBasicInfo = new DocumentBasicInfo(doc);
         return new Gson().toJson(documentBasicInfo);
     }
@@ -178,7 +176,7 @@ public class ViewGraphicControllerImpl implements ViewGraphicController {
     @Override
     public boolean exportDocument(String documentJSON) throws ImportExportException {
         Document document = StringUtils.parseJSONToDocument(documentJSON);
-        return this.businessController.exportDocument(st, document);
+        return this.businessController.exportDocument(stage, document);
     }
 
     @Override
@@ -186,18 +184,22 @@ public class ViewGraphicControllerImpl implements ViewGraphicController {
         return this.businessController.rateDocument(title, author, rating);
     }
 
+    @Override
     public boolean isDocumentFavourite(String title, String author){
         return this.businessController.isDocumentFavourite(title, author);
     }
 
+    @Override
     public void addFavourite(String title, String author) throws DocumentNotFoundException {
         this.businessController.addDocumentToFavourites(title, author);
     }
 
+    @Override
     public void removeFavourite(String title, String author) throws DocumentNotFoundException {
         this.businessController.deleteDocumentFromFavourites(title, author);
     }
 
+    @Override
     public int getMyRating(String title, String author){
         return businessController.getMyRating(title,author);
     }
@@ -229,7 +231,7 @@ public class ViewGraphicControllerImpl implements ViewGraphicController {
 
     @Override
     public String selectImage() {
-        return businessController.selectImage(st);
+        return businessController.selectImage(stage);
     }
 
     @Override
@@ -252,13 +254,8 @@ public class ViewGraphicControllerImpl implements ViewGraphicController {
         this.businessController.shareByEmail(title, author, content);
     }
 
-
     @Override
     public void printDocument(String title, String author, String content) {
         this.businessController.printDocument(title, author, content);
-    }
-
-    public void test(){
-        System.out.println("ADJHADISDIUGAISUGD");
     }
 }
