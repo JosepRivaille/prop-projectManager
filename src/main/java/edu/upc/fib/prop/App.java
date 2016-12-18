@@ -7,8 +7,6 @@ import javafx.scene.image.Image;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 
-import java.io.File;
-
 import static edu.upc.fib.prop.utils.Java2JavascriptUtils.connectBackendObject;
 
 
@@ -17,7 +15,7 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         String PAGE = "/view/index.html";
-        stage.getIcons().add(new Image(getClass().getClassLoader().getResourceAsStream( "images/icon.png" )));
+        stage.getIcons().add(new Image(getClass().getClassLoader().getResourceAsStream("images/icon.png")));
         createWebView(stage, PAGE);
     }
 
@@ -26,19 +24,15 @@ public class App extends Application {
         // create the JavaFX webView
         final WebView webView = new WebView();
 
-        // connect the FruitsService instance as "fruitsService"
         // javascript variable
-        connectBackendObject(
-                webView.getEngine(),
-                "backendService", new ViewGraphicControllerImpl(primaryStage,webView.getEngine()));
+        connectBackendObject(webView.getEngine(),"backendService",
+                new ViewGraphicControllerImpl(primaryStage, webView.getEngine()));
 
         // show "alert" Javascript messages in stdout (useful to debug)
-        webView.getEngine().setOnAlert(arg0 -> System.err.println("ALERT::  " + arg0.getData()));
+        webView.getEngine().setOnAlert(arg0 -> System.err.println("ALERT:: " + arg0.getData()));
 
         // load index.html
-        webView.getEngine().load(
-                getClass().getResource(page).
-                        toExternalForm());
+        webView.getEngine().load(getClass().getResource(page).toExternalForm());
 
         primaryStage.setScene(new Scene(webView, 1080, 608));
         primaryStage.setTitle("PROP Library");
