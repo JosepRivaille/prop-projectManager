@@ -100,5 +100,8 @@
   "RECENTLY_CONSULTED_DOCUMENTS": "Cerques recents",
   "NO_DOCUMENTS_FOUND": "No s'han trovat els documents",
   "OPERATION_CANCELED": "Operació avortada",
-  "GENERAL_ERROR_MESSAGE": "Hi ha hagut un error"
+  "GENERAL_ERROR_MESSAGE": "Hi ha hagut un error",
+  "HOME_NEW_DISCOVERIES": "Nous descobriments",
+  "NO_RECOMMENDED_DOCS_TO_SHOW": "No tenim més llibres que recomenarte en aquest momement",
+  "NO_NEW_DISCOVERIES_TO_SHOW": "No hem trovat res nou per tu en aquest moment"
 }
