@@ -26,7 +26,7 @@ public class App extends Application {
 
         // javascript variable
         connectBackendObject(webView.getEngine(),"backendService",
-                new ViewGraphicControllerImpl(primaryStage, webView.getEngine()));
+                new ViewGraphicControllerImpl(primaryStage));
 
         // show "alert" Javascript messages in stdout (useful to debug)
         webView.getEngine().setOnAlert(arg0 -> System.err.println("ALERT:: " + arg0.getData()));

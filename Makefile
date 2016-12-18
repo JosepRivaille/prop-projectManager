@@ -10,7 +10,7 @@ CLASSPATH = -classpath
 .SUFFIXES: .java .class
 .java.class:
 	$(JC) $(JFLAGS) $(TARGET) $(CLASSPATH) $(LIB) $*.java
-
+	
 SOURCEPATH = .
 CLASSES = \
 	src/main/java/edu/upc/fib/prop/exceptions/AuthorNotFoundException.java \
@@ -90,3 +90,4 @@ run:
 
 clean:
 	$(RM) $(RFLAGS) $(TARGET)/edu
+	$(RM) $(RFLAGS) *.jar
