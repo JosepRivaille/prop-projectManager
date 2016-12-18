@@ -19,9 +19,9 @@ public class SearchBooleanExpressionImpl implements SearchBooleanExpression {
             if (!isLiteral && (c == '{' || c == '(' || c == '[')) {
                 correctness.push(c);
             } else if (!isLiteral && (c == '}' || c == ')' || c == ']')) {
-                if (c == '}' && correctness.firstElement() == '{'
-                        || c == ')' && correctness.firstElement() == '('
-                        || c == ']' && correctness.firstElement() == '[') {
+                if (c == '}' && correctness.lastElement() == '{'
+                        || c == ')' && correctness.lastElement() == '('
+                        || c == ']' && correctness.lastElement() == '[') {
                     correctness.pop();
                 } else {
                     return false;
@@ -50,6 +50,7 @@ public class SearchBooleanExpressionImpl implements SearchBooleanExpression {
             DocumentsSet matchingDocuments = new DocumentsSet();
             for (Document document : allDocuments.getDocuments()) {
                 Integer sentences = document.getContent().split(Constants.SENTENCE_SEPARATION_REGEX).length;
+                document.updatePositions();
                 boolean documentMatches = checkDocumentMatchesExpression(document.getTermPositions(), node, sentences);
                 if (documentMatches) {
                     matchingDocuments.add(document);
