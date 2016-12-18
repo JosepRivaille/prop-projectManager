@@ -2,10 +2,7 @@ package edu.upc.fib.prop.drivers;
 
 import edu.upc.fib.prop.business.search.SearchBooleanExpression;
 import edu.upc.fib.prop.business.search.impl.SearchBooleanExpressionImpl;
-import edu.upc.fib.prop.models.Node;
 import edu.upc.fib.prop.utils.IOUtils;
-
-import java.util.ArrayList;
 
 public class DriversDecisionTree {
 
