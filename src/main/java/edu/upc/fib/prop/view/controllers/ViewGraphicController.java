@@ -46,7 +46,8 @@ public interface ViewGraphicController {
      * @param numberOfDocuments number of documents to search
      * @return sorted set of similar documents
      */
-    String getDocumentsByQuery(String query, int numberOfDocuments) throws InvalidQueryException, DocumentNotFoundException;
+    String getDocumentsByQuery(String query, int numberOfDocuments, boolean isSuperMode)
+            throws InvalidQueryException, DocumentNotFoundException;
 
     /**
      * Gets the k most similar document to a given document.

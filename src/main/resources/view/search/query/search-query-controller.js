@@ -32,14 +32,16 @@
 
             $scope.searchMode1 = 'Normal mode';
             $scope.searchMode2 = 'Super mode';
-            $scope.searchMode = $scope.searchMode1;
+            $scope.searchMode = {
+                mode: $scope.searchMode1
+            };
 
             $scope.similarDocuments = undefined;
 
             $scope.searchQuery = function (query, numberOfDocuments) {
                 try {
                     $scope.isInvalidData = undefined;
-                    var response = $rootScope.backendService.getDocumentsByQuery(query, numberOfDocuments);
+                    var response = $rootScope.backendService.getDocumentsByQuery(query, numberOfDocuments, $scope.searchMode.mode === $scope.searchMode2);
                     $scope.similarDocuments = JSON.parse(response);
                     if($scope.similarDocuments.length==0){
                         $scope.similarDocuments = undefined;

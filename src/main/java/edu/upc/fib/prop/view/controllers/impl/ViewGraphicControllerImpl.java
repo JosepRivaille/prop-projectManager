@@ -60,7 +60,7 @@ public class ViewGraphicControllerImpl implements ViewGraphicController {
     }
 
     @Override
-    public String getDocumentsByQuery(String query, int numberOfDocuments)
+    public String getDocumentsByQuery(String query, int numberOfDocuments, boolean isSuperMode)
             throws InvalidQueryException, DocumentNotFoundException {
         SortedDocumentsSet dss = this.businessController.searchDocumentsByQuery(query, numberOfDocuments);
         List<DocumentBasicInfo> documentsBasicInfo = new ArrayList<>();
