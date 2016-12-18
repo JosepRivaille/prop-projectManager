@@ -157,7 +157,9 @@
 
                     $scope.searchMode1 = 'Normal mode';
                     $scope.searchMode2 = 'Super mode';
-                    $scope.searchMode = $scope.searchMode1;
+                    $scope.searchMode = {
+                        mode: $scope.searchMode1
+                    };
 
                     $scope.searchSimilarDocuments = function (desiredNumber) {
                         try {
@@ -165,7 +167,7 @@
                             var documentTitle = scope.document.title;
                             var authorName = scope.document.author;
                             var response = $rootScope.backendService
-                                .getDocumentsByRelevance(documentTitle, authorName, desiredNumber);
+                                .getDocumentsByRelevance(documentTitle, authorName, desiredNumber, $scope.searchMode.mode === $scope.searchMode2);
                             $scope.similarDocuments = JSON.parse(response);
                             $scope.title = 'MENU_SEARCH_SIMILAR_DOCUMENTS';
                         } catch (e) {
