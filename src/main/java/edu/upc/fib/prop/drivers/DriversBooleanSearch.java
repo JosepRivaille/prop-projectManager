@@ -9,7 +9,7 @@ import edu.upc.fib.prop.models.DocumentsCollection;
 import edu.upc.fib.prop.models.DocumentsSet;
 import edu.upc.fib.prop.utils.IOUtils;
 
-public class DriversBooleanSearch{
+public class DriversBooleanSearch {
 
     private static SearchBooleanExpression busqueda = new SearchBooleanExpressionImpl();
 
@@ -23,7 +23,7 @@ public class DriversBooleanSearch{
             Document doc;
             DocumentsCollection doccol = new DocumentsCollection();
             String content = IOUtils.askForString("sentence");
-            doc = new Document("titol", "autor", content );
+            doc = new Document("titol", "autor", content);
             try {
                 doccol.addDocument(doc);
             } catch (InvalidDetailsException e) {
@@ -41,7 +41,14 @@ public class DriversBooleanSearch{
                 } catch (InvalidQueryException e) {
                     System.out.println("invalid query");
                 }
+                try {
+                    DocumentsSet compleixen = busqueda.searchDocumentsByBooleanExpression(expressio, doccol);
+                    if (compleixen.size() == 0) printResult("your input DON'T satisfies the conditions");
+                    else printResult("your input satisfies the condition");
+                } catch (InvalidQueryException e) {
+                    System.out.println("invalid query");
+                }
             }
-        } while(true);
+        } while (true);
     }
 }
