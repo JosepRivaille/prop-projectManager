@@ -65,9 +65,8 @@ public class ViewGraphicControllerImpl implements ViewGraphicController {
         SortedDocumentsSet dss = this.businessController.searchDocumentsByQuery(query, numberOfDocuments, isSuperMode);
         List<DocumentBasicInfo> documentsBasicInfo = new ArrayList<>();
         for (Map.Entry<Double, List<Document>> documents : dss.getDocs().entrySet()) {
-            for (Document document : documents.getValue()) {
-                documentsBasicInfo.add(new DocumentBasicInfo(document, documents.getKey()));
-            }
+            documentsBasicInfo.addAll(documents.getValue().stream().map(document ->
+                    new DocumentBasicInfo(document, documents.getKey())).collect(Collectors.toList()));
         }
         return new Gson().toJson(documentsBasicInfo);
     }
@@ -79,9 +78,8 @@ public class ViewGraphicControllerImpl implements ViewGraphicController {
         SortedDocumentsSet sortedDocumentsSet = this.businessController.searchDocumentsByRelevance(originalDocument, k, isSuperMode);
         List<DocumentBasicInfo> documentsBasicInfo = new ArrayList<>();
         for (Map.Entry<Double, List<Document>> documents : sortedDocumentsSet.getDocs().entrySet()) {
-            for (Document document : documents.getValue()) {
-                documentsBasicInfo.add(new DocumentBasicInfo(document, documents.getKey()));
-            }
+            documentsBasicInfo.addAll(documents.getValue().stream().map(document ->
+                    new DocumentBasicInfo(document, documents.getKey())).collect(Collectors.toList()));
         }
         return new Gson().toJson(documentsBasicInfo);
     }
