@@ -19,27 +19,22 @@ public class DriversBooleanSearch{
     }
 
     public static void main(String[] args) {
-        printResult("Insert some documents (-1 to stop)");
+        do {
+        printResult("Insert a sentence to check");
         Document doc;
         DocumentsCollection doccol = new DocumentsCollection();
-        String name = IOUtils.askForString("Title");
-        while(!name.equals("-1")){
-            String content = IOUtils.askForString("Content");
-            doc = new Document(name, "autor", content );
+            String content = IOUtils.askForString("sentence");
+            doc = new Document("titol", "autor", content );
             try {
                 doccol.addDocument(doc);
             } catch (InvalidDetailsException e) {
                 System.out.println("invalid details");
             }
-            System.out.println("Enter a new document:");
-            name = IOUtils.askForString("Title");
-        }
-        do {
             String expressio = IOUtils.askForString("Insert the boolean expression");
             try {
                 DocumentsSet compleixen = busqueda.searchDocumentsByBooleanExpression(expressio, doccol);
-                if(compleixen.size() == 0) printResult("No documents satisfy the expression");
-                else printResult("The following documents satisfy the expression");
+                if(compleixen.size() == 0) printResult("your input DON'T satisfies the conditions");
+                else printResult("your input satisfies the condition");
                 for(Document d : compleixen) System.out.println(d.getTitle());
             } catch (InvalidQueryException e) {
                 System.out.println("invalid query");
