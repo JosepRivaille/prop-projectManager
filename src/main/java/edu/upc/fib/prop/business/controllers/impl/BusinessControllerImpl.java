@@ -232,7 +232,6 @@ public class BusinessControllerImpl implements BusinessController {
             if(d.isSupported(Desktop.Action.EDIT)){
                 d.edit(file);
             }
-            System.err.println("seguimos ejecucion");
             Scanner reader = new Scanner(file);
             String newContent = "";
 
@@ -241,7 +240,6 @@ public class BusinessControllerImpl implements BusinessController {
                 if(line.isEmpty()) newContent += "\n\n";
                 else newContent += line;
             }
-            System.err.println(newContent);
             return newContent;
         } catch (IOException e) {
             e.printStackTrace();
