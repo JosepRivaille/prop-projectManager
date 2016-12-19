@@ -58,20 +58,32 @@ public class SearchDocumentImpl implements SearchDocument {
     }
 
     @Override
-    public SortedDocumentsSet searchForSimilarDocuments(DocumentsCollection col, Document doc, int k) {
-        WeightsVector wv1 = col.getWeights(doc);
-        int min = Math.min(k, col.size());
-
-        SortedDocumentsSet res = new SortedDocumentsSet(min);
-
-        for (Document document : col.getDocuments()) {
-            if (!doc.equals(document)) {
-                WeightsVector wv2 = col.getWeights(document);
-                Double relevance = getRelevanceFactor(wv1, wv2);
-                res.add(document, relevance);
+    public SortedDocumentsSet searchForSimilarDocuments(DocumentsCollection col, Document doc, int k, boolean isSuperMode) {
+        if (isSuperMode) {
+            WeightsVector wv1 = col.getWeights(doc);
+            int min = Math.min(k, col.size());
+            SortedDocumentsSet res = new SortedDocumentsSet(min);
+            for (Document document : col.getDocuments()) {
+                if (!doc.equals(document)) {
+                    WeightsVector wv2 = col.getWeights(document);
+                    Double relevance = getRelevanceFactor(wv1, wv2);
+                    res.add(document, relevance);
+                }
             }
+            return res;
+        } else {
+            WeightsVector wv1 = col.getWeights2(doc);
+            int min = Math.min(k, col.size());
+            SortedDocumentsSet res = new SortedDocumentsSet(min);
+            for (Document document : col.getDocuments()) {
+                if (!doc.equals(document)) {
+                    WeightsVector wv2 = col.getWeights2(document);
+                    Double relevance = getRelevanceFactor(wv1, wv2);
+                    res.add(document, relevance);
+                }
+            }
+            return res;
         }
-        return res;
     }
 
 

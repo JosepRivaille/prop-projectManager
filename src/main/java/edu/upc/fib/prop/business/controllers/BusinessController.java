@@ -91,7 +91,7 @@ public interface BusinessController {
      * @param k        number of documents to find
      * @return sorted set of similar documents
      */
-    SortedDocumentsSet searchDocumentsByRelevance(Document document, int k)
+    SortedDocumentsSet searchDocumentsByRelevance(Document document, int k, boolean isSuperMode)
             throws DocumentNotFoundException;
 
     /**
@@ -168,7 +168,7 @@ public interface BusinessController {
      * @param k   number of documents to search
      * @return sorted set of similar documents
      */
-    SortedDocumentsSet searchDocumentsByQuery(String str, int k)
+    SortedDocumentsSet searchDocumentsByQuery(String str, int k, boolean isSuperMode)
             throws DocumentNotFoundException;
 
     /**

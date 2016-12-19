@@ -122,16 +122,16 @@ public class BusinessControllerImpl implements BusinessController {
     }
 
     @Override
-    public SortedDocumentsSet searchDocumentsByRelevance(Document document, int k)
+    public SortedDocumentsSet searchDocumentsByRelevance(Document document, int k, boolean isSuperMode)
             throws DocumentNotFoundException {
-        return this.searchDocument.searchForSimilarDocuments(this.documentsCollection, document, k);
+        return this.searchDocument.searchForSimilarDocuments(this.documentsCollection, document, k, isSuperMode);
     }
 
     @Override
-    public SortedDocumentsSet searchDocumentsByQuery(String str, int k) {
+    public SortedDocumentsSet searchDocumentsByQuery(String str, int k, boolean isSuperMode) {
         Document document = new Document("", "", str);
         document.updateFrequencies();
-        return this.searchDocument.searchForSimilarDocuments(this.documentsCollection, document, k);
+        return this.searchDocument.searchForSimilarDocuments(this.documentsCollection, document, k, isSuperMode);
     }
 
     @Override

@@ -79,9 +79,16 @@ public class DocumentsCollection {
         if(wordsFrequencies.get(word) <= 0) wordsFrequencies.remove(word);
     }
 
+    // Inverse document frequency smooth.
     private Float getIdf(String word){
         if(!wordsFrequencies.containsKey(word)) return 0f;
-        return (float)Math.log((float)documents.size() / (float)wordsFrequencies.get(word));
+        return (float)Math.log((float)documents.size() / (1 + (float)wordsFrequencies.get(word)));
+    }
+
+    // Probabilistic inverse document frequency.
+    private Float getIdf2 (String word) {
+        if (!wordsFrequencies.containsKey(word)) return 0f;
+        return (float)Math.log(((float)documents.size() - (float)wordsFrequencies.get(word)) + 0.5 / (float)wordsFrequencies.get(word));
     }
 
     public int size(){ return documents.size();}
@@ -106,9 +113,21 @@ public class DocumentsCollection {
         WeightsVector vec = new WeightsVector();
 
         for (Map.Entry<String, Float> tf : doc.getTermFrequency().entrySet()) {
-            vec.put(tf.getKey(), tf.getValue()*getIdf(tf.getKey()));
+            vec.put(tf.getKey(), tf.getValue() * getIdf(tf.getKey()));
         }
 
         return vec;
     }
+
+    public WeightsVector getWeights2(Document doc){
+        WeightsVector vec = new WeightsVector();
+
+        for (Map.Entry<String, Float> tf : doc.getTermFrequency().entrySet()) {
+            vec.put(tf.getKey(), tf.getValue() * getIdf2(tf.getKey()));
+        }
+
+        return vec;
+    }
+
+
 }

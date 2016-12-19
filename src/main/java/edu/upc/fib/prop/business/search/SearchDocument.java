@@ -45,5 +45,5 @@ public interface SearchDocument {
      * @param k   number of documents that will be found if possible
      * @return A set of document sorted.
      */
-    SortedDocumentsSet searchForSimilarDocuments(DocumentsCollection col, Document doc, int k);
+    SortedDocumentsSet searchForSimilarDocuments(DocumentsCollection col, Document doc, int k, boolean isSuperMode);
 }
