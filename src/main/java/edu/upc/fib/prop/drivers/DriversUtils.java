@@ -14,7 +14,8 @@ class DriversUtils {
         Class.forName(Constants.JDBC_DRIVER);
         Connection c = DriverManager.getConnection(Constants.DB_DRIVERS);
         Statement statement = c.createStatement();
-        String sql = FileUtils.readFile("src/main/resources/sql/dbInitializer.sql");
+        String path = DriversUtils.class.getClassLoader().getResource("dbInitializer.sql").toExternalForm();
+        String sql = FileUtils.readFile(path);
         statement.executeUpdate(sql);
         statement.close();
         return c;

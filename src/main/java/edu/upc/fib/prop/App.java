@@ -1,11 +1,17 @@
 package edu.upc.fib.prop;
 
+import edu.upc.fib.prop.utils.FileUtils;
 import edu.upc.fib.prop.view.controllers.impl.ViewGraphicControllerImpl;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static edu.upc.fib.prop.utils.Java2JavascriptUtils.connectBackendObject;
 
@@ -15,7 +21,7 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         String PAGE = "/view/index.html";
-        stage.getIcons().add(new Image(getClass().getClassLoader().getResourceAsStream("images/icon.png")));
+       // stage.getIcons().add(new Image(getClass().getClassLoader().getResourceAsStream("images/icon.png")));
         createWebView(stage, PAGE);
     }
 
@@ -32,8 +38,7 @@ public class App extends Application {
         webView.getEngine().setOnAlert(arg0 -> System.err.println("ALERT:: " + arg0.getData()));
 
         // load index.html
-        webView.getEngine().load(getClass().getResource(page).toExternalForm());
-
+        webView.getEngine().load(getClass().getClassLoader().getResource("view/index.html").toExternalForm());
         primaryStage.setScene(new Scene(webView, 1080, 608));
         primaryStage.setTitle("PROP Library");
         primaryStage.show();

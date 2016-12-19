@@ -1,5 +1,6 @@
 package edu.upc.fib.prop.persistence.controllers.impl;
 
+import edu.upc.fib.prop.App;
 import edu.upc.fib.prop.exceptions.*;
 import edu.upc.fib.prop.models.*;
 import edu.upc.fib.prop.persistence.controllers.PersistenceController;
@@ -238,7 +239,9 @@ public class PersistenceControllerImpl implements PersistenceController {
 
         try {
             Statement statement = c.createStatement();
-            String sql = FileUtils.readFile("src/main/resources/sql/dbInitializer.sql");
+            String path = App.class.getClassLoader().getResource("sql/dbInitializer.sql").toExternalForm();
+            System.out.println(path);
+            String sql = FileUtils.readFile("./dbInitializer.sql");
             statement.executeUpdate(sql);
             statement.close();
             System.out.println(Constants.DB_DEVELOPMENT + " initialized successfully");
