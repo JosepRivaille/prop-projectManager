@@ -57,35 +57,32 @@ CLASSES = \
 	src/main/java/edu/upc/fib/prop/business/search/impl/SearchBooleanExpressionImpl.java \
 	src/main/java/edu/upc/fib/prop/business/controllers/BusinessController.java \
 	src/main/java/edu/upc/fib/prop/business/controllers/impl/BusinessControllerImpl.java \
-	src/main/java/edu/upc/fib/prop/drivers/DriversUtils.java \
-	src/main/java/edu/upc/fib/prop/drivers/DaoAuthorsDriver.java \
-	src/main/java/edu/upc/fib/prop/drivers/DaoDocumentsDriver.java \
-	src/main/java/edu/upc/fib/prop/drivers/DaoUsersDriver.java \
-	src/main/java/edu/upc/fib/prop/drivers/SearchAuthorDriver.java \
-	src/main/java/edu/upc/fib/prop/drivers/SearchDocumentDriver.java \
-	src/main/java/edu/upc/fib/prop/drivers/UsersManagerDriver.java \
-	src/main/java/edu/upc/fib/prop/view/document/DocumentManager.java \
 	src/main/java/edu/upc/fib/prop/view/controllers/ViewGraphicController.java \
 	src/main/java/edu/upc/fib/prop/view/controllers/impl/ViewGraphicControllerImpl.java \
 	src/main/java/edu/upc/fib/prop/utils/Java2JavascriptUtils.java \
 	src/main/java/edu/upc/fib/prop/App.java
 
+CLASSESTEST = \
+	src/main/java/edu/upc/fib/prop/drivers/DriversUtils.java \
+	src/main/java/edu/upc/fib/prop/drivers/DriversBooleanSearch.java \
+	src/main/java/edu/upc/fib/prop/drivers/DriversDecisionTree.java
+
 CLS = $(CLASSES:.java=.class)
+CLST = $(CLASSESTEST:.java=.class)
 
-all: $(CLS) buildJar buildTests 
+all: $(CLS)
 
-buildJar: $(CLS)
+buildJar:
 	jar cmvf ./META-INF/MANIFEST_MAIN.MF prop-projectManager.jar -C $(TARGET)/ .
 
-buildTests: $(CLS)
-	jar cmvf ./META-INF/MANIFEST_DAOAUTHORS.MF daoAuthorsDriver.jar -C $(TARGET)/ .
-	jar cmvf ./META-INF/MANIFEST_DAODOCUMENTS.MF daoDocumentsDriver.jar -C $(TARGET)/ .
-	jar cmvf ./META-INF/MANIFEST_DAOUSERS.MF daoUsersDriver.jar -C $(TARGET)/ .
-	jar cmvf ./META-INF/MANIFEST_SEARCHAUTHOR.MF searchAuthorDriver.jar -C $(TARGET)/ .
-	jar cmvf ./META-INF/MANIFEST_SEARCHDOCUMENT.MF searchDocumentDriver.jar -C $(TARGET)/ .
-	jar cmvf ./META-INF/MANIFEST_USERSMANAGER.MF usersManagerDriver.jar -C $(TARGET)/ .
+buildTests: $(CLST)
+	jar cmvf ./META-INF/MANIFEST_BOOLEAN.MF driversBooleanSearch.jar -C $(TARGET)/ .
+	jar cmvf ./META-INF/MANIFEST_DEC_TREE.MF driversDecisionTree.jar -C $(TARGET)/ .
 
 run:
+	java -cp ./classes edu.upc.fib.prop.App
+
+runJar:
 	java -jar prop-projectManager.jar
 
 clean:

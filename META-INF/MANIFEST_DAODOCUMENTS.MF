@@ -1,2 +1,0 @@
-Main-Class: edu.upc.fib.prop.drivers.DaoDocumentsDriver
-

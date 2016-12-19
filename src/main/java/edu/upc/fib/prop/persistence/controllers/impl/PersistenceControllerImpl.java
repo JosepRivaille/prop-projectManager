@@ -238,7 +238,7 @@ public class PersistenceControllerImpl implements PersistenceController {
 
         try {
             Statement statement = c.createStatement();
-            String sql = FileUtils.readFile("src/main/resources/sql/dbInitializer.sql");
+            String sql = FileUtils.readFile("sql/dbInitializer.sql");
             statement.executeUpdate(sql);
             statement.close();
             System.out.println(Constants.DB_DEVELOPMENT + " initialized successfully");
