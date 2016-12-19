@@ -106,7 +106,9 @@ public class SearchBooleanExpressionImpl implements SearchBooleanExpression {
                     for (Integer firstPosition : sentence.getValue()) {
                         existsString = true;
                         for (int i = 1; i < words.length; ++i) {
-                            if (!termPositions.get(words[i]).get(sentence.getKey()).contains(i + firstPosition)) {
+                            if ((!termPositions.containsKey(words[i])) ||
+                                    !termPositions.get(words[i]).containsKey(sentence.getKey()) ||
+                                    (!termPositions.get(words[i]).get(sentence.getKey()).contains(i + firstPosition))) {
                                 existsString = false;
                                 break;
                             }
