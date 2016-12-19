@@ -35,7 +35,6 @@ public class DriversBooleanSearch{
                 DocumentsSet compleixen = busqueda.searchDocumentsByBooleanExpression(expressio, doccol);
                 if(compleixen.size() == 0) printResult("your input DON'T satisfies the conditions");
                 else printResult("your input satisfies the condition");
-                for(Document d : compleixen) System.out.println(d.getTitle());
             } catch (InvalidQueryException e) {
                 System.out.println("invalid query");
             }
